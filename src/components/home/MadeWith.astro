@@ -47,7 +47,9 @@ const items = [
 
 <section aria-labelledby="made-title" class="pb-20 lg:pb-28">
   <div class="mx-auto max-w-300 px-5">
-    <h2 id="made-title" class="max-w-[16ch] text-section">Made with Rajutara.</h2>
+    <h2 id="made-title" class="max-w-[16ch] text-section">
+      Made with Rajutara.
+    </h2>
     <p class="mt-5 max-w-[56ch] text-lg text-muted">
       Real renders from the sample files and the end-to-end tests. No stock images.
     </p>
@@ -61,29 +63,27 @@ const items = [
     </label>
     <div class="marquee">
       <div class="track">
-        {
-          [false, true].map((hidden) => (
-            <ul class="copy" aria-hidden={hidden ? 'true' : undefined} inert={hidden}>
-              {items.map((item) => (
-                <li>
-                  <a href={withBase(`/gallery/#${item.id}`)} tabindex={hidden ? -1 : undefined}>
-                    <Image
-                      src={item.image}
-                      alt={hidden ? '' : item.alt}
-                      width={item.width}
-                      height={HEIGHT}
-                      densities={[1, 1.5]}
-                      loading="lazy"
-                      class="frame"
-                    />
-                    <span class="mt-3 block font-medium">{item.title}</span>
-                    <span class="block text-sm text-muted">{item.note}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          ))
-        }
+        {[false, true].map((hidden) => (
+          <ul class="copy" aria-hidden={hidden ? 'true' : undefined} inert={hidden}>
+            {items.map((item) => (
+              <li>
+                <a href={withBase(`/gallery/#${item.id}`)} tabindex={hidden ? -1 : undefined}>
+                  <Image
+                    src={item.image}
+                    alt={hidden ? '' : item.alt}
+                    width={item.width}
+                    height={HEIGHT}
+                    densities={[1, 1.5]}
+                    loading="lazy"
+                    class="frame"
+                  />
+                  <span class="mt-3 block font-medium">{item.title}</span>
+                  <span class="block text-sm text-muted">{item.note}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ))}
       </div>
     </div>
   </div>

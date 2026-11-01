@@ -34,7 +34,9 @@ const steps = [
         <Icon name="ph:download-simple" class="size-5" aria-hidden="true" />
         Download
       </a>
-      <a href={withBase('/docs/')} class="btn btn-secondary">Read the docs</a>
+      <a href={withBase('/docs/')} class="btn btn-secondary">
+        Read the docs
+      </a>
     </div>
   </div>
 
@@ -61,18 +63,16 @@ const steps = [
 
   <nav aria-label="Workflow" class="mt-10 lg:mt-12">
     <ol class="steps">
-      {
-        steps.map((s) => (
-          <li>
-            <a href={s.href}>
-              <span class="mark">
-                <Icon name={s.icon} class="size-6" aria-hidden="true" />
-              </span>
-              <span class="word">{s.label}</span>
-            </a>
-          </li>
-        ))
-      }
+      {steps.map((s) => (
+        <li>
+          <a href={s.href}>
+            <span class="mark">
+              <Icon name={s.icon} class="size-6" aria-hidden="true" />
+            </span>
+            <span class="word">{s.label}</span>
+          </a>
+        </li>
+      ))}
     </ol>
   </nav>
 </section>

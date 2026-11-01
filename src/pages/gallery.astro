@@ -27,8 +27,8 @@ const legacy = samples.some((f) => /\.opt[xmc]$/i.test(f.name));
   <div class="mx-auto max-w-300 px-5 pt-14 lg:pt-20">
     <h1 class="max-w-[14ch] text-hero font-semibold">Gallery</h1>
     <p class="mt-6 max-w-[56ch] text-lg text-muted lg:text-xl">
-      Markers and nests as Rajutara draws them, taken from the sample files and the end-to-end tests.
-      Every picture is a real output.
+      Markers and nests as Rajutara draws them, taken from the sample files and the end-to-end
+      tests. Every picture is a real output.
     </p>
 
     <section id="tee-nested" aria-labelledby="tee-nested-title" class="mt-16 lg:mt-24">
@@ -43,7 +43,9 @@ const legacy = samples.some((f) => /\.opt[xmc]$/i.test(f.name));
           />
         </div>
         <div class="lg:col-span-4 lg:self-center">
-          <h2 id="tee-nested-title" class="text-3xl tracking-tight">The sample tee, nested</h2>
+          <h2 id="tee-nested-title" class="text-3xl tracking-tight">
+            The sample tee, nested
+          </h2>
           <p class="mt-4 text-muted">
             Kaos Lengan Pendek, nested by the engine: 20 pieces of S, M, L and XL on 180 cm Single
             Jersey.
@@ -78,23 +80,31 @@ const legacy = samples.some((f) => /\.opt[xmc]$/i.test(f.name));
           sizes="(min-width: 1280px) 584px, (min-width: 1024px) 50vw, 100vw"
           widths={[640, 960, 1280]}
         />
-        <h2 id="tee-plot-title" class="mt-6 text-2xl tracking-tight">The same marker, plotted</h2>
+        <h2 id="tee-plot-title" class="mt-6 text-2xl tracking-tight">
+          The same marker, plotted
+        </h2>
         <p class="mt-2 text-muted">
           Plotted to PDF on nine A0 sheets, a tile map and eight tiles, and stitched back into one
           picture. Each piece carries its name and size.
         </p>
       </section>
-      <section id="grading-nest" aria-labelledby="grading-nest-title" class="lg:col-span-6 lg:pt-24">
+      <section
+        id="grading-nest"
+        aria-labelledby="grading-nest-title"
+        class="lg:col-span-6 lg:pt-24"
+      >
         <Shot
           src={gradingNest}
           alt="The Graded Nest view: front, back and sleeve with their sizes drawn as nested outlines in four colours, grade points marked in red."
           sizes="(min-width: 1280px) 584px, (min-width: 1024px) 50vw, 100vw"
           widths={[640, 960]}
         />
-        <h2 id="grading-nest-title" class="mt-6 text-2xl tracking-tight">Graded nest</h2>
+        <h2 id="grading-nest-title" class="mt-6 text-2xl tracking-tight">
+          Graded nest
+        </h2>
         <p class="mt-2 text-muted">
-          Base size M, and S, L and XL derived from it by grade rules, each in its own colour. The red
-          squares are grade points.
+          Base size M, and S, L and XL derived from it by grade rules, each in its own colour. The
+          red squares are grade points.
         </p>
       </section>
     </div>
@@ -106,7 +116,9 @@ const legacy = samples.some((f) => /\.opt[xmc]$/i.test(f.name));
         sizes="(min-width: 1280px) 1200px, 100vw"
         widths={[640, 960]}
       />
-      <h2 id="nest-300-title" class="mt-6 text-2xl tracking-tight">300 shirt fronts</h2>
+      <h2 id="nest-300-title" class="mt-6 text-2xl tracking-tight">
+        300 shirt fronts
+      </h2>
       <p class="mt-2 max-w-[62ch] text-muted">
         A 300-piece marker on 150 cm fabric: 0 overlaps, 89.62 % efficiency. Only the first 4.5 m of
         its 41.67 m are in the picture. In the release benchmark 300 pieces nest in 58 s at 90.1 %.
@@ -114,59 +126,60 @@ const legacy = samples.some((f) => /\.opt[xmc]$/i.test(f.name));
     </section>
 
     <section id="files" aria-labelledby="files-title" class="mt-24 lg:mt-32">
-      <h2 id="files-title" class="max-w-[14ch] text-section">Sample files</h2>
+      <h2 id="files-title" class="max-w-[14ch] text-section">
+        Sample files
+      </h2>
       <p class="mt-5 max-w-[62ch] text-lg text-muted">
-        The sample tee in {samples.length} files. Open the style or the marker in Rajutara, or take the
-        DXF and its RUL into another CAD.
+        The sample tee in {samples.length} files. Open the style or the marker in Rajutara, or take
+        the DXF and its RUL into another CAD.
       </p>
-      {
-        legacy && (
-          <p class="mt-3 max-w-[62ch] text-muted">
-            These files carry the earlier extensions <span class="kbd">.optx</span> and
-            <span class="kbd">.optm</span>. Rajutara opens them, and saves new files as
-            <span class="kbd">.rjx</span> and <span class="kbd">.rjm</span>.
-          </p>
-        )
-      }
+      {legacy && (
+        <p class="mt-3 max-w-[62ch] text-muted">
+          These files carry the earlier extensions <span class="kbd">.optx</span> and
+          <span class="kbd">.optm</span>. Rajutara opens them, and saves new files as
+          <span class="kbd">.rjx</span> and <span class="kbd">.rjm</span>.
+        </p>
+      )}
 
       <div class="mt-12 space-y-12">
-        {
-          groups.map((g) => {
-            const files = samples.filter((f) => f.group === g.id);
-            return (
-              files.length > 0 && (
-                <div class="grid gap-4 border-t border-line pt-6 lg:grid-cols-12 lg:gap-12">
-                  <h3 class="text-lg font-semibold tracking-tight lg:col-span-3">{g.title}</h3>
-                  <ul class="space-y-5 lg:col-span-9">
-                    {files.map((f) => (
-                      <li class="grid gap-x-6 gap-y-1 sm:grid-cols-[minmax(0,1fr)_auto]">
-                        <div class="min-w-0">
-                          <p class="font-mono text-sm break-all">{f.name}</p>
-                          <p class="text-sm text-muted">
-                            {f.kind}. {f.use}
-                          </p>
-                        </div>
-                        <a
-                          href={f.url}
-                          class="btn btn-secondary self-start max-sm:mt-2"
-                          download
-                          aria-label={`${f.name}, ${formatBytes(f.bytes)}`}
-                        >
-                          <Icon name="ph:file-arrow-down" class="size-5" aria-hidden="true" />
-                          {formatBytes(f.bytes)}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )
-            );
-          })
-        }
+        {groups.map((g) => {
+          const files = samples.filter((f) => f.group === g.id);
+          return (
+            files.length > 0 && (
+              <div class="grid gap-4 border-t border-line pt-6 lg:grid-cols-12 lg:gap-12">
+                <h3 class="text-lg font-semibold tracking-tight lg:col-span-3">{g.title}</h3>
+                <ul class="space-y-5 lg:col-span-9">
+                  {files.map((f) => (
+                    <li class="grid gap-x-6 gap-y-1 sm:grid-cols-[minmax(0,1fr)_auto]">
+                      <div class="min-w-0">
+                        <p class="font-mono text-sm break-all">{f.name}</p>
+                        <p class="text-sm text-muted">
+                          {f.kind}. {f.use}
+                        </p>
+                      </div>
+                      <a
+                        href={f.url}
+                        class="btn btn-secondary self-start max-sm:mt-2"
+                        download
+                        aria-label={`${f.name}, ${formatBytes(f.bytes)}`}
+                      >
+                        <Icon name="ph:file-arrow-down" class="size-5" aria-hidden="true" />
+                        {formatBytes(f.bytes)}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          );
+        })}
       </div>
       <p class="mt-10 text-muted">
         The files are written by the headless example that drafts the tee; see
-        <a href={withBase('/docs/headless/')} class="link">headless and agents</a>.
+        <a href={withBase('/docs/headless/')} class="link">
+          headless and agents
+        </a>
+        .
       </p>
     </section>
   </div>

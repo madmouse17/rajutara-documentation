@@ -22,31 +22,63 @@ export interface SampleFile {
 function describe(name: string): Omit<SampleFile, 'name' | 'url' | 'bytes'> {
   const ext = path.extname(name).toLowerCase();
   if (['.rjx', '.optx'].includes(ext)) {
-    return { kind: 'Style', use: 'Open it in Rajutara: four pieces, sizes S, M, L and XL, grade rules.', group: 'open' };
+    return {
+      kind: 'Style',
+      use: 'Open it in Rajutara: four pieces, sizes S, M, L and XL, grade rules.',
+      group: 'open',
+    };
   }
   if (['.rjm', '.optm'].includes(ext)) {
-    return { kind: 'Marker', use: 'Open it in Rajutara: the nested tee, 20 pieces on 180 cm fabric.', group: 'open' };
+    return {
+      kind: 'Marker',
+      use: 'Open it in Rajutara: the nested tee, 20 pieces on 180 cm fabric.',
+      group: 'open',
+    };
   }
   if (['.rjc', '.optc'].includes(ext)) {
     return { kind: 'Cut Plan', use: 'Open it in Rajutara.', group: 'open' };
   }
   if (ext === '.dxf') {
-    return { kind: 'ASTM D6673 DXF', use: 'The graded nest. Import it into any CAD that reads ASTM.', group: 'interchange' };
+    return {
+      kind: 'ASTM D6673 DXF',
+      use: 'The graded nest. Import it into any CAD that reads ASTM.',
+      group: 'interchange',
+    };
   }
   if (ext === '.rul') {
-    return { kind: 'ASTM grade rules', use: 'Keep it beside the DXF: it holds the dX and dY per size.', group: 'interchange' };
+    return {
+      kind: 'ASTM grade rules',
+      use: 'Keep it beside the DXF: it holds the dX and dY per size.',
+      group: 'interchange',
+    };
   }
   if (ext === '.plt') {
-    return { kind: 'HPGL/2 plot', use: 'The marker as a plotter file, 40 units to the millimetre.', group: 'output' };
+    return {
+      kind: 'HPGL/2 plot',
+      use: 'The marker as a plotter file, 40 units to the millimetre.',
+      group: 'output',
+    };
   }
   if (ext === '.csv') {
-    return { kind: 'Marker report', use: 'Length, efficiency, areas and piece counts as a table.', group: 'output' };
+    return {
+      kind: 'Marker report',
+      use: 'Length, efficiency, areas and piece counts as a table.',
+      group: 'output',
+    };
   }
   if (ext === '.pdf' && name.includes('pieces')) {
-    return { kind: 'Pieces, size M', use: 'Every piece at 1:1, tiled for an A4 printer.', group: 'output' };
+    return {
+      kind: 'Pieces, size M',
+      use: 'Every piece at 1:1, tiled for an A4 printer.',
+      group: 'output',
+    };
   }
   if (ext === '.pdf') {
-    return { kind: 'Marker plot', use: 'The nested marker at 1:1 on A0 sheets, with a tile map.', group: 'output' };
+    return {
+      kind: 'Marker plot',
+      use: 'The nested marker at 1:1 on A0 sheets, with a tile map.',
+      group: 'output',
+    };
   }
   return { kind: 'File', use: '', group: 'output' };
 }

@@ -21,7 +21,7 @@ Every package carries the licences and `THIRD-PARTY.html`, the list of third-par
 
 ## Open the sample tee
 
-The [gallery](../../gallery/) offers the sample tee as a set of files: a style, a marker, an ASTM DXF with its RUL, a plot, two PDFs and a report. Download the style and the marker, then open them from the File menu, or start the program with the files:
+The [gallery](/rajutara-documentation/gallery/) offers the sample tee as a set of files: a style, a marker, an ASTM DXF with its RUL, a plot, two PDFs and a report. Download the style and the marker, then open them from the File menu, or start the program with the files:
 
 ```sh
 rajutara [--lang en|id] [FILE...]

@@ -33,15 +33,13 @@ const examples = [
 ];
 ---
 
-<section
-  id="start"
-  aria-labelledby="start-title"
-  class="mx-auto max-w-300 px-5 pb-20 lg:pb-28"
->
-  <h2 id="start-title" class="max-w-[14ch] text-section">Start faster.</h2>
+<section id="start" aria-labelledby="start-title" class="mx-auto max-w-300 px-5 pb-20 lg:pb-28">
+  <h2 id="start-title" class="max-w-[14ch] text-section">
+    Start faster.
+  </h2>
   <p class="mt-5 max-w-[56ch] text-lg text-muted">
-    Open the sample tee in the app, or run the examples with no window at all. The files are the ones
-    Rajutara itself writes.
+    Open the sample tee in the app, or run the examples with no window at all. The files are the
+    ones Rajutara itself writes.
   </p>
 
   <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-12">
@@ -58,50 +56,51 @@ const examples = [
       </div>
       <h3 class="mt-6 text-2xl tracking-tight">The sample tee</h3>
       <p class="mt-2 text-muted">
-        Kaos Lengan Pendek, a basic short-sleeve tee: four pieces graded S, M, L and XL, nested on 180
-        cm jersey. 20 pieces, 84.10 % efficiency, 2.53 m of fabric.
+        Kaos Lengan Pendek, a basic short-sleeve tee: four pieces graded S, M, L and XL, nested on
+        180 cm jersey. 20 pieces, 84.10 % efficiency, 2.53 m of fabric.
       </p>
       <ul class="mt-5 flex flex-wrap gap-3">
-        {
-          files.map((f) => (
-            <li>
-              <a href={f.file.url} class="btn btn-secondary" download>
-                <Icon name="ph:file-arrow-down" class="size-5" aria-hidden="true" />
-                {f.label}
-                <span class="text-sm font-normal text-muted">{formatBytes(f.file.bytes)}</span>
-              </a>
-            </li>
-          ))
-        }
+        {files.map((f) => (
+          <li>
+            <a href={f.file.url} class="btn btn-secondary" download>
+              <Icon name="ph:file-arrow-down" class="size-5" aria-hidden="true" />
+              {f.label}
+              <span class="text-sm font-normal text-muted">{formatBytes(f.file.bytes)}</span>
+            </a>
+          </li>
+        ))}
       </ul>
       <p class="mt-5 text-sm">
-        <a href={withBase('/gallery/')} class="link">All sample files in the gallery</a>
+        <a href={withBase('/gallery/')} class="link">
+          All sample files in the gallery
+        </a>
       </p>
     </article>
 
-    {
-      examples.map((e) => (
-        <article class="rounded-ui border border-line bg-surface p-6 lg:col-span-3">
-          <Icon name={e.icon} class="size-7 text-accent-text" aria-hidden="true" />
-          <h3 class="mt-4 text-lg font-semibold tracking-tight">{e.title}</h3>
-          <p class="mt-2 text-sm text-muted">{e.body}</p>
-          <p class="mt-4 text-sm">
-            <a href={`${BOOST_REPO}/tree/main/examples`} class="link" rel="noopener">
-              View the example
-            </a>
-          </p>
-        </article>
-      ))
-    }
+    {examples.map((e) => (
+      <article class="rounded-ui border border-line bg-surface p-6 lg:col-span-3">
+        <Icon name={e.icon} class="size-7 text-accent-text" aria-hidden="true" />
+        <h3 class="mt-4 text-lg font-semibold tracking-tight">{e.title}</h3>
+        <p class="mt-2 text-sm text-muted">{e.body}</p>
+        <p class="mt-4 text-sm">
+          <a href={`${BOOST_REPO}/tree/main/examples`} class="link" rel="noopener">
+            View the example
+          </a>
+        </p>
+      </article>
+    ))}
 
     <article class="rounded-ui border border-line bg-surface p-6 lg:col-span-3">
       <Icon name="report" class="size-7 text-accent-text" aria-hidden="true" />
       <h3 class="mt-4 text-lg font-semibold tracking-tight">Agent kit</h3>
       <p class="mt-2 text-sm text-muted">
-        Guidelines, real signatures and an MCP server, so a coding agent builds on Rajutara correctly.
+        Guidelines, real signatures and an MCP server, so a coding agent builds on Rajutara
+        correctly.
       </p>
       <p class="mt-4 text-sm">
-        <a href={BOOST_REPO} class="link" rel="noopener">rajutara-boost on GitHub</a>
+        <a href={BOOST_REPO} class="link" rel="noopener">
+          rajutara-boost on GitHub
+        </a>
       </p>
     </article>
   </div>

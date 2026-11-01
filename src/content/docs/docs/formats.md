@@ -14,7 +14,7 @@ Rajutara exchanges patterns through open standards and keeps its own work in pla
 | CSV | Import and export | Order quantities and fabric rolls in; marker and Cut Plan reports out |
 | `.rjx`, `.rjm`, `.rjc` | Open and save | Style, Marker and Cut Plan: zip and JSON, format 2 |
 
-The earlier extensions `.optx`, `.optm` and `.optc` open as well. The [gallery](../../gallery/) offers the sample tee in most of the formats above.
+The earlier extensions `.optx`, `.optm` and `.optc` open as well. The [gallery](/rajutara-documentation/gallery/) offers the sample tee in most of the formats above.
 
 ## Native files
 

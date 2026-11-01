@@ -39,10 +39,12 @@ const cutplanEmblems = [
   aria-labelledby="workspaces-title"
   class="mx-auto max-w-300 px-5 py-20 lg:py-28"
 >
-  <h2 id="workspaces-title" class="max-w-[16ch] text-section">One window, four workspaces.</h2>
+  <h2 id="workspaces-title" class="max-w-[16ch] text-section">
+    One window, four workspaces.
+  </h2>
   <p class="mt-5 max-w-[56ch] text-lg text-muted">
-    PDS, Grading, Marker and Cut Plan share one open Style and one undo history. Switching tabs never
-    means exporting a file.
+    PDS, Grading, Marker and Cut Plan share one open Style and one undo history. Switching tabs
+    never means exporting a file.
   </p>
 
   <div class="mt-16 space-y-24 lg:mt-20 lg:space-y-32">
@@ -57,7 +59,9 @@ const cutplanEmblems = [
         </p>
         <Emblems items={pdsEmblems} class="mt-5" />
         <p class="mt-6">
-          <a href={withBase('/docs/workspaces/pds/')} class="link">PDS guide</a>
+          <a href={withBase('/docs/workspaces/pds/')} class="link">
+            PDS guide
+          </a>
         </p>
       </div>
       <div class="land lg:col-span-8">
@@ -83,12 +87,14 @@ const cutplanEmblems = [
       <div class="order-1 lg:order-2 lg:col-span-4">
         <h3 class="text-3xl tracking-tight">Grade by rule, not by redrawing.</h3>
         <p class="mt-4 text-muted">
-          Pick a base size and give each grade point a rule: dX and dY per size. The graded nest draws
-          every size in its own colour, and it leaves as ASTM DXF with a RUL file.
+          Pick a base size and give each grade point a rule: dX and dY per size. The graded nest
+          draws every size in its own colour, and it leaves as ASTM DXF with a RUL file.
         </p>
         <Emblems items={gradingEmblems} class="mt-5" />
         <p class="mt-6">
-          <a href={withBase('/docs/workspaces/grading/')} class="link">Grading guide</a>
+          <a href={withBase('/docs/workspaces/grading/')} class="link">
+            Grading guide
+          </a>
         </p>
       </div>
     </article>
@@ -98,12 +104,15 @@ const cutplanEmblems = [
       <div class="max-w-[60ch]">
         <h3 class="text-3xl tracking-tight">Nest the marker by hand or by engine.</h3>
         <p class="mt-4 text-muted">
-          Drag pieces from the piece bar, or let the nesting engine fill the fabric: no-fit polygons,
-          bottom-left fill and annealing, with live progress. 300 pieces nest in 58 s at 90.1 %.
+          Drag pieces from the piece bar, or let the nesting engine fill the fabric: no-fit
+          polygons, bottom-left fill and annealing, with live progress. 300 pieces nest in 58 s at
+          90.1 %.
         </p>
         <Emblems items={markerEmblems} class="mt-5" />
         <p class="mt-6">
-          <a href={withBase('/docs/workspaces/marker/')} class="link">Marker guide</a>
+          <a href={withBase('/docs/workspaces/marker/')} class="link">
+            Marker guide
+          </a>
         </p>
       </div>
       <div class="mt-10 grid gap-10 md:grid-cols-2 md:gap-8">
@@ -135,13 +144,15 @@ const cutplanEmblems = [
       <div class="lg:col-span-5 lg:pt-10">
         <h3 class="text-3xl tracking-tight">Plan the cut, then plot it.</h3>
         <p class="mt-4 text-muted">
-          Turn an order of colours by sizes into markers and lays with plies, fabric length and cost.
-          The Cut Order sequences the lays and draws plies from your fabric rolls. Plot to PDF or
-          HPGL/2.
+          Turn an order of colours by sizes into markers and lays with plies, fabric length and
+          cost. The Cut Order sequences the lays and draws plies from your fabric rolls. Plot to PDF
+          or HPGL/2.
         </p>
         <Emblems items={cutplanEmblems} class="mt-5" />
         <p class="mt-6">
-          <a href={withBase('/docs/workspaces/cut-plan/')} class="link">Cut Plan guide</a>
+          <a href={withBase('/docs/workspaces/cut-plan/')} class="link">
+            Cut Plan guide
+          </a>
         </p>
       </div>
       <div class="space-y-10 lg:col-span-7">

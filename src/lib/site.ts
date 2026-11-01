@@ -9,7 +9,8 @@ export const RELEASE = { version: '1.0.0', tag: 'v1.0.0' } as const;
 export const RELEASES_URL = `${REPO}/releases`;
 
 /** Direct link to a file attached to the current release. */
-export const assetUrl = (file: string): string => `${REPO}/releases/download/${RELEASE.tag}/${file}`;
+export const assetUrl = (file: string): string =>
+  `${REPO}/releases/download/${RELEASE.tag}/${file}`;
 
 /** Prefix a site path (starting with `/`) with the Astro base, so links work under any Pages address. */
 export const withBase = (path: string): string =>

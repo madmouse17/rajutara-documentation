@@ -79,7 +79,8 @@ const pieces = tee.pieces.map((p) => {
 const sizeOrder: Record<string, number> = { XL: 0, L: 1, S: 2, M: 3 };
 const stacked = [...pieces].sort(
   (a, b) =>
-    FAMILIES.indexOf(a.family) - FAMILIES.indexOf(b.family) || sizeOrder[a.size] - sizeOrder[b.size],
+    FAMILIES.indexOf(a.family) - FAMILIES.indexOf(b.family) ||
+    sizeOrder[a.size] - sizeOrder[b.size],
 );
 
 // Rulers around the fabric: a tape along the top (every 100 mm, long every 500 mm), the width on the left and
@@ -106,10 +107,11 @@ const front = table.FRONT;
           From pattern to marker.
         </h2>
         <p class="seq-lede mt-3 max-w-[40ch] text-muted">
-          One sample tee, start to finish. Every outline is read from the sample files in the <a
-            href={withBase('/gallery/')}
-            class="link">gallery</a
-          >.
+          One sample tee, start to finish. Every outline is read from the sample files in the{' '}
+          <a href={withBase('/gallery/')} class="link">
+            gallery
+          </a>
+          .
         </p>
       </div>
 
@@ -138,48 +140,47 @@ const front = table.FRONT;
             y="0"
             width={LENGTH}
             height={WIDTH}
-            fill="url(#seq-warp)"></rect>
+            fill="url(#seq-warp)"
+          ></rect>
           <rect class="seq-edge" x="0" y="0" width={LENGTH} height={WIDTH}></rect>
           <g class="seq-rule">
             <path d={tape}></path>
-            {
-              tapeLabels.map((x) => (
-                <text x={x} y="-150">
-                  {x === 0 ? '0' : `${x / 1000} m`}
-                </text>
-              ))
-            }
+            {tapeLabels.map((x) => (
+              <text x={x} y="-150">
+                {x === 0 ? '0' : `${x / 1000} m`}
+              </text>
+            ))}
             <path d={`M-90 0V${WIDTH}M-120 0H-60M-120 ${WIDTH}H-60`}></path>
             <text transform={`translate(-150 ${WIDTH / 2}) rotate(-90)`}>{WIDTH} mm</text>
             <path
               d={`M0 ${WIDTH + 90}H${LENGTH}M0 ${WIDTH + 60}V${WIDTH + 120}M${LENGTH} ${WIDTH + 60}V${WIDTH + 120}`}
             ></path>
-            <text x={LENGTH / 2} y={WIDTH + 200}>{metres} m used</text>
+            <text x={LENGTH / 2} y={WIDTH + 200}>
+              {metres} m used
+            </text>
           </g>
         </g>
 
         <g aria-hidden="true">
-          {
-            FAMILIES.map((family) => (
-              <text class="seq-label" x={table[family].cx} y={table[family].top - 70}>
-                {family}
-              </text>
-            ))
-          }
+          {FAMILIES.map((family) => (
+            <text class="seq-label" x={table[family].cx} y={table[family].top - 70}>
+              {family}
+            </text>
+          ))}
           <g class="seq-dim" transform={`translate(${round(front.x)} ${round(front.y)})`}>
             <path d="M-250 215H250M-250 185V245M250 185V245"></path>
-            <text x="0" y="330">50 cm</text>
+            <text x="0" y="330">
+              50 cm
+            </text>
           </g>
 
-          {
-            stacked.map((p) => (
-              <g class="seq-piece" data-size={p.size} style={p.style}>
-                <path class="seq-outline" pathLength="1" d={p.outline}></path>
-                <path class="seq-notch" d={p.notches}></path>
-                <path class="seq-grain" d={p.grainPath}></path>
-              </g>
-            ))
-          }
+          {stacked.map((p) => (
+            <g class="seq-piece" data-size={p.size} style={p.style}>
+              <path class="seq-outline" pathLength="1" d={p.outline}></path>
+              <path class="seq-notch" d={p.notches}></path>
+              <path class="seq-grain" d={p.grainPath}></path>
+            </g>
+          ))}
         </g>
       </svg>
 
@@ -195,8 +196,8 @@ const front = table.FRONT;
           <li class="seq-step seq-step-b">
             <h3 class="text-xl tracking-tight">Grade</h3>
             <p class="mt-2 text-muted">
-              A grade rule moves each point by a few millimetres. S, L and XL grow from the base size
-              M and nest around it, with no redrawing.
+              A grade rule moves each point by a few millimetres. S, L and XL grow from the base
+              size M and nest around it, with no redrawing.
             </p>
           </li>
           <li class="seq-step seq-step-c">
@@ -218,21 +219,21 @@ const front = table.FRONT;
         </ol>
 
         <ul class="seq-legend mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm" aria-label="Sizes">
-          {
-            sizes.map((s) => (
-              <li class="flex items-center gap-2">
-                <span class={`seq-swatch seq-swatch-${s.id}`} aria-hidden="true" />
-                <span>
-                  {s.label}
-                  {s.id === 'm' && <span class="text-muted"> base size</span>}
-                </span>
-              </li>
-            ))
-          }
+          {sizes.map((s) => (
+            <li class="flex items-center gap-2">
+              <span class={`seq-swatch seq-swatch-${s.id}`} aria-hidden="true" />
+              <span>
+                {s.label}
+                {s.id === 'm' && <span class="text-muted"> base size</span>}
+              </span>
+            </li>
+          ))}
         </ul>
       </div>
 
-      <div class="seq-progress" aria-hidden="true"><span></span></div>
+      <div class="seq-progress" aria-hidden="true">
+        <span></span>
+      </div>
     </div>
   </div>
 </section>
@@ -296,6 +297,12 @@ const front = table.FRONT;
   }
   .seq-label {
     letter-spacing: 0.06em;
+  }
+  /* The names and the hem dimension belong to the first two steps; the finished marker has none of them. The
+     animation brings them in and takes them out again. */
+  .seq-label,
+  .seq-dim {
+    opacity: 0;
   }
 
   .seq-piece {
@@ -394,20 +401,28 @@ const front = table.FRONT;
       }
       .seq-grid {
         padding-block: 1rem 1.5rem;
-        gap: 0.75rem;
-        grid-template-rows: auto minmax(0, 1fr) auto;
+        gap: 1rem;
+        align-content: center;
       }
       .seq-svg {
-        height: 100%;
-        min-height: 0;
+        max-height: calc(100svh - 25rem);
       }
       .seq-lede {
         display: none;
       }
+      /* Wide screens: the text block is centred beside a drawing that takes the full height. */
       @media (min-width: 48rem) {
         .seq-grid {
-          grid-template-rows: auto minmax(0, 1fr);
+          grid-template-rows: 1fr auto auto 1fr;
+          grid-template-areas: '. svg' 'head svg' 'captions svg' '. svg';
           padding-block: 1.5rem;
+          align-content: stretch;
+          align-items: start;
+        }
+        .seq-svg {
+          height: 100%;
+          max-height: none;
+          min-height: 0;
         }
         .seq-lede {
           display: block;
@@ -457,53 +472,136 @@ const front = table.FRONT;
 
       /* Steps: each fades in, holds and fades out; the first is visible from the start, the last stays. */
       @keyframes seq-step-first {
-        0%, 88% { opacity: 1; translate: 0 0; }
-        100% { opacity: 0; translate: 0 -12px; }
+        0%,
+        88% {
+          opacity: 1;
+          translate: 0 0;
+        }
+        100% {
+          opacity: 0;
+          translate: 0 -12px;
+        }
       }
       @keyframes seq-step-mid {
-        0% { opacity: 0; translate: 0 12px; }
-        12%, 88% { opacity: 1; translate: 0 0; }
-        100% { opacity: 0; translate: 0 -12px; }
+        0% {
+          opacity: 0;
+          translate: 0 12px;
+        }
+        12%,
+        88% {
+          opacity: 1;
+          translate: 0 0;
+        }
+        100% {
+          opacity: 0;
+          translate: 0 -12px;
+        }
       }
       @keyframes seq-step-last {
-        0% { opacity: 0; translate: 0 12px; }
-        12%, 100% { opacity: 1; translate: 0 0; }
+        0% {
+          opacity: 0;
+          translate: 0 12px;
+        }
+        12%,
+        100% {
+          opacity: 1;
+          translate: 0 0;
+        }
       }
-      .seq-step-a { animation-name: seq-step-first; animation-range: contain 0% contain 29%; }
-      .seq-step-b { animation-name: seq-step-mid; animation-range: contain 26% contain 57%; }
-      .seq-step-c { animation-name: seq-step-last; animation-range: contain 54% contain 100%; }
+      .seq-step-a {
+        animation-name: seq-step-first;
+        animation-range: contain 0% contain 29%;
+      }
+      .seq-step-b {
+        animation-name: seq-step-mid;
+        animation-range: contain 26% contain 57%;
+      }
+      .seq-step-c {
+        animation-name: seq-step-last;
+        animation-range: contain 54% contain 100%;
+      }
 
       /* One animation per property per element: a second one on opacity would override the first. */
-      @keyframes seq-fade-in { from { opacity: 0; } }
-      @keyframes seq-rise { from { opacity: 0; translate: 0 10px; } }
+      @keyframes seq-fade-in {
+        from {
+          opacity: 0;
+        }
+      }
+      @keyframes seq-rise {
+        from {
+          opacity: 0;
+          translate: 0 10px;
+        }
+      }
       @keyframes seq-label {
-        0% { opacity: 0; }
-        16%, 90% { opacity: 1; }
-        100% { opacity: 0; }
+        0% {
+          opacity: 0;
+        }
+        16%,
+        90% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
       }
       @keyframes seq-dim {
-        0% { opacity: 0; }
-        40%, 75% { opacity: 1; }
-        100% { opacity: 0; }
+        0% {
+          opacity: 0;
+        }
+        40%,
+        75% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
       }
-      .seq-legend { animation-name: seq-fade-in; animation-range: contain 27% contain 33%; }
-      .seq-figures { animation-name: seq-rise; animation-range: contain 88% contain 96%; }
-      .seq-band { animation-name: seq-fade-in; animation-range: contain 54% contain 62%; }
-      .seq-label { animation-name: seq-label; animation-range: contain 6% contain 57%; }
-      .seq-dim { animation-name: seq-dim; animation-range: contain 12% contain 32%; }
+      .seq-legend {
+        animation-name: seq-fade-in;
+        animation-range: contain 27% contain 33%;
+      }
+      .seq-figures {
+        animation-name: seq-rise;
+        animation-range: contain 88% contain 96%;
+      }
+      .seq-band {
+        animation-name: seq-fade-in;
+        animation-range: contain 54% contain 62%;
+      }
+      .seq-label {
+        animation-name: seq-label;
+        animation-range: contain 6% contain 57%;
+      }
+      .seq-dim {
+        animation-name: seq-dim;
+        animation-range: contain 12% contain 32%;
+      }
 
       /* The pieces lie where they were graded until step three slides each onto the fabric, turning to follow
          the grain. The stroke of every outline is drawn on, then the nest takes a light tint. */
       @keyframes seq-slide {
-        from { translate: var(--bx) var(--by); rotate: 0deg; }
-        to { translate: var(--mx) var(--my); rotate: var(--mr); }
+        from {
+          translate: var(--bx) var(--by);
+          rotate: 0deg;
+        }
+        to {
+          translate: var(--mx) var(--my);
+          rotate: var(--mr);
+        }
       }
       @keyframes seq-draw {
-        from { stroke-dashoffset: 1; }
-        to { stroke-dashoffset: 0; }
+        from {
+          stroke-dashoffset: 1;
+        }
+        to {
+          stroke-dashoffset: 0;
+        }
       }
       @keyframes seq-tint {
-        from { fill-opacity: 0; }
+        from {
+          fill-opacity: 0;
+        }
       }
       .seq-piece {
         translate: var(--bx) var(--by);
@@ -525,8 +623,12 @@ const front = table.FRONT;
       }
 
       @keyframes seq-progress {
-        from { transform: scaleX(0); }
-        to { transform: scaleX(1); }
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
       }
       .seq-progress > span {
         animation-name: seq-progress;

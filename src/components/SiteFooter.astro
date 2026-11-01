@@ -11,37 +11,41 @@ import { NAV } from '../lib/nav';
       <div class="lg:col-span-4">
         <div class="flex items-center gap-3">
           <Image src={logo} alt="" width={64} height={64} class="size-10" />
-          <p class="text-xl font-semibold tracking-tight" translate="no">Rajutara</p>
+          <p class="text-xl font-semibold tracking-tight" translate="no">
+            Rajutara
+          </p>
         </div>
         <p class="mt-4 max-w-[32ch] text-muted">
-          Designing patterns, crafting future. Free software under MIT or Apache-2.0, at your option.
+          Designing patterns, crafting future. Free software under MIT or Apache-2.0, at your
+          option.
         </p>
       </div>
 
-      <nav aria-label="Footer" class="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 lg:col-span-8">
-        {
-          NAV.map((group) => (
-            <section>
-              <h2 class="text-sm font-semibold">{group.label}</h2>
-              <ul class="mt-2">
-                {group.items.map((item) => (
-                  <li>
-                    <a
-                      href={item.href}
-                      rel={item.external ? 'noopener' : undefined}
-                      class="inline-flex h-11 items-center gap-1 text-muted hover:text-fg"
-                    >
-                      {item.label}
-                      {item.external && (
-                        <Icon name="ph:arrow-up-right" class="size-4" aria-hidden="true" />
-                      )}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))
-        }
+      <nav
+        aria-label="Footer"
+        class="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 lg:col-span-8"
+      >
+        {NAV.map((group) => (
+          <section>
+            <h2 class="text-sm font-semibold">{group.label}</h2>
+            <ul class="mt-2">
+              {group.items.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    rel={item.external ? 'noopener' : undefined}
+                    class="inline-flex h-11 items-center gap-1 text-muted hover:text-fg"
+                  >
+                    {item.label}
+                    {item.external && (
+                      <Icon name="ph:arrow-up-right" class="size-4" aria-hidden="true" />
+                    )}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </nav>
     </div>
 
