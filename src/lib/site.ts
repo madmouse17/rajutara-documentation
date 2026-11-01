@@ -1,7 +1,6 @@
 export const NAME = 'Rajutara';
 
 export const REPO = 'https://github.com/madmouse17/rajutara';
-export const BOOST_REPO = 'https://github.com/madmouse17/rajutara-boost';
 
 /** The release the downloads section and the docs point at. Bump both fields for a new release. */
 export const RELEASE = { version: '1.3.0', tag: 'v1.3.0' } as const;

@@ -58,4 +58,4 @@ Panduan: [Cut Plan](../workspaces/cut-plan/).
 2. Susun, grade, nesting, dan tulis setiap keluaran workflow dengan contoh headless: kode yang sama dengan yang dijalankan program, tanpa jendela.
 3. Baca atau tulis dokumen dengan pustaka zip apa pun: berkas asli adalah arsip zip berisi JSON.
 
-Panduan: [Headless dan agen](../headless/).
+Panduan: [Headless dan skrip](../headless/).

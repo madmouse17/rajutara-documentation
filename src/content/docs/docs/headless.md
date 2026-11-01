@@ -1,9 +1,9 @@
 ---
-title: Headless and agents
-description: Check a build with one command, produce every output of the workflow with no window, read documents with a zip library, and give a coding agent the facts.
+title: Headless and scripting
+description: Check a build with one command, produce every output of the workflow with no window, and read documents with a zip library, from scripts, CI and batch jobs.
 ---
 
-A script or a coding agent can check a build and produce every output of the workflow without a person at the screen. This page covers the three ways in: the smoke check, the headless examples and the documents themselves, then the agent kit that goes with them.
+Scripts, CI jobs and batch runs can check a build and produce every output of the workflow without a person at the screen. This page covers three ways in: the smoke check, the headless example and the documents themselves.
 
 ## The command line
 
@@ -46,7 +46,7 @@ The workflow has no window of its own: the library crates that the program is ma
 cargo run --release -p rajutara --example tshirt_sample -- out/
 ```
 
-It writes the style, the nested marker, the graded DXF with its RUL, an A0 marker PDF, an HPGL/2 plot, a CSV report and an A4-tiled PDF of the pieces. They are the files in the [gallery](/rajutara-documentation/gallery/). Two more examples live in the agent kit below: one imports a DXF with its RUL and plots every size of every piece to one A0 PDF, and one loads a style, builds a marker with one bundle per size, nests it and writes the marker and an HPGL/2 plot.
+It writes the style, the nested marker, the graded DXF with its RUL, an A0 marker PDF, an HPGL/2 plot, a CSV report and an A4-tiled PDF of the pieces. They are the files in the [gallery](/rajutara-documentation/gallery/).
 
 Same input and same settings give byte-identical files. Export headers carry a UTC timestamp, so only that line differs between two exports. The nesting engine takes an explicit seed, so a test can pin its output. A run that stops on a time limit also depends on the speed of the machine.
 
@@ -66,17 +66,3 @@ print([size["name"] for size in style["size_table"]["sizes"]])
 ```
 
 For the sample tee this prints the style name and its four pieces, FRONT, BACK, SLEEVE and NECK RIB, then the sizes S, M, L and XL. Lengths are millimetres. Treat unknown keys as data to keep, and write a file back only through Rajutara's own writers.
-
-## The agent kit
-
-An agent that has never seen Rajutara guesses at the model: millimetres, derived grading, a time limit against an iteration limit. **rajutara-boost** gives it the facts, in the shape Laravel Boost does for Laravel. It lives in its own repository, [rajutara-boost](https://github.com/madmouse17/rajutara-boost).
-
-| Part | What it is |
-|---|---|
-| Guidelines | What Rajutara is, the crate map and the invariants, then one file each for the core model, file I/O, nesting, grading, cut planning, adding a workspace, testing and style. Short enough to load on demand. |
-| API reference | Real signatures in fenced blocks, checked against a checkout by a script, so the reference cannot drift unnoticed. |
-| Examples | The three headless programs, compiled against the release. |
-| MCP server | A small server over stdio that links the Rajutara crates directly, with tools to check that a file opens, import a DXF, nest a marker and plot it. Errors come back as tool errors, and the input file is never changed. |
-| Skill | The guidelines packaged for agents that load skills. |
-
-The invariants an agent must hold are the ones in [Contributing](../contributing/): millimetres as `f64`, no panic on user data, no async runtime, deterministic output and the clean-room rule.

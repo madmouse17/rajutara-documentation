@@ -9,7 +9,7 @@ Rajutara is a clean-room Rust rewrite of an apparel CAD suite. Bug reports, samp
 
 | File | What it settles |
 |---|---|
-| `AGENTS.md` | The repository rules. They bind people and coding agents alike. |
+| `CONTRIBUTING.md` | Repository rules for contributors. This page follows it. |
 | `GLOSSARY.md` | The vocabulary. Its words are the Rust type and module names, and a new term goes there before you use it. The [glossary](../glossary/) page is generated from it. |
 | `docs/adr/` | Settled decisions. A decision record is never edited; a new one supersedes it. |
 | `docs/spec/` | What each workspace does, with its public sources. |
@@ -49,7 +49,7 @@ Windows builds are cross-built and checked under Wine by the maintainer's tools,
 
 ## Code rules
 
-The full list is in `AGENTS.md`. The ones reviewers check first:
+Reviewers check these first:
 
 - Library crates (`rajutara-core`, `rajutara-io`, `rajutara-nest` and the rest) have no `unwrap`, `expect` or `panic!` outside tests. Errors are `thiserror` enums, and `rajutara-core` has no UI or I/O dependency.
 - Geometry is millimetres as `f64`. Display units are never stored. Tolerances are named constants.

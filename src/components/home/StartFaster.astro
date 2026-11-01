@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import teeMarker from '../../assets/gallery/tee-marker.png';
-import { BOOST_REPO } from '../../lib/site';
+import { REPO } from '../../lib/site';
 import { formatBytes, listSamples } from '../../lib/samples';
 import { href, t, type Lang } from '../../lib/i18n';
 
@@ -20,24 +20,6 @@ const files = [
   { label: t(lang, 'start.fileMarker'), file: pick('marker') },
   { label: t(lang, 'start.fileDxf'), file: pick('dxf') },
 ].flatMap((f) => (f.file ? [{ label: f.label, file: f.file }] : []));
-
-const examples = [
-  {
-    icon: 'draft',
-    title: t(lang, 'start.ex1Title'),
-    body: t(lang, 'start.ex1Body'),
-  },
-  {
-    icon: 'import',
-    title: t(lang, 'start.ex2Title'),
-    body: t(lang, 'start.ex2Body'),
-  },
-  {
-    icon: 'marker-nest',
-    title: t(lang, 'start.ex3Title'),
-    body: t(lang, 'start.ex3Body'),
-  },
-];
 ---
 
 <section id="start" aria-labelledby="start-title" class="mx-auto max-w-300 px-5 pb-20 lg:pb-28">
@@ -47,7 +29,7 @@ const examples = [
   <p class="mt-5 max-w-[56ch] text-lg text-muted">{t(lang, 'start.lede')}</p>
 
   <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-12">
-    <article class="flex flex-col rounded-ui border border-line bg-surface p-6 md:col-span-2 lg:col-span-6 lg:row-span-2">
+    <article class="flex flex-col rounded-ui border border-line bg-surface p-6 md:col-span-2 lg:col-span-6">
       <div class="overflow-hidden rounded-lg border border-line bg-white">
         <Image
           src={teeMarker}
@@ -78,26 +60,13 @@ const examples = [
       </p>
     </article>
 
-    {examples.map((e) => (
-      <article class="rounded-ui border border-line bg-surface p-6 lg:col-span-3">
-        <Icon name={e.icon} class="size-7 text-accent-text" aria-hidden="true" />
-        <h3 class="mt-4 text-lg font-semibold tracking-tight">{e.title}</h3>
-        <p class="mt-2 text-sm text-muted">{e.body}</p>
-        <p class="mt-4 text-sm">
-          <a href={`${BOOST_REPO}/tree/main/examples`} class="link" rel="noopener">
-            {t(lang, 'start.viewExample')}
-          </a>
-        </p>
-      </article>
-    ))}
-
-    <article class="rounded-ui border border-line bg-surface p-6 lg:col-span-3">
-      <Icon name="report" class="size-7 text-accent-text" aria-hidden="true" />
-      <h3 class="mt-4 text-lg font-semibold tracking-tight">{t(lang, 'start.kitTitle')}</h3>
-      <p class="mt-2 text-sm text-muted">{t(lang, 'start.kitBody')}</p>
+    <article class="flex flex-col rounded-ui border border-line bg-surface p-6 md:col-span-2 lg:col-span-6">
+      <Icon name="draft" class="size-7 text-accent-text" aria-hidden="true" />
+      <h3 class="mt-4 text-lg font-semibold tracking-tight">{t(lang, 'start.ex1Title')}</h3>
+      <p class="mt-2 text-sm text-muted">{t(lang, 'start.ex1Body')}</p>
       <p class="mt-4 text-sm">
-        <a href={BOOST_REPO} class="link" rel="noopener">
-          {t(lang, 'start.kitLink')}
+        <a href={`${REPO}/tree/main/crates/rajutara/examples`} class="link" rel="noopener">
+          {t(lang, 'start.viewExample')}
         </a>
       </p>
     </article>

@@ -18,7 +18,7 @@ Ekstensi lama `.optx`, `.optm`, dan `.optc` juga bisa dibuka. [Galeri](/rajutara
 
 ## Berkas asli
 
-Style, marker, dan cut plan masing-masing adalah satu arsip zip dengan dua entri: `manifest.json`, yang menyebut format dan versinya, dan `document.json`, yang memuat isinya. Satuan panjang adalah milimeter. Marker menyematkan style yang dipakainya, jadi marker terbuka tanpa berkas style. Masukan yang sama dan pengaturan yang sama menghasilkan berkas yang identik byte demi byte. Berkas yang ditulis oleh versi format yang lebih baru ditolak, tidak pernah dipotong. [Headless dan agen](../headless/) menunjukkan cara membacanya dengan beberapa baris Python.
+Style, marker, dan cut plan masing-masing adalah satu arsip zip dengan dua entri: `manifest.json`, yang menyebut format dan versinya, dan `document.json`, yang memuat isinya. Satuan panjang adalah milimeter. Marker menyematkan style yang dipakainya, jadi marker terbuka tanpa berkas style. Masukan yang sama dan pengaturan yang sama menghasilkan berkas yang identik byte demi byte. Berkas yang ditulis oleh versi format yang lebih baru ditolak, tidak pernah dipotong. [Headless dan skrip](../headless/) menunjukkan cara membacanya dengan beberapa baris Python.
 
 ## DXF ASTM D6673 dan AAMA-292
 

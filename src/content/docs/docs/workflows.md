@@ -58,4 +58,4 @@ Guide: [Cut Plan](../workspaces/cut-plan/).
 2. Draft, grade, nest and write every output of the workflow with the headless examples: the same code the program runs, with no window.
 3. Read or write documents with any zip library: a native file is a zip archive holding JSON.
 
-Guide: [Headless and agents](../headless/).
+Guide: [Headless and scripting](../headless/).

@@ -118,7 +118,7 @@ const en = {
   // Start faster
   'start.title': 'Start faster.',
   'start.lede':
-    'Open the sample tee in the app, or run the examples with no window at all. The files are the ones Rajutara itself writes.',
+    'Open the sample tee in the app, or run the example with no window at all. The files are the ones Rajutara itself writes.',
   'start.alt':
     'The sample tee marker: 20 pieces of four sizes nested on 180 cm fabric, drawn as navy outlines with notches and grainlines.',
   'start.teeTitle': 'The sample tee',
@@ -131,17 +131,7 @@ const en = {
   'start.ex1Title': 'Draft the sample tee',
   'start.ex1Body':
     'Drafts a short-sleeve tee, grades S, M, L and XL, nests a marker on 1800 mm jersey and writes every output.',
-  'start.ex2Title': 'Import a DXF, plot every size',
-  'start.ex2Body':
-    'Reads an ASTM DXF with its RUL grade rules and plots every size of every piece to one A0 PDF.',
-  'start.ex3Title': 'Nest a style file',
-  'start.ex3Body':
-    'Loads a style, builds a marker with one bundle per size, nests it, and writes the marker and an HPGL/2 plot.',
   'start.viewExample': 'View the example',
-  'start.kitTitle': 'Agent kit',
-  'start.kitBody':
-    'Guidelines, real signatures and an MCP server, so a coding agent builds on Rajutara correctly.',
-  'start.kitLink': 'rajutara-boost on GitHub',
 
   // Made with
   'made.title': 'Made with Rajutara.',
@@ -195,23 +185,6 @@ const en = {
     'Style, Marker and Cut Plan: zip and JSON. Earlier .optx, .optm and .optc files still open.',
   'fmt.link': 'File formats in the docs',
 
-  // Agents
-  'agents.title': 'Built for scripts and agents.',
-  'agents.lede':
-    'A script or a coding agent can check a build and produce every output of the workflow without a person at the screen.',
-  'agents.b1': 'One JSON line on stdout. Exit code 0, or non-zero on any window or OpenGL failure.',
-  'agents.b2':
-    'The same input and settings give byte-identical files. Only the UTC timestamp in an export header differs.',
-  'agents.b3':
-    'Documents are zip files holding JSON, so a zip library is enough to read or write them.',
-  'agents.link': 'Headless and agents guide',
-  'agents.cap1':
-    'Check a build. This opens the real window, renders 60 frames, prints one line and exits.',
-  'agents.cap2':
-    'Make every output without a window: it drafts the sample tee, grades it to S, M, L and XL, nests a marker and writes the files in the gallery.',
-  'agents.command': 'Command',
-  'agents.output': 'Output',
-
   // Download
   'dl.title': 'Download Rajutara {v}.',
   'dl.lede':
@@ -226,7 +199,7 @@ const en = {
   'dl.msiNote': 'The .msi installer.',
   'dl.zipNote': 'Unzip it and run rajutara.exe.',
   'dl.noGl':
-    'No OpenGL driver on the Windows PC? The packages carry a software renderer for that case, explained in the',
+    'Without an OpenGL driver on Windows, the packages fall back to a software renderer, explained in the',
   'dl.win7Link': 'Windows 7 notes',
   'dl.checksums': 'All files and checksums are on the',
   'dl.releasesLink': 'releases page',
@@ -298,7 +271,7 @@ const en = {
   'gal.groupInterchange': 'Take to another CAD',
   'gal.groupOutput': 'What Rajutara wrote',
   'gal.headlessBefore': 'The files are written by the headless example that drafts the tee; see',
-  'gal.headlessLink': 'headless and agents',
+  'gal.headlessLink': 'headless and scripting',
 
   // Sample file kinds and uses (src/lib/samples.ts)
   'sample.style': 'Style',
@@ -431,7 +404,7 @@ const id: Record<Key, string> = {
 
   'start.title': 'Mulai lebih cepat.',
   'start.lede':
-    'Buka kaos contoh di aplikasi, atau jalankan contoh tanpa jendela sama sekali. Berkasnya sama dengan yang ditulis Rajutara sendiri.',
+    'Buka kaos contoh di aplikasi, atau jalankan contohnya tanpa jendela sama sekali. Berkasnya sama dengan yang ditulis Rajutara sendiri.',
   'start.alt':
     'Marker kaos contoh: 20 potongan empat ukuran tersusun pada kain 180 cm, digambar sebagai garis tepi biru tua dengan penandaan dan Garis Serat.',
   'start.teeTitle': 'Kaos contoh',
@@ -444,17 +417,7 @@ const id: Record<Key, string> = {
   'start.ex1Title': 'Gambar kaos contoh',
   'start.ex1Body':
     'Menggambar kaos lengan pendek, grading S, M, L, dan XL, menyusun marker pada jersey 1800 mm, lalu menulis semua keluaran.',
-  'start.ex2Title': 'Impor DXF, plot setiap ukuran',
-  'start.ex2Body':
-    'Membaca DXF ASTM beserta aturan grading RUL-nya, lalu memplot setiap ukuran setiap potongan ke satu PDF A0.',
-  'start.ex3Title': 'Susun berkas style',
-  'start.ex3Body':
-    'Memuat style, membuat marker dengan satu bundel per ukuran, menyusunnya, lalu menulis marker dan plot HPGL/2.',
   'start.viewExample': 'Lihat contoh',
-  'start.kitTitle': 'Agent kit',
-  'start.kitBody':
-    'Pedoman, signature asli, dan server MCP, agar agen pemrograman membangun di atas Rajutara dengan benar.',
-  'start.kitLink': 'rajutara-boost di GitHub',
 
   'made.title': 'Dibuat dengan Rajutara.',
   'made.lede': 'Hasil render asli dari berkas contoh dan uji end-to-end. Tanpa gambar stok.',
@@ -506,23 +469,6 @@ const id: Record<Key, string> = {
     'Style, Marker, dan Cut Plan: zip dan JSON. Berkas .optx, .optm, dan .optc yang lama tetap bisa dibuka.',
   'fmt.link': 'Format berkas di dokumentasi',
 
-  'agents.title': 'Dibuat untuk skrip dan agen.',
-  'agents.lede':
-    'Skrip atau agen pemrograman dapat memeriksa sebuah build dan menghasilkan setiap keluaran alur kerja tanpa orang di depan layar.',
-  'agents.b1':
-    'Satu baris JSON di stdout. Kode keluar 0, atau bukan nol bila jendela atau OpenGL gagal.',
-  'agents.b2':
-    'Masukan dan pengaturan yang sama menghasilkan berkas yang identik byte demi byte. Hanya stempel waktu UTC di header ekspor yang berbeda.',
-  'agents.b3':
-    'Dokumen berupa berkas zip berisi JSON, sehingga pustaka zip sudah cukup untuk membaca atau menulisnya.',
-  'agents.link': 'Panduan headless dan agen',
-  'agents.cap1':
-    'Periksa sebuah build. Perintah ini membuka jendela asli, merender 60 bingkai, mencetak satu baris, lalu keluar.',
-  'agents.cap2':
-    'Hasilkan setiap keluaran tanpa jendela: menggambar kaos contoh, grading ke S, M, L, dan XL, menyusun marker, lalu menulis berkas yang ada di galeri.',
-  'agents.command': 'Perintah',
-  'agents.output': 'Keluaran',
-
   'dl.title': 'Unduh Rajutara {v}.',
   'dl.lede':
     'Perangkat lunak bebas berlisensi MIT atau Apache-2.0. Setiap paket menyertakan lisensi dan daftar perangkat lunak pihak ketiga.',
@@ -536,7 +482,7 @@ const id: Record<Key, string> = {
   'dl.msiNote': 'Pemasang .msi.',
   'dl.zipNote': 'Ekstrak lalu jalankan rajutara.exe.',
   'dl.noGl':
-    'Tidak ada driver OpenGL di PC Windows? Paket membawa perender perangkat lunak untuk kasus itu, dijelaskan di',
+    'Tanpa driver OpenGL di Windows, paket memakai perender perangkat lunak, dijelaskan di',
   'dl.win7Link': 'catatan Windows 7',
   'dl.checksums': 'Semua berkas dan checksum ada di',
   'dl.releasesLink': 'halaman rilis',
@@ -606,7 +552,7 @@ const id: Record<Key, string> = {
   'gal.groupInterchange': 'Bawa ke CAD lain',
   'gal.groupOutput': 'Yang ditulis Rajutara',
   'gal.headlessBefore': 'Berkas ditulis oleh contoh headless yang menggambar kaos; lihat',
-  'gal.headlessLink': 'headless dan agen',
+  'gal.headlessLink': 'headless dan skrip',
 
   'sample.style': 'Style',
   'sample.styleUse': 'Buka di Rajutara: empat potongan, ukuran S, M, L, dan XL, aturan grading.',

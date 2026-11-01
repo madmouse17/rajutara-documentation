@@ -78,7 +78,7 @@ export default defineConfig({
           translations: { id: 'Referensi' },
           items: [
             { slug: 'docs/formats', translations: { id: 'Format berkas' } },
-            { slug: 'docs/headless', translations: { id: 'Headless dan agen' } },
+            { slug: 'docs/headless', translations: { id: 'Headless dan skrip' } },
             { slug: 'docs/windows-7', translations: { id: 'Windows 7' } },
             { slug: 'docs/glossary', translations: { id: 'Glosarium' } },
           ],

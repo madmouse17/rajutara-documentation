@@ -65,4 +65,4 @@ The test suite drives real windows, so it runs under a virtual display: `LIBGL_A
 
 - [Workflows](../workflows/): five paths through the program.
 - [PDS](../workspaces/pds/), [Grading](../workspaces/grading/), [Marker](../workspaces/marker/) and [Cut Plan](../workspaces/cut-plan/): one guide per workspace.
-- [Headless and agents](../headless/): run it from a script.
+- [Headless and scripting](../headless/): run it from a script.

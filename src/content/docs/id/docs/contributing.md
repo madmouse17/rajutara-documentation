@@ -9,7 +9,7 @@ Rajutara adalah penulisan ulang clean-room dalam Rust dari rangkaian CAD pakaian
 
 | Berkas | Apa yang ditetapkannya |
 |---|---|
-| `AGENTS.md` | Aturan repositori. Mengikat manusia dan agen pengodean sama-sama. |
+| `CONTRIBUTING.md` | Aturan repositori untuk kontributor. Halaman ini mengikutinya. |
 | `GLOSSARY.md` | Kosakata. Kata-katanya adalah nama tipe dan modul Rust, dan istilah baru dimasukkan ke sana sebelum Anda memakainya. Halaman [glosarium](../glossary/) dibuat darinya. |
 | `docs/adr/` | Keputusan yang sudah ditetapkan. Catatan keputusan tidak pernah disunting; yang baru menggantikannya. |
 | `docs/spec/` | Apa yang dilakukan tiap ruang kerja, beserta sumber publiknya. |
@@ -49,7 +49,7 @@ Build Windows dibuat silang dan diperiksa di bawah Wine oleh alat pemelihara, bu
 
 ## Aturan kode
 
-Daftar lengkapnya ada di `AGENTS.md`. Yang pertama diperiksa peninjau:
+Peninjau memeriksa ini lebih dulu:
 
 - Crate pustaka (`rajutara-core`, `rajutara-io`, `rajutara-nest`, dan lainnya) tidak memakai `unwrap`, `expect`, atau `panic!` di luar uji coba. Kesalahan berupa enum `thiserror`, dan `rajutara-core` tidak punya dependensi UI atau I/O.
 - Geometri adalah milimeter sebagai `f64`. Satuan tampilan tidak pernah disimpan. Toleransi adalah konstanta bernama.

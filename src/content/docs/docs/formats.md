@@ -18,7 +18,7 @@ The earlier extensions `.optx`, `.optm` and `.optc` open as well. The [gallery](
 
 ## Native files
 
-A style, a marker and a cut plan are each one zip archive with two entries: `manifest.json`, which names the format and its version, and `document.json`, which holds the content. Lengths are millimetres. A marker embeds the styles it uses, so it opens without the style files. The same input and the same settings write byte-identical files. A file written by a newer format version is refused, never truncated. [Headless and agents](../headless/) shows how to read one with a few lines of Python.
+A style, a marker and a cut plan are each one zip archive with two entries: `manifest.json`, which names the format and its version, and `document.json`, which holds the content. Lengths are millimetres. A marker embeds the styles it uses, so it opens without the style files. The same input and the same settings write byte-identical files. A file written by a newer format version is refused, never truncated. [Headless and scripting](../headless/) shows how to read one with a few lines of Python.
 
 ## ASTM D6673 and AAMA-292 DXF
 

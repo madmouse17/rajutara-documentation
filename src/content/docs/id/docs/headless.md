@@ -1,9 +1,9 @@
 ---
-title: Headless dan agen
-description: Periksa build dengan satu perintah, hasilkan setiap keluaran workflow tanpa jendela, baca dokumen dengan pustaka zip, dan beri agen pengodean fakta yang benar.
+title: Headless dan skrip
+description: Periksa build dengan satu perintah, hasilkan setiap keluaran workflow tanpa jendela, dan baca dokumen dengan pustaka zip, dari skrip, CI, dan proses batch.
 ---
 
-Skrip atau agen pengodean bisa memeriksa build dan menghasilkan setiap keluaran workflow tanpa orang di depan layar. Halaman ini membahas tiga jalur masuk: pemeriksaan smoke, contoh headless, dan dokumen itu sendiri, lalu kit agen yang menyertainya.
+Skrip, tugas CI, dan proses batch bisa memeriksa build dan menghasilkan setiap keluaran workflow tanpa orang di depan layar. Halaman ini membahas tiga jalur masuk: pemeriksaan smoke, contoh headless, dan dokumen itu sendiri.
 
 ## Baris perintah
 
@@ -46,7 +46,7 @@ Workflow tidak punya jendela sendiri: crate pustaka penyusun program berjalan ta
 cargo run --release -p rajutara --example tshirt_sample -- out/
 ```
 
-Contoh itu menulis style, marker hasil nesting, DXF ter-grade beserta RUL-nya, PDF marker A0, plot HPGL/2, laporan CSV, dan PDF potongan berubin A4. Itulah berkas di [galeri](/rajutara-documentation/id/gallery/). Dua contoh lain ada di kit agen di bawah: satu mengimpor DXF beserta RUL-nya dan memplot setiap ukuran setiap potongan ke satu PDF A0, dan satu memuat style, membuat marker dengan satu bundle per ukuran, melakukan nesting, lalu menulis marker dan plot HPGL/2.
+Contoh itu menulis style, marker hasil nesting, DXF ter-grade beserta RUL-nya, PDF marker A0, plot HPGL/2, laporan CSV, dan PDF potongan berubin A4. Itulah berkas di [galeri](/rajutara-documentation/id/gallery/).
 
 Masukan dan pengaturan yang sama menghasilkan berkas identik byte demi byte. Header ekspor membawa cap waktu UTC, jadi hanya baris itu yang berbeda di antara dua ekspor. Mesin nesting menerima seed eksplisit, jadi uji coba bisa mengunci keluarannya. Proses yang berhenti karena batas waktu juga bergantung pada kecepatan mesin.
 
@@ -66,17 +66,3 @@ print([size["name"] for size in style["size_table"]["sizes"]])
 ```
 
 Untuk kaos contoh, ini mencetak nama style dan keempat potongannya, FRONT, BACK, SLEEVE, dan NECK RIB, lalu ukuran S, M, L, dan XL. Satuan panjang adalah milimeter. Perlakukan kunci yang tidak dikenal sebagai data yang harus dipertahankan, dan tulis berkas kembali hanya lewat penulis bawaan Rajutara.
-
-## Kit agen
-
-Agen yang belum pernah melihat Rajutara menebak modelnya: milimeter, grading turunan, batas waktu atau batas iterasi. **rajutara-boost** memberinya fakta, dalam bentuk seperti yang dilakukan Laravel Boost untuk Laravel. Kit ini ada di repositorinya sendiri, [rajutara-boost](https://github.com/madmouse17/rajutara-boost).
-
-| Bagian | Isinya |
-|---|---|
-| Guidelines | Apa itu Rajutara, peta crate, dan invarian, lalu satu berkas masing-masing untuk model inti, I/O berkas, nesting, grading, perencanaan potong, menambah ruang kerja, pengujian, dan gaya. Cukup singkat untuk dimuat sesuai kebutuhan. |
-| API reference | Tanda tangan sungguhan dalam blok berpagar, diperiksa terhadap checkout oleh sebuah skrip, sehingga referensi tidak bisa melenceng tanpa disadari. |
-| Examples | Tiga program headless, dikompilasi terhadap rilis. |
-| MCP server | Server kecil lewat stdio yang menautkan crate Rajutara secara langsung, dengan alat untuk memeriksa apakah berkas terbuka, mengimpor DXF, melakukan nesting marker, dan memplotnya. Kesalahan kembali sebagai kesalahan alat, dan berkas masukan tidak pernah diubah. |
-| Skill | Guidelines yang dikemas untuk agen yang memuat skill. |
-
-Invarian yang harus dijaga agen ada di [Berkontribusi](../contributing/): milimeter sebagai `f64`, tanpa panic pada data pengguna, tanpa runtime async, keluaran deterministik, dan aturan clean-room.
