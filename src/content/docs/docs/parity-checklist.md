@@ -1,9 +1,9 @@
 ---
 title: Parity checklist
-description: What an Operator trained on Optitex 15 finds in Rajutara 1.0.0, module by module.
+description: What an Operator trained on Optitex 15 finds in Rajutara 1.1.0, module by module.
 ---
 
-What an Operator trained on Optitex 15 finds in Rajutara 1.0.0, module by module. Rajutara mirrors the module split, tool names and workflows of Optitex 15 ([`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §3); it does not copy any Optitex file or format ([ADR-0001](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0001-clean-room-no-reverse-engineering.md)).
+What an Operator trained on Optitex 15 finds in rajutara 1.0.0, module by module. rajutara mirrors the module split, tool names and workflows of Optitex 15 ([`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §3); it does not copy any Optitex file or format ([ADR-0001](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0001-clean-room-no-reverse-engineering.md)).
 
 The rows come from the coverage tables at the end of the implementation plans ([`04-pds-part2.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/04-pds-part2.md), [`05-grading.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/05-grading.md), [`06-marker-part2.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/06-marker-part2.md), [`07-cutplan.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/07-cutplan.md)), from the "not mirrored" tables of the specs, and from the code: an action registered as disabled, or a control drawn disabled, is not counted as shipped. The 117 PDS action ids of the PDS coverage table all exist in `crates/rajutara-pds`. Tool numbers (`T01`, `G01`) are those of the specs ([`02-pds.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/02-pds.md) §5, [`03-grading.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/03-grading.md) §6). What Optitex added after version 15 is in [`08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md).
 
@@ -25,7 +25,7 @@ The rows come from the coverage tables at the end of the implementation plans ([
 
 ## PDS (pattern design)
 
-All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Drill Hole" in Rajutara ([`GLOSSARY.md`](https://github.com/madmouse17/rajutara/blob/main/GLOSSARY.md)).
+All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Drill Hole" in rajutara ([`GLOSSARY.md`](https://github.com/madmouse17/rajutara/blob/main/GLOSSARY.md)).
 
 ### General: selection, view, files and reports
 
@@ -290,7 +290,7 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 | Marker limits: maximum length, minimum and maximum plies, maximum bundles, waste limit, end allowance | Yes | |
 | Estimated efficiency, material cost share | Yes | |
 | Lay planning: markers, plies and ratios | Yes | Deterministic greedy solver; Optitex does not publish its own. |
-| Nest Markers: real nested lengths replace estimates, markers saved as `.optm` | Yes | |
+| Nest Markers: real nested lengths replace estimates, markers saved as `.rjm` | Yes | |
 | Results: markers, lays, ordered, planned and difference, totals and cost | Yes | |
 | Manual edit of plies and ratios | Yes | |
 | Cut Plan report (CSV, PDF) and Production Report | Yes | |
@@ -314,7 +314,7 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 | Graded nests and ASTM RUL grade-rule files | Yes | |
 | Plot to PDF (A4 tiles, A0, A4 fit) and HPGL/2 | Yes | |
 | CSV reports and quantity lists | Yes | |
-| Style, Marker and Cut Plan documents | Yes | Rajutara's own `.optx`, `.optm` and `.optc` (zip and JSON). Save is atomic and keeps a `.bak`. |
+| Style, Marker and Cut Plan documents | Yes | rajutara's own `.rjx`, `.rjm` and `.rjc` (zip and JSON). Save is atomic and keeps a `.bak`. |
 | Undo and redo | Yes | |
 | Autosave and crash recovery | Yes | |
 | Dockable panes, one window for PDS, Grading, Marker and Cut Plan | Yes | Optitex ships these as separate programs. |

@@ -53,7 +53,7 @@ def parity(source: Path) -> str:
     return (
         "---\n"
         "title: Parity checklist\n"
-        "description: What an Operator trained on Optitex 15 finds in Rajutara 1.0.0, module by module.\n"
+        "description: What an Operator trained on Optitex 15 finds in Rajutara 1.1.0, module by module.\n"
         "---\n\n"
         f"{body}\n"
     )
@@ -82,6 +82,18 @@ def glossary(source: Path) -> str:
     )
 
 
+def changelog(source: Path) -> str:
+    text = re.sub(r"\A# .*\n+", "", source.read_text())
+    text = repo_links(text, ".")
+    return (
+        "---\n"
+        "title: Changelog\n"
+        "description: What changed in each Rajutara release.\n"
+        "---\n\n"
+        f"{rename(text).strip()}\n"
+    )
+
+
 def main() -> None:
     if len(sys.argv) != 2:
         sys.exit(__doc__)
@@ -89,7 +101,8 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "parity-checklist.md").write_text(parity(repo / "docs/parity-checklist.md"))
     (OUT / "glossary.md").write_text(glossary(repo / "GLOSSARY.md"))
-    print(f"wrote {OUT / 'parity-checklist.md'} and {OUT / 'glossary.md'}")
+    (OUT / "changelog.md").write_text(changelog(repo / "CHANGELOG.md"))
+    print(f"wrote parity-checklist, glossary and changelog under {OUT}")
 
 
 if __name__ == "__main__":

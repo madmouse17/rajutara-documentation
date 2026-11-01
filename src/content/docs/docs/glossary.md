@@ -25,7 +25,7 @@ The words of Rajutara. They are also the names of its types and modules, so a te
 | **Base Size** | The one size in a Size Table whose piece geometry is drawn; every other size is derived from it by Grade Rules. | Master size, sample size, reference size |
 | **Ply** | One layer of fabric in a Lay. | Layer, sheet |
 | **Plot** | Output of a marker or pieces at 1:1 scale to a plotter (HPGL/2) or to PDF, including tiled PDF for small printers. | Print, export drawing |
-| **Operator** | The person using Rajutara in a garment workshop: a pattern maker, grader or marker maker trained on Optitex. | User, designer, admin |
+| **Operator** | The person using rajutara in a garment workshop: a pattern maker, grader or marker maker trained on Optitex. | User, designer, admin |
 | **Turn Point** | A contour point where the line may change direction sharply. Two Turn Points with no Curve Point between them are joined by a straight line. | Corner point, anchor, node |
 | **Curve Point** | A contour point that a smooth curve passes through; consecutive Curve Points shape one curve. | Spline point, control point, handle |
 | **Grade Point** | A point of a piece that carries its own Grade Rule. Contour points without one move in proportion to the neighbouring Grade Points. | Rule point, cardinal point |
@@ -44,7 +44,7 @@ The words of Rajutara. They are also the names of its types and modules, so a te
 | **Stack Point** | The point or grainline at which the sizes of a Graded Nest are aligned for display. Choosing it never changes geometry or Grade Rules. | Anchor point, reference point |
 | **Rule Table** | A numbered set of Grade Rules kept with a Style, copied onto Grade Points and exchanged as an ASTM RUL file. | Rules library, rule file, RUL |
 | **Cut Plan** | The Lays, each a Marker with a ply count, that together cut an Order from one Material, with the fabric length and cost they consume. | Cutting plan, spreading plan |
-| **Cut Order** | The sequence in which the Lays of a Cut Plan are spread and cut, with the Fabric Rolls each Lay draws its Plies from. Optitex calls a whole plan a "cut order"; in Rajutara that is the Cut Plan. | Spreading order, cutting sequence, roll plan |
+| **Cut Order** | The sequence in which the Lays of a Cut Plan are spread and cut, with the Fabric Rolls each Lay draws its Plies from. Optitex calls a whole plan a "cut order"; in rajutara that is the Cut Plan. | Spreading order, cutting sequence, roll plan |
 | **Fabric Roll** | One roll of a Material in one Order colour as it comes from the fabric room, with its code, Shade, width and length. Each Ply is drawn whole from one Fabric Roll. | Bolt, piece goods, roll stock |
 | **Shade** | The tone class a Fabric Roll is graded into at inspection (Optitex "Shade": A, B, C, …). The Plies of one Lay come from one Shade whenever the rolls allow. | Lot, dye lot, tone |
 | **Remnant** | The fabric left on a Fabric Roll after the Cut Order has drawn its Plies from it; it goes back to the fabric room. | Roll end, end bit, leftover, offcut |

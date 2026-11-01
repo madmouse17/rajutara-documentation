@@ -85,6 +85,7 @@ export default defineConfig({
           items: [
             { slug: 'docs/roadmap' },
             { slug: 'docs/parity-checklist' },
+            { slug: 'docs/changelog' },
             { slug: 'docs/contributing' },
           ],
         },
