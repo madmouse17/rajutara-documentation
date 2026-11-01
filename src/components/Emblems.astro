@@ -1,0 +1,23 @@
+---
+// A row of the crates and file formats a feature touches. The icons are the application's own toolbar icons
+// (src/icons), so the page and the program draw the same things the same way.
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  items: { label: string; icon: string }[];
+  class?: string;
+}
+
+const { items } = Astro.props;
+---
+
+<ul class:list={['flex flex-wrap gap-2', Astro.props.class]} aria-label="Crates and formats involved">
+  {
+    items.map((item) => (
+      <li class="flex h-9 items-center gap-2 rounded-lg border border-line bg-surface px-3 text-sm">
+        <Icon name={item.icon} class="size-4 text-muted" aria-hidden="true" />
+        <span class="font-mono">{item.label}</span>
+      </li>
+    ))
+  }
+</ul>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Remove the baked-in "Loading... please wait" caption and progress bar from optirust-banner-wide.jpg.
+"""Remove the baked-in "Loading... please wait" caption and progress bar from rajutara-banner-wide.jpg.
 
 The owner's wide banner doubles as the splash art, so it carries a loader under the tagline. On a web page
 that reads as a page stuck loading. This repaints that strip as plain blueprint paper: a smooth background
@@ -8,8 +8,8 @@ in the artwork is touched.
 
 Needs Pillow and numpy.
 
-    python3 scripts/clean-banner.py ../optirust/assets/logo/optirust-banner-wide.jpg \
-        src/assets/brand/optirust-banner.jpg --og public/og.jpg
+    python3 scripts/clean-banner.py ../rajutara/assets/logo/rajutara-banner-wide.jpg \
+        src/assets/brand/rajutara-banner.jpg --og public/og.jpg
 """
 
 import argparse
@@ -18,11 +18,11 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-# The loader strip in the 1600x656 original: caption at y 347-370, bar at y 376-401, x 613-976.
-MASK = (606, 341, 985, 404)  # x0, y0, x1, y1 (exclusive)
+# The loader strip in the 1600x656 original: caption at y 349-370, bar at y 379-401, x 606-971.
+MASK = (598, 342, 990, 406)  # x0, y0, x1, y1 (exclusive)
 # Left of the strip the paper is clean except for one ruler line (rows 392-398), so its rows show where the
 # horizontal grid lines run. The vertical lines are too faint near the strip to be worth redrawing.
-FLANK = (572, 602)
+FLANK = (566, 596)
 RULER_ROWS = (392, 399)
 
 

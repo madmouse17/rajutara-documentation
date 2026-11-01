@@ -1,108 +1,212 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { Picture } from 'astro:assets';
-import banner from '../../assets/brand/optirust-banner.jpg';
 import { withBase } from '../../lib/site';
+
+// The clip is the real application: scripts/record-demo.sh records it under Xvfb, zooming into the sample
+// marker, panning along it and zooming back out. Muted, 10 s, looping, 1280x720.
+const media = (file: string) => withBase(`/media/${file}`);
+
+// Five words, each an anchor to the section that tells that part of the story.
+const steps = [
+  { label: 'Import', href: '#formats', icon: 'import' },
+  { label: 'Draft', href: '#pds', icon: 'draft' },
+  { label: 'Grade', href: '#grading', icon: 'graded-nest' },
+  { label: 'Nest', href: '#marker', icon: 'marker-nest' },
+  { label: 'Plot', href: '#plot', icon: 'marker-plot' },
+];
 ---
 
-<section aria-labelledby="hero-title">
-  <div
-    class="mx-auto grid max-w-300 gap-6 px-5 pt-10 pb-8 lg:grid-cols-12 lg:items-end lg:gap-10 lg:pt-12 lg:pb-10"
+<section aria-labelledby="hero-title" class="mx-auto max-w-300 px-5 pt-10 pb-6 lg:pt-14">
+  <h1
+    id="hero-title"
+    class="rise max-w-[16ch] text-hero font-semibold sm:max-w-[18ch] lg:max-w-none"
+    style="--i: 0"
   >
-    <h1
-      id="hero-title"
-      class="rise text-5xl leading-[1.04] font-semibold tracking-tighter lg:col-span-7 lg:text-6xl"
-      style="--i: 0"
-    >
-      Apparel CAD for garment workshops.
-    </h1>
-    <div class="lg:col-span-5">
-      <p class="rise max-w-[40ch] text-lg text-muted" style="--i: 1">
-        Draft or import pieces, grade the sizes, nest the marker, plan the lays. Open source, for
-        Linux and Windows.
-      </p>
-      <div class="rise mt-6 flex flex-wrap gap-3" style="--i: 2">
-        <a href="#download" class="btn btn-primary">
-          <Icon name="ph:download-simple" class="size-5" aria-hidden="true" />
-          Download
-        </a>
-        <a href={withBase('/docs/')} class="btn btn-secondary">Read the docs</a>
-      </div>
+    Pattern CAD built for real garments.
+  </h1>
+
+  <div class="mt-6 flex flex-wrap items-center gap-x-10 gap-y-5 lg:mt-8">
+    <p class="rise max-w-[42ch] text-lg text-muted lg:text-xl" style="--i: 1">
+      Draft, grade, nest and plan the cut in one open-source window for Linux and Windows.
+    </p>
+    <div class="rise flex flex-wrap gap-3" style="--i: 2">
+      <a href="#download" class="btn btn-primary">
+        <Icon name="ph:download-simple" class="size-5" aria-hidden="true" />
+        Download
+      </a>
+      <a href={withBase('/docs/')} class="btn btn-secondary">Read the docs</a>
     </div>
   </div>
 
-  <div class="plate" style="--i: 3">
-    <Picture
-      src={banner}
-      alt="The optirust banner: a crab with a woven shell holding a needle and thread above the wordmark and the line Designing patterns, crafting future, over blueprint drawings of vests and hoodies, a grading table, the application window, rolls of fabric, scissors and a tape measure."
-      widths={[640, 960, 1280, 1600]}
-      sizes="100vw"
-      formats={['avif', 'webp']}
-      loading="eager"
-      fetchpriority="high"
-      decoding="async"
-      class="plate-img"
-    />
-  </div>
+  <figure class="hero-media rise mt-10 lg:mt-12" style="--i: 3">
+    <video
+      data-hero-video
+      width="1280"
+      height="720"
+      poster={media('rajutara-marker-demo-poster.jpg')}
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      aria-label="Screen recording of Rajutara: the sample tee marker, zooming in on the pieces, panning along the fabric and zooming back out."
+    >
+      <source src={media('rajutara-marker-demo.webm')} type="video/webm" />
+      <source src={media('rajutara-marker-demo.mp4')} type="video/mp4" />
+    </video>
+    <button type="button" class="hero-toggle" data-hero-toggle hidden aria-label="Play video">
+      <Icon name="ph:pause-fill" class="icon-pause size-5" aria-hidden="true" />
+      <Icon name="ph:play-fill" class="icon-play size-5" aria-hidden="true" />
+    </button>
+  </figure>
+
+  <nav aria-label="Workflow" class="mt-10 lg:mt-12">
+    <ol class="steps">
+      {
+        steps.map((s) => (
+          <li>
+            <a href={s.href}>
+              <span class="mark">
+                <Icon name={s.icon} class="size-6" aria-hidden="true" />
+              </span>
+              <span class="word">{s.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
 </section>
 
 <style>
-  /* The banner is the visual of the page: full width, its own aspect ratio, and a centred crop of the
-     wordmark on narrow screens so the logo and tagline stay readable. */
-  .plate {
+  .hero-media {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 1600 / 656;
-    background: #071b3a; /* the artwork's paper colour, shown while the image decodes */
-    view-timeline: --plate block;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    box-shadow: var(--shadow-lift);
   }
-  @media (max-width: 47.99rem) {
-    .plate {
-      aspect-ratio: 4 / 3;
-    }
-  }
-  .plate :global(picture),
-  .plate :global(img) {
+  .hero-media video {
     display: block;
     width: 100%;
     height: 100%;
-  }
-  .plate :global(img) {
     object-fit: cover;
-    object-position: 50% 40%;
-    transform-origin: 62% 52%;
+  }
+  /* Moving content that runs longer than five seconds needs a way to stop it (WCAG 2.2.2). */
+  .hero-toggle {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--fg);
+    border: 1px solid var(--outline);
+  }
+  .hero-toggle:hover {
+    border-color: var(--fg);
+  }
+  .hero-toggle[data-state='playing'] .icon-play,
+  .hero-toggle:not([data-state='playing']) .icon-pause {
+    display: none;
   }
 
-  /* Two motions on two properties, so they compose: a slow zoom once on load (the banner settling into
-     frame), and a drift as the hero scrolls away (the banner moving slower than the page). Edges stay
-     covered because the zoom never goes below 1.06 and the drift never exceeds 2.5 %. */
-  @media (prefers-reduced-motion: no-preference) {
-    @keyframes settle {
-      from {
-        scale: 1.06;
-      }
-      to {
-        scale: 1.12;
-      }
+  /* The workflow strip: five steps joined by a hairline, like stations along one line. */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .steps li {
+    position: relative;
+  }
+  .steps li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 1.75rem;
+    left: calc(50% + 1.75rem);
+    right: calc(-50% + 1.75rem);
+    height: 1px;
+    background: var(--outline);
+    pointer-events: none;
+  }
+  .steps a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding-block: 0.25rem 0.5rem;
+    color: var(--fg);
+  }
+  .mark {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 1px solid var(--outline);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--accent-text);
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease;
+  }
+  .steps a:hover .mark {
+    border-color: var(--accent-text);
+    background: var(--surface-2);
+  }
+  .word {
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  @media (max-width: 30rem) {
+    .mark {
+      width: 3rem;
+      height: 3rem;
     }
-    .plate :global(img) {
-      animation: settle 24s cubic-bezier(0.2, 0.6, 0.2, 1) both;
-      scale: 1.06;
+    .steps li:not(:last-child)::after {
+      top: 1.5rem;
+      left: calc(50% + 1.5rem);
+      right: calc(-50% + 1.5rem);
     }
-
-    @supports (animation-timeline: view()) {
-      @keyframes drift {
-        to {
-          translate: 0 2.5%;
-        }
-      }
-      .plate :global(img) {
-        animation:
-          settle 24s cubic-bezier(0.2, 0.6, 0.2, 1) both,
-          drift linear both;
-        animation-timeline: auto, --plate;
-        animation-range: normal, exit 0% exit 100%;
-      }
+    .word {
+      font-size: 0.875rem;
     }
   }
 </style>
+
+<script>
+  // The clip plays while it is on screen and the visitor has not asked for less motion or paused it.
+  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-hero-toggle]');
+
+  if (video && toggle) {
+    let pausedByVisitor = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const show = (playing: boolean) => {
+      toggle.dataset.state = playing ? 'playing' : 'paused';
+      toggle.setAttribute('aria-label', playing ? 'Pause video' : 'Play video');
+    };
+    video.addEventListener('play', () => show(true));
+    video.addEventListener('pause', () => show(false));
+
+    toggle.hidden = false;
+    show(false);
+    toggle.addEventListener('click', () => {
+      pausedByVisitor = !video.paused;
+      if (video.paused) void video.play();
+      else video.pause();
+    });
+
+    new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) video.pause();
+        else if (!pausedByVisitor) void video.play().catch(() => {});
+      },
+      { threshold: 0.25 },
+    ).observe(video);
+  }
+</script>

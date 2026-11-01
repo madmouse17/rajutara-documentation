@@ -1,7 +1,8 @@
 /*
-  Starlight theme: maps the shared tokens onto Starlight's variables so the docs look like the rest of
-  the site. Dark is the default; light is `:root[data-theme='light']`. Every text pair was checked at 4.5:1
-  or better (see docs/preflight.md).
+  Starlight theme: maps the shared tokens (tokens.css) onto Starlight's variables so the docs look like the
+  rest of the site. The `:root` values are the dark theme and `:root[data-theme='light']` the light one, which
+  is the default (ThemeInit sets the attribute before first paint). Every text pair was checked at 4.5:1 or
+  better (see docs/preflight.md).
 */
 :root {
   --sl-font: var(--font-sans-stack);
@@ -12,24 +13,24 @@
   --sl-line-height: 1.7;
 
   /* Dark: "white" is the strongest text, "black" the page background. */
-  --sl-color-white: #f2f5fa;
-  --sl-color-gray-1: #e1e7f0;
-  --sl-color-gray-2: #b9c5d8;
-  --sl-color-gray-3: #8c9db8;
-  --sl-color-gray-4: #566884;
-  --sl-color-gray-5: #243350;
-  --sl-color-gray-6: #111c2e;
-  --sl-color-black: #0b1220;
+  --sl-color-white: #f1f5fb;
+  --sl-color-gray-1: #dbe5f4;
+  --sl-color-gray-2: #aebfd9;
+  --sl-color-gray-3: #8da3c6;
+  --sl-color-gray-4: #4f6a98;
+  --sl-color-gray-5: #1f3a68;
+  --sl-color-gray-6: #0c1f3f;
+  --sl-color-black: #07152d;
 
   --sl-color-accent-low: #3a1d12;
   --sl-color-accent: #df5821;
   --sl-color-accent-high: #f59a70;
 
   /* Note and tip asides stay in the navy family; only Caution uses the orange accent. */
-  --sl-color-blue-low: #16243b;
+  --sl-color-blue-low: #10264a;
   --sl-color-blue: #7da3d6;
   --sl-color-blue-high: #c3d6f0;
-  --sl-color-purple-low: #16243b;
+  --sl-color-purple-low: #10264a;
   --sl-color-purple: #7da3d6;
   --sl-color-purple-high: #c3d6f0;
   --sl-color-orange-low: #3a1d12;
@@ -39,21 +40,21 @@
   --sl-color-red: #ef6a5b;
   --sl-color-red-high: #f6b3aa;
 
-  --sl-color-hairline-light: #243350;
-  --sl-color-hairline: #18263d;
-  --sl-color-bg-inline-code: #1a2740;
+  --sl-color-hairline-light: #1f3a68;
+  --sl-color-hairline: #132b52;
+  --sl-color-bg-inline-code: #132b52;
 }
 
 :root[data-theme='light'] {
-  --sl-color-white: #111c2e;
-  --sl-color-gray-1: #1b2a42;
-  --sl-color-gray-2: #2f3f58;
-  --sl-color-gray-3: #4b5b75;
-  --sl-color-gray-4: #7d8ba3;
-  --sl-color-gray-5: #c9d1de;
-  --sl-color-gray-6: #eceff5;
-  --sl-color-gray-7: #f3f5f9;
-  --sl-color-black: #f6f7fa;
+  --sl-color-white: #0b1b36;
+  --sl-color-gray-1: #1b2c4a;
+  --sl-color-gray-2: #41536f;
+  --sl-color-gray-3: #566987;
+  --sl-color-gray-4: #8091ab;
+  --sl-color-gray-5: #d5dcea;
+  --sl-color-gray-6: #edf1f8;
+  --sl-color-gray-7: #f2f5fa;
+  --sl-color-black: #f7f9fc;
 
   --sl-color-accent-low: #fde6da;
   --sl-color-accent: #df5821;
@@ -72,9 +73,9 @@
   --sl-color-red: #d6453a;
   --sl-color-red-high: #8a1f17;
 
-  --sl-color-hairline-light: #d6dce7;
+  --sl-color-hairline-light: #d5dcea;
   --sl-color-hairline: #e2e7ef;
-  --sl-color-bg-inline-code: #e6eaf2;
+  --sl-color-bg-inline-code: #e6ebf4;
 }
 
 .sl-markdown-content h1,
@@ -88,21 +89,10 @@ main h1 {
   font-weight: 620;
 }
 
-/* Screenshots in the docs: same frame as the landing page, link to the full-size file. */
-.sl-markdown-content figure.shot {
-  margin-block: 1.5rem;
-}
-.sl-markdown-content figure.shot img {
-  display: block;
-  width: 100%;
-  height: auto;
+/* Screenshots in the docs: the same frame as the landing page. */
+.sl-markdown-content img {
   border: 1px solid var(--sl-color-hairline-light);
   border-radius: var(--radius);
-}
-.sl-markdown-content figure.shot figcaption {
-  margin-top: 0.5rem;
-  font-size: var(--sl-text-sm);
-  color: var(--sl-color-gray-3);
 }
 
 /* Tables in the checklist and glossary pages scroll on narrow screens instead of squeezing. */

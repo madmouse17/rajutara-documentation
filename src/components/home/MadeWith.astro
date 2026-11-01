@@ -1,0 +1,180 @@
+---
+import { Image } from 'astro:assets';
+import teeNested from '../../assets/gallery/tee-nested.jpg';
+import teePlot from '../../assets/gallery/tee-marker.png';
+import nest300 from '../../assets/gallery/nest-300.jpg';
+import gradingNest from '../../assets/gallery/grading-nest.jpg';
+import { withBase } from '../../lib/site';
+
+// The one marquee on the page: real renders only, each linking to its place in the gallery. The strip is
+// two copies of the same list sliding by exactly one copy, so the loop has no seam; the second copy is
+// hidden from assistive technology and from the keyboard.
+const HEIGHT = 240;
+const items = [
+  {
+    id: 'tee-nested',
+    image: teeNested,
+    title: 'The sample tee, nested',
+    note: '20 pieces, 84.10 %, 2.53 m',
+    alt: 'The sample tee marker in the application: 20 pieces of four sizes in four colours on 180 cm fabric.',
+  },
+  {
+    id: 'nest-300',
+    image: nest300,
+    title: '300 shirt fronts',
+    note: '0 overlaps, 89.62 %',
+    alt: 'Three rows of nested shirt fronts, seen at the start of a 300-piece marker.',
+  },
+  {
+    id: 'tee-plot',
+    image: teePlot,
+    title: 'The same marker, plotted',
+    note: 'A0 PDF, stitched from its tiles',
+    alt: 'The sample tee marker drawn as navy outlines with notches and grainlines, one piece labelled with its name and size.',
+  },
+  {
+    id: 'grading-nest',
+    image: gradingNest,
+    title: 'Graded nest',
+    note: 'S, M, L and XL, one colour each',
+    alt: 'Front, back and sleeve pieces with their graded sizes drawn as nested outlines in four colours.',
+  },
+].map((item) => ({
+  ...item,
+  width: Math.round((HEIGHT * item.image.width) / item.image.height),
+}));
+---
+
+<section aria-labelledby="made-title" class="pb-20 lg:pb-28">
+  <div class="mx-auto max-w-300 px-5">
+    <h2 id="made-title" class="max-w-[16ch] text-section">Made with Rajutara.</h2>
+    <p class="mt-5 max-w-[56ch] text-lg text-muted">
+      Real renders from the sample files and the end-to-end tests. No stock images.
+    </p>
+  </div>
+
+  <div class="marquee-wrap mt-12">
+    <input type="checkbox" id="marquee-pause" class="sr-only" />
+    <label for="marquee-pause" class="pause-label">
+      <span class="when-running">Pause the strip</span>
+      <span class="when-paused">Resume the strip</span>
+    </label>
+    <div class="marquee">
+      <div class="track">
+        {
+          [false, true].map((hidden) => (
+            <ul class="copy" aria-hidden={hidden ? 'true' : undefined} inert={hidden}>
+              {items.map((item) => (
+                <li>
+                  <a href={withBase(`/gallery/#${item.id}`)} tabindex={hidden ? -1 : undefined}>
+                    <Image
+                      src={item.image}
+                      alt={hidden ? '' : item.alt}
+                      width={item.width}
+                      height={HEIGHT}
+                      densities={[1, 1.5]}
+                      loading="lazy"
+                      class="frame"
+                    />
+                    <span class="mt-3 block font-medium">{item.title}</span>
+                    <span class="block text-sm text-muted">{item.note}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .marquee-wrap {
+    position: relative;
+  }
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  }
+  .track {
+    display: flex;
+    width: max-content;
+    animation: strip 80s linear infinite;
+  }
+  .copy {
+    display: flex;
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .copy a {
+    display: block;
+    color: var(--fg);
+  }
+  .frame {
+    display: block;
+    height: 240px;
+    width: auto;
+    max-width: none;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  @keyframes strip {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  .marquee:hover .track,
+  .marquee:focus-within .track,
+  #marquee-pause:checked ~ .marquee .track {
+    animation-play-state: paused;
+  }
+
+  /* The pause switch is a real checkbox, so it works from the keyboard with no script. */
+  .pause-label {
+    position: absolute;
+    right: max(1.25rem, calc((100% - 75rem) / 2 + 1.25rem));
+    bottom: calc(100% + 0.75rem);
+    display: inline-flex;
+    align-items: center;
+    height: 2.75rem;
+    padding: 0 1rem;
+    border: 1px solid var(--outline);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .pause-label:hover {
+    border-color: var(--fg);
+  }
+  #marquee-pause:focus-visible + .pause-label {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 3px;
+  }
+  .when-paused,
+  #marquee-pause:checked + .pause-label .when-running {
+    display: none;
+  }
+  #marquee-pause:checked + .pause-label .when-paused {
+    display: inline;
+  }
+
+  /* Reduced motion: no sliding. The strip is one row the visitor scrolls, with a single copy of the list. */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      overflow-x: auto;
+      mask-image: none;
+      padding-inline: 1.25rem;
+    }
+    .track {
+      animation: none;
+      width: auto;
+    }
+    .copy[aria-hidden='true'],
+    .pause-label {
+      display: none;
+    }
+  }
+</style>

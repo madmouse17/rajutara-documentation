@@ -1,6 +1,6 @@
 ---
-// Sets the theme before first paint so there is no flash. Dark is the default; the visitor's choice is
-// kept under the same key Starlight uses, so the landing page and the docs always agree.
+// Sets the theme before first paint so there is no flash. Light is the default; the visitor's choice is kept
+// under the same key Starlight uses, so the landing page and the docs always agree.
 ---
 
 <script is:inline>
@@ -11,6 +11,6 @@
     } catch {
       // Storage can be blocked; fall back to the default.
     }
-    document.documentElement.dataset.theme = stored === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = stored === 'dark' ? 'dark' : 'light';
   })();
 </script>

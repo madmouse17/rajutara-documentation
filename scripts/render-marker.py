@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Stitch the A0 tiles of a optirust marker plot PDF into one image of the whole marker.
+"""Stitch the A0 tiles of a Rajutara marker plot PDF into one image of the whole marker.
 
-optirust writes a marker bigger than one sheet as a tiled PDF: page 1 is the assembly map, the other pages
-are tiles laid edge to edge inside a 10 mm frame (docs/spec/02-pds.md 9.3 in the optirust repository).
+Rajutara writes a marker bigger than one sheet as a tiled PDF: page 1 is the assembly map, the other pages
+are tiles laid edge to edge inside a 10 mm frame (docs/spec/02-pds.md 9.3 in the Rajutara repository).
 This reads the tile grid from the map page, crops every tile to its frame, joins them and drops the
 header block that sits left of the fabric. Lines are drawn in the brand navy on white.
 
@@ -41,7 +41,7 @@ def tile_grid(text: str) -> tuple[float, float, int, int]:
     """Plot size in mm and the tile grid, from the 'Plot W x H mm: N tiles (R rows x C columns)' line."""
     m = re.search(r"Plot (\d+(?:\.\d+)?) x (\d+(?:\.\d+)?) mm: \d+ tiles \((\d+) rows x (\d+) columns\)", text)
     if not m:
-        sys.exit("page 1 is not an optirust tile map")
+        sys.exit("page 1 is not a Rajutara tile map")
     return float(m[1]), float(m[2]), int(m[3]), int(m[4])
 
 

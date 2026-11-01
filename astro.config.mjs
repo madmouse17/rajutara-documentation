@@ -4,15 +4,15 @@ import starlight from '@astrojs/starlight';
 import icon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
 
-// GitHub Pages serves this repository at https://madmouse17.github.io/optirust-documentation/. Every link
+// GitHub Pages serves this repository at https://madmouse17.github.io/rajutara-documentation/. Every link
 // and asset goes through the base: Astro and Starlight add it themselves, our components use withBase()
 // (src/lib/site.ts) and the Markdown content uses relative links, so it works under any base.
 const site = 'https://madmouse17.github.io';
-const base = '/optirust-documentation';
+const base = '/rajutara-documentation';
 
 const publicUrl = (/** @type {string} */ path) => new URL(`${base}${path}`, site).href;
 
-const repo = 'https://github.com/optirust/optirust';
+const repo = 'https://github.com/madmouse17/rajutara';
 const description =
   'Open-source apparel CAD for garment workshops: pattern design, grading, marker making and cut planning.';
 
@@ -25,11 +25,11 @@ export default defineConfig({
   integrations: [
     icon(),
     starlight({
-      title: 'optirust',
+      title: 'Rajutara',
       description,
-      logo: { src: './src/assets/logo/optirust-128.png', alt: '' },
+      logo: { src: './src/assets/logo/rajutara-128.png', alt: '' },
       favicon: '/favicon.png',
-      social: [{ icon: 'github', label: 'optirust on GitHub', href: repo }],
+      social: [{ icon: 'github', label: 'Rajutara on GitHub', href: repo }],
       defaultLocale: 'root',
       locales: {
         root: { label: 'English', lang: 'en' },
@@ -57,7 +57,7 @@ export default defineConfig({
         {
           label: 'Start',
           translations: { id: 'Mulai' },
-          items: [{ slug: 'docs' }, { slug: 'docs/getting-started' }],
+          items: [{ slug: 'docs' }, { slug: 'docs/getting-started' }, { slug: 'docs/workflows' }],
         },
         {
           label: 'Workspaces',

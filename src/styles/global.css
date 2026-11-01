@@ -28,6 +28,14 @@
   --text-figure: clamp(2.5rem, 6vw, 3.75rem);
   --text-figure--line-height: 1;
   --text-figure--letter-spacing: -0.04em;
+
+  /* Fluid headings: the hero is oversized and two lines wide, section titles follow at a smaller step. */
+  --text-hero: clamp(2.75rem, 7vw, 5.5rem);
+  --text-hero--line-height: 0.98;
+  --text-hero--letter-spacing: -0.045em;
+  --text-section: clamp(2rem, 4.4vw, 3.5rem);
+  --text-section--line-height: 1.04;
+  --text-section--letter-spacing: -0.035em;
 }
 
 @layer base {

@@ -1,9 +1,10 @@
 /*
   Design tokens shared by the landing page, the gallery and the docs.
 
-  The palette is the owner's artwork: blueprint paper (#071B3A, sampled from assets/logo/optirust-banner-wide.jpg),
-  its pale-blue drafting lines, and the Rust orange of the crab (#DF5824, sampled from optirust-256.png).
-  Dark is the default theme; light is `data-theme="light"` on <html>, set before first paint by ThemeInit.
+  The palette is the owner's artwork: blueprint paper (#071B3A, sampled from assets/logo/rajutara-banner-wide.jpg),
+  its pale-blue drafting lines, and the Rust orange of the crab (#DF5824, sampled from the logo). Light is the
+  default theme (<html data-theme="light"> in the markup and in ThemeInit); dark is `data-theme="dark"`, and
+  the `:root` values below are the dark ones, because Starlight's own sheets use the same convention.
   Orange is the only accent and means "drawn by hand": the base size, the primary action, the focus ring.
   Everything derived (the other sizes, links in running text) stays blue or neutral.
 
@@ -44,10 +45,10 @@
 :root[data-theme='light'] {
   color-scheme: light;
 
-  --bg: #f4f6fb;
-  --surface: #fbfcfe;
-  --surface-2: #e9edf5;
-  --line: #d3dae8;
+  --bg: #f7f9fc;
+  --surface: #fcfdff;
+  --surface-2: #edf1f8;
+  --line: #d5dcea;
   --outline: #5c7090;
   --fg: #0b1b36;
   --fg-muted: #41536f;
@@ -60,5 +61,5 @@
   --size-l: #2f64b0;
   --size-xl: #1d4a8c;
 
-  --shadow-lift: 0 28px 56px -28px rgb(11 27 54 / 0.4);
+  --shadow-lift: 0 28px 56px -28px rgb(11 27 54 / 0.45);
 }

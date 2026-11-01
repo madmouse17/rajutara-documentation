@@ -2,24 +2,38 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/home/Hero.astro';
 import Sequence from '../components/home/Sequence.astro';
-import Workspaces from '../components/home/Workspaces.astro';
+import Workflow from '../components/home/Workflow.astro';
+import StartFaster from '../components/home/StartFaster.astro';
+import MadeWith from '../components/home/MadeWith.astro';
 import Numbers from '../components/home/Numbers.astro';
 import Formats from '../components/home/Formats.astro';
 import Agents from '../components/home/Agents.astro';
 import Download from '../components/home/Download.astro';
+import Closing from '../components/home/Closing.astro';
+import { withBase } from '../lib/site';
 ---
 
 <Base
-  title="optirust: open-source apparel CAD for garment workshops"
-  description="Draft or import pieces, grade the sizes, nest the marker and plan the lays. optirust is free apparel CAD for Linux and Windows 7 SP1 through Windows 11."
+  title="Rajutara: open-source apparel CAD for garment workshops"
+  description="Draft or import pieces, grade the sizes, nest the marker and plan the lays. Rajutara is free apparel CAD for Linux and Windows 7 SP1 through Windows 11."
   path="/"
-  current="home"
 >
+  <!-- The poster is the largest paint of the page, so it is fetched before anything else asks for it. -->
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    href={withBase('/media/rajutara-marker-demo-poster.jpg')}
+    fetchpriority="high"
+  />
   <Hero />
   <Sequence />
-  <Workspaces />
+  <Workflow />
+  <StartFaster />
+  <MadeWith />
   <Numbers />
   <Formats />
   <Agents />
   <Download />
+  <Closing />
 </Base>

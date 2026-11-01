@@ -1,5 +1,5 @@
 ---
-// Real measurements from the optirust README, taken on the Linux release build with --smoke under Xvfb and
+// Real measurements from the Rajutara README, taken on the Linux release build with --smoke under Xvfb and
 // Mesa llvmpipe. Each limit is a test in CI (ADR-0006), so these are budgets that hold, not claims.
 const figures = [
   { value: '21', unit: 'MB', label: 'release binary', limit: 'limit 40 MB' },
@@ -9,14 +9,9 @@ const figures = [
 ];
 ---
 
-<section
-  aria-labelledby="numbers-title"
-  class="mx-auto max-w-300 px-5 py-20 lg:py-28"
->
-  <h2 id="numbers-title" class="max-w-[22ch] text-3xl tracking-tight md:text-4xl">
-    Small enough for the workshop PC.
-  </h2>
-  <p class="mt-4 max-w-[62ch] text-lg text-muted">
+<section aria-labelledby="numbers-title" class="mx-auto max-w-300 px-5 pb-20 lg:pb-28">
+  <h2 id="numbers-title" class="max-w-[18ch] text-section">Small enough for the workshop PC.</h2>
+  <p class="mt-5 max-w-[62ch] text-lg text-muted">
     The budgets are tests: CI fails when the binary, the start-up, the memory or the nesting time goes
     over. Measured on the Linux release build under Xvfb and Mesa software rendering.
   </p>

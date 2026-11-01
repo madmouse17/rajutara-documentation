@@ -1,0 +1,66 @@
+---
+import { Picture } from 'astro:assets';
+import banner from '../../assets/brand/rajutara-banner.jpg';
+---
+
+<!-- The owner's banner closes the page: the crab, the name and the line the project works to. -->
+<section aria-label="Rajutara" class="plate">
+  <Picture
+    src={banner}
+    alt="The Rajutara banner: a crab with a woven shell holding a needle and thread above the name Rajutara and the line Designing patterns, crafting future, over blueprint drawings of vests and hoodies, a grading table, the application window, rolls of fabric, scissors and a tape measure."
+    widths={[640, 960, 1280, 1600]}
+    sizes="100vw"
+    formats={['avif', 'webp']}
+    loading="lazy"
+    decoding="async"
+  />
+</section>
+
+<style>
+  /* Full width at the artwork's own ratio; a centred crop on narrow screens keeps the crab, the name and the
+     tagline readable. */
+  .plate {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1600 / 656;
+    margin-top: 6rem;
+    background: #071b3a; /* the artwork's paper colour, shown while the image decodes */
+    view-timeline: --plate block;
+  }
+  @media (max-width: 47.99rem) {
+    .plate {
+      aspect-ratio: 4 / 3;
+    }
+  }
+  .plate :global(picture),
+  .plate :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .plate :global(img) {
+    object-fit: cover;
+    object-position: 50% 40%;
+    scale: 1.04;
+  }
+
+  /* One motion, for one reason: the banner drifts slower than the page as it scrolls into view, so the
+     picture feels set behind the content. The drift never exceeds 2 %, and the scale keeps the edges covered. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      @keyframes drift {
+        from {
+          translate: 0 -2%;
+        }
+        to {
+          translate: 0 2%;
+        }
+      }
+      .plate :global(img) {
+        animation: drift linear both;
+        animation-timeline: --plate;
+        animation-range: cover 0% cover 100%;
+      }
+    }
+  }
+</style>

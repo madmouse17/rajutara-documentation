@@ -4,15 +4,15 @@ import { Icon } from '@astrojs/starlight/components';
 import { REPO, withBase } from '../../lib/site';
 
 const labels = {
-  en: { gallery: 'Gallery', download: 'Download', github: 'optirust on GitHub' },
-  id: { gallery: 'Galeri', download: 'Unduh', github: 'optirust di GitHub' },
+  en: { gallery: 'Gallery', download: 'Download', github: 'Rajutara on GitHub' },
+  id: { gallery: 'Galeri', download: 'Unduh', github: 'Rajutara di GitHub' },
 } as const;
 const t = labels[Astro.locals.starlightRoute.lang === 'id' ? 'id' : 'en'];
 ---
 
 <a href={withBase('/gallery/')}>{t.gallery}</a>
 <a href={withBase('/#download')}>{t.download}</a>
-<a href={REPO} rel="me" class="github">
+<a href={REPO} rel="me noopener" class="github">
   <span class="sr-only">{t.github}</span>
   <Icon name="github" />
 </a>

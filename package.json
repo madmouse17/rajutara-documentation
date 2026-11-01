@@ -1,13 +1,13 @@
 {
-  "name": "optirust-documentation",
+  "name": "rajutara-documentation",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "license": "MIT OR Apache-2.0",
-  "description": "Site and docs for optirust, open-source apparel CAD for garment workshops.",
+  "description": "Site and docs for Rajutara, open-source apparel CAD for garment workshops.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/madmouse17/optirust-documentation.git"
+    "url": "git+https://github.com/madmouse17/rajutara-documentation.git"
   },
   "engines": {
     "node": ">=22.12"

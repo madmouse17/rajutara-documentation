@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Read the real outlines of the sample tee out of its marker plot, for the pattern-to-marker animation.
 
-kaos-lengan-pendek-marker.plt is what optirust itself plotted for the sample marker: for each of the 20
+kaos-lengan-pendek-marker.plt is what Rajutara itself plotted for the sample marker: for each of the 20
 placed pieces an outline, its notches, its grainline and a label, in HPGL/2 units (40 per mm). This script
 turns every piece into an upright shape (grainline in the piece's own direction, origin at the grainline
 start) plus the pose that carries it back to its place in the marker, so the page can draw the block, grade

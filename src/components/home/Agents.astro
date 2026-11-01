@@ -1,13 +1,13 @@
 ---
 import { withBase } from '../../lib/site';
 
-// The command and the line it prints are the ones in the optirust README ("Built for agents"); the same
+// The command and the line it prints are the ones in the Rajutara README ("Built for agents"); the same
 // line is what CI reads for its budgets. Values vary by machine, the keys do not.
 const command =
-  'LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s "-screen 0 1280x800x24" target/release/optirust --smoke';
+  'LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s "-screen 0 1280x800x24" target/release/rajutara --smoke';
 const smoke =
   '{"frames":60,"first_frame_ms":56.5,"max_frame_cpu_ms":0.328,"warmup_ms":0.000,"peak_rss_kb":122392,"gl_renderer":"llvmpipe (LLVM 21.1.8, 256 bits)","gl_version":"4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3"}';
-const headless = 'cargo run --release -p optirust --example tshirt_sample -- out/';
+const headless = 'cargo run --release -p rajutara --example tshirt_sample -- out/';
 
 const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 // Strings are matched whole, so a number inside "21.1.8" is never coloured on its own.
@@ -22,19 +22,13 @@ const smokeHtml = escape(smoke).replace(
 );
 ---
 
-<section
-  id="agents"
-  aria-labelledby="agents-title"
-  class="mx-auto max-w-300 px-5 pb-20 lg:pb-28"
->
+<section id="agents" aria-labelledby="agents-title" class="mx-auto max-w-300 px-5 pb-20 lg:pb-28">
   <div class="grid gap-10 lg:grid-cols-12 lg:gap-14">
     <div class="lg:col-span-5">
-      <h2 id="agents-title" class="text-3xl tracking-tight md:text-4xl">
-        Built for scripts and agents.
-      </h2>
-      <p class="mt-4 text-lg text-muted">
-        A script or a coding agent can check a build and produce every output of the workflow
-        without a person at the screen.
+      <h2 id="agents-title" class="max-w-[16ch] text-section">Built for scripts and agents.</h2>
+      <p class="mt-5 text-lg text-muted">
+        A script or a coding agent can check a build and produce every output of the workflow without
+        a person at the screen.
       </p>
       <ul class="mt-6 space-y-3 text-muted">
         <li>One JSON line on stdout. Exit code 0, or non-zero on any window or OpenGL failure.</li>
