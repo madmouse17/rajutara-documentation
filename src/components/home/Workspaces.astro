@@ -1,0 +1,146 @@
+---
+import Shot from '../Shot.astro';
+import pds from '../../assets/screens/full-pds.jpg';
+import grading from '../../assets/screens/full-grading.jpg';
+import marker from '../../assets/screens/full-marker.jpg';
+import nest from '../../assets/screens/full-nest.jpg';
+import cutplan from '../../assets/screens/full-cutplan.jpg';
+import plot from '../../assets/screens/full-plot.jpg';
+import { withBase } from '../../lib/site';
+---
+
+<section
+  id="workspaces"
+  aria-labelledby="workspaces-title"
+  class="mx-auto max-w-300 px-5 py-20 lg:py-28"
+>
+  <h2 id="workspaces-title" class="text-3xl tracking-tight md:text-4xl">
+    Four workspaces, one window.
+  </h2>
+  <p class="mt-4 max-w-[62ch] text-lg text-muted">
+    PDS, Grading, Marker and Cut Plan share one open Style and one undo history. Switching tabs
+    never means exporting a file.
+  </p>
+
+  <div class="mt-14 space-y-20 lg:space-y-28">
+    <!-- Pattern design: wide image, text beside it. -->
+    <article class="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+      <div class="land lg:col-span-8">
+        <Shot
+          src={pds}
+          alt="The PDS workspace with segment lengths shown on the FRONT piece: neckline, shoulders and armholes with seam allowance and grainline"
+          sizes="(min-width: 1280px) 780px, (min-width: 1024px) 66vw, 100vw"
+        />
+      </div>
+      <div class="lg:col-span-4">
+        <h3 class="text-2xl tracking-tight">Pattern design</h3>
+        <p class="mt-3 text-muted">
+          89 tools in a Toolbox that follows the Optitex layout: draft, arc, points, notches, seams,
+          darts, pleats, walk, mirror halves, split and join. Segment lengths, seam allowance and
+          grainlines are drawn on the piece.
+        </p>
+        <p class="mt-3 text-muted">
+          <span class="kbd">Ctrl+Shift+P</span> opens the command palette, which finds any action by
+          name.
+        </p>
+        <p class="mt-4">
+          <a href={withBase('/docs/workspaces/pds/')} class="link">PDS guide</a>
+        </p>
+      </div>
+    </article>
+
+    <!-- Grading: the same split, mirrored. -->
+    <article class="grid gap-6 lg:grid-cols-12 lg:items-start lg:gap-10">
+      <div class="order-2 lg:order-1 lg:col-span-4 lg:pt-6">
+        <h3 class="text-2xl tracking-tight">Grading</h3>
+        <p class="mt-3 text-muted">
+          Rule-based: a Size Table with one Base Size, and a Grade Rule (dX and dY per size) on each
+          Grade Point. The Graded Nest draws every size in its own colour.
+        </p>
+        <p class="mt-3 text-muted">Graded nests leave as ASTM DXF with a RUL file.</p>
+        <p class="mt-4">
+          <a href={withBase('/docs/workspaces/grading/')} class="link">Grading guide</a>
+        </p>
+      </div>
+      <div class="land order-1 lg:order-2 lg:col-span-8">
+        <Shot
+          src={grading}
+          alt="The Grading workspace: the Grading Table with dX and dY per size next to the graded nest drawn in four size colours"
+          sizes="(min-width: 1280px) 780px, (min-width: 1024px) 66vw, 100vw"
+        />
+      </div>
+    </article>
+
+    <!-- Marker and nesting: two equal images, captions underneath. -->
+    <div class="grid gap-14 md:grid-cols-2 md:gap-8">
+      <article class="land">
+        <Shot
+          src={marker}
+          alt="The Marker workspace with the sample tee: 20 pieces of sizes S, M, L and XL placed on 180 cm fabric, the Marker Properties pane on the left"
+          sizes="(min-width: 1280px) 584px, (min-width: 768px) 46vw, 100vw"
+        />
+        <h3 class="mt-5 text-2xl tracking-tight">Marker, by hand</h3>
+        <p class="mt-3 text-muted">
+          Drag from the Piece Bar, rotate, flip, bump and Shoot. Overlaps are allowed and hatched in
+          red. The status bar keeps pieces, overlaps, efficiency and length live.
+        </p>
+        <p class="mt-4">
+          <a href={withBase('/docs/workspaces/marker/')} class="link">Marker guide</a>
+        </p>
+      </article>
+      <article class="land">
+        <Shot
+          src={nest}
+          alt="The first 4.5 metres of a 300-piece marker: three rows of nested shirt fronts on 150 cm fabric, no overlaps"
+          sizes="(min-width: 1280px) 584px, (min-width: 768px) 46vw, 100vw"
+        />
+        <h3 class="mt-5 text-2xl tracking-tight">Auto-nesting</h3>
+        <p class="mt-3 text-muted">
+          Our own engine: no-fit polygons, bottom-left fill and annealing, on worker threads with
+          live progress and Cancel. A seed makes a run repeatable. 300 pieces nest in 58 s at 90.1 %
+          in the release benchmark.
+        </p>
+        <p class="mt-4">
+          <a href={withBase('/docs/workspaces/marker/#auto-nesting')} class="link">
+            Auto-nesting guide
+          </a>
+        </p>
+      </article>
+    </div>
+
+    <!-- Cut Plan and Plot: unequal widths, the second lowered. -->
+    <div class="grid gap-14 lg:grid-cols-12 lg:gap-10">
+      <article class="land lg:col-span-7">
+        <Shot
+          src={cutplan}
+          alt="Cut Plan results for order PO-100: three markers and nine lays for a three-colour order of 590 garments"
+          sizes="(min-width: 1280px) 680px, (min-width: 1024px) 58vw, 100vw"
+        />
+        <h3 class="mt-5 text-2xl tracking-tight">Cut Plan</h3>
+        <p class="mt-3 max-w-[62ch] text-muted">
+          From an Order (colours by sizes, ratio mode or CSV import) the solver plans markers and
+          lays with plies, fabric length and cost. The Cut Order sequences the lays and draws plies
+          from Fabric Rolls, with Remnants and Missing fabric.
+        </p>
+        <p class="mt-4">
+          <a href={withBase('/docs/workspaces/cut-plan/')} class="link">Cut Plan guide</a>
+        </p>
+      </article>
+      <article class="land lg:col-span-5 lg:mt-24">
+        <Shot
+          src={plot}
+          alt="The Plot dialog with the Target list open: PDF A4 tiles, PDF A0, HPGL/2 file"
+          sizes="(min-width: 1280px) 480px, (min-width: 1024px) 40vw, 100vw"
+        />
+        <h3 class="mt-5 text-2xl tracking-tight">Plot and export</h3>
+        <p class="mt-3 text-muted">
+          Plot to PDF (A4 tiles for a desktop printer, one A0 sheet, or one A4 page) or to HPGL/2.
+          Markers also write an HPGL/2 cut file and a CSV or PDF report.
+        </p>
+        <p class="mt-4">
+          <a href={withBase('/docs/workspaces/pds/#plot')} class="link">Plot guide</a>
+        </p>
+      </article>
+    </div>
+  </div>
+</section>

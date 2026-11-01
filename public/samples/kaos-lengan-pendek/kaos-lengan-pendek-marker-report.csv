@@ -1,0 +1,50 @@
+Marker Report
+""
+General
+Marker name,kaos-lengan-pendek-marker
+File,kaos-lengan-pendek-marker.optm
+Date,01-11-2026 04:56
+Material,Single Jersey
+Width (cm),180.00
+Used length (cm),253.03
+Efficiency (%),84.10
+Plies,1
+Total area (cm²),38303.98
+Waste area (cm²),7241.38
+Total cutting length (cm),3350.63
+Per garment (cm),63.26
+Ply mode,Single
+Shrinkage length / width (%),0.00 / 0.00
+Buffer (cm),0.50
+""
+Order
+Style,Size,Requested bundles,Placed bundles,Direction
+Kaos Lengan Pendek,S,1,1,Any
+Kaos Lengan Pendek,M,1,1,Any
+Kaos Lengan Pendek,L,1,1,Any
+Kaos Lengan Pendek,XL,1,1,Any
+""
+Pieces
+Style,Piece,Code,Size,Quantity requested,Quantity placed,Area (cm²),Perimeter (cm),Rotation,Flip,Buffer (cm)
+Kaos Lengan Pendek,FRONT,,S,1,1,3178.99,239.33,2-Way,None,0.00
+Kaos Lengan Pendek,BACK,,S,1,1,3267.24,229.81,2-Way,None,0.00
+Kaos Lengan Pendek,SLEEVE,,S,2,2,1061.93,123.71,2-Way,None,0.00
+Kaos Lengan Pendek,NECK RIB,,S,1,1,238.98,91.66,2-Way,None,0.00
+Kaos Lengan Pendek,FRONT,,M,1,1,3378.03,245.21,2-Way,None,0.00
+Kaos Lengan Pendek,BACK,,M,1,1,3468.31,235.88,2-Way,None,0.00
+Kaos Lengan Pendek,SLEEVE,,M,2,2,1109.82,126.52,2-Way,None,0.00
+Kaos Lengan Pendek,NECK RIB,,M,1,1,244.98,93.66,2-Way,None,0.00
+Kaos Lengan Pendek,FRONT,,L,1,1,3583.10,251.12,2-Way,None,0.00
+Kaos Lengan Pendek,BACK,,L,1,1,3675.42,241.98,2-Way,None,0.00
+Kaos Lengan Pendek,SLEEVE,,L,2,2,1158.72,129.34,2-Way,None,0.00
+Kaos Lengan Pendek,NECK RIB,,L,1,1,250.98,95.66,2-Way,None,0.00
+Kaos Lengan Pendek,FRONT,,XL,1,1,3794.20,257.07,2-Way,None,0.00
+Kaos Lengan Pendek,BACK,,XL,1,1,3888.55,248.11,2-Way,None,0.00
+Kaos Lengan Pendek,SLEEVE,,XL,2,2,1208.63,132.17,2-Way,None,0.00
+Kaos Lengan Pendek,NECK RIB,,XL,1,1,256.98,97.66,2-Way,None,0.00
+""
+Notches
+Notch shape,Command,Count
+V,Cut,32
+T,Cut,16
+I,Cut,28

@@ -1,0 +1,50 @@
+---
+// Real measurements from the optirust README, taken on the Linux release build with --smoke under Xvfb and
+// Mesa llvmpipe. Each limit is a test in CI (ADR-0006), so these are budgets that hold, not claims.
+const figures = [
+  { value: '21', unit: 'MB', label: 'release binary', limit: 'limit 40 MB' },
+  { value: '53', unit: 'ms', label: 'to the first frame', limit: 'CI warns above 1.5 s' },
+  { value: '127', unit: 'MB', label: 'idle, empty document', limit: 'limit 150 MB' },
+  { value: '2', unit: 'ms', label: 'per frame, panning a 1000-piece marker', limit: 'limit 8 ms' },
+];
+---
+
+<section
+  aria-labelledby="numbers-title"
+  class="mx-auto max-w-300 px-5 py-20 lg:py-28"
+>
+  <h2 id="numbers-title" class="max-w-[22ch] text-3xl tracking-tight md:text-4xl">
+    Small enough for the workshop PC.
+  </h2>
+  <p class="mt-4 max-w-[62ch] text-lg text-muted">
+    The budgets are tests: CI fails when the binary, the start-up, the memory or the nesting time goes
+    over. Measured on the Linux release build under Xvfb and Mesa software rendering.
+  </p>
+
+  <div class="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-10">
+    <div class="land lg:col-span-5">
+      <p class="font-mono text-lead text-accent-text tabular-nums">
+        58<span class="ml-2 text-4xl tracking-normal text-muted">s</span>
+      </p>
+      <p class="mt-4 max-w-[28ch] text-xl">
+        to nest 300 pieces at 90.1 % efficiency, on worker threads with live progress.
+      </p>
+      <p class="mt-2 text-muted">The limit is 60 s.</p>
+    </div>
+
+    <dl class="land grid grid-cols-2 gap-x-8 gap-y-12 lg:col-span-7 lg:self-end">
+      {
+        figures.map((f) => (
+          <div class="flex flex-col border-l border-line pl-6">
+            <dt class="order-2 mt-2">{f.label}</dt>
+            <dd class="order-1 font-mono text-figure tabular-nums">
+              {f.value}
+              <span class="ml-1 text-xl tracking-normal text-muted">{f.unit}</span>
+            </dd>
+            <dd class="order-3 mt-1 text-sm text-muted">{f.limit}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

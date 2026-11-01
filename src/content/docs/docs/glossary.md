@@ -1,0 +1,5 @@
+---
+title: stub glossary
+---
+
+stub

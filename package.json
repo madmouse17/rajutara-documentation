@@ -1,0 +1,39 @@
+{
+  "name": "optirust-documentation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT OR Apache-2.0",
+  "description": "Site and docs for optirust, open-source apparel CAD for garment workshops.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madmouse17/optirust-documentation.git"
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.42.8",
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "@iconify-json/ph": "^1.2.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.4",
+    "astro-icon": "^1.2.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.2",
+    "typescript": "^5.9.3"
+  }
+}

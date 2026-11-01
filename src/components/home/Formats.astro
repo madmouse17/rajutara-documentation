@@ -1,0 +1,59 @@
+---
+import { withBase } from '../../lib/site';
+
+// Source: the Formats table of the optirust README.
+const formats = [
+  { name: 'DXF', how: 'Import and export', use: 'Patterns and graded nests, ASTM D6673 and AAMA-292.' },
+  { name: 'RUL', how: 'Import and export', use: 'ASTM grade rules, kept beside a graded-nest DXF.' },
+  { name: 'HPGL/2', how: 'Export', use: 'Plotter files and the marker cut file.' },
+  { name: 'PDF', how: 'Export', use: 'A4 tiles, one A0 sheet or one A4 page; markers and reports.' },
+  { name: 'CSV', how: 'Import and export', use: 'Order quantities and fabric rolls in, reports out.' },
+  { name: '.optx .optm .optc', how: 'Open and save', use: 'Style, Marker and Cut Plan: zip and JSON.' },
+];
+---
+
+<section aria-labelledby="formats-title" class="mx-auto max-w-300 px-5 pb-20 lg:pb-28">
+  <h2 id="formats-title" class="max-w-[24ch] text-3xl tracking-tight md:text-4xl">
+    Formats a workshop already has.
+  </h2>
+  <p class="mt-4 max-w-[62ch] text-lg text-muted">
+    Interchange uses open standards only. Documents are zip files holding JSON, so a script can read
+    them. Optitex's own file formats are never read or written.
+  </p>
+
+  <ul class="tape mt-12 grid gap-x-6 gap-y-8 pt-10 sm:grid-cols-2 lg:grid-cols-6">
+    {
+      formats.map((f) => (
+        <li>
+          <p class="font-mono text-xl font-medium tracking-tight">{f.name}</p>
+          <p class="mt-1 text-sm font-medium text-accent-text">{f.how}</p>
+          <p class="mt-2 text-sm text-muted">{f.use}</p>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="mt-8">
+    <a href={withBase('/docs/formats/')} class="link">File formats in the docs</a>
+  </p>
+</section>
+
+<style>
+  /* A tape measure along the top edge: a tick every 8 px, a longer one every 40 px. It echoes the ruler of
+     the marker above and marks the strip as a row of sizes to read, not a row of cards. */
+  .tape {
+    position: relative;
+    border-top: 1px solid var(--outline);
+  }
+  .tape::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 14px;
+    background:
+      repeating-linear-gradient(90deg, var(--outline) 0 1px, transparent 1px 40px) top / 100% 14px
+        no-repeat,
+      repeating-linear-gradient(90deg, var(--outline) 0 1px, transparent 1px 8px) top / 100% 7px
+        no-repeat;
+    pointer-events: none;
+  }
+</style>

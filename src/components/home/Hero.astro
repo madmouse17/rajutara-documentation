@@ -1,0 +1,108 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Picture } from 'astro:assets';
+import banner from '../../assets/brand/optirust-banner.jpg';
+import { withBase } from '../../lib/site';
+---
+
+<section aria-labelledby="hero-title">
+  <div
+    class="mx-auto grid max-w-300 gap-6 px-5 pt-10 pb-8 lg:grid-cols-12 lg:items-end lg:gap-10 lg:pt-12 lg:pb-10"
+  >
+    <h1
+      id="hero-title"
+      class="rise text-5xl leading-[1.04] font-semibold tracking-tighter lg:col-span-7 lg:text-6xl"
+      style="--i: 0"
+    >
+      Apparel CAD for garment workshops.
+    </h1>
+    <div class="lg:col-span-5">
+      <p class="rise max-w-[40ch] text-lg text-muted" style="--i: 1">
+        Draft or import pieces, grade the sizes, nest the marker, plan the lays. Open source, for
+        Linux and Windows.
+      </p>
+      <div class="rise mt-6 flex flex-wrap gap-3" style="--i: 2">
+        <a href="#download" class="btn btn-primary">
+          <Icon name="ph:download-simple" class="size-5" aria-hidden="true" />
+          Download
+        </a>
+        <a href={withBase('/docs/')} class="btn btn-secondary">Read the docs</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="plate" style="--i: 3">
+    <Picture
+      src={banner}
+      alt="The optirust banner: a crab with a woven shell holding a needle and thread above the wordmark and the line Designing patterns, crafting future, over blueprint drawings of vests and hoodies, a grading table, the application window, rolls of fabric, scissors and a tape measure."
+      widths={[640, 960, 1280, 1600]}
+      sizes="100vw"
+      formats={['avif', 'webp']}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="plate-img"
+    />
+  </div>
+</section>
+
+<style>
+  /* The banner is the visual of the page: full width, its own aspect ratio, and a centred crop of the
+     wordmark on narrow screens so the logo and tagline stay readable. */
+  .plate {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1600 / 656;
+    background: #071b3a; /* the artwork's paper colour, shown while the image decodes */
+    view-timeline: --plate block;
+  }
+  @media (max-width: 47.99rem) {
+    .plate {
+      aspect-ratio: 4 / 3;
+    }
+  }
+  .plate :global(picture),
+  .plate :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .plate :global(img) {
+    object-fit: cover;
+    object-position: 50% 40%;
+    transform-origin: 62% 52%;
+  }
+
+  /* Two motions on two properties, so they compose: a slow zoom once on load (the banner settling into
+     frame), and a drift as the hero scrolls away (the banner moving slower than the page). Edges stay
+     covered because the zoom never goes below 1.06 and the drift never exceeds 2.5 %. */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes settle {
+      from {
+        scale: 1.06;
+      }
+      to {
+        scale: 1.12;
+      }
+    }
+    .plate :global(img) {
+      animation: settle 24s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+      scale: 1.06;
+    }
+
+    @supports (animation-timeline: view()) {
+      @keyframes drift {
+        to {
+          translate: 0 2.5%;
+        }
+      }
+      .plate :global(img) {
+        animation:
+          settle 24s cubic-bezier(0.2, 0.6, 0.2, 1) both,
+          drift linear both;
+        animation-timeline: auto, --plate;
+        animation-range: normal, exit 0% exit 100%;
+      }
+    }
+  }
+</style>

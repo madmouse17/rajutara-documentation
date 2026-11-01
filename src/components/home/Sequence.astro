@@ -1,0 +1,537 @@
+---
+// "From pattern to marker": the sample tee drawn, graded and nested while the page scrolls.
+//
+// The outlines are not illustrations. They are the pieces of public/samples/kaos-lengan-pendek/, read out of
+// the marker plot optirust itself wrote (scripts/extract-tee.py): the base size M, the three sizes the grade
+// rules derive from it, and the pose of each of the 20 pieces on the 1800 mm fabric. The numbers in the
+// last step (84.10 %, 2.53 m) are the marker report of the same file.
+//
+// Motion is CSS scroll-driven animation on one named view timeline (--seq) over a tall section whose stage
+// is sticky. No script. Where scroll-driven animation is missing, or the visitor asks for reduced motion,
+// the section is a normal block: the finished marker, with the three steps written out beside it.
+import tee from '../../data/tee-marker.json';
+import { withBase } from '../../lib/site';
+
+const FAMILIES = ['FRONT', 'BACK', 'SLEEVE', 'NECK RIB'] as const;
+type Family = (typeof FAMILIES)[number];
+
+const LENGTH = tee.marker.length;
+const WIDTH = tee.marker.width;
+const efficiency = tee.marker.efficiency.toFixed(2);
+const metres = (LENGTH / 1000).toFixed(2);
+
+// Where the four pieces lie while they are drafted and graded: the centre of each family, in marker mm.
+const CENTRES: Record<Family, [number, number]> = {
+  FRONT: [640, 900],
+  BACK: [1390, 900],
+  SLEEVE: [2060, 640],
+  'NECK RIB': [2060, 1290],
+};
+
+const union = (family: Family) => {
+  const boxes = tee.pieces.filter((p) => p.name === family).map((p) => p.bbox);
+  return [
+    Math.min(...boxes.map((b) => b[0])),
+    Math.min(...boxes.map((b) => b[1])),
+    Math.max(...boxes.map((b) => b[2])),
+    Math.max(...boxes.map((b) => b[3])),
+  ];
+};
+
+const table = Object.fromEntries(
+  FAMILIES.map((family) => {
+    const [x0, y0, x1, y1] = union(family);
+    const [cx, cy] = CENTRES[family];
+    return [family, { x: cx - (x0 + x1) / 2, y: cy - (y0 + y1) / 2, top: cy - (y1 - y0) / 2, cx }];
+  }),
+) as Record<Family, { x: number; y: number; top: number; cx: number }>;
+
+// Timing, in percent of the pinned scroll. Draft 0 to 27, Grade 27 to 55, Nest 55 to 100.
+const round = (n: number) => Math.round(n * 10) / 10;
+const marching = [...tee.pieces].sort((a, b) => a.pose.x - b.pose.x);
+
+const pieces = tee.pieces.map((p) => {
+  const family = p.name as Family;
+  const f = FAMILIES.indexOf(family);
+  // The base size is drawn in step one, one piece after another; the derived sizes in step two, by size.
+  const grade = ['S', 'L', 'XL'].indexOf(p.size);
+  const d0 = p.size === 'M' ? 2 + f * 4.5 : 28 + grade * 6 + f * 1.2;
+  const m0 = 60 + marching.indexOf(p) * 1.15;
+  const grain =
+    family === 'NECK RIB'
+      ? `M0 0H${p.grain}M${p.grain - 30} -12L${p.grain} 0L${p.grain - 30} 12`
+      : `M0 0V${-p.grain}M-12 ${-p.grain + 30}L0 ${-p.grain}L12 ${-p.grain + 30}`;
+  const style = [
+    `--bx:${round(table[family].x)}px`,
+    `--by:${round(table[family].y)}px`,
+    `--mx:${p.pose.x}px`,
+    `--my:${p.pose.y}px`,
+    `--mr:${p.pose.rot}deg`,
+    `--d0:${round(d0)}`,
+    `--d1:${round(d0 + 10)}`,
+    `--m0:${round(m0)}`,
+    `--m1:${round(m0 + 12)}`,
+  ].join(';');
+  return { ...p, family, grainPath: grain, style };
+});
+
+// Draw order: the base size last, so its orange sits on top where the sizes share a grainline.
+const sizeOrder: Record<string, number> = { XL: 0, L: 1, S: 2, M: 3 };
+const stacked = [...pieces].sort(
+  (a, b) =>
+    FAMILIES.indexOf(a.family) - FAMILIES.indexOf(b.family) || sizeOrder[a.size] - sizeOrder[b.size],
+);
+
+// Rulers around the fabric: a tape along the top (every 100 mm, long every 500 mm), the width on the left and
+// the used length underneath.
+const ticks = Array.from({ length: Math.floor(LENGTH / 100) + 1 }, (_, i) => i * 100);
+const tape = ticks.map((x) => `M${x} -60V${x % 500 === 0 ? -120 : -90}`).join('');
+const tapeLabels = ticks.filter((x) => x % 500 === 0);
+
+const viewBox = `-230 -210 ${Math.round(LENGTH + 330)} ${WIDTH + 470}`;
+const sizes = [
+  { id: 's', label: 'S' },
+  { id: 'm', label: 'M' },
+  { id: 'l', label: 'L' },
+  { id: 'xl', label: 'XL' },
+];
+const front = table.FRONT;
+---
+
+<section id="sequence" aria-labelledby="sequence-title" class="seq">
+  <div class="seq-stage">
+    <div class="seq-grid mx-auto h-full max-w-300 px-5">
+      <div class="seq-head">
+        <h2 id="sequence-title" class="text-3xl tracking-tight md:text-4xl">
+          From pattern to marker.
+        </h2>
+        <p class="seq-lede mt-3 max-w-[40ch] text-muted">
+          One sample tee, start to finish. Every outline is read from the sample files in the <a
+            href={withBase('/gallery/')}
+            class="link">gallery</a
+          >.
+        </p>
+      </div>
+
+      <svg
+        class="seq-svg"
+        viewBox={viewBox}
+        role="img"
+        aria-labelledby="sequence-svg-title"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <title id="sequence-svg-title">
+          The sample tee as a marker: {tee.pieces.length} pieces in sizes S, M, L and XL nested on 1800
+          mm wide fabric, {metres} m long, {efficiency} percent efficiency.
+        </title>
+        <defs>
+          <pattern id="seq-warp" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path class="seq-warp-line" d="M0 20H40"></path>
+          </pattern>
+        </defs>
+
+        <g class="seq-band" aria-hidden="true">
+          <rect class="seq-fabric" x="0" y="0" width={LENGTH} height={WIDTH}></rect>
+          <rect
+            class="seq-warp"
+            x="0"
+            y="0"
+            width={LENGTH}
+            height={WIDTH}
+            fill="url(#seq-warp)"></rect>
+          <rect class="seq-edge" x="0" y="0" width={LENGTH} height={WIDTH}></rect>
+          <g class="seq-rule">
+            <path d={tape}></path>
+            {
+              tapeLabels.map((x) => (
+                <text x={x} y="-150">
+                  {x === 0 ? '0' : `${x / 1000} m`}
+                </text>
+              ))
+            }
+            <path d={`M-90 0V${WIDTH}M-120 0H-60M-120 ${WIDTH}H-60`}></path>
+            <text transform={`translate(-150 ${WIDTH / 2}) rotate(-90)`}>{WIDTH} mm</text>
+            <path
+              d={`M0 ${WIDTH + 90}H${LENGTH}M0 ${WIDTH + 60}V${WIDTH + 120}M${LENGTH} ${WIDTH + 60}V${WIDTH + 120}`}
+            ></path>
+            <text x={LENGTH / 2} y={WIDTH + 200}>{metres} m used</text>
+          </g>
+        </g>
+
+        <g aria-hidden="true">
+          {
+            FAMILIES.map((family) => (
+              <text class="seq-label" x={table[family].cx} y={table[family].top - 70}>
+                {family}
+              </text>
+            ))
+          }
+          <g class="seq-dim" transform={`translate(${round(front.x)} ${round(front.y)})`}>
+            <path d="M-250 215H250M-250 185V245M250 185V245"></path>
+            <text x="0" y="330">50 cm</text>
+          </g>
+
+          {
+            stacked.map((p) => (
+              <g class="seq-piece" data-size={p.size} style={p.style}>
+                <path class="seq-outline" pathLength="1" d={p.outline}></path>
+                <path class="seq-notch" d={p.notches}></path>
+                <path class="seq-grain" d={p.grainPath}></path>
+              </g>
+            ))
+          }
+        </g>
+      </svg>
+
+      <div class="seq-captions">
+        <ol class="seq-steps">
+          <li class="seq-step seq-step-a">
+            <h3 class="text-xl tracking-tight">Draft</h3>
+            <p class="mt-2 text-muted">
+              Draw the block once, in the base size. The tee is four pieces: front, back, sleeve and
+              neck rib, each with notches and a grainline. Base size M is a 100 cm chest.
+            </p>
+          </li>
+          <li class="seq-step seq-step-b">
+            <h3 class="text-xl tracking-tight">Grade</h3>
+            <p class="mt-2 text-muted">
+              A grade rule moves each point by a few millimetres. S, L and XL grow from the base size
+              M and nest around it, with no redrawing.
+            </p>
+          </li>
+          <li class="seq-step seq-step-c">
+            <h3 class="text-xl tracking-tight">Nest</h3>
+            <p class="mt-2 text-muted">
+              All 20 pieces of the four sizes go onto 180 cm fabric, turned to follow the grain.
+            </p>
+            <dl class="seq-figures mt-4 flex gap-8">
+              <div>
+                <dt class="text-sm text-muted">Efficiency</dt>
+                <dd class="font-mono text-3xl tracking-tight tabular-nums">{efficiency} %</dd>
+              </div>
+              <div>
+                <dt class="text-sm text-muted">Fabric used</dt>
+                <dd class="font-mono text-3xl tracking-tight tabular-nums">{metres} m</dd>
+              </div>
+            </dl>
+          </li>
+        </ol>
+
+        <ul class="seq-legend mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm" aria-label="Sizes">
+          {
+            sizes.map((s) => (
+              <li class="flex items-center gap-2">
+                <span class={`seq-swatch seq-swatch-${s.id}`} aria-hidden="true" />
+                <span>
+                  {s.label}
+                  {s.id === 'm' && <span class="text-muted"> base size</span>}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="seq-progress" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  /* Static layout: the finished marker beside the three steps written out. This is what reduced-motion
+     visitors and browsers without scroll-driven animation get. */
+  .seq-grid {
+    display: grid;
+    gap: 1.5rem;
+    padding-block: 3rem 1rem;
+    grid-template-areas: 'head' 'svg' 'captions';
+  }
+  .seq-head {
+    grid-area: head;
+  }
+  .seq-svg {
+    grid-area: svg;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    --sw: 11;
+    --label: 90;
+  }
+  .seq-captions {
+    grid-area: captions;
+  }
+  .seq-step + .seq-step {
+    margin-top: 1.5rem;
+  }
+  .seq-progress {
+    display: none;
+  }
+
+  .seq-fabric {
+    fill: var(--surface);
+  }
+  .seq-warp-line {
+    stroke: var(--line);
+    stroke-width: 3;
+  }
+  .seq-edge {
+    fill: none;
+    stroke: var(--outline);
+    stroke-width: var(--sw);
+    stroke-linejoin: round;
+  }
+  .seq-rule path,
+  .seq-dim path {
+    fill: none;
+    stroke: var(--fg-faint);
+    stroke-width: calc(var(--sw) * 0.55);
+  }
+  .seq-rule text,
+  .seq-label,
+  .seq-dim text {
+    font-family: var(--font-mono);
+    font-size: calc(var(--label) * 1px);
+    fill: var(--fg-muted);
+    text-anchor: middle;
+  }
+  .seq-label {
+    letter-spacing: 0.06em;
+  }
+
+  .seq-piece {
+    --c: var(--size-m);
+    translate: var(--mx) var(--my);
+    rotate: var(--mr);
+  }
+  .seq-piece[data-size='S'] {
+    --c: var(--size-s);
+  }
+  .seq-piece[data-size='L'] {
+    --c: var(--size-l);
+  }
+  .seq-piece[data-size='XL'] {
+    --c: var(--size-xl);
+  }
+  .seq-outline {
+    fill: var(--c);
+    fill-opacity: 0.16;
+    stroke: var(--c);
+    stroke-width: var(--sw);
+    stroke-linejoin: round;
+    stroke-dasharray: 1 1;
+    stroke-dashoffset: 0;
+  }
+  .seq-notch,
+  .seq-grain {
+    fill: none;
+    stroke: var(--c);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .seq-notch {
+    stroke-width: calc(var(--sw) * 0.8);
+  }
+  .seq-grain {
+    stroke-width: calc(var(--sw) * 0.55);
+    opacity: 0.7;
+  }
+
+  .seq-swatch {
+    width: 1.5rem;
+    height: 0;
+    border-top: 3px solid var(--c);
+  }
+  .seq-swatch-s {
+    --c: var(--size-s);
+  }
+  .seq-swatch-m {
+    --c: var(--size-m);
+  }
+  .seq-swatch-l {
+    --c: var(--size-l);
+  }
+  .seq-swatch-xl {
+    --c: var(--size-xl);
+  }
+
+  @media (min-width: 48rem) {
+    .seq-grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      grid-template-rows: auto 1fr;
+      grid-template-areas: 'head svg' 'captions svg';
+      column-gap: 3rem;
+      align-items: start;
+    }
+    .seq-svg {
+      --sw: 7;
+      --label: 60;
+    }
+  }
+  @media (min-width: 64rem) {
+    .seq-svg {
+      --sw: 5.5;
+      --label: 46;
+    }
+  }
+
+  /* Pinned, scroll-driven version. One named view timeline over the tall section; every animation below
+     maps a slice of its progress (0 to 100 %) to a change on screen. The sticky stage sits under the 4 rem
+     site header, so the timeline's top inset is the header height and 0 % is the moment the stage sticks. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .seq {
+        --header: 4rem;
+        --stage: calc(100svh - var(--header));
+        height: calc(var(--stage) + 400svh);
+        view-timeline: --seq block;
+        view-timeline-inset: var(--header) 0;
+      }
+      .seq-stage {
+        position: sticky;
+        top: var(--header);
+        height: var(--stage);
+        overflow: clip;
+      }
+      .seq-grid {
+        padding-block: 1rem 1.5rem;
+        gap: 0.75rem;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+      }
+      .seq-svg {
+        height: 100%;
+        min-height: 0;
+      }
+      .seq-lede {
+        display: none;
+      }
+      @media (min-width: 48rem) {
+        .seq-grid {
+          grid-template-rows: auto minmax(0, 1fr);
+          padding-block: 1.5rem;
+        }
+        .seq-lede {
+          display: block;
+        }
+      }
+
+      /* The three steps share one cell and take turns. */
+      .seq-steps {
+        display: grid;
+      }
+      .seq-step {
+        grid-area: 1 / 1;
+      }
+      .seq-step + .seq-step {
+        margin-top: 0;
+      }
+
+      .seq-progress {
+        display: block;
+        position: absolute;
+        inset: auto 1.25rem 0.75rem;
+        height: 2px;
+      }
+      .seq-progress > span {
+        display: block;
+        height: 100%;
+        background: var(--accent-text);
+        transform-origin: 0 50%;
+      }
+
+      /* Everything below runs on the section's timeline. */
+      .seq-step,
+      .seq-legend,
+      .seq-figures,
+      .seq-band,
+      .seq-label,
+      .seq-dim,
+      .seq-piece,
+      .seq-outline,
+      .seq-notch,
+      .seq-grain,
+      .seq-progress > span {
+        animation-timeline: --seq;
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+      }
+
+      /* Steps: each fades in, holds and fades out; the first is visible from the start, the last stays. */
+      @keyframes seq-step-first {
+        0%, 88% { opacity: 1; translate: 0 0; }
+        100% { opacity: 0; translate: 0 -12px; }
+      }
+      @keyframes seq-step-mid {
+        0% { opacity: 0; translate: 0 12px; }
+        12%, 88% { opacity: 1; translate: 0 0; }
+        100% { opacity: 0; translate: 0 -12px; }
+      }
+      @keyframes seq-step-last {
+        0% { opacity: 0; translate: 0 12px; }
+        12%, 100% { opacity: 1; translate: 0 0; }
+      }
+      .seq-step-a { animation-name: seq-step-first; animation-range: contain 0% contain 29%; }
+      .seq-step-b { animation-name: seq-step-mid; animation-range: contain 26% contain 57%; }
+      .seq-step-c { animation-name: seq-step-last; animation-range: contain 54% contain 100%; }
+
+      /* One animation per property per element: a second one on opacity would override the first. */
+      @keyframes seq-fade-in { from { opacity: 0; } }
+      @keyframes seq-rise { from { opacity: 0; translate: 0 10px; } }
+      @keyframes seq-label {
+        0% { opacity: 0; }
+        16%, 90% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+      @keyframes seq-dim {
+        0% { opacity: 0; }
+        40%, 75% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+      .seq-legend { animation-name: seq-fade-in; animation-range: contain 27% contain 33%; }
+      .seq-figures { animation-name: seq-rise; animation-range: contain 88% contain 96%; }
+      .seq-band { animation-name: seq-fade-in; animation-range: contain 54% contain 62%; }
+      .seq-label { animation-name: seq-label; animation-range: contain 6% contain 57%; }
+      .seq-dim { animation-name: seq-dim; animation-range: contain 12% contain 32%; }
+
+      /* The pieces lie where they were graded until step three slides each onto the fabric, turning to follow
+         the grain. The stroke of every outline is drawn on, then the nest takes a light tint. */
+      @keyframes seq-slide {
+        from { translate: var(--bx) var(--by); rotate: 0deg; }
+        to { translate: var(--mx) var(--my); rotate: var(--mr); }
+      }
+      @keyframes seq-draw {
+        from { stroke-dashoffset: 1; }
+        to { stroke-dashoffset: 0; }
+      }
+      @keyframes seq-tint {
+        from { fill-opacity: 0; }
+      }
+      .seq-piece {
+        translate: var(--bx) var(--by);
+        rotate: 0deg;
+        animation-name: seq-slide;
+        animation-timing-function: cubic-bezier(0.3, 0.7, 0.2, 1);
+        animation-range: contain calc(var(--m0) * 1%) contain calc(var(--m1) * 1%);
+      }
+      .seq-outline {
+        animation-name: seq-draw, seq-tint;
+        animation-range:
+          contain calc(var(--d0) * 1%) contain calc(var(--d1) * 1%),
+          contain 89% contain 97%;
+      }
+      .seq-notch,
+      .seq-grain {
+        animation-name: seq-fade-in;
+        animation-range: contain calc((var(--d1) - 3) * 1%) contain calc((var(--d1) + 3) * 1%);
+      }
+
+      @keyframes seq-progress {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+      }
+      .seq-progress > span {
+        animation-name: seq-progress;
+        animation-range: contain 0% contain 100%;
+      }
+    }
+  }
+</style>

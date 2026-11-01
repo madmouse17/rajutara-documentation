@@ -1,0 +1,64 @@
+/*
+  Design tokens shared by the landing page, the gallery and the docs.
+
+  The palette is the owner's artwork: blueprint paper (#071B3A, sampled from assets/logo/optirust-banner-wide.jpg),
+  its pale-blue drafting lines, and the Rust orange of the crab (#DF5824, sampled from optirust-256.png).
+  Dark is the default theme; light is `data-theme="light"` on <html>, set before first paint by ThemeInit.
+  Orange is the only accent and means "drawn by hand": the base size, the primary action, the focus ring.
+  Everything derived (the other sizes, links in running text) stays blue or neutral.
+
+  Every text pair below was run through contrast-check.py; the table is in docs/preflight.md.
+*/
+:root {
+  color-scheme: dark;
+
+  --font-sans-stack: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono-stack: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  --bg: #07152d;
+  --surface: #0c1f3f;
+  --surface-2: #132b52;
+  --line: #1f3a68;
+  --outline: #6585b5;
+  --fg: #e9eff9;
+  --fg-muted: #aebfd9;
+  --fg-faint: #8da3c6;
+
+  --accent: #df5821;
+  --accent-hover: #e9692f;
+  --on-accent: #07152d;
+  --accent-text: #f2804d;
+
+  /* The four sizes of the sample marker. M is the base size the Operator drew: it takes the accent. */
+  --size-s: #a8c8f0;
+  --size-m: #f2804d;
+  --size-l: #6ea3e8;
+  --size-xl: #4f86d4;
+
+  --radius: 0.625rem;
+  --shadow-lift: 0 32px 64px -24px rgb(2 8 22 / 0.75);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f4f6fb;
+  --surface: #fbfcfe;
+  --surface-2: #e9edf5;
+  --line: #d3dae8;
+  --outline: #5c7090;
+  --fg: #0b1b36;
+  --fg-muted: #41536f;
+  --fg-faint: #566987;
+
+  --accent-text: #b13d0b;
+
+  --size-s: #4f86d4;
+  --size-m: #b13d0b;
+  --size-l: #2f64b0;
+  --size-xl: #1d4a8c;
+
+  --shadow-lift: 0 28px 56px -28px rgb(11 27 54 / 0.4);
+}

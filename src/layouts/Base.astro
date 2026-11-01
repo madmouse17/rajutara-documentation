@@ -1,0 +1,64 @@
+---
+import '@fontsource-variable/geist/wght.css';
+import '@fontsource-variable/geist-mono/wght.css';
+import '../styles/global.css';
+import ThemeInit from '../components/ThemeInit.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { SITE_DESCRIPTION, withBase } from '../lib/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Site path of this page, starting and ending with `/`. */
+  path: string;
+  current?: 'home' | 'gallery';
+}
+
+const { title, description = SITE_DESCRIPTION, path, current } = Astro.props;
+const canonical = new URL(withBase(path), Astro.site).href;
+const image = new URL(withBase('/og.jpg'), Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#07152d" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" sizes="64x64" href={withBase('/favicon.png')} />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="optirust" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="492" />
+    <meta
+      property="og:image:alt"
+      content="The optirust crab logo and wordmark with the line Designing patterns, crafting future, over blueprint drawings of garments."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={image} />
+    <ThemeInit />
+  </head>
+  <body class="bg-bg text-fg antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-30 focus:rounded-ui focus:bg-accent focus:px-4 focus:py-3 focus:font-semibold focus:text-on-accent"
+    >
+      Skip to content
+    </a>
+    <SiteHeader current={current} />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
