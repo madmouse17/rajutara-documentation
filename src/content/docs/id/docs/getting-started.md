@@ -17,7 +17,7 @@ Setiap rilis ada di [halaman rilis](https://github.com/madmouse17/rajutara/relea
 | `rajutara-<versi>-windows-x86.msi` | Windows 7 SP1 sampai Windows 11, 32-bit. Pemasang. |
 | `rajutara-<versi>-windows-x86.zip` | Sama, tanpa pemasangan. |
 
-Setiap paket membawa berkas lisensi dan `THIRD-PARTY.html`, daftar perangkat lunak pihak ketiga. Jika di Windows program menyatakan tidak bisa membuat konteks OpenGL, baca [Windows 7](../../../docs/windows-7/) (dalam bahasa Inggris).
+Setiap paket membawa berkas lisensi dan `THIRD-PARTY.html`, daftar perangkat lunak pihak ketiga. Jika di Windows program menyatakan tidak bisa membuat konteks OpenGL, baca [Windows 7](../windows-7/).
 
 ## Buka contoh kaos
 
@@ -63,5 +63,5 @@ Uji coba menjalankan jendela sungguhan, jadi dijalankan di layar virtual: `LIBGL
 
 ## Berikutnya
 
-- [Workflows](../../../docs/workflows/): lima jalur kerja di dalam program (dalam bahasa Inggris).
-- [PDS](../../../docs/workspaces/pds/), [Grading](../../../docs/workspaces/grading/), [Marker](../../../docs/workspaces/marker/), dan [Cut Plan](../../../docs/workspaces/cut-plan/): satu panduan untuk setiap ruang kerja (dalam bahasa Inggris).
+- [Workflows](../workflows/): lima jalur kerja di dalam program.
+- [PDS](../workspaces/pds/), [Grading](../workspaces/grading/), [Marker](../workspaces/marker/), dan [Cut Plan](../workspaces/cut-plan/): satu panduan untuk setiap ruang kerja.

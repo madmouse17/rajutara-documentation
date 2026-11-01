@@ -1,5 +1,11 @@
 ---
-import { withBase } from '../../lib/site';
+import { href, t, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 
 // The command and the line it prints are the ones in the Rajutara README ("Built for agents"); the same
 // line is what CI reads for its budgets. Values vary by machine, the keys do not.
@@ -26,43 +32,42 @@ const smokeHtml = escape(smoke).replace(
   <div class="grid gap-10 lg:grid-cols-12 lg:gap-14">
     <div class="lg:col-span-5">
       <h2 id="agents-title" class="max-w-[16ch] text-section">
-        Built for scripts and agents.
+        {t(lang, 'agents.title')}
       </h2>
-      <p class="mt-5 text-lg text-muted">
-        A script or a coding agent can check a build and produce every output of the workflow
-        without a person at the screen.
-      </p>
+      <p class="mt-5 text-lg text-muted">{t(lang, 'agents.lede')}</p>
       <ul class="mt-6 space-y-3 text-muted">
-        <li>One JSON line on stdout. Exit code 0, or non-zero on any window or OpenGL failure.</li>
-        <li>
-          The same input and settings give byte-identical files. Only the UTC timestamp in an export
-          header differs.
-        </li>
-        <li>
-          Documents are zip files holding JSON, so a zip library is enough to read or write them.
-        </li>
+        <li>{t(lang, 'agents.b1')}</li>
+        <li>{t(lang, 'agents.b2')}</li>
+        <li>{t(lang, 'agents.b3')}</li>
       </ul>
       <p class="mt-6">
-        <a href={withBase('/docs/headless/')} class="link">
-          Headless and agents guide
+        <a href={href(lang, '/docs/headless/')} class="link">
+          {t(lang, 'agents.link')}
         </a>
       </p>
     </div>
 
     <div class="space-y-10 lg:col-span-7">
       <figure>
-        <figcaption class="mb-3 text-muted">
-          Check a build. This opens the real window, renders 60 frames, prints one line and exits.
-        </figcaption>
-        <pre class="code" tabindex="0" aria-label="Command"><code>{command}</code></pre>
-        <pre class="code mt-2" tabindex="0" aria-label="Output"><code set:html={smokeHtml} /></pre>
+        <figcaption class="mb-3 text-muted">{t(lang, 'agents.cap1')}</figcaption>
+        <pre
+          class="code"
+          tabindex="0"
+          aria-label={t(lang, 'agents.command')}
+        ><code>{command}</code></pre>
+        <pre
+          class="code mt-2"
+          tabindex="0"
+          aria-label={t(lang, 'agents.output')}
+        ><code set:html={smokeHtml} /></pre>
       </figure>
       <figure>
-        <figcaption class="mb-3 text-muted">
-          Make every output without a window: it drafts the sample tee, grades it to S, M, L and XL,
-          nests a marker and writes the files in the gallery.
-        </figcaption>
-        <pre class="code" tabindex="0" aria-label="Command"><code>{headless}</code></pre>
+        <figcaption class="mb-3 text-muted">{t(lang, 'agents.cap2')}</figcaption>
+        <pre
+          class="code"
+          tabindex="0"
+          aria-label={t(lang, 'agents.command')}
+        ><code>{headless}</code></pre>
       </figure>
     </div>
   </div>

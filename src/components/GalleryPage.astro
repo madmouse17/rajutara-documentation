@@ -1,0 +1,177 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '../layouts/Base.astro';
+import Shot from './Shot.astro';
+import teeNested from '../assets/gallery/tee-nested.jpg';
+import teePlot from '../assets/gallery/tee-marker.png';
+import nest300 from '../assets/gallery/nest-300.jpg';
+import gradingNest from '../assets/gallery/grading-nest.jpg';
+import { href, sitePath, t, type Lang } from '../lib/i18n';
+import { formatBytes, listSamples } from '../lib/samples';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+// Every file in public/samples/kaos-lengan-pendek is listed, grouped by what it is for.
+const samples = listSamples(lang);
+const groups = [
+  { id: 'open', title: t(lang, 'gal.groupOpen') },
+  { id: 'interchange', title: t(lang, 'gal.groupInterchange') },
+  { id: 'output', title: t(lang, 'gal.groupOutput') },
+] as const;
+const legacy = samples.some((f) => /\.opt[xmc]$/i.test(f.name));
+---
+
+<Base
+  title={t(lang, 'gal.title')}
+  description={t(lang, 'gal.description')}
+  path={sitePath(lang, '/gallery/')}
+  lang={lang}
+>
+  <div class="mx-auto max-w-300 px-5 pt-14 lg:pt-20">
+    <h1 class="max-w-[14ch] text-hero font-semibold">{t(lang, 'gal.h1')}</h1>
+    <p class="mt-6 max-w-[56ch] text-lg text-muted lg:text-xl">{t(lang, 'gal.lede')}</p>
+
+    <section id="tee-nested" aria-labelledby="tee-nested-title" class="mt-16 lg:mt-24">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-8">
+          <Shot
+            src={teeNested}
+            alt={t(lang, 'gal.teeAlt')}
+            sizes="(min-width: 1280px) 780px, (min-width: 1024px) 66vw, 100vw"
+            widths={[640, 960, 1280]}
+            lift
+          />
+        </div>
+        <div class="lg:col-span-4 lg:self-center">
+          <h2 id="tee-nested-title" class="text-3xl tracking-tight">
+            {t(lang, 'gal.teeTitle')}
+          </h2>
+          <p class="mt-4 text-muted">{t(lang, 'gal.teeBody')}</p>
+          <dl class="mt-6 grid grid-cols-2 gap-x-6 gap-y-5">
+            <div>
+              <dt class="text-sm text-muted">{t(lang, 'gal.efficiency')}</dt>
+              <dd class="font-mono text-2xl tabular-nums">84.10 %</dd>
+            </div>
+            <div>
+              <dt class="text-sm text-muted">{t(lang, 'gal.usedLength')}</dt>
+              <dd class="font-mono text-2xl tabular-nums">253.03 cm</dd>
+            </div>
+            <div>
+              <dt class="text-sm text-muted">{t(lang, 'gal.perGarment')}</dt>
+              <dd class="font-mono text-2xl tabular-nums">63.26 cm</dd>
+            </div>
+            <div>
+              <dt class="text-sm text-muted">{t(lang, 'gal.overlaps')}</dt>
+              <dd class="font-mono text-2xl tabular-nums">0</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <div class="mt-20 grid gap-14 lg:mt-28 lg:grid-cols-12 lg:gap-12">
+      <section id="tee-plot" aria-labelledby="tee-plot-title" class="lg:col-span-6">
+        <Shot
+          src={teePlot}
+          alt={t(lang, 'gal.plotAlt')}
+          sizes="(min-width: 1280px) 584px, (min-width: 1024px) 50vw, 100vw"
+          widths={[640, 960, 1280]}
+        />
+        <h2 id="tee-plot-title" class="mt-6 text-2xl tracking-tight">
+          {t(lang, 'gal.plotTitle')}
+        </h2>
+        <p class="mt-2 text-muted">{t(lang, 'gal.plotBody')}</p>
+      </section>
+      <section
+        id="grading-nest"
+        aria-labelledby="grading-nest-title"
+        class="lg:col-span-6 lg:pt-24"
+      >
+        <Shot
+          src={gradingNest}
+          alt={t(lang, 'gal.gradeAlt')}
+          sizes="(min-width: 1280px) 584px, (min-width: 1024px) 50vw, 100vw"
+          widths={[640, 960]}
+        />
+        <h2 id="grading-nest-title" class="mt-6 text-2xl tracking-tight">
+          {t(lang, 'gal.gradeTitle')}
+        </h2>
+        <p class="mt-2 text-muted">{t(lang, 'gal.gradeBody')}</p>
+      </section>
+    </div>
+
+    <section id="nest-300" aria-labelledby="nest-300-title" class="mt-20 lg:mt-28">
+      <Shot
+        src={nest300}
+        alt={t(lang, 'gal.n300Alt')}
+        sizes="(min-width: 1280px) 1200px, 100vw"
+        widths={[640, 960]}
+      />
+      <h2 id="nest-300-title" class="mt-6 text-2xl tracking-tight">
+        {t(lang, 'gal.n300Title')}
+      </h2>
+      <p class="mt-2 max-w-[62ch] text-muted">{t(lang, 'gal.n300Body')}</p>
+    </section>
+
+    <section id="files" aria-labelledby="files-title" class="mt-24 lg:mt-32">
+      <h2 id="files-title" class="max-w-[14ch] text-section">
+        {t(lang, 'gal.filesTitle')}
+      </h2>
+      <p class="mt-5 max-w-[62ch] text-lg text-muted">
+        {t(lang, 'gal.filesLede', { n: samples.length })}
+      </p>
+      {legacy && (
+        <p class="mt-3 max-w-[62ch] text-muted">
+          {t(lang, 'gal.legacyBefore')} <span class="kbd">.optx</span> {t(lang, 'gal.legacyAnd')}
+          <span class="kbd">.optm</span>. {t(lang, 'gal.legacyAfter')}
+          <span class="kbd">.rjx</span> {t(lang, 'gal.legacyAnd')} <span class="kbd">.rjm</span>.
+        </p>
+      )}
+
+      <div class="mt-12 space-y-12">
+        {groups.map((g) => {
+          const files = samples.filter((f) => f.group === g.id);
+          return (
+            files.length > 0 && (
+              <div class="grid gap-4 border-t border-line pt-6 lg:grid-cols-12 lg:gap-12">
+                <h3 class="text-lg font-semibold tracking-tight lg:col-span-3">{g.title}</h3>
+                <ul class="space-y-5 lg:col-span-9">
+                  {files.map((f) => (
+                    <li class="grid gap-x-6 gap-y-1 sm:grid-cols-[minmax(0,1fr)_auto]">
+                      <div class="min-w-0">
+                        <p class="font-mono text-sm break-all">{f.name}</p>
+                        <p class="text-sm text-muted">
+                          {f.kind}. {f.use}
+                        </p>
+                      </div>
+                      <a
+                        href={f.url}
+                        class="btn btn-secondary self-start max-sm:mt-2"
+                        download
+                        aria-label={`${f.name}, ${formatBytes(f.bytes)}`}
+                      >
+                        <Icon name="ph:file-arrow-down" class="size-5" aria-hidden="true" />
+                        {formatBytes(f.bytes)}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          );
+        })}
+      </div>
+      <p class="mt-10 text-muted">
+        {t(lang, 'gal.headlessBefore')}
+        <a href={href(lang, '/docs/headless/')} class="link">
+          {t(lang, 'gal.headlessLink')}
+        </a>
+        .
+      </p>
+    </section>
+  </div>
+</Base>

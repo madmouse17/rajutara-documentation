@@ -10,7 +10,13 @@
 // is sticky. No script. Where scroll-driven animation is missing, or the visitor asks for reduced motion,
 // the section is a normal block: the finished marker, with the three steps written out beside it.
 import tee from '../../data/tee-marker.json';
-import { withBase } from '../../lib/site';
+import { href, t, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 
 const FAMILIES = ['FRONT', 'BACK', 'SLEEVE', 'NECK RIB'] as const;
 type Family = (typeof FAMILIES)[number];
@@ -104,12 +110,12 @@ const front = table.FRONT;
     <div class="seq-grid mx-auto h-full max-w-300 px-5">
       <div class="seq-head">
         <h2 id="sequence-title" class="text-section max-lg:text-3xl">
-          From pattern to marker.
+          {t(lang, 'seq.title')}
         </h2>
         <p class="seq-lede mt-3 max-w-[40ch] text-muted">
-          One sample tee, start to finish. Every outline is read from the sample files in the{' '}
-          <a href={withBase('/gallery/')} class="link">
-            gallery
+          {t(lang, 'seq.ledeBefore')}{' '}
+          <a href={href(lang, '/gallery/')} class="link">
+            {t(lang, 'seq.ledeLink')}
           </a>
           .
         </p>
@@ -123,8 +129,7 @@ const front = table.FRONT;
         preserveAspectRatio="xMidYMid meet"
       >
         <title id="sequence-svg-title">
-          The sample tee as a marker: {tee.pieces.length} pieces in sizes S, M, L and XL nested on 1800
-          mm wide fabric, {metres} m long, {efficiency} percent efficiency.
+          {t(lang, 'seq.svgTitle', { pieces: tee.pieces.length, metres, efficiency })}
         </title>
         <defs>
           <pattern id="seq-warp" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -156,7 +161,7 @@ const front = table.FRONT;
               d={`M0 ${WIDTH + 90}H${LENGTH}M0 ${WIDTH + 60}V${WIDTH + 120}M${LENGTH} ${WIDTH + 60}V${WIDTH + 120}`}
             ></path>
             <text x={LENGTH / 2} y={WIDTH + 200}>
-              {metres} m used
+              {t(lang, 'seq.used', { metres })}
             </text>
           </g>
         </g>
@@ -187,44 +192,39 @@ const front = table.FRONT;
       <div class="seq-captions">
         <ol class="seq-steps">
           <li class="seq-step seq-step-a">
-            <h3 class="text-xl tracking-tight">Draft</h3>
-            <p class="mt-2 text-muted">
-              Draw the block once, in the base size. The tee is four pieces: front, back, sleeve and
-              neck rib, each with notches and a grainline. Base size M is a 100 cm chest.
-            </p>
+            <h3 class="text-xl tracking-tight">{t(lang, 'seq.draft')}</h3>
+            <p class="mt-2 text-muted">{t(lang, 'seq.draftBody')}</p>
           </li>
           <li class="seq-step seq-step-b">
-            <h3 class="text-xl tracking-tight">Grade</h3>
-            <p class="mt-2 text-muted">
-              A grade rule moves each point by a few millimetres. S, L and XL grow from the base
-              size M and nest around it, with no redrawing.
-            </p>
+            <h3 class="text-xl tracking-tight">{t(lang, 'seq.grade')}</h3>
+            <p class="mt-2 text-muted">{t(lang, 'seq.gradeBody')}</p>
           </li>
           <li class="seq-step seq-step-c">
-            <h3 class="text-xl tracking-tight">Nest</h3>
-            <p class="mt-2 text-muted">
-              All 20 pieces of the four sizes go onto 180 cm fabric, turned to follow the grain.
-            </p>
+            <h3 class="text-xl tracking-tight">{t(lang, 'seq.nest')}</h3>
+            <p class="mt-2 text-muted">{t(lang, 'seq.nestBody')}</p>
             <dl class="seq-figures mt-4 flex gap-8">
               <div>
-                <dt class="text-sm text-muted">Efficiency</dt>
+                <dt class="text-sm text-muted">{t(lang, 'seq.efficiency')}</dt>
                 <dd class="font-mono text-3xl tracking-tight tabular-nums">{efficiency} %</dd>
               </div>
               <div>
-                <dt class="text-sm text-muted">Fabric used</dt>
+                <dt class="text-sm text-muted">{t(lang, 'seq.fabricUsed')}</dt>
                 <dd class="font-mono text-3xl tracking-tight tabular-nums">{metres} m</dd>
               </div>
             </dl>
           </li>
         </ol>
 
-        <ul class="seq-legend mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm" aria-label="Sizes">
+        <ul
+          class="seq-legend mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm"
+          aria-label={t(lang, 'seq.sizes')}
+        >
           {sizes.map((s) => (
             <li class="flex items-center gap-2">
               <span class={`seq-swatch seq-swatch-${s.id}`} aria-hidden="true" />
               <span>
                 {s.label}
-                {s.id === 'm' && <span class="text-muted"> base size</span>}
+                {s.id === 'm' && <span class="text-muted"> {t(lang, 'seq.baseSize')}</span>}
               </span>
             </li>
           ))}

@@ -1,17 +1,19 @@
 ---
 // Header links beside the GitHub icon: the pages that live outside the docs.
 import { Icon } from '@astrojs/starlight/components';
-import { REPO, withBase } from '../../lib/site';
+import { REPO } from '../../lib/site';
+import { href } from '../../lib/i18n';
 
 const labels = {
   en: { gallery: 'Gallery', download: 'Download', github: 'Rajutara on GitHub' },
   id: { gallery: 'Galeri', download: 'Unduh', github: 'Rajutara di GitHub' },
 } as const;
-const t = labels[Astro.locals.starlightRoute.lang === 'id' ? 'id' : 'en'];
+const lang = Astro.locals.starlightRoute.lang === 'id' ? 'id' : 'en';
+const t = labels[lang];
 ---
 
-<a href={withBase('/gallery/')}>{t.gallery}</a>
-<a href={withBase('/#download')}>{t.download}</a>
+<a href={href(lang, '/gallery/')}>{t.gallery}</a>
+<a href={href(lang, '/#download')}>{t.download}</a>
 <a href={REPO} rel="me noopener" class="github">
   <span class="sr-only">{t.github}</span>
   <Icon name="github" />

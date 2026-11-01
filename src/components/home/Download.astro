@@ -1,6 +1,13 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { RELEASE, RELEASES_URL, assetUrl, withBase } from '../../lib/site';
+import { RELEASE, RELEASES_URL, assetUrl } from '../../lib/site';
+import { href, t, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 
 // File names follow the Downloads table of the Rajutara README. Version and tag live in src/lib/site.ts.
 const v = RELEASE.version;
@@ -13,70 +20,60 @@ const groups = [
       {
         kind: 'AppImage',
         file: `rajutara-${v}-x86_64.AppImage`,
-        note: 'Make it executable and run it. Without FUSE 2, start it with APPIMAGE_EXTRACT_AND_RUN=1.',
+        note: t(lang, 'dl.appimageNote'),
       },
     ],
   },
   {
-    name: 'Windows 64-bit',
+    name: t(lang, 'dl.win64'),
     icon: 'ph:windows-logo',
-    detail: 'Windows 7 SP1 through Windows 11',
+    detail: t(lang, 'dl.win'),
     files: [
-      { kind: 'Installer', file: `rajutara-${v}-windows-x64.msi`, note: 'The .msi installer.' },
       {
-        kind: 'Portable',
+        kind: t(lang, 'dl.installer'),
+        file: `rajutara-${v}-windows-x64.msi`,
+        note: t(lang, 'dl.msiNote'),
+      },
+      {
+        kind: t(lang, 'dl.portable'),
         file: `rajutara-${v}-windows-x64.zip`,
-        note: 'Unzip it and run rajutara.exe.',
+        note: t(lang, 'dl.zipNote'),
       },
     ],
   },
   {
-    name: 'Windows 32-bit',
+    name: t(lang, 'dl.win32'),
     icon: 'ph:windows-logo',
-    detail: 'Windows 7 SP1 through Windows 11',
+    detail: t(lang, 'dl.win'),
     files: [
-      { kind: 'Installer', file: `rajutara-${v}-windows-x86.msi`, note: 'The .msi installer.' },
       {
-        kind: 'Portable',
+        kind: t(lang, 'dl.installer'),
+        file: `rajutara-${v}-windows-x86.msi`,
+        note: t(lang, 'dl.msiNote'),
+      },
+      {
+        kind: t(lang, 'dl.portable'),
         file: `rajutara-${v}-windows-x86.zip`,
-        note: 'Unzip it and run rajutara.exe.',
+        note: t(lang, 'dl.zipNote'),
       },
     ],
   },
 ];
 
 // Source: the Status section of the Rajutara README.
-const status = [
-  {
-    head: 'Windows 7 is untested on hardware.',
-    body: 'The Windows builds run under Wine and pass an import-table check. The run on a real Windows 7 PC is still pending.',
-  },
-  { head: '3D is interface-only.', body: 'There is no 3D window.' },
-  {
-    head: 'No cutter drivers.',
-    body: 'Markers write PDF and HPGL/2, including one generic HPGL/2 cut file, and nothing vendor-specific.',
-  },
-  {
-    head: 'The Indonesian strings are unconfirmed.',
-    body: 'Every English string has an Indonesian one, but no Indonesian-speaking Operator has reviewed the wording.',
-  },
-  {
-    head: 'Phase 3 is not started.',
-    body: 'Stripe and plaid matching, tilt, block fuse, flaws and cross grading are on the roadmap.',
-  },
-];
+const status = (['s1', 's2', 's3', 's4', 's5'] as const).map((k) => ({
+  head: t(lang, `dl.${k}h`),
+  body: t(lang, `dl.${k}b`),
+}));
 ---
 
 <section id="download" aria-labelledby="download-title" class="mx-auto max-w-300 px-5">
   <div class="grid gap-14 lg:grid-cols-12 lg:gap-12">
     <div class="lg:col-span-7">
       <h2 id="download-title" class="text-section">
-        Download Rajutara {v}.
+        {t(lang, 'dl.title', { v })}
       </h2>
-      <p class="mt-5 max-w-[52ch] text-lg text-muted">
-        Free software under MIT or Apache-2.0. Every package ships the licences and the list of
-        third-party software.
-      </p>
+      <p class="mt-5 max-w-[52ch] text-lg text-muted">{t(lang, 'dl.lede')}</p>
 
       <div class="mt-10">
         {groups.map((g) => (
@@ -107,26 +104,30 @@ const status = [
       </div>
 
       <p class="border-t border-line pt-6 text-muted">
-        No OpenGL driver on the Windows PC? The packages carry a software renderer for that case,
-        explained in the{' '}
-        <a href={withBase('/docs/windows-7/')} class="link">
-          Windows 7 notes
+        {t(lang, 'dl.noGl')}{' '}
+        <a href={href(lang, '/docs/windows-7/')} class="link">
+          {t(lang, 'dl.win7Link')}
         </a>
-        . All files and checksums are on the{' '}
+        . {t(lang, 'dl.checksums')}{' '}
         <a href={RELEASES_URL} class="link">
-          releases page
+          {t(lang, 'dl.releasesLink')}
         </a>
-        . Files from 1.0 (<span class="font-mono">.optx</span>, <span class="font-mono">.optm</span>, <span class="font-mono">.optc</span>) still open in {v}; Save writes the new <span class="font-mono">.rjx</span>, <span class="font-mono">.rjm</span>, <span class="font-mono">.rjc</span>. To build from source, start with{' '}
-        <a href={withBase('/docs/getting-started/')} class="link">
-          getting started
+        . {t(lang, 'dl.legacyBefore')}
+        <span class="font-mono">.optx</span>, <span class="font-mono">.optm</span>,{' '}
+        <span class="font-mono">.optc</span>
+        {t(lang, 'dl.legacyMiddle', { v })} <span class="font-mono">.rjx</span>,{' '}
+        <span class="font-mono">.rjm</span>, <span class="font-mono">.rjc</span>.{' '}
+        {t(lang, 'dl.source')}{' '}
+        <a href={href(lang, '/docs/getting-started/')} class="link">
+          {t(lang, 'dl.gettingStartedLink')}
         </a>
         .
       </p>
     </div>
 
     <div class="lg:col-span-5 lg:pt-2">
-      <h3 class="text-2xl tracking-tight">Before you rely on it</h3>
-      <p class="mt-3 text-muted">Know these five things about Rajutara {v}.</p>
+      <h3 class="text-2xl tracking-tight">{t(lang, 'dl.beforeTitle')}</h3>
+      <p class="mt-3 text-muted">{t(lang, 'dl.beforeLede', { v })}</p>
       <ul class="mt-6 space-y-5">
         {status.map((s) => (
           <li>
@@ -136,8 +137,8 @@ const status = [
         ))}
       </ul>
       <p class="mt-6">
-        <a href={withBase('/docs/roadmap/')} class="link">
-          Roadmap from 1.0 to v2
+        <a href={href(lang, '/docs/roadmap/')} class="link">
+          {t(lang, 'dl.roadmap')}
         </a>
       </p>
     </div>

@@ -1,22 +1,27 @@
 ---
+import { t, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
 // Real measurements from the Rajutara README, taken on the Linux release build with --smoke under Xvfb and
 // Mesa llvmpipe. Each limit is a test in CI (ADR-0006), so these are budgets that hold, not claims.
 const figures = [
-  { value: '21', unit: 'MB', label: 'release binary', limit: 'limit 40 MB' },
-  { value: '53', unit: 'ms', label: 'to the first frame', limit: 'CI warns above 1.5 s' },
-  { value: '127', unit: 'MB', label: 'idle, empty document', limit: 'limit 150 MB' },
-  { value: '2', unit: 'ms', label: 'per frame, panning a 1000-piece marker', limit: 'limit 8 ms' },
+  { value: '21', unit: 'MB', label: t(lang, 'num.binary'), limit: t(lang, 'num.binaryLimit') },
+  { value: '53', unit: 'ms', label: t(lang, 'num.first'), limit: t(lang, 'num.firstLimit') },
+  { value: '127', unit: 'MB', label: t(lang, 'num.idle'), limit: t(lang, 'num.idleLimit') },
+  { value: '2', unit: 'ms', label: t(lang, 'num.frame'), limit: t(lang, 'num.frameLimit') },
 ];
 ---
 
 <section aria-labelledby="numbers-title" class="mx-auto max-w-300 px-5 pb-20 lg:pb-28">
   <h2 id="numbers-title" class="max-w-[18ch] text-section">
-    Small enough for the workshop PC.
+    {t(lang, 'num.title')}
   </h2>
-  <p class="mt-5 max-w-[62ch] text-lg text-muted">
-    The budgets are tests: CI fails when the binary, the start-up, the memory or the nesting time
-    goes over. Measured on the Linux release build under Xvfb and Mesa software rendering.
-  </p>
+  <p class="mt-5 max-w-[62ch] text-lg text-muted">{t(lang, 'num.lede')}</p>
 
   <div class="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-10">
     <div class="land lg:col-span-5">
@@ -24,10 +29,8 @@ const figures = [
         <span>58</span>
         <span class="text-4xl tracking-normal text-muted">s</span>
       </p>
-      <p class="mt-4 max-w-[28ch] text-xl">
-        to nest 300 pieces at 90.1 % efficiency, on worker threads with live progress.
-      </p>
-      <p class="mt-2 text-muted">The limit is 60 s.</p>
+      <p class="mt-4 max-w-[28ch] text-xl">{t(lang, 'num.nestBody')}</p>
+      <p class="mt-2 text-muted">{t(lang, 'num.nestLimit')}</p>
     </div>
 
     <dl class="land grid grid-cols-2 gap-x-8 gap-y-12 lg:col-span-7 lg:self-end">

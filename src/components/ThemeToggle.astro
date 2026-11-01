@@ -33,11 +33,16 @@ import { Icon } from 'astro-icon/components';
 
 <script>
   const root = document.documentElement;
+  const labels = {
+    en: { toLight: 'Switch to light theme', toDark: 'Switch to dark theme' },
+    id: { toLight: 'Ganti ke tema terang', toDark: 'Ganti ke tema gelap' },
+  };
 
   function sync() {
     const light = root.dataset.theme === 'light';
+    const text = root.lang.startsWith('id') ? labels.id : labels.en;
     document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((button) => {
-      button.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
+      button.setAttribute('aria-label', light ? text.toDark : text.toLight);
     });
   }
 

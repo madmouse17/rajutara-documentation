@@ -2,7 +2,15 @@
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import logo from '../assets/logo/rajutara-128.png';
-import { NAV } from '../lib/nav';
+import { navFor } from '../lib/nav';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const nav = navFor(lang);
 ---
 
 <footer class="mt-24 border-t border-line">
@@ -15,17 +23,14 @@ import { NAV } from '../lib/nav';
             Rajutara
           </p>
         </div>
-        <p class="mt-4 max-w-[32ch] text-muted">
-          Designing patterns, crafting future. Free software under MIT or Apache-2.0, at your
-          option.
-        </p>
+        <p class="mt-4 max-w-[32ch] text-muted">{t(lang, 'footer.tagline')}</p>
       </div>
 
       <nav
-        aria-label="Footer"
+        aria-label={t(lang, 'nav.footer')}
         class="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 lg:col-span-8"
       >
-        {NAV.map((group) => (
+        {nav.map((group) => (
           <section>
             <h2 class="text-sm font-semibold">{group.label}</h2>
             <ul class="mt-2">
@@ -49,9 +54,6 @@ import { NAV } from '../lib/nav';
       </nav>
     </div>
 
-    <p class="mt-12 max-w-[72ch] text-sm text-faint">
-      Rajutara is independent of Optitex and is not affiliated with, endorsed by or sponsored by its
-      owner. Optitex is a trademark of its owner. Rajutara uses none of its files or formats.
-    </p>
+    <p class="mt-12 max-w-[72ch] text-sm text-faint">{t(lang, 'footer.disclaimer')}</p>
   </div>
 </footer>

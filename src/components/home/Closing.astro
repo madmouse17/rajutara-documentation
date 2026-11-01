@@ -1,13 +1,20 @@
 ---
 import { Picture } from 'astro:assets';
 import banner from '../../assets/brand/rajutara-banner.jpg';
+import { t, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 ---
 
 <!-- The owner's banner closes the page: the crab, the name and the line the project works to. -->
-<section aria-label="Rajutara" class="plate">
+<section aria-label={t(lang, 'closing.label')} class="plate">
   <Picture
     src={banner}
-    alt="The Rajutara banner: a crab with a woven shell holding a needle and thread above the name Rajutara and the line Designing patterns, crafting future, over blueprint drawings of vests and hoodies, a grading table, the application window, rolls of fabric, scissors and a tape measure."
+    alt={t(lang, 'closing.alt')}
     widths={[640, 960, 1280, 1600]}
     sizes="100vw"
     formats={['avif', 'webp']}

@@ -2,63 +2,64 @@
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import teeMarker from '../../assets/gallery/tee-marker.png';
-import { BOOST_REPO, withBase } from '../../lib/site';
+import { BOOST_REPO } from '../../lib/site';
 import { formatBytes, listSamples } from '../../lib/samples';
+import { href, t, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 
 // The files are read from public/samples at build time, so the buttons always match what is on offer.
-const samples = listSamples();
-const pick = (kind: string) => samples.find((f) => f.kind === kind);
+const samples = listSamples(lang);
+const pick = (type: string) => samples.find((f) => f.type === type);
 const files = [
-  { label: 'Style', file: pick('Style') },
-  { label: 'Marker', file: pick('Marker') },
-  { label: 'Graded nest, DXF', file: pick('ASTM D6673 DXF') },
+  { label: t(lang, 'start.fileStyle'), file: pick('style') },
+  { label: t(lang, 'start.fileMarker'), file: pick('marker') },
+  { label: t(lang, 'start.fileDxf'), file: pick('dxf') },
 ].flatMap((f) => (f.file ? [{ label: f.label, file: f.file }] : []));
 
 const examples = [
   {
     icon: 'draft',
-    title: 'Draft the sample tee',
-    body: 'Drafts a short-sleeve tee, grades S, M, L and XL, nests a marker on 1800 mm jersey and writes every output.',
+    title: t(lang, 'start.ex1Title'),
+    body: t(lang, 'start.ex1Body'),
   },
   {
     icon: 'import',
-    title: 'Import a DXF, plot every size',
-    body: 'Reads an ASTM DXF with its RUL grade rules and plots every size of every piece to one A0 PDF.',
+    title: t(lang, 'start.ex2Title'),
+    body: t(lang, 'start.ex2Body'),
   },
   {
     icon: 'marker-nest',
-    title: 'Nest a style file',
-    body: 'Loads a style, builds a marker with one bundle per size, nests it, and writes the marker and an HPGL/2 plot.',
+    title: t(lang, 'start.ex3Title'),
+    body: t(lang, 'start.ex3Body'),
   },
 ];
 ---
 
 <section id="start" aria-labelledby="start-title" class="mx-auto max-w-300 px-5 pb-20 lg:pb-28">
   <h2 id="start-title" class="max-w-[14ch] text-section">
-    Start faster.
+    {t(lang, 'start.title')}
   </h2>
-  <p class="mt-5 max-w-[56ch] text-lg text-muted">
-    Open the sample tee in the app, or run the examples with no window at all. The files are the
-    ones Rajutara itself writes.
-  </p>
+  <p class="mt-5 max-w-[56ch] text-lg text-muted">{t(lang, 'start.lede')}</p>
 
   <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-12">
     <article class="flex flex-col rounded-ui border border-line bg-surface p-6 md:col-span-2 lg:col-span-6 lg:row-span-2">
       <div class="overflow-hidden rounded-lg border border-line bg-white">
         <Image
           src={teeMarker}
-          alt="The sample tee marker: 20 pieces of four sizes nested on 180 cm fabric, drawn as navy outlines with notches and grainlines."
+          alt={t(lang, 'start.alt')}
           widths={[640, 960, 1280]}
           sizes="(min-width: 1024px) 520px, (min-width: 768px) 90vw, 100vw"
           class="block h-auto w-full"
           loading="lazy"
         />
       </div>
-      <h3 class="mt-6 text-2xl tracking-tight">The sample tee</h3>
-      <p class="mt-2 text-muted">
-        Kaos Lengan Pendek, a basic short-sleeve tee: four pieces graded S, M, L and XL, nested on
-        180 cm jersey. 20 pieces, 84.10 % efficiency, 2.53 m of fabric.
-      </p>
+      <h3 class="mt-6 text-2xl tracking-tight">{t(lang, 'start.teeTitle')}</h3>
+      <p class="mt-2 text-muted">{t(lang, 'start.teeBody')}</p>
       <ul class="mt-5 flex flex-wrap gap-3">
         {files.map((f) => (
           <li>
@@ -71,8 +72,8 @@ const examples = [
         ))}
       </ul>
       <p class="mt-5 text-sm">
-        <a href={withBase('/gallery/')} class="link">
-          All sample files in the gallery
+        <a href={href(lang, '/gallery/')} class="link">
+          {t(lang, 'start.allFiles')}
         </a>
       </p>
     </article>
@@ -84,7 +85,7 @@ const examples = [
         <p class="mt-2 text-sm text-muted">{e.body}</p>
         <p class="mt-4 text-sm">
           <a href={`${BOOST_REPO}/tree/main/examples`} class="link" rel="noopener">
-            View the example
+            {t(lang, 'start.viewExample')}
           </a>
         </p>
       </article>
@@ -92,14 +93,11 @@ const examples = [
 
     <article class="rounded-ui border border-line bg-surface p-6 lg:col-span-3">
       <Icon name="report" class="size-7 text-accent-text" aria-hidden="true" />
-      <h3 class="mt-4 text-lg font-semibold tracking-tight">Agent kit</h3>
-      <p class="mt-2 text-sm text-muted">
-        Guidelines, real signatures and an MCP server, so a coding agent builds on Rajutara
-        correctly.
-      </p>
+      <h3 class="mt-4 text-lg font-semibold tracking-tight">{t(lang, 'start.kitTitle')}</h3>
+      <p class="mt-2 text-sm text-muted">{t(lang, 'start.kitBody')}</p>
       <p class="mt-4 text-sm">
         <a href={BOOST_REPO} class="link" rel="noopener">
-          rajutara-boost on GitHub
+          {t(lang, 'start.kitLink')}
         </a>
       </p>
     </article>

@@ -3,22 +3,39 @@ import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import logo from '../assets/logo/rajutara-128.png';
 import ThemeToggle from './ThemeToggle.astro';
-import { NAV } from '../lib/nav';
+import { navFor } from '../lib/nav';
+import { href, t, twinPath, type Lang } from '../lib/i18n';
 import { withBase } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  /** Site path of this page, with its language prefix: the switcher links to its twin. */
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const nav = navFor(lang);
+const twin = twinPath(path);
+const switcher = (
+  [
+    { code: 'en', label: 'English', href: withBase(lang === 'en' ? path : twin.path) },
+    { code: 'id', label: 'Bahasa Indonesia', href: withBase(lang === 'id' ? path : twin.path) },
+  ] as const
+).map((l) => ({ ...l, current: l.code === lang }));
 ---
 
 <header class="site-header">
   <div class="mx-auto flex h-16 max-w-300 items-center gap-4 px-5">
-    <a href={withBase('/')} class="brand" aria-label="Rajutara, home">
+    <a href={href(lang, '/')} class="brand" aria-label={t(lang, 'brand.home')}>
       <Image src={logo} alt="" width={64} height={64} class="size-8" />
       <span class="text-xl font-semibold tracking-tight" translate="no">
         Rajutara
       </span>
     </a>
 
-    <nav class="ml-4 hidden md:block" aria-label="Site">
+    <nav class="ml-4 hidden md:block" aria-label={t(lang, 'nav.site')}>
       <ul class="flex items-center">
-        {NAV.map((group) => (
+        {nav.map((group) => (
           <li>
             <details class="group" name="site-nav">
               <summary class="trigger">
@@ -45,17 +62,31 @@ import { withBase } from '../lib/site';
     </nav>
 
     <div class="ml-auto flex items-center gap-1">
+      <nav class="lang" aria-label={t(lang, 'language')}>
+        {switcher.map((l) => (
+          <a
+            href={l.href}
+            lang={l.code}
+            hreflang={l.code}
+            aria-current={l.current ? 'true' : undefined}
+            aria-label={`${l.code.toUpperCase()}, ${l.label}`}
+            title={l.label}
+          >
+            {l.code.toUpperCase()}
+          </a>
+        ))}
+      </nav>
       <ThemeToggle />
-      <a href={withBase('/#download')} class="btn btn-primary ml-2 hidden md:inline-flex">
-        Download
+      <a href={href(lang, '/#download')} class="btn btn-primary ml-2 hidden md:inline-flex">
+        {t(lang, 'download')}
       </a>
 
       <details class="menu md:hidden">
-        <summary class="burger" aria-label="Menu">
+        <summary class="burger" aria-label={t(lang, 'nav.menu')}>
           <Icon name="ph:list" class="size-6" aria-hidden="true" />
         </summary>
-        <nav class="panel" aria-label="Site, small screens">
-          {NAV.map((group) => (
+        <nav class="panel" aria-label={t(lang, 'nav.siteSmall')}>
+          {nav.map((group) => (
             <section>
               <p class="label">{group.label}</p>
               <ul>
@@ -72,8 +103,8 @@ import { withBase } from '../lib/site';
               </ul>
             </section>
           ))}
-          <a href={withBase('/#download')} class="btn btn-primary mt-3 w-full">
-            Download
+          <a href={href(lang, '/#download')} class="btn btn-primary mt-3 w-full">
+            {t(lang, 'download')}
           </a>
         </nav>
       </details>
@@ -88,6 +119,31 @@ import { withBase } from '../lib/site';
     z-index: 20;
     background: var(--bg);
     border-bottom: 1px solid var(--line);
+  }
+  /* Language switcher: two short links, the current one marked by weight and an underline, not by colour alone. */
+  .lang {
+    display: flex;
+    align-items: center;
+  }
+  .lang a {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius);
+    color: var(--fg-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  .lang a:hover {
+    color: var(--fg);
+  }
+  .lang a[aria-current] {
+    color: var(--fg);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
   }
   .brand {
     display: flex;

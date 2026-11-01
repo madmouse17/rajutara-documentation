@@ -1,6 +1,13 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { withBase } from '../../lib/site';
+import { href, t, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 
 // The clip is the real application: scripts/record-demo.sh records it under Xvfb, zooming into the sample
 // marker, panning along it and zooming back out. Muted, 10 s, looping, 1280x720.
@@ -8,11 +15,11 @@ const media = (file: string) => withBase(`/media/${file}`);
 
 // Five words, each an anchor to the section that tells that part of the story.
 const steps = [
-  { label: 'Import', href: '#formats', icon: 'import' },
-  { label: 'Draft', href: '#pds', icon: 'draft' },
-  { label: 'Grade', href: '#grading', icon: 'graded-nest' },
-  { label: 'Nest', href: '#marker', icon: 'marker-nest' },
-  { label: 'Plot', href: '#plot', icon: 'marker-plot' },
+  { label: t(lang, 'step.import'), href: '#formats', icon: 'import' },
+  { label: t(lang, 'step.draft'), href: '#pds', icon: 'draft' },
+  { label: t(lang, 'step.grade'), href: '#grading', icon: 'graded-nest' },
+  { label: t(lang, 'step.nest'), href: '#marker', icon: 'marker-nest' },
+  { label: t(lang, 'step.plot'), href: '#plot', icon: 'marker-plot' },
 ];
 ---
 
@@ -22,20 +29,20 @@ const steps = [
     class="rise max-w-[16ch] text-hero font-semibold sm:max-w-[18ch] lg:max-w-none"
     style="--i: 0"
   >
-    Pattern CAD built for real garments.
+    {t(lang, 'hero.title')}
   </h1>
 
   <div class="mt-6 flex flex-wrap items-center gap-x-10 gap-y-5 lg:mt-8">
     <p class="rise max-w-[42ch] text-lg text-muted lg:text-xl" style="--i: 1">
-      Draft, grade, nest and plan the cut in one open-source window for Linux and Windows.
+      {t(lang, 'hero.lede')}
     </p>
     <div class="rise flex flex-wrap gap-3" style="--i: 2">
       <a href="#download" class="btn btn-primary">
         <Icon name="ph:download-simple" class="size-5" aria-hidden="true" />
-        Download
+        {t(lang, 'download')}
       </a>
-      <a href={withBase('/docs/')} class="btn btn-secondary">
-        Read the docs
+      <a href={href(lang, '/docs/')} class="btn btn-secondary">
+        {t(lang, 'hero.docs')}
       </a>
     </div>
   </div>
@@ -50,18 +57,26 @@ const steps = [
       loop
       playsinline
       preload="metadata"
-      aria-label="Screen recording of Rajutara: the sample tee marker, zooming in on the pieces, panning along the fabric and zooming back out."
+      aria-label={t(lang, 'hero.video')}
     >
       <source src={media('rajutara-marker-demo.webm')} type="video/webm" />
       <source src={media('rajutara-marker-demo.mp4')} type="video/mp4" />
     </video>
-    <button type="button" class="hero-toggle" data-hero-toggle hidden aria-label="Play video">
+    <button
+      type="button"
+      class="hero-toggle"
+      data-hero-toggle
+      data-label-play={t(lang, 'hero.play')}
+      data-label-pause={t(lang, 'hero.pause')}
+      hidden
+      aria-label={t(lang, 'hero.play')}
+    >
       <Icon name="ph:pause-fill" class="icon-pause size-5" aria-hidden="true" />
       <Icon name="ph:play-fill" class="icon-play size-5" aria-hidden="true" />
     </button>
   </figure>
 
-  <nav aria-label="Workflow" class="mt-10 lg:mt-12">
+  <nav aria-label={t(lang, 'hero.steps')} class="mt-10 lg:mt-12">
     <ol class="steps">
       {steps.map((s) => (
         <li>
@@ -188,7 +203,10 @@ const steps = [
 
     const show = (playing: boolean) => {
       toggle.dataset.state = playing ? 'playing' : 'paused';
-      toggle.setAttribute('aria-label', playing ? 'Pause video' : 'Play video');
+      toggle.setAttribute(
+        'aria-label',
+        (playing ? toggle.dataset.labelPause : toggle.dataset.labelPlay) ?? '',
+      );
     };
     video.addEventListener('play', () => show(true));
     video.addEventListener('pause', () => show(false));

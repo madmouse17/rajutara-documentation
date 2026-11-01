@@ -1,4 +1,5 @@
-import { REPO, withBase } from './site';
+import { href, t, type Lang } from './i18n';
+import { REPO } from './site';
 
 export interface NavItem {
   label: string;
@@ -15,38 +16,50 @@ export interface NavGroup {
 }
 
 /** The four groups of the top bar, also used by the small-screen menu and the footer. */
-export const NAV: NavGroup[] = [
+export const navFor = (lang: Lang): NavGroup[] => [
   {
-    label: 'Product',
+    label: t(lang, 'nav.product'),
     items: [
-      { label: 'PDS', href: withBase('/#pds'), icon: 'draft' },
-      { label: 'Grading', href: withBase('/#grading'), icon: 'graded-nest' },
-      { label: 'Marker', href: withBase('/#marker'), icon: 'marker-nest' },
-      { label: 'Cut Plan', href: withBase('/#cut-plan'), icon: 'solve' },
+      { label: 'PDS', href: href(lang, '/#pds'), icon: 'draft' },
+      { label: 'Grading', href: href(lang, '/#grading'), icon: 'graded-nest' },
+      { label: 'Marker', href: href(lang, '/#marker'), icon: 'marker-nest' },
+      { label: 'Cut Plan', href: href(lang, '/#cut-plan'), icon: 'solve' },
     ],
   },
   {
-    label: 'Learn',
+    label: t(lang, 'nav.learn'),
     items: [
-      { label: 'Docs', href: withBase('/docs/') },
-      { label: 'Getting started', href: withBase('/docs/getting-started/') },
-      { label: 'Workflows', href: withBase('/docs/workflows/') },
+      { label: t(lang, 'nav.docs'), href: href(lang, '/docs/') },
+      { label: t(lang, 'nav.gettingStarted'), href: href(lang, '/docs/getting-started/') },
+      { label: t(lang, 'nav.workflows'), href: href(lang, '/docs/workflows/') },
     ],
   },
   {
-    label: 'Resources',
+    label: t(lang, 'nav.resources'),
     items: [
-      { label: 'Downloads', href: withBase('/#download') },
-      { label: 'Gallery', href: withBase('/gallery/') },
-      { label: 'Roadmap', href: withBase('/docs/roadmap/') },
-      { label: 'Changelog', href: `${REPO}/blob/main/CHANGELOG.md`, external: true },
+      { label: t(lang, 'nav.downloads'), href: href(lang, '/#download') },
+      { label: t(lang, 'nav.gallery'), href: href(lang, '/gallery/') },
+      { label: t(lang, 'nav.roadmap'), href: href(lang, '/docs/roadmap/') },
+      {
+        label: t(lang, 'nav.changelog'),
+        href: `${REPO}/blob/main/CHANGELOG.md`,
+        external: true,
+      },
     ],
   },
   {
-    label: 'About',
+    label: t(lang, 'nav.about'),
     items: [
-      { label: 'Clean room', href: withBase('/docs/contributing/#the-clean-room-rule') },
-      { label: 'Contributing', href: withBase('/docs/contributing/') },
+      {
+        label: t(lang, 'nav.cleanRoom'),
+        href: href(
+          lang,
+          lang === 'id'
+            ? '/docs/contributing/#aturan-clean-room'
+            : '/docs/contributing/#the-clean-room-rule',
+        ),
+      },
+      { label: t(lang, 'nav.contributing'), href: href(lang, '/docs/contributing/') },
       { label: 'GitHub', href: REPO, external: true },
     ],
   },

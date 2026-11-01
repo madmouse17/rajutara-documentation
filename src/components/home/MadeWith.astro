@@ -4,7 +4,13 @@ import teeNested from '../../assets/gallery/tee-nested.jpg';
 import teePlot from '../../assets/gallery/tee-marker.png';
 import nest300 from '../../assets/gallery/nest-300.jpg';
 import gradingNest from '../../assets/gallery/grading-nest.jpg';
-import { withBase } from '../../lib/site';
+import { href, t, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 
 // The one marquee on the page: real renders only, each linking to its place in the gallery. The strip is
 // two copies of the same list sliding by exactly one copy, so the loop has no seam; the second copy is
@@ -14,30 +20,30 @@ const items = [
   {
     id: 'tee-nested',
     image: teeNested,
-    title: 'The sample tee, nested',
-    note: '20 pieces, 84.10 %, 2.53 m',
-    alt: 'The sample tee marker in the application: 20 pieces of four sizes in four colours on 180 cm fabric.',
+    title: t(lang, 'made.teeTitle'),
+    note: t(lang, 'made.teeNote'),
+    alt: t(lang, 'made.teeAlt'),
   },
   {
     id: 'nest-300',
     image: nest300,
-    title: '300 shirt fronts',
-    note: '0 overlaps, 89.62 %',
-    alt: 'Three rows of nested shirt fronts, seen at the start of a 300-piece marker.',
+    title: t(lang, 'made.n300Title'),
+    note: t(lang, 'made.n300Note'),
+    alt: t(lang, 'made.n300Alt'),
   },
   {
     id: 'tee-plot',
     image: teePlot,
-    title: 'The same marker, plotted',
-    note: 'A0 PDF, stitched from its tiles',
-    alt: 'The sample tee marker drawn as navy outlines with notches and grainlines, one piece labelled with its name and size.',
+    title: t(lang, 'made.plotTitle'),
+    note: t(lang, 'made.plotNote'),
+    alt: t(lang, 'made.plotAlt'),
   },
   {
     id: 'grading-nest',
     image: gradingNest,
-    title: 'Graded nest',
-    note: 'S, M, L and XL, one colour each',
-    alt: 'Front, back and sleeve pieces with their graded sizes drawn as nested outlines in four colours.',
+    title: t(lang, 'made.gradeTitle'),
+    note: t(lang, 'made.gradeNote'),
+    alt: t(lang, 'made.gradeAlt'),
   },
 ].map((item) => ({
   ...item,
@@ -48,18 +54,16 @@ const items = [
 <section aria-labelledby="made-title" class="pb-20 lg:pb-28">
   <div class="mx-auto max-w-300 px-5">
     <h2 id="made-title" class="max-w-[16ch] text-section">
-      Made with Rajutara.
+      {t(lang, 'made.title')}
     </h2>
-    <p class="mt-5 max-w-[56ch] text-lg text-muted">
-      Real renders from the sample files and the end-to-end tests. No stock images.
-    </p>
+    <p class="mt-5 max-w-[56ch] text-lg text-muted">{t(lang, 'made.lede')}</p>
   </div>
 
   <div class="marquee-wrap mt-12">
     <input type="checkbox" id="marquee-pause" class="sr-only" />
     <label for="marquee-pause" class="pause-label">
-      <span class="when-running">Pause the strip</span>
-      <span class="when-paused">Resume the strip</span>
+      <span class="when-running">{t(lang, 'made.pause')}</span>
+      <span class="when-paused">{t(lang, 'made.resume')}</span>
     </label>
     <div class="marquee">
       <div class="track">
@@ -67,7 +71,7 @@ const items = [
           <ul class="copy" aria-hidden={hidden ? 'true' : undefined} inert={hidden}>
             {items.map((item) => (
               <li>
-                <a href={withBase(`/gallery/#${item.id}`)} tabindex={hidden ? -1 : undefined}>
+                <a href={href(lang, `/gallery/#${item.id}`)} tabindex={hidden ? -1 : undefined}>
                   <Image
                     src={item.image}
                     alt={hidden ? '' : item.alt}

@@ -7,7 +7,13 @@ import marker from '../../assets/screens/full-marker.jpg';
 import nest from '../../assets/screens/full-nest.jpg';
 import cutplan from '../../assets/screens/full-cutplan.jpg';
 import plot from '../../assets/screens/full-plot.jpg';
-import { withBase } from '../../lib/site';
+import { href, t, type Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
 
 // Facts and figures: the Rajutara README ("What it does" and "Formats") and the 1.0.0 changelog.
 const pdsEmblems = [
@@ -40,34 +46,27 @@ const cutplanEmblems = [
   class="mx-auto max-w-300 px-5 py-20 lg:py-28"
 >
   <h2 id="workspaces-title" class="max-w-[16ch] text-section">
-    One window, four workspaces.
+    {t(lang, 'wf.title')}
   </h2>
-  <p class="mt-5 max-w-[56ch] text-lg text-muted">
-    PDS, Grading, Marker and Cut Plan share one open Style and one undo history. Switching tabs
-    never means exporting a file.
-  </p>
+  <p class="mt-5 max-w-[56ch] text-lg text-muted">{t(lang, 'wf.lede')}</p>
 
   <div class="mt-16 space-y-24 lg:mt-20 lg:space-y-32">
     <!-- Draft: text left, the wide window right. -->
     <article id="pds" class="grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-12">
       <div class="lg:col-span-4">
-        <h3 class="text-3xl tracking-tight">Draft the pattern, or import it.</h3>
-        <p class="mt-4 text-muted">
-          89 tools in a toolbox laid out the way trained operators expect: draft, notch, add seams,
-          darts and pleats. Import ASTM DXF from other CAD. Segment lengths, seam allowance and
-          grainlines show on the piece.
-        </p>
-        <Emblems items={pdsEmblems} class="mt-5" />
+        <h3 class="text-3xl tracking-tight">{t(lang, 'wf.pdsTitle')}</h3>
+        <p class="mt-4 text-muted">{t(lang, 'wf.pdsBody')}</p>
+        <Emblems {lang} items={pdsEmblems} class="mt-5" />
         <p class="mt-6">
-          <a href={withBase('/docs/workspaces/pds/')} class="link">
-            PDS guide
+          <a href={href(lang, '/docs/workspaces/pds/')} class="link">
+            {t(lang, 'wf.pdsLink')}
           </a>
         </p>
       </div>
       <div class="land lg:col-span-8">
         <Shot
           src={pds}
-          alt="The PDS workspace with segment lengths shown on the FRONT piece: neckline, shoulders and armholes with seam allowance and grainline"
+          alt={t(lang, 'wf.pdsAlt')}
           sizes="(min-width: 1280px) 780px, (min-width: 1024px) 66vw, 100vw"
           lift
         />
@@ -79,21 +78,18 @@ const cutplanEmblems = [
       <div class="land order-2 lg:order-1 lg:col-span-8">
         <Shot
           src={grading}
-          alt="The Grading workspace: the Grading Table with dX and dY per size next to the graded nest drawn in four size colours"
+          alt={t(lang, 'wf.gradingAlt')}
           sizes="(min-width: 1280px) 780px, (min-width: 1024px) 66vw, 100vw"
           lift
         />
       </div>
       <div class="order-1 lg:order-2 lg:col-span-4">
-        <h3 class="text-3xl tracking-tight">Grade by rule, not by redrawing.</h3>
-        <p class="mt-4 text-muted">
-          Pick a base size and give each grade point a rule: dX and dY per size. The graded nest
-          draws every size in its own colour, and it leaves as ASTM DXF with a RUL file.
-        </p>
-        <Emblems items={gradingEmblems} class="mt-5" />
+        <h3 class="text-3xl tracking-tight">{t(lang, 'wf.gradingTitle')}</h3>
+        <p class="mt-4 text-muted">{t(lang, 'wf.gradingBody')}</p>
+        <Emblems {lang} items={gradingEmblems} class="mt-5" />
         <p class="mt-6">
-          <a href={withBase('/docs/workspaces/grading/')} class="link">
-            Grading guide
+          <a href={href(lang, '/docs/workspaces/grading/')} class="link">
+            {t(lang, 'wf.gradingLink')}
           </a>
         </p>
       </div>
@@ -102,16 +98,12 @@ const cutplanEmblems = [
     <!-- Nest: text on top, two equal windows below. -->
     <article id="marker">
       <div class="max-w-[60ch]">
-        <h3 class="text-3xl tracking-tight">Nest the marker by hand or by engine.</h3>
-        <p class="mt-4 text-muted">
-          Drag pieces from the piece bar, or let the nesting engine fill the fabric: no-fit
-          polygons, bottom-left fill and annealing, with live progress. 300 pieces nest in 58 s at
-          90.1 %.
-        </p>
-        <Emblems items={markerEmblems} class="mt-5" />
+        <h3 class="text-3xl tracking-tight">{t(lang, 'wf.markerTitle')}</h3>
+        <p class="mt-4 text-muted">{t(lang, 'wf.markerBody')}</p>
+        <Emblems {lang} items={markerEmblems} class="mt-5" />
         <p class="mt-6">
-          <a href={withBase('/docs/workspaces/marker/')} class="link">
-            Marker guide
+          <a href={href(lang, '/docs/workspaces/marker/')} class="link">
+            {t(lang, 'wf.markerLink')}
           </a>
         </p>
       </div>
@@ -119,22 +111,18 @@ const cutplanEmblems = [
         <figure class="land">
           <Shot
             src={marker}
-            alt="The Marker workspace with the sample tee: 20 pieces of sizes S, M, L and XL placed on 180 cm fabric, the Marker Properties pane on the left"
+            alt={t(lang, 'wf.markerAlt')}
             sizes="(min-width: 1280px) 584px, (min-width: 768px) 46vw, 100vw"
           />
-          <figcaption class="mt-3 text-sm text-muted">
-            Placed by hand: 20 pieces of S, M, L and XL on 180 cm fabric, 75.20 %.
-          </figcaption>
+          <figcaption class="mt-3 text-sm text-muted">{t(lang, 'wf.markerCap')}</figcaption>
         </figure>
         <figure class="land">
           <Shot
             src={nest}
-            alt="The first 4.5 metres of a 300-piece marker: three rows of nested shirt fronts on 150 cm fabric, no overlaps"
+            alt={t(lang, 'wf.nestAlt')}
             sizes="(min-width: 1280px) 584px, (min-width: 768px) 46vw, 100vw"
           />
-          <figcaption class="mt-3 text-sm text-muted">
-            A 300-piece marker saved by the end-to-end test: 0 overlaps, 89.62 %.
-          </figcaption>
+          <figcaption class="mt-3 text-sm text-muted">{t(lang, 'wf.nestCap')}</figcaption>
         </figure>
       </div>
     </article>
@@ -142,16 +130,12 @@ const cutplanEmblems = [
     <!-- Plan: text left, the results window and the plot dialog right. -->
     <article id="cut-plan" class="grid gap-8 lg:grid-cols-12 lg:gap-12">
       <div class="lg:col-span-5 lg:pt-10">
-        <h3 class="text-3xl tracking-tight">Plan the cut, then plot it.</h3>
-        <p class="mt-4 text-muted">
-          Turn an order of colours by sizes into markers and lays with plies, fabric length and
-          cost. The Cut Order sequences the lays and draws plies from your fabric rolls. Plot to PDF
-          or HPGL/2.
-        </p>
-        <Emblems items={cutplanEmblems} class="mt-5" />
+        <h3 class="text-3xl tracking-tight">{t(lang, 'wf.cutTitle')}</h3>
+        <p class="mt-4 text-muted">{t(lang, 'wf.cutBody')}</p>
+        <Emblems {lang} items={cutplanEmblems} class="mt-5" />
         <p class="mt-6">
-          <a href={withBase('/docs/workspaces/cut-plan/')} class="link">
-            Cut Plan guide
+          <a href={href(lang, '/docs/workspaces/cut-plan/')} class="link">
+            {t(lang, 'wf.cutLink')}
           </a>
         </p>
       </div>
@@ -159,23 +143,19 @@ const cutplanEmblems = [
         <figure class="land">
           <Shot
             src={cutplan}
-            alt="Cut Plan results for order PO-100: three markers and nine lays for a three-colour order of 590 garments"
+            alt={t(lang, 'wf.cutAlt')}
             sizes="(min-width: 1280px) 680px, (min-width: 1024px) 58vw, 100vw"
             lift
           />
-          <figcaption class="mt-3 text-sm text-muted">
-            Order PO-100 of the end-to-end test: 590 garments in 9 lays.
-          </figcaption>
+          <figcaption class="mt-3 text-sm text-muted">{t(lang, 'wf.cutCap')}</figcaption>
         </figure>
         <figure id="plot" class="land ml-auto max-w-[80%]">
           <Shot
             src={plot}
-            alt="The Plot dialog with the Target list open: PDF A4 tiles, PDF A0, HPGL/2 file"
+            alt={t(lang, 'wf.plotAlt')}
             sizes="(min-width: 1280px) 540px, (min-width: 1024px) 46vw, 80vw"
           />
-          <figcaption class="mt-3 text-sm text-muted">
-            The Plot dialog: PDF as A4 tiles or one A0 sheet, or an HPGL/2 file.
-          </figcaption>
+          <figcaption class="mt-3 text-sm text-muted">{t(lang, 'wf.plotCap')}</figcaption>
         </figure>
       </div>
     </article>
