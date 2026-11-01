@@ -7,6 +7,16 @@ All notable changes to rajutara. Format: [Keep a Changelog](https://keepachangel
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-01
+
+### Added
+- **DXF import wizard** (`docs/spec/02-pds.md` §8.1). File › File Utilities › Import From CAD/CAM Files… opens three steps: **File** (the DXF and an optional `.rul`; a `.rul` with the DXF's name is filled in), **Preview** (read on a background job that Back or Esc stops: format, units, pieces, sizes, drawing size, error and warning counts, the layers in the file, the issues and a thumbnail of the outlines) and **Options** (line mode Sew or Cut, units, which sizes, and the old Import Setup fields under More options). A file that cannot be imported, a path that does not exist and a field that does not parse block the way on with the reason. Esc closes the wizard at every step. Opening, dropping or choosing a recent `.dxf` starts it already reading the file; an import with the options of the preview opens the Style the preview read instead of reading the file again.
+- **First-run tour** (`docs/spec/07-ui-shell.md` §2). The first start shows five steps over the window, each with a ring around the part it explains (start card, Toolbox, Grading, Marker and Cut Plan tabs), Next, Back, Skip Tour and Esc. It never shows again once finished or skipped; Help › Show Tour opens it again. A preferences file written before this version counts as already seen.
+- `rajutara-io`: `DxfImportOptions::line_mode` (`Sew` keeps the old behaviour, `Cut` keeps the boundary as the cutting line and layer 14 as an internal Sew line), `import_dxf_with_rul_cancellable` (an explicit rule file) and `DxfFileInfo` (units, dialect and entities per layer).
+
+### Fixed
+- The import options never appeared while no document was open (the welcome card's **Import DXF…**): the PDS workspace now draws its windows through the new `Module::dialogs` hook.
+
 ## [1.1.0] - 2026-11-01
 
 Renamed from Rajutara to **Rajutara** (*rajut* = knit, *tara* = balanced). Native files are now `.rjx` / `.rjm` / `.rjc`; the old files still open.
