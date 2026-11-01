@@ -7,6 +7,18 @@ All notable changes to rajutara. Format: [Keep a Changelog](https://keepachangel
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-11-01
+
+### Added
+- Opening, dropping or choosing a `.pds`, `.mrk`, `.dsn` or `.ord` file shows an "Optitex file not supported" dialog (English and Indonesian) that points to Optitex's DXF export (AAMA/ASTM, with grading) and has an **Import DXF…** button. Detected by extension only; the file is never read, and the extensions are in no file dialog filter (ADR-0001).
+- **Select now moves pieces by drag** (`docs/spec/02-pds.md` T01). Press a piece (its cutting line or inside it) and drag: all selected pieces move, or the pressed piece alone when it was not selected, in one `cmd-move-piece` edit on release with the same snap, axis lock and Grade Rule behaviour as Move Piece. Dragging from empty desk still draws a selection rectangle, pressing a point, notch or internal still picks it, Shift and Ctrl drags keep their meaning and Esc cancels. Turn it off in Preferences › Tools (`tools.select_drag_moves`, default on).
+- Example `line_25cm`: a 25 cm straight line on a sheet
+
+### Fixed
+- Showing a hidden pane again recreates its panel in the default place (top, left or bottom) instead of adding a tab to the Work Area; **View › Reset Layout** is the same action as Tools › Reset Workspace Layout.
+- The Select tool is armed when a document opens; a tool that is already armed is kept.
+- The dock layout can no longer end up stuck as one panel. Closing the side and bottom panels and showing a pane again put its tab into the Work Area's tab bar, and that layout was saved and loaded for good. A saved layout whose panes sit in fewer panels than the default gives them, or that neither shows nor hides a default pane, is now replaced by the default (logged) and the file written over; hidden panes are recorded in the file (`hidden`), so hiding one still persists. The dock is drawn only when the window leaves it at least 400 × 300 points (the splash window never does), and a layout is written only for a workspace whose dock was drawn at that size and only when it differs from what the file holds.
+
 ## [1.2.0] - 2026-11-01
 
 ### Added
