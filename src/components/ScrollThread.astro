@@ -1,0 +1,360 @@
+---
+// A sewing thread that follows the reader. On landing pages it unwinds from a 3D spool in the
+// right gutter and crosses the page only through the gaps between sections; on docs pages it runs
+// as a rail beside the article. A knot ties at every section the thread reaches. It never sits over
+// text, and it hides where the gutters are too narrow to hold it.
+---
+
+<script>
+  import type { Spool } from '../lib/spool3d';
+
+  type Mode = 'weave' | 'rail';
+  interface Point {
+    x: number;
+    y: number;
+  }
+  interface Layout {
+    mode: Mode;
+    d: string;
+    knots: Point[];
+    spool?: Point;
+    height: number;
+  }
+
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const STEP = 6; // path sample spacing, px
+  const MIN_GUTTER = 44; // narrower gutters would push the thread against text
+  const MIN_GAP = 88; // a section gap must be this tall before the thread crosses through it
+  const SPOOL_SIZE = 150;
+  // Where the needle sits in the viewport: lower on landing pages, near the reading line in docs.
+  const TIP_AT: Record<Mode, number> = { weave: 0.62, rail: 0.38 };
+
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function svg<K extends keyof SVGElementTagNameMap>(tag: K, cls: string): SVGElementTagNameMap[K] {
+    const node = document.createElementNS(SVG_NS, tag);
+    node.setAttribute('class', cls);
+    return node;
+  }
+
+  function docBox(el: Element) {
+    const r = el.getBoundingClientRect();
+    return { top: r.top + scrollY, bottom: r.bottom + scrollY, left: r.left, right: r.right };
+  }
+
+  function padding(el: Element, side: 'Top' | 'Bottom' | 'Left' | 'Right'): number {
+    return parseFloat(getComputedStyle(el)[`padding${side}`]) || 0;
+  }
+
+  /** A gutter run with a slight sway, monotone in y so the needle lookup stays a binary search. */
+  function run(x: number, y0: number, y1: number, sway: number): string {
+    const h = y1 - y0;
+    return `C ${x + sway} ${y0 + h / 3} ${x - sway} ${y0 + (2 * h) / 3} ${x} ${y1}`;
+  }
+
+  /** Landing pages: spool in the right gutter, thread crossing sides in each section gap. */
+  function weaveLayout(): Layout | null {
+    const main = document.getElementById('main');
+    if (!main) return null;
+    const sections = [...main.querySelectorAll('section')].filter(
+      (s) => !s.parentElement?.closest('section') && s.offsetHeight > 0,
+    );
+    if (sections.length < 2) return null;
+
+    const width = document.documentElement.clientWidth;
+    const hero = docBox(sections[0]);
+    const textLeft = hero.left + padding(sections[0], 'Left');
+    const textRight = hero.right - padding(sections[0], 'Right');
+    if (textLeft < MIN_GUTTER || width - textRight < MIN_GUTTER) return null;
+
+    const gutterX = [textLeft / 2, textRight + (width - textRight) / 2];
+    const sway = Math.min(12, textLeft / 6);
+    const spool = {
+      x: Math.min(gutterX[1], width - SPOOL_SIZE / 2 - 6),
+      y: hero.top + SPOOL_SIZE / 2 + 24,
+    };
+
+    // The thread leaves from under the winding, where the spool itself hides its start.
+    let side = 1;
+    let y = spool.y + 120;
+    let d = `M ${spool.x} ${spool.y + 14} C ${spool.x} ${spool.y + 70} ${gutterX[1]} ${spool.y + 60} ${gutterX[1]} ${y}`;
+    const knots: Point[] = [];
+
+    for (let i = 0; i < sections.length - 1; i++) {
+      const gapTop = docBox(sections[i]).bottom - padding(sections[i], 'Bottom');
+      const gapBottom = docBox(sections[i + 1]).top + padding(sections[i + 1], 'Top');
+      const gap = gapBottom - gapTop;
+      if (gap < MIN_GAP) continue;
+      const y0 = gapTop + gap * 0.22;
+      const y1 = gapBottom - gap * 0.22;
+      const mid = (y0 + y1) / 2;
+      if (y0 <= y) continue;
+      const from = gutterX[side];
+      const to = gutterX[1 - side];
+      d += ` ${run(from, y, y0, side ? sway : -sway)} C ${from} ${mid} ${to} ${mid} ${to} ${y1}`;
+      knots.push({ x: (from + to) / 2, y: mid });
+      side = 1 - side;
+      y = y1;
+    }
+
+    const last = sections[sections.length - 1];
+    const end = docBox(last).bottom - padding(last, 'Bottom') + 24;
+    if (end > y) d += ` ${run(gutterX[side], y, end, side ? sway : -sway)}`;
+    knots.push({ x: gutterX[side], y: Math.max(end, y) });
+    return { mode: 'weave', d, knots, spool, height: Math.max(end, y) + 24 };
+  }
+
+  /** Docs pages: a straight rail in the article's left padding, knotted at every h2. */
+  function railLayout(): Layout | null {
+    const article = document.querySelector('.sl-markdown-content');
+    const title = document.querySelector('.content-panel h1');
+    if (!article || !title) return null;
+    const box = docBox(article);
+    const sidebar = document.querySelector('.sidebar-pane');
+    const sidebarRight =
+      sidebar && getComputedStyle(sidebar).display !== 'none'
+        ? sidebar.getBoundingClientRect().right
+        : 0;
+    if (box.left - sidebarRight < 28) return null;
+
+    const x = box.left - 14;
+    const start = docBox(title).top + 8;
+    const knots = [...article.querySelectorAll('h2')].map((h) => {
+      const b = docBox(h);
+      return { x, y: (b.top + b.bottom) / 2 };
+    });
+    knots.push({ x, y: box.bottom });
+    return {
+      mode: 'rail',
+      d: `M ${x} ${start} L ${x} ${box.bottom}`,
+      knots,
+      height: box.bottom + 24,
+    };
+  }
+
+  const layer = svg('svg', 'thread-layer');
+  layer.setAttribute('aria-hidden', 'true');
+  const guide = svg('path', 'thread-guide');
+  const sewn = svg('path', 'thread-sewn');
+  const knotGroup = svg('g', 'thread-knots');
+  const needle = svg('g', 'thread-needle');
+  needle.innerHTML =
+    '<path d="M-4 -2.3 L32 -1.35 L43 0 L32 1.35 L-4 2.3 Q-7.4 0 -4 -2.3 Z"/><ellipse class="thread-eye" cx="0" cy="0" rx="3.2" ry="0.75"/>';
+  layer.append(guide, sewn, knotGroup, needle);
+  document.body.append(layer);
+
+  let spoolCanvas: HTMLCanvasElement | null = null;
+  let spool: Spool | null = null;
+  let spoolVisible = false;
+  let layout: Layout | null = null;
+  let xs = new Float32Array(0);
+  let ys = new Float32Array(0);
+  let total = 0;
+  let knotLengths: number[] = [];
+  let current = 0;
+  let target = 0;
+  let frame = 0;
+
+  /** Path length at which the thread reaches document height `y`. */
+  function lengthAtY(y: number): number {
+    let lo = 0;
+    let hi = ys.length - 1;
+    while (lo < hi) {
+      const mid = (lo + hi) >> 1;
+      if (ys[mid] < y) lo = mid + 1;
+      else hi = mid;
+    }
+    return Math.min(lo * STEP, total);
+  }
+
+  function nearestLength(p: Point): number {
+    let best = 0;
+    let bestDist = Infinity;
+    for (let i = 0; i < xs.length; i++) {
+      const dist = Math.hypot(xs[i] - p.x, ys[i] - p.y);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    }
+    return best * STEP;
+  }
+
+  function draw() {
+    sewn.style.strokeDasharray = `${current} ${total + 1}`;
+    knotLengths.forEach((len, i) => {
+      knotGroup.children[i]?.classList.toggle('tied', current >= len - 1);
+    });
+    if (reduceMotion || xs.length < 2) return;
+    const i = Math.min(Math.floor(current / STEP), xs.length - 2);
+    const t = current / STEP - i;
+    const x = xs[i] + (xs[i + 1] - xs[i]) * t;
+    const y = ys[i] + (ys[i + 1] - ys[i]) * t;
+    const angle = (Math.atan2(ys[i + 1] - ys[i], xs[i + 1] - xs[i]) * 180) / Math.PI;
+    needle.setAttribute('transform', `translate(${x} ${y}) rotate(${angle})`);
+  }
+
+  function tick() {
+    frame = 0;
+    const before = current;
+    current += (target - current) * 0.16;
+    if (Math.abs(target - current) < 0.4) current = target;
+    draw();
+    if (spool) {
+      spool.turn(current - before, total ? current / total : 0);
+      if (spoolVisible) spool.render();
+    }
+    if (current !== target) frame = requestAnimationFrame(tick);
+  }
+
+  function follow() {
+    if (!layout) return;
+    target = reduceMotion ? total : lengthAtY(scrollY + innerHeight * TIP_AT[layout.mode]);
+    if (!frame) frame = requestAnimationFrame(tick);
+  }
+
+  async function ensureSpool(at: Point) {
+    if (!spoolCanvas) {
+      spoolCanvas = document.createElement('canvas');
+      spoolCanvas.className = 'thread-spool';
+      spoolCanvas.setAttribute('aria-hidden', 'true');
+      document.body.append(spoolCanvas);
+      new IntersectionObserver(([entry]) => {
+        spoolVisible = entry.isIntersecting;
+        if (spoolVisible) spool?.render();
+      }).observe(spoolCanvas);
+    }
+    spoolCanvas.style.left = `${at.x - SPOOL_SIZE / 2}px`;
+    spoolCanvas.style.top = `${at.y - SPOOL_SIZE / 2}px`;
+    spoolCanvas.hidden = false;
+    if (spool) return;
+    try {
+      const { createSpool } = await import('../lib/spool3d');
+      const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+      spool = createSpool(spoolCanvas, accent || '#df5821');
+      spool.turn(0, total ? current / total : 0);
+      spool.render();
+    } catch {
+      // No WebGL: the thread still works, it just starts without its spool.
+      spoolCanvas.hidden = true;
+    }
+  }
+
+  function rebuild() {
+    layout = document.querySelector('.sl-markdown-content') ? railLayout() : weaveLayout();
+    layer.style.display = layout ? '' : 'none';
+    if (spoolCanvas) spoolCanvas.hidden = !layout?.spool;
+    if (!layout) return;
+
+    layer.style.height = `${layout.height}px`;
+    guide.setAttribute('d', layout.d);
+    sewn.setAttribute('d', layout.d);
+    total = sewn.getTotalLength();
+    const count = Math.floor(total / STEP) + 1;
+    xs = new Float32Array(count);
+    ys = new Float32Array(count);
+    for (let i = 0; i < count; i++) {
+      const p = sewn.getPointAtLength(i * STEP);
+      xs[i] = p.x;
+      ys[i] = p.y;
+    }
+    knotGroup.replaceChildren(
+      ...layout.knots.map((k) => {
+        const c = svg('circle', 'thread-knot');
+        c.setAttribute('cx', `${k.x}`);
+        c.setAttribute('cy', `${k.y}`);
+        c.setAttribute('r', '3');
+        return c;
+      }),
+    );
+    knotLengths = layout.knots.map(nearestLength);
+    current = Math.min(current, total);
+    if (layout.spool) {
+      const at = layout.spool;
+      const idle = window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 200));
+      idle(() => void ensureSpool(at));
+    }
+    draw();
+    follow();
+  }
+
+  let pending = 0;
+  new ResizeObserver(() => {
+    clearTimeout(pending);
+    pending = window.setTimeout(rebuild, 120);
+  }).observe(document.body);
+  addEventListener('scroll', follow, { passive: true });
+  rebuild();
+</script>
+
+<style is:global>
+  .thread-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: visible;
+    pointer-events: none;
+    /* Under #main (z-index 1): the thread passes behind filled sections and images, like a weave. */
+    z-index: 0;
+  }
+  .thread-guide,
+  .thread-sewn {
+    fill: none;
+    stroke-linecap: round;
+  }
+  /* The basting line shows where the thread is going; the sewn line shows how far the reader came. */
+  .thread-guide {
+    stroke: var(--fg-faint, var(--sl-color-gray-3));
+    stroke-width: 1;
+    stroke-dasharray: 2 7;
+    opacity: 0.5;
+  }
+  .thread-sewn {
+    stroke: var(--accent, var(--sl-color-accent));
+    stroke-width: 1.6;
+  }
+  .thread-knot {
+    fill: var(--bg, var(--sl-color-black));
+    stroke: var(--fg-faint, var(--sl-color-gray-3));
+    stroke-width: 1.2;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      fill 0.3s,
+      stroke 0.3s,
+      transform 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  .thread-knot.tied {
+    fill: var(--accent, var(--sl-color-accent));
+    stroke: var(--accent, var(--sl-color-accent));
+    transform: scale(1.4);
+  }
+  .thread-needle {
+    fill: var(--fg-muted, var(--sl-color-gray-2));
+  }
+  .thread-eye {
+    fill: var(--bg, var(--sl-color-black));
+  }
+  .thread-spool {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    pointer-events: none;
+    z-index: 3;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .thread-needle {
+      display: none;
+    }
+    .thread-knot {
+      transition: none;
+    }
+  }
+  @media print {
+    .thread-layer,
+    .thread-spool {
+      display: none;
+    }
+  }
+</style>

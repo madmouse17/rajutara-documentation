@@ -6,7 +6,7 @@ import '../styles/global.css';
 import ThemeInit from '../components/ThemeInit.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import Atelier3DBackground from '../components/Atelier3DBackground.astro';
+import ScrollThread from '../components/ScrollThread.astro';
 import { SITE_DESCRIPTION, withBase } from '../lib/site';
 import { t, twinPath, type Lang } from '../lib/i18n';
 
@@ -56,7 +56,7 @@ const image = new URL(withBase('/og.jpg'), Astro.site).href;
     <slot name="head" />
   </head>
   <body class="bg-bg text-fg antialiased relative">
-    <Atelier3DBackground />
+    <ScrollThread />
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-30 focus:rounded-ui focus:bg-accent focus:px-4 focus:py-3 focus:font-semibold focus:text-on-accent"
