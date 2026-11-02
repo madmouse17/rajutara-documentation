@@ -104,3 +104,23 @@ main h1 {
   font-weight: 600;
   color: var(--sl-color-white);
 }
+
+/* Ambient 3D convection background support for Starlight docs */
+:root .page {
+  background-color: transparent !important;
+}
+:root .main-frame {
+  background-color: transparent !important;
+}
+:root .sidebar-pane {
+  background-color: color-mix(in srgb, var(--sl-color-black) 82%, transparent) !important;
+  backdrop-filter: blur(16px);
+}
+:root header.header {
+  background-color: color-mix(in srgb, var(--sl-color-black) 82%, transparent) !important;
+  backdrop-filter: blur(16px);
+}
+:root .content-panel {
+  background-color: color-mix(in srgb, var(--sl-color-black) 92%, transparent) !important;
+  backdrop-filter: blur(8px);
+}
