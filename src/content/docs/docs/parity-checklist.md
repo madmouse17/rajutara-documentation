@@ -17,9 +17,9 @@ The rows come from the coverage tables at the end of the implementation plans ([
 
 | Module | Yes | Partial | No |
 |---|---|---|---|
-| PDS | 95 | 1 | 4 |
+| PDS | 100 | 1 | 4 |
 | Grading | 33 | 0 | 4 |
-| Marker | 23 | 4 | 9 |
+| Marker | 25 | 4 | 9 |
 | Cut Plan | 16 | 1 | 6 |
 | Interchange, shell and platform | 8 | 3 | 6 |
 
@@ -32,7 +32,7 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 | Optitex 15 tool | Status | Note |
 |---|---|---|
 | T01 Select Tool | Yes | |
-| T02 Zoom By Rectangle, Zoom In, Zoom Out, Zoom All, Zoom Real, Zoom Selection | Yes | Keypad shortcuts are remapped: egui cannot tell keypad keys from main-row keys. |
+| T02 Zoom By Rectangle, Zoom In, Zoom Out, Zoom All, Zoom Real, Zoom Selection | Yes | `Num+`, `Ctrl+Num+` and `Ctrl+Shift+Num+` work as in Optitex (Unreleased): egui reports the keypad `+` and `Shift+=` as the same key, so the physical key tells them apart. `Num-` is still `Ctrl+-`. |
 | T03 Pan | Yes | |
 | T04 Guide Lines, Guideline Through | Yes | |
 | T05 Piece Info, Piece Properties | Yes | |
@@ -83,14 +83,15 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 |---|---|---|
 | T25 Draft Tool | Yes | |
 | T26 Arc | Yes | |
-| T27 Add Point On Contour Tool | Yes | |
+| T27 Add Point On Contour Tool | Yes | (Unreleased) The spot shows before the click and snaps to the middle of a segment. |
+| Add Point at Midpoint (`Alt+O`) | Yes | (Unreleased) Splits the selected segments at half their arc length; with nothing selected it arms Add Point on Contour in midpoint-only mode. |
 | T28 Point Tool | Yes | |
-| T29 Move Point Tool | Yes | |
-| T30 Move Point Along Contour | Yes | |
+| T29 Move Point Tool | Yes | (Unreleased) Works by press, drag and release as well as click, click. |
+| T30 Move Point Along Contour | Yes | (Unreleased) Slides from Grade Point to Grade Point, by click or by drag. |
 | T31 Move Points Proportionally Tool | Yes | |
 | T32 Move Points Parallelly | Yes | |
 | T33 Multi Move Tool | Yes | |
-| T34 Toggle Grade Point, Toggle Curve Point | Yes | Shortcuts are remapped like the keypad keys above. |
+| T34 Toggle Grade Point, Toggle Curve Point | Yes | `Alt+1` and `Alt+2` replace the keypad digits, which egui cannot tell from the main row. |
 | T35 Contour Point Properties | Yes | |
 | T36 Delete Tool | Yes | |
 
@@ -106,7 +107,7 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 | T42 Add Spline Support Points | Yes | |
 | T43 Segment Length | Yes | |
 | T44 Create Parallel | Yes | |
-| T45 Extend in Parallel | Yes | |
+| T45 Extend in Parallel | Yes | (Unreleased) Asks the distance in a dialog once the first and the last point are picked. |
 | T46 Create By Offsets | Yes | |
 | T47 Create Point Connection, Add Points and Create Connection | Yes | |
 
@@ -175,7 +176,11 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 | View and Selection, History, Import Report and Compare Length panes | Yes | |
 | Toolbox with folding categories | Yes | |
 | Rulers, grid, guide lines and snapping | Yes | |
-| Status bar toggles: segment length, seam, non-grade points, snap | Yes | |
+| Status bar toggles: segment length, seam, non-grade points, snap | Yes | (Unreleased) Grade Points are always drawn; the Non Grade Points toggle adds the other points. |
+| Tool pointers, rubber bands and live readouts | Yes | (Unreleased) Each tool has its pointer (its icon on a crosshair, the move cross, not-allowed over a protected piece); every two-point tool shows a band and a readout from its first pick. |
+| Selected, active and hovered objects marked | Yes | (Unreleased) Tint, heavier outline, corner ticks on the active piece, rings and heavier strokes on what a click would hit. |
+| Piece Information Text on the desk | Yes | (Unreleased) View › Piece Information Text; the same lines go to the plot. |
+| Armed tool marked on the toolbar, the Toolbox and the status bar | Yes | (Unreleased) |
 | Working units: centimetre, millimetre, inch | Yes | |
 | Digitizer, Data Exchange, Batch, Test Alternative Start Points, Printer Setup, Customize Excel Report | No | Hardware drivers, batch scripting and cutter start points are out of scope; OS dialogs replace Printer Setup. |
 | Cutting Order, Fabric and Stripes, Spread/Gather Pieces | No | Cutter output is out of scope; stripe matching is Phase 3. |
@@ -230,7 +235,7 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 
 | Optitex 15 feature | Status | Note |
 |---|---|---|
-| New Marker with Marker Properties: width, length, margins, buffer, shrinkage, fabric weight, cost per metre | Yes | |
+| New Marker with Marker Properties: width, length, margins, buffer, shrinkage, fabric weight, cost per metre | Yes | (Unreleased) One modal with the Style (open in PDS or a file), the Material and the Bundles per size. |
 | Material and Ply Mode: Single | Yes | |
 | Ply Mode Tubular, Faced, Folded | Partial | Drawn disabled in Marker Properties. The Cut Plan plans these modes. |
 | Add Style from files or from the Style open in PDS | Yes | |
@@ -239,6 +244,7 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 | Marker Table: fabric band, margins, used-length line, rulers, overlap hatching | Yes | |
 | Piece Bar: thumbnails with remaining count, reorder, multi-select, double-click to place | Yes | |
 | Piece List, Marker Properties, Order and Report panes | Yes | |
+| Pieces pane: placed and total per piece and size | Yes | (Unreleased) |
 | Status bar: pieces, bundles, overlaps, efficiency, width, length, per garment, plies | Yes | |
 
 ### Manual placement
@@ -246,6 +252,7 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 | Optitex 15 feature | Status | Note |
 |---|---|---|
 | Place from the Piece Bar by drag or double-click | Yes | |
+| Place by click, with a ghost of the piece under the pointer | Yes | (Unreleased) From the Piece Bar or the Pieces pane. |
 | Move by drag, overlaps allowed and highlighted | Yes | |
 | Return to the Piece Bar | Yes | |
 | Rotate and flip: right-click, `R`, `Shift+R`, `F` | Yes | |
@@ -258,7 +265,8 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 | Text Tool (marker annotations) | No | Scheduled for Phase 2; not shipped. |
 | Cutting Order, Optimize Cut Order, Bump/Cut Lines | No | Scheduled for Phase 2; not shipped. |
 | Tilt, Insert To Hole | No | Phase 3. The Tilt Step preference is kept. |
-| Cluster Pieces, Delete Cluster, Fix On Marker | No | Phase 3. |
+| Fix On Marker (Fix on Marker, Unfix Selected, Unfix All) | Yes | Pin glyph, refused moves, kept by Auto Nesting (04 §5). |
+| Cluster Pieces, Delete Cluster | No | Phase 3. |
 | Optimum Block Fuse, Rectangular Block Fuse | No | Phase 3. |
 | Substitute Size | No | Phase 3. |
 | Stripe and plaid matching, flaws, piece buffers by side | No | Phase 3. |
@@ -267,7 +275,7 @@ All 89 tools T01 to T89. Optitex "Baseline" is "Grainline" and "Button" is "Dril
 
 | Optitex 15 feature | Status | Note |
 |---|---|---|
-| Start Auto Nesting with live progress and Cancel | Yes | Own engine (no-fit polygon, bottom-left fill, annealing); Optitex runs third-party engines. |
+| Start Auto Nesting with live progress and Stop | Yes | (Unreleased) One modal: Start, progress, Stop and a summary. Own engine (no-fit polygon, bottom-left fill, annealing); Optitex runs third-party engines. |
 | Auto Nesting Setup: time limit, efficiency limit, unlimited length, keep placed pieces, seed | Partial | Optitex also offers a choice of engines, bundle grouping and block options; those are not mirrored. |
 | Nesting Queue | No | Phase 3. |
 | Marker metrics: used length, efficiency, waste, cutting length, per garment, weight per bundle | Yes | |
