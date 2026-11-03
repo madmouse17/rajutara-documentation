@@ -7,15 +7,15 @@ Halaman ini membawa Anda dari berkas unduhan sampai contoh kaos tampil di layar.
 
 ## Pasang
 
-Setiap rilis ada di [halaman rilis](https://github.com/madmouse17/rajutara/releases) beserta checksum-nya. Rilis terbaru adalah 1.5.0. Pilih berkas yang cocok dengan komputer Anda.
+Setiap rilis ada di [halaman rilis](https://github.com/madmouse17/rajutara/releases) beserta checksum-nya. Rilis terbaru adalah 1.5.1. Pilih berkas yang cocok dengan komputer Anda.
 
 | Berkas | Untuk |
 |---|---|
-| `rajutara-1.5.0-x86_64.AppImage` | Linux, x86_64. Jalankan `chmod +x` pada berkas itu, lalu mulai. Tanpa FUSE 2, mulai dengan `APPIMAGE_EXTRACT_AND_RUN=1`. |
-| `rajutara-1.5.0-windows-x64.msi` | Windows 7 SP1 sampai Windows 11, 64-bit. Pemasang. |
-| `rajutara-1.5.0-windows-x64.zip` | Sama, tanpa pemasangan: ekstrak lalu jalankan `rajutara.exe`. |
-| `rajutara-1.5.0-windows-x86.msi` | Windows 7 SP1 sampai Windows 11, 32-bit. Pemasang. |
-| `rajutara-1.5.0-windows-x86.zip` | Sama, tanpa pemasangan. |
+| `rajutara-1.5.1-x86_64.AppImage` | Linux, x86_64. Jalankan `chmod +x` pada berkas itu, lalu mulai. Tanpa FUSE 2, mulai dengan `APPIMAGE_EXTRACT_AND_RUN=1`. |
+| `rajutara-1.5.1-windows-x64.msi` | Windows 7 SP1 sampai Windows 11, 64-bit. Pemasang. |
+| `rajutara-1.5.1-windows-x64.zip` | Sama, tanpa pemasangan: ekstrak lalu jalankan `rajutara.exe`. |
+| `rajutara-1.5.1-windows-x86.msi` | Windows 7 SP1 sampai Windows 11, 32-bit. Pemasang. |
+| `rajutara-1.5.1-windows-x86.zip` | Sama, tanpa pemasangan. |
 
 Rilis lain memakai nama yang sama dengan nomor versinya sendiri. Sekali sehari saat start, Rajutara memeriksa rilis yang lebih baru dan menawarkan untuk memasangnya; Help, Check for Updates… memeriksa atas permintaan.
 

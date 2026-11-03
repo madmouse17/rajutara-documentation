@@ -7,15 +7,15 @@ This page takes you from a download to the sample tee on screen. The Indonesian 
 
 ## Install
 
-Every release is on the [releases page](https://github.com/madmouse17/rajutara/releases) with its checksums. The current release is 1.5.0. Pick the file for your machine.
+Every release is on the [releases page](https://github.com/madmouse17/rajutara/releases) with its checksums. The current release is 1.5.1. Pick the file for your machine.
 
 | File | For |
 |---|---|
-| `rajutara-1.5.0-x86_64.AppImage` | Linux, x86_64. Run `chmod +x` on it, then start it. Without FUSE 2, start it with `APPIMAGE_EXTRACT_AND_RUN=1` set. |
-| `rajutara-1.5.0-windows-x64.msi` | Windows 7 SP1 through Windows 11, 64-bit. The installer. |
-| `rajutara-1.5.0-windows-x64.zip` | The same, portable: unzip it and run `rajutara.exe`. |
-| `rajutara-1.5.0-windows-x86.msi` | Windows 7 SP1 through Windows 11, 32-bit. The installer. |
-| `rajutara-1.5.0-windows-x86.zip` | The same, portable. |
+| `rajutara-1.5.1-x86_64.AppImage` | Linux, x86_64. Run `chmod +x` on it, then start it. Without FUSE 2, start it with `APPIMAGE_EXTRACT_AND_RUN=1` set. |
+| `rajutara-1.5.1-windows-x64.msi` | Windows 7 SP1 through Windows 11, 64-bit. The installer. |
+| `rajutara-1.5.1-windows-x64.zip` | The same, portable: unzip it and run `rajutara.exe`. |
+| `rajutara-1.5.1-windows-x86.msi` | Windows 7 SP1 through Windows 11, 32-bit. The installer. |
+| `rajutara-1.5.1-windows-x86.zip` | The same, portable. |
 
 Other releases use the same names with their own version number. Once a day at start-up Rajutara checks for a newer release and offers to install it; Help, Check for Updates… asks on request.
 

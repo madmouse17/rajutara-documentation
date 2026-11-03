@@ -7,6 +7,26 @@ Semua perubahan penting pada rajutara. Format: [Keep a Changelog](https://keepac
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-11-04
+
+### Diubah
+- **Menu mencentang sakelar yang menyala**: View › Snap, Fill with Color, Dynamic Input, Polar Tracking, Rulers, Grid, Guides, Show Track Lines, Segment Editor › Use Grading dan Use Notches, item tampilan Grading, serta Marker › View Cut Order dan Single Piece Gap. Pembaca layar juga mengucapkan statusnya.
+- **Dialog simpan dimulai di folder dokumen yang terbuka**, lalu di folder terakhir yang dipakai untuk jenis berkas itu, lalu di folder terakhir yang dipakai secara umum. Open Backup mengingat folder cadangan untuk Save As berikutnya.
+- Dengan dua segmen atau lebih terpilih, baris Properties berbunyi "Total length".
+- Segment Editor › Copy (`Ctrl+G`) menyebut berapa titik yang disalin.
+
+### Diperbaiki
+- **Di tempat potongan bertumpuk, klik mengambil potongan yang digambar paling atas**, seperti yang ditunjukkan tanda hover. Sebelumnya potongan aktif selalu menang meski tertutup potongan lain, sehingga Select, Properties, pemindahan dengan Space, paste, dan menu klik kanan bisa bekerja pada potongan yang tersembunyi.
+- **Stack Along Line bisa diaktifkan dari Work Area Grading**: klik di dekat garis tepi kini memilih segmen kontur itu (klik di dalam potongan tetap memilih potongan).
+- **History menyebut nama perintah Grading** ("Grade notch"), bukan id-nya.
+- **`Esc` setelah menutup menu melepas alat** di setiap ruang kerja; sebelumnya `Esc` kedua tidak berefek sampai penunjuk kembali ke meja.
+- PDS › Report to Excel: dialog simpan tidak lagi menyebut "CSV".
+- **Marker Creation Wizard, New Marker, dan Auto Nest Queue: Browse… dan Add Markers… membuka dialog berkas di paling atas**, siap dipakai. Sebelumnya dialog terbuka di belakang dan tidak menerima masukan.
+- **Insert to Hole: potongan yang diseret kembali ke lubang asalnya masuk** meski dilepas beberapa sentimeter dari situ; sebelumnya hanya jatuhan tepat piksel yang menemukan lubang tanpa ruang sisa.
+- Auto Nest Queue: baris baru dimulai sebagai Regular, jadi Marker yang sudah di-nesting di-nesting ulang, bukan berakhir dengan "Error: nothing to nest". Baris yang dihentikan menampilkan efisiensi dan panjang hasil yang disimpannya, dan pemberitahuan akhir menghitungnya sebagai dihentikan.
+- Marker Creation Wizard: Buffer potongan ditampilkan dalam satuan kerja.
+- Penggaris Marker: angka tidak lagi menyatu saat diperkecil.
+
 ## [1.5.0] - 2026-11-04
 
 ### Ditambahkan

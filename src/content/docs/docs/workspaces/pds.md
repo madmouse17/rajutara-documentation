@@ -26,7 +26,7 @@ Since 1.5.0 the default layout gives the Work Area most of the window: the Toolb
 | History | The undo history, shared with the other workspaces. | |
 | Import Report | The issues of the last import. It opens when there are any. | |
 
-The status bar toggles segment lengths (`F8`), the seam (`Ctrl+F6`), Non Grading Points (`Shift+0`), the graded sizes (`F4`), Snap (`F7`), Dynamic Input and Polar Tracking. Grade Points are always drawn; the Non Grading Points toggle adds the other points. Snap off turns snapping off for every tool. On the right the status bar shows `Protected` for a locked piece, `SEW` or `CUT` for the line being edited, the unit (click it to cycle centimetres, millimetres and inches) and the cursor position.
+The status bar toggles segment lengths (`F8`), the seam (`Ctrl+F6`), Non Grading Points (`Shift+0`), the graded sizes (`F4`), Snap (`F7`), Dynamic Input and Polar Tracking. Grade Points are always drawn; the Non Grading Points toggle adds the other points. Snap off turns snapping off for every tool. On the right the status bar shows `Protected` for a locked piece, `SEW` or `CUT` for the line being edited, the unit (click it to cycle centimetres, millimetres and inches) and the cursor position. Menus tick the toggles that are on, such as View › Snap, Fill with Color, Dynamic Input and Polar Tracking. Where pieces overlap, a click takes the piece drawn on top, as the hover mark shows.
 
 ## On the desk
 

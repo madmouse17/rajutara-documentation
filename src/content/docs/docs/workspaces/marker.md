@@ -57,7 +57,7 @@ File, Marker Creation Wizard… makes several Markers in one go. Its steps are S
 
 ## Insert to Hole
 
-Piece, Insert to Hole arms a mode beside Select, Shoot and Rotate Piece. Drag a placed piece over a hole with the left or the right button. It takes the nearest free spot where it fits, and turns to any orientation its rules allow if it must. Then it bumps along the drag, like Shoot. The move is one undo step. A fixed piece, a cluster member and a drop with no fitting hole in reach are refused with a notice. One piece goes per drag.
+Piece, Insert to Hole arms a mode beside Select, Shoot and Rotate Piece. Drag a placed piece over a hole with the left or the right button. It takes the nearest free spot where it fits, and turns to any orientation its rules allow if it must. Then it bumps along the drag, like Shoot. The move is one undo step. A fixed piece, a cluster member and a drop with no fitting hole in reach are refused with a notice. One piece goes per drag. A piece dropped back into the hole it came from drops in even when released a few centimetres off.
 
 ## Clusters and Fuse Blocks
 
@@ -112,7 +112,7 @@ A run that stops on the time limit depends on how fast the machine is. In the re
 
 ## Auto Nest Queue
 
-Nesting, Auto Nest Queue… nests several `.rjm` files one after another on one background job, with no Marker open. Add the files with Add Markers…, then give each row its mode in the Advanced column, a maximum time and an efficiency limit, and press Run. Regular nests every piece again; Continue keeps the placed pieces and nests the waiting ones around them. Each result goes to `<stem>-nested.rjm` beside its input, and the input is never written. A file that fails shows its reason and the queue goes on. Stop saves the running row and leaves the others Pending. Closing the dialog keeps the job running, with a strip that names the row. There is one engine, so the queue has no algorithm choice, and no queue files are written.
+Nesting, Auto Nest Queue… nests several `.rjm` files one after another on one background job, with no Marker open. Add the files with Add Markers…, then give each row its mode in the Advanced column, a maximum time and an efficiency limit, and press Run. Regular nests every piece again; Continue keeps the placed pieces and nests the waiting ones around them. Each result goes to `<stem>-nested.rjm` beside its input, and the input is never written. A file that fails shows its reason and the queue goes on. Stop saves the running row and leaves the others Pending. Closing the dialog keeps the job running, with a strip that names the row. There is one engine, so the queue has no algorithm choice, and no queue files are written. New rows start as Regular, so a Marker that is already nested is nested again.
 
 ## What the numbers mean
 

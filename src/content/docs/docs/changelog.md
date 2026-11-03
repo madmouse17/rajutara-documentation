@@ -7,6 +7,26 @@ All notable changes to rajutara. Format: [Keep a Changelog](https://keepachangel
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-11-04
+
+### Changed
+- **Menus tick the toggles that are on**: View › Snap, Fill with Color, Dynamic Input, Polar Tracking, Rulers, Grid, Guides, Show Track Lines, Segment Editor › Use Grading and Use Notches, the Grading view items and Marker › View Cut Order and Single Piece Gap. Screen readers hear the state too.
+- **Save dialogs start in the folder of the open document**, then in the last folder used for that file type, then in the last folder used at all. Open Backup remembers the backup's folder for the next Save As.
+- With two or more segments selected, the Properties row reads "Total length".
+- Segment Editor › Copy (`Ctrl+G`) confirms how many points it copied.
+
+### Fixed
+- **Where pieces overlap, a click takes the piece drawn on top**, as the hover mark shows. Before, the active piece won even when another piece covered it, so Select, Properties, Space move, paste and the right-click menu could act on a hidden piece.
+- **Stack Along Line can be enabled from the Grading Work Area**: a click near an outline now selects that contour segment (a click inside the piece still selects the piece).
+- **History names Grading commands** ("Grade notch") instead of their ids.
+- **`Esc` after closing a menu disarms the tool** in every workspace; before, the second `Esc` went nowhere until the pointer was back on the desk.
+- PDS › Report to Excel: the save dialog no longer says "CSV".
+- **Marker Creation Wizard, New Marker and Auto Nest Queue: Browse… and Add Markers… open the file dialog on top**, ready to use. Before, it opened behind the dialog and took no input.
+- **Insert to Hole: a piece dragged back into the hole it came from drops in** even when released a few centimetres off; before, only a pixel-exact drop found a hole with no room to spare.
+- Auto Nest Queue: new rows start as Regular, so a Marker that is already nested is nested again instead of ending with "Error: nothing to nest". A stopped row shows the efficiency and length of the result it saved, and the end notice counts it as stopped.
+- Marker Creation Wizard: piece Buffer is shown in the working unit.
+- Marker ruler: the numbers no longer run together when zoomed out.
+
 ## [1.5.0] - 2026-11-04
 
 ### Added

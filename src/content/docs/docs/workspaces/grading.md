@@ -65,7 +65,7 @@ The table's own menu has Equal All, Zero, Equal, Flip, Copy and Paste. Equal and
 | Rules | Rules Library, Apply Rule, Select Grade Points |
 | Pieces | Create Piece for Selected Size, Graded Nest |
 
-**Stack Along Line.** Select one contour segment, then choose Grading, Stack, Stack Along Line. Every size is shown with that run centred on the Base Size's run, at the middle of its length, and turned parallel to it. It changes only the view; Restore Stack clears it. With anything other than exactly one contour segment selected, it is disabled and says why.
+**Stack Along Line.** Select one contour segment, then choose Grading, Stack, Stack Along Line. Every size is shown with that run centred on the Base Size's run, at the middle of its length, and turned parallel to it. It changes only the view; Restore Stack clears it. With anything other than exactly one contour segment selected, it is disabled and says why. In the Work Area a click near an outline selects that contour segment; a click inside the piece still selects the piece.
 
 **Set Grading** has Last used and Show from Base Size, as in the Optitex Grading Tool dialog. It keeps the last input between openings.
 

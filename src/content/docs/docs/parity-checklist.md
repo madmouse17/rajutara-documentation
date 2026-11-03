@@ -1,9 +1,9 @@
 ---
 title: Parity checklist
-description: What an Operator trained on Optitex 15 finds in Rajutara 1.5.0, module by module.
+description: What an Operator trained on Optitex 15 finds in Rajutara 1.5.1, module by module.
 ---
 
-What an Operator trained on Optitex 15 finds in Rajutara 1.5.0, module by module. rajutara mirrors the module split, tool names and workflows of Optitex 15 ([`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §3); it does not copy any Optitex file or format ([ADR-0001](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0001-clean-room-no-reverse-engineering.md)).
+What an Operator trained on Optitex 15 finds in Rajutara 1.5.1, module by module. rajutara mirrors the module split, tool names and workflows of Optitex 15 ([`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §3); it does not copy any Optitex file or format ([ADR-0001](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0001-clean-room-no-reverse-engineering.md)).
 
 The rows come from the coverage tables at the end of the implementation plans ([`04-pds-part2.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/04-pds-part2.md), [`05-grading.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/05-grading.md), [`06-marker-part2.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/06-marker-part2.md), [`07-cutplan.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/07-cutplan.md)), from the "not mirrored" tables of the specs, and from the code: an action registered as disabled, or a control drawn disabled, is not counted as shipped. The 117 PDS action ids of the PDS coverage table all exist in `crates/rajutara-pds`. Tool numbers (`T01`, `G01`) are those of the specs ([`02-pds.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/02-pds.md) §5, [`03-grading.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/03-grading.md) §6). A version in a note, such as (1.4.0) or (1.5.0), names the release that changed the row. What Optitex added after version 15 is in [`08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md).
 
@@ -234,7 +234,7 @@ All 101 tools T01 to T101. Optitex "Baseline" is "Grainline" and "Button" is "Dr
 | G19 Match Segment | Yes | |
 | G20 Stack Point | Yes | |
 | G21 Stack by Baseline | Yes | |
-| G22 Stack Along Line | Yes | (1.5.0) Select one contour segment, then Grading › Stack › Stack Along Line: every size's run is centred on the Base Size's at its arc-length midpoint and turned parallel to it. Display only; Restore Stack clears it. Disabled, with its reason, unless exactly one contour segment is selected. |
+| G22 Stack Along Line | Yes | (1.5.0) Select one contour segment, then Grading › Stack › Stack Along Line: every size's run is centred on the Base Size's at its arc-length midpoint and turned parallel to it. Display only; Restore Stack clears it. Disabled, with its reason, unless exactly one contour segment is selected; (1.5.1) a click near an outline in the Grading Work Area selects it. |
 | G23 Restore Stack | Yes | |
 | G24 Remove Baseline Grading | Yes | |
 | G25 Create Piece for Selected Size | Yes | |

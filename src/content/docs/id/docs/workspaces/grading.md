@@ -65,7 +65,7 @@ Menu tabel itu sendiri punya Equal All, Zero, Equal, Flip, Copy, dan Paste. Equa
 | Rules | Rules Library, Apply Rule, Select Grade Points |
 | Pieces | Create Piece for Selected Size, Graded Nest |
 
-**Stack Along Line.** Pilih satu segmen kontur, lalu pilih Grading, Stack, Stack Along Line. Setiap ukuran ditampilkan dengan deret itu dipusatkan pada deret Base Size, di tengah panjangnya, dan diputar sejajar dengannya. Perintah ini hanya mengubah tampilan; Restore Stack menghapusnya. Bila yang terpilih bukan tepat satu segmen kontur, perintah ini nonaktif dan menyebut alasannya.
+**Stack Along Line.** Pilih satu segmen kontur, lalu pilih Grading, Stack, Stack Along Line. Setiap ukuran ditampilkan dengan deret itu dipusatkan pada deret Base Size, di tengah panjangnya, dan diputar sejajar dengannya. Perintah ini hanya mengubah tampilan; Restore Stack menghapusnya. Bila yang terpilih bukan tepat satu segmen kontur, perintah ini nonaktif dan menyebut alasannya. Di Work Area, klik di dekat garis tepi memilih segmen kontur itu; klik di dalam potongan tetap memilih potongan.
 
 **Set Grading** punya Last used dan Show from Base Size, seperti dialog Grading Tool di Optitex. Masukan terakhir disimpan di antara pembukaan.
 

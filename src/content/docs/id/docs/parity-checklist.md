@@ -1,9 +1,9 @@
 ---
 title: Daftar paritas
-description: Apa yang ditemukan Operator terlatih Optitex 15 di Rajutara 1.5.0, modul demi modul.
+description: Apa yang ditemukan Operator terlatih Optitex 15 di Rajutara 1.5.1, modul demi modul.
 ---
 
-Apa yang ditemukan Operator terlatih Optitex 15 di Rajutara 1.5.0, modul demi modul. rajutara meniru pembagian modul, nama alat, dan workflow Optitex 15 ([`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §3); rajutara tidak menyalin berkas atau format Optitex apa pun ([ADR-0001](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0001-clean-room-no-reverse-engineering.md)).
+Apa yang ditemukan Operator terlatih Optitex 15 di Rajutara 1.5.1, modul demi modul. rajutara meniru pembagian modul, nama alat, dan workflow Optitex 15 ([`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §3); rajutara tidak menyalin berkas atau format Optitex apa pun ([ADR-0001](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0001-clean-room-no-reverse-engineering.md)).
 
 Baris-barisnya berasal dari tabel cakupan di akhir rencana implementasi ([`04-pds-part2.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/04-pds-part2.md), [`05-grading.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/05-grading.md), [`06-marker-part2.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/06-marker-part2.md), [`07-cutplan.md`](https://github.com/madmouse17/rajutara/blob/main/docs/plans/07-cutplan.md)), dari tabel "not mirrored" pada spesifikasi, dan dari kode: aksi yang didaftarkan sebagai nonaktif, atau kontrol yang digambar nonaktif, tidak dihitung sebagai sudah dirilis. Ke-117 id aksi PDS pada tabel cakupan PDS semuanya ada di `crates/rajutara-pds`. Nomor alat (`T01`, `G01`) adalah nomor spesifikasi ([`02-pds.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/02-pds.md) §5, [`03-grading.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/03-grading.md) §6). Versi dalam catatan, misalnya (1.4.0) atau (1.5.0), menyebut rilis yang mengubah baris itu. Apa yang ditambahkan Optitex setelah versi 15 ada di [`08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md).
 
@@ -234,7 +234,7 @@ Seluruh 101 alat T01 sampai T101. "Baseline" Optitex adalah "Grainline" dan "But
 | G19 Match Segment | Ya | |
 | G20 Stack Point | Ya | |
 | G21 Stack by Baseline | Ya | |
-| G22 Stack Along Line | Ya | (1.5.0) Pilih satu segmen kontur, lalu Grading › Stack › Stack Along Line: deret setiap ukuran dipusatkan pada deret Base Size di titik tengah panjang busurnya dan diputar sejajar dengannya. Hanya tampilan; Restore Stack menghapusnya. Nonaktif, dengan alasannya, kecuali tepat satu segmen kontur terpilih. |
+| G22 Stack Along Line | Ya | (1.5.0) Pilih satu segmen kontur, lalu Grading › Stack › Stack Along Line: deret setiap ukuran dipusatkan pada deret Base Size di titik tengah panjang busurnya dan diputar sejajar dengannya. Hanya tampilan; Restore Stack menghapusnya. Nonaktif, dengan alasannya, kecuali tepat satu segmen kontur terpilih; (1.5.1) klik di dekat garis tepi di Work Area Grading memilihnya. |
 | G23 Restore Stack | Ya | |
 | G24 Remove Baseline Grading | Ya | |
 | G25 Create Piece for Selected Size | Ya | |

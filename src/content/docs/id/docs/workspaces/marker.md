@@ -57,7 +57,7 @@ File, Marker Creation Wizard… membuat beberapa Marker sekaligus. Langkahnya ad
 
 ## Insert to Hole
 
-Piece, Insert to Hole mengaktifkan mode di samping Select, Shoot, dan Rotate Piece. Seret potongan yang sudah ditata ke atas lubang dengan tombol kiri atau kanan. Potongan mengambil tempat kosong terdekat yang muat, dan berputar ke orientasi apa pun yang diizinkan aturannya bila perlu. Lalu potongan itu menabrak sepanjang arah seretan, seperti Shoot. Perpindahannya satu langkah urungkan. Potongan yang dipaku, anggota cluster, dan jatuhan tanpa lubang yang muat dalam jangkauan ditolak dengan pemberitahuan. Satu seretan memindahkan satu potongan.
+Piece, Insert to Hole mengaktifkan mode di samping Select, Shoot, dan Rotate Piece. Seret potongan yang sudah ditata ke atas lubang dengan tombol kiri atau kanan. Potongan mengambil tempat kosong terdekat yang muat, dan berputar ke orientasi apa pun yang diizinkan aturannya bila perlu. Lalu potongan itu menabrak sepanjang arah seretan, seperti Shoot. Perpindahannya satu langkah urungkan. Potongan yang dipaku, anggota cluster, dan jatuhan tanpa lubang yang muat dalam jangkauan ditolak dengan pemberitahuan. Satu seretan memindahkan satu potongan. Potongan yang dijatuhkan kembali ke lubang asalnya masuk, meski dilepas beberapa sentimeter dari situ.
 
 ## Cluster dan Fuse Block
 
@@ -112,7 +112,7 @@ Proses yang berhenti karena batas waktu bergantung pada kecepatan mesin. Dalam t
 
 ## Auto Nest Queue
 
-Nesting, Auto Nest Queue… me-nesting beberapa berkas `.rjm` berurutan dalam satu pekerjaan latar, tanpa Marker terbuka. Tambahkan berkasnya dengan Add Markers…, lalu beri setiap baris modenya di kolom Advanced, waktu maksimum, dan batas efisiensi, lalu tekan Run. Regular me-nesting ulang setiap potongan; Continue mempertahankan potongan yang sudah ditata dan me-nesting yang menunggu di sekitarnya. Setiap hasil masuk ke `<stem>-nested.rjm` di samping masukannya, dan masukannya tidak pernah ditulis. Berkas yang gagal menampilkan alasannya dan antrean berlanjut. Stop menyimpan baris yang sedang berjalan dan membiarkan yang lain Pending. Menutup dialog membiarkan pekerjaan tetap berjalan, dengan strip yang menyebut barisnya. Mesinnya hanya satu, jadi antrean tidak punya pilihan algoritma, dan tidak ada berkas antrean yang ditulis.
+Nesting, Auto Nest Queue… me-nesting beberapa berkas `.rjm` berurutan dalam satu pekerjaan latar, tanpa Marker terbuka. Tambahkan berkasnya dengan Add Markers…, lalu beri setiap baris modenya di kolom Advanced, waktu maksimum, dan batas efisiensi, lalu tekan Run. Regular me-nesting ulang setiap potongan; Continue mempertahankan potongan yang sudah ditata dan me-nesting yang menunggu di sekitarnya. Setiap hasil masuk ke `<stem>-nested.rjm` di samping masukannya, dan masukannya tidak pernah ditulis. Berkas yang gagal menampilkan alasannya dan antrean berlanjut. Stop menyimpan baris yang sedang berjalan dan membiarkan yang lain Pending. Menutup dialog membiarkan pekerjaan tetap berjalan, dengan strip yang menyebut barisnya. Mesinnya hanya satu, jadi antrean tidak punya pilihan algoritma, dan tidak ada berkas antrean yang ditulis. Baris baru dimulai sebagai Regular, jadi Marker yang sudah di-nesting di-nesting ulang.
 
 ## Arti angka-angkanya
 

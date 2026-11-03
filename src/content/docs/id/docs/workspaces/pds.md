@@ -26,7 +26,7 @@ Sejak 1.5.0 tata letak bawaan memberi Work Area sebagian besar jendela: kolom To
 | History | Riwayat urungkan, dipakai bersama ruang kerja lain. | |
 | Import Report | Masalah impor terakhir. Terbuka bila ada. | |
 
-Bilah status mengalihkan panjang segmen (`F8`), kampuh (`Ctrl+F6`), Non Grading Points (`Shift+0`), ukuran ter-grade (`F4`), Snap (`F7`), Dynamic Input, dan Polar Tracking. Grade Point selalu digambar; sakelar Non Grading Points menambahkan titik lainnya. Snap mati mematikan snapping untuk setiap alat. Di kanan, bilah status menampilkan `Protected` untuk potongan yang terkunci, `SEW` atau `CUT` untuk garis yang disunting, satuan (klik untuk bergilir antara sentimeter, milimeter, dan inci), dan posisi kursor.
+Bilah status mengalihkan panjang segmen (`F8`), kampuh (`Ctrl+F6`), Non Grading Points (`Shift+0`), ukuran ter-grade (`F4`), Snap (`F7`), Dynamic Input, dan Polar Tracking. Grade Point selalu digambar; sakelar Non Grading Points menambahkan titik lainnya. Snap mati mematikan snapping untuk setiap alat. Di kanan, bilah status menampilkan `Protected` untuk potongan yang terkunci, `SEW` atau `CUT` untuk garis yang disunting, satuan (klik untuk bergilir antara sentimeter, milimeter, dan inci), dan posisi kursor. Menu mencentang sakelar yang menyala, misalnya View › Snap, Fill with Color, Dynamic Input, dan Polar Tracking. Di tempat potongan bertumpuk, klik mengambil potongan yang digambar paling atas, seperti yang ditunjukkan tanda hover.
 
 ## Di meja
 
