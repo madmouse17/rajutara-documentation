@@ -7,15 +7,17 @@ This page takes you from a download to the sample tee on screen. The Indonesian 
 
 ## Install
 
-Every release is on the [releases page](https://github.com/madmouse17/rajutara/releases) with its checksums. Pick the file for your machine.
+Every release is on the [releases page](https://github.com/madmouse17/rajutara/releases) with its checksums. The current release is 1.5.0. Pick the file for your machine.
 
 | File | For |
 |---|---|
-| `rajutara-<version>-x86_64.AppImage` | Linux, x86_64. Run `chmod +x` on it, then start it. Without FUSE 2, start it with `APPIMAGE_EXTRACT_AND_RUN=1` set. |
-| `rajutara-<version>-windows-x64.msi` | Windows 7 SP1 through Windows 11, 64-bit. The installer. |
-| `rajutara-<version>-windows-x64.zip` | The same, portable: unzip it and run `rajutara.exe`. |
-| `rajutara-<version>-windows-x86.msi` | Windows 7 SP1 through Windows 11, 32-bit. The installer. |
-| `rajutara-<version>-windows-x86.zip` | The same, portable. |
+| `rajutara-1.5.0-x86_64.AppImage` | Linux, x86_64. Run `chmod +x` on it, then start it. Without FUSE 2, start it with `APPIMAGE_EXTRACT_AND_RUN=1` set. |
+| `rajutara-1.5.0-windows-x64.msi` | Windows 7 SP1 through Windows 11, 64-bit. The installer. |
+| `rajutara-1.5.0-windows-x64.zip` | The same, portable: unzip it and run `rajutara.exe`. |
+| `rajutara-1.5.0-windows-x86.msi` | Windows 7 SP1 through Windows 11, 32-bit. The installer. |
+| `rajutara-1.5.0-windows-x86.zip` | The same, portable. |
+
+Other releases use the same names with their own version number. Once a day at start-up Rajutara checks for a newer release and offers to install it; Help, Check for Updates… asks on request.
 
 Every package carries the licences and `THIRD-PARTY.html`, the list of third-party software. If the program says on Windows that it cannot create an OpenGL context, read [Windows 7](../windows-7/).
 
@@ -33,7 +35,7 @@ The style has four pieces, front, back, sleeve and neck rib, graded S, M, L and 
 
 ## The window
 
-Four workspaces sit in tabs under the menu: PDS, Grading, Marker and Cut Plan. Panes dock and undock, and each workspace remembers its own layout. Light is the default theme, and dark is under View, Theme.
+Four workspaces sit in tabs under the menu: PDS, Grading, Marker and Cut Plan. Panes dock and undock, and each workspace remembers its own layout. The Work Area takes the middle of the window. In PDS the Toolbox is on the left, Properties on the right and the Pieces Window is the first tab of the bottom panel; Grading has its Pieces Window and Marker its Piece Bar in the same place. The theme follows the operating system by default; the control at the far right of the menu bar, Tools, Theme Settings, and View, Theme, switch it to Dark or Light.
 
 | Keys | What they do |
 |---|---|
@@ -46,7 +48,7 @@ Four workspaces sit in tabs under the menu: PDS, Grading, Marker and Cut Plan. P
 | `Ctrl+L` | Plot. |
 | `Esc` | Cancel the current step. |
 
-Autosave runs every five minutes. If an autosave file is newer than its document at the next start, Rajutara offers to restore it.
+Autosave runs every five minutes. If an autosave file is newer than its document at the next start, Rajutara offers to restore it. Every save also keeps the previous file as a `.bak`; in PDS, File, Open Backup opens the backup of a Style as a new, unsaved document.
 
 ## Build from source
 

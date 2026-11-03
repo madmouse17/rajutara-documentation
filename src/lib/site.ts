@@ -3,7 +3,7 @@ export const NAME = 'Rajutara';
 export const REPO = 'https://github.com/madmouse17/rajutara';
 
 /** The release the downloads section and the docs point at. Bump both fields for a new release. */
-export const RELEASE = { version: '1.4.0', tag: 'v1.4.0' } as const;
+export const RELEASE = { version: '1.5.0', tag: 'v1.5.0' } as const;
 
 export const RELEASES_URL = `${REPO}/releases`;
 

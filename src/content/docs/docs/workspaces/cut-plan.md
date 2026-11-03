@@ -7,9 +7,13 @@ Cut Plan starts from an Order, the garments wanted per colour and size, and plan
 
 ![The Cut Plan workspace for order PO-100: the Plan pane on the left, the Results pane on the right with three markers, nine lays, the ordered, planned and difference table, and the totals.](../../../../assets/screens/full-cutplan.jpg)
 
+## Create New
+
+CutPlan, Create New… opens a wizard with the Optitex steps: Adding Style Files, Defining the Order Details, Adding Colors and Defining Quantity for each Size, Defining Material Properties and Defining the Marker. Back, Next, Finish and Cancel move through it; `Enter` goes on and `Esc` cancels. The first step offers the Style open in PDS before a Style file. The plan opens on Finish. An empty Plan, Results or Cut Order pane has a Create New… button too.
+
 ## The Plan pane
 
-The pane is a list of collapsible sections, so you can come back to any step and solve again.
+Every step of the wizard stays in the Plan pane, as a list of collapsible sections, so you can come back to any step and solve again.
 
 | Section | Fields |
 |---|---|
@@ -22,11 +26,13 @@ The pane is a list of collapsible sections, so you can come back to any step and
 
 **Ratio mode** takes a ratio per size and a total per colour and spreads the quantities with largest-remainder rounding, so each row adds up to its total. **Deviation** is the over-cut you accept, as a percent of the ordered quantity, per cell: under-cutting is never planned. **Import quantities** reads a CSV file with a header row, the colour in the first column and one column per size name.
 
-## Solve
+## Viewing the Final Results
 
-Press Solve (`F5`). The solver is a deterministic greedy: for each colour, from the most plies down to the fewest, it picks the ratio of sizes per marker that cuts the most garments that are actually needed, prefers a ratio the plan already uses, and then the one with the least over-cut. Markers with the same ratio in different colours are merged, so there are fewer markers to make. The same inputs always give the same plan, and a plan for ten colours and twelve sizes takes a fraction of a second.
+Press Viewing the Final Results (`F5`) to solve the plan. The solver is a deterministic greedy: for each colour, from the most plies down to the fewest, it picks the ratio of sizes per marker that cuts the most garments that are actually needed, prefers a ratio the plan already uses, and then the one with the least over-cut. Markers with the same ratio in different colours are merged, so there are fewer markers to make. The same inputs always give the same plan, and a plan for ten colours and twelve sizes takes a fraction of a second.
 
-Switch on Nest markers and each planned marker is nested by the same engine as the Marker workspace, so its real length and efficiency replace the estimate. A marker longer than the limit is flagged "too long", not hidden.
+Main Algorithm with Nesting nests each planned marker with the same engine as the Marker workspace, so its real length and efficiency replace the estimate. A marker longer than the limit is flagged "too long", not hidden.
+
+Both check the plan before any nesting. They refuse an ordered piece that is wider than the Material, and name it. A plan file with such a piece still opens, with a warning, so you can widen the Material. While you edit, the Plan pane and the wizard warn when a single Bundle is longer than the maximum marker length; that marker is still kept and flagged "too long".
 
 ## Results
 
@@ -51,8 +57,8 @@ Enter the rolls in the Cut Order pane: code, colour, shade, width and length. A 
 
 ## Reports
 
-Report (CSV) writes UTF-8 files, one per section, because CSV has no tabs: the plan's markers, its lays and so on. Report (PDF) writes the same content on A4. The Production Report leaves out the costs and adds the garments per lay, for the cutting floor. A plan with rolls adds the Cut Order sections to both.
+Generating a CutPlan Report (CSV) writes UTF-8 files, one per section, because CSV has no tabs: the plan's markers, its lays and so on. Generating a CutPlan Report (PDF) writes the same content on A4. Viewing the Production Report leaves out the costs and adds the garments per lay, for the cutting floor. A plan with rolls adds the Cut Order sections to both. The two CSV imports keep their names, Import quantities… and Import Fabric Rolls…, because Optitex has no import-from-CSV command.
 
-## Not in 1.0
+## Not shipped yet
 
 Spreading groups that mix materials, a fabric-room inventory shared between plans, roll groups by width and shrinkage with their own markers, several cutting tables per material and several styles in one plan are scheduled for Phase 3. Running a Cut Plan from the command line is not planned. See the [roadmap](../../roadmap/).

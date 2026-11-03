@@ -46,7 +46,7 @@ The workflow has no window of its own: the library crates that the program is ma
 cargo run --release -p rajutara --example tshirt_sample -- out/
 ```
 
-It writes the style, the nested marker, the graded DXF with its RUL, an A0 marker PDF, an HPGL/2 plot, a CSV report and an A4-tiled PDF of the pieces. They are the files in the [gallery](/rajutara-documentation/gallery/).
+It writes the style, the nested marker, the graded DXF with its RUL, an A0 marker PDF, an HPGL/2 plot, an Excel (`.xlsx`) report and an A4-tiled PDF of the pieces. They are the files in the [gallery](/rajutara-documentation/gallery/).
 
 Same input and same settings give byte-identical files. Export headers carry a UTC timestamp, so only that line differs between two exports. The nesting engine takes an explicit seed, so a test can pin its output. A run that stops on a time limit also depends on the speed of the machine.
 

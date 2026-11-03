@@ -85,7 +85,7 @@ const en = {
   'wf.emblems': 'Crates and formats involved',
   'wf.pdsTitle': 'Draft the pattern, or import it.',
   'wf.pdsBody':
-    '89 tools in a toolbox laid out the way trained operators expect: draft, notch, add seams, darts and pleats. Import ASTM DXF from other CAD. Segment lengths, seam allowance and grainlines show on the piece.',
+    '101 tools in a toolbox laid out the way trained operators expect: draft, notch, add seams, darts and pleats. Import ASTM DXF from other CAD. Segment lengths, seam allowance and grainlines show on the piece.',
   'wf.pdsLink': 'PDS guide',
   'wf.pdsAlt':
     'The PDS workspace with segment lengths shown on the FRONT piece: neckline, shoulders and armholes with seam allowance and grainline',
@@ -220,9 +220,9 @@ const en = {
   'dl.s4h': 'The Indonesian strings are unconfirmed.',
   'dl.s4b':
     'Every English string has an Indonesian one, but no Indonesian-speaking Operator has reviewed the wording.',
-  'dl.s5h': 'Phase 3 is not started.',
+  'dl.s5h': 'Most of Phase 3 is still ahead.',
   'dl.s5b':
-    'Stripe and plaid matching, tilt, block fuse, flaws and cross grading are on the roadmap.',
+    'Clusters, block fuse and flaws shipped early, in 1.5.0. Stripe and plaid matching, tilt and cross grading are on the roadmap.',
   'dl.roadmap': 'Roadmap from 1.0 to v2',
 
   // Closing
@@ -372,7 +372,7 @@ const id: Record<Key, string> = {
   'wf.emblems': 'Crate dan format yang terlibat',
   'wf.pdsTitle': 'Gambar pola, atau impor.',
   'wf.pdsBody':
-    '89 alat dalam toolbox yang tertata seperti yang diharapkan operator terlatih: gambar, penandaan, tambah kampuh, kupnat, dan lipit. Impor DXF ASTM dari CAD lain. Panjang segmen, kampuh, dan Garis Serat tampil pada potongan.',
+    '101 alat dalam toolbox yang tertata seperti yang diharapkan operator terlatih: gambar, penandaan, tambah kampuh, kupnat, dan lipit. Impor DXF ASTM dari CAD lain. Panjang segmen, kampuh, dan Garis Serat tampil pada potongan.',
   'wf.pdsLink': 'Panduan PDS',
   'wf.pdsAlt':
     'Ruang kerja PDS dengan panjang segmen pada potongan FRONT: garis leher, bahu, dan lubang lengan beserta kampuh dan Garis Serat',
@@ -503,9 +503,9 @@ const id: Record<Key, string> = {
   'dl.s4h': 'Teks bahasa Indonesia belum dikonfirmasi.',
   'dl.s4b':
     'Setiap teks bahasa Inggris punya padanan bahasa Indonesia, tetapi belum ada Operator berbahasa Indonesia yang meninjau pilihan katanya.',
-  'dl.s5h': 'Fase 3 belum dimulai.',
+  'dl.s5h': 'Sebagian besar Fase 3 masih di depan.',
   'dl.s5b':
-    'Pencocokan garis dan kotak-kotak, miring, block fuse, cacat kain, dan cross grading ada di peta jalan.',
+    'Cluster, block fuse, dan cacat kain dirilis lebih awal, di 1.5.0. Pencocokan garis dan kotak-kotak, miring, dan cross grading ada di peta jalan.',
   'dl.roadmap': 'Peta jalan dari 1.0 ke v2',
 
   'closing.label': 'Rajutara',

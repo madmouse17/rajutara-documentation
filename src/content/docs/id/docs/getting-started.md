@@ -7,15 +7,17 @@ Halaman ini membawa Anda dari berkas unduhan sampai contoh kaos tampil di layar.
 
 ## Pasang
 
-Setiap rilis ada di [halaman rilis](https://github.com/madmouse17/rajutara/releases) beserta checksum-nya. Pilih berkas yang cocok dengan komputer Anda.
+Setiap rilis ada di [halaman rilis](https://github.com/madmouse17/rajutara/releases) beserta checksum-nya. Rilis terbaru adalah 1.5.0. Pilih berkas yang cocok dengan komputer Anda.
 
 | Berkas | Untuk |
 |---|---|
-| `rajutara-<versi>-x86_64.AppImage` | Linux, x86_64. Jalankan `chmod +x` pada berkas itu, lalu mulai. Tanpa FUSE 2, mulai dengan `APPIMAGE_EXTRACT_AND_RUN=1`. |
-| `rajutara-<versi>-windows-x64.msi` | Windows 7 SP1 sampai Windows 11, 64-bit. Pemasang. |
-| `rajutara-<versi>-windows-x64.zip` | Sama, tanpa pemasangan: ekstrak lalu jalankan `rajutara.exe`. |
-| `rajutara-<versi>-windows-x86.msi` | Windows 7 SP1 sampai Windows 11, 32-bit. Pemasang. |
-| `rajutara-<versi>-windows-x86.zip` | Sama, tanpa pemasangan. |
+| `rajutara-1.5.0-x86_64.AppImage` | Linux, x86_64. Jalankan `chmod +x` pada berkas itu, lalu mulai. Tanpa FUSE 2, mulai dengan `APPIMAGE_EXTRACT_AND_RUN=1`. |
+| `rajutara-1.5.0-windows-x64.msi` | Windows 7 SP1 sampai Windows 11, 64-bit. Pemasang. |
+| `rajutara-1.5.0-windows-x64.zip` | Sama, tanpa pemasangan: ekstrak lalu jalankan `rajutara.exe`. |
+| `rajutara-1.5.0-windows-x86.msi` | Windows 7 SP1 sampai Windows 11, 32-bit. Pemasang. |
+| `rajutara-1.5.0-windows-x86.zip` | Sama, tanpa pemasangan. |
+
+Rilis lain memakai nama yang sama dengan nomor versinya sendiri. Sekali sehari saat start, Rajutara memeriksa rilis yang lebih baru dan menawarkan untuk memasangnya; Help, Check for Updates… memeriksa atas permintaan.
 
 Setiap paket membawa berkas lisensi dan `THIRD-PARTY.html`, daftar perangkat lunak pihak ketiga. Jika di Windows program menyatakan tidak bisa membuat konteks OpenGL, baca [Windows 7](../windows-7/).
 
@@ -33,7 +35,7 @@ Style contoh berisi empat potongan pola: badan depan, badan belakang, lengan, da
 
 ## Jendela
 
-Empat ruang kerja ada di tab di bawah menu: PDS, Grading, Marker, dan Cut Plan. Panel bisa dilepas dan dipasang kembali, dan setiap ruang kerja mengingat tata letaknya sendiri. Tema terang adalah bawaan; tema gelap ada di menu View, Theme.
+Empat ruang kerja ada di tab di bawah menu: PDS, Grading, Marker, dan Cut Plan. Panel bisa dilepas dan dipasang kembali, dan setiap ruang kerja mengingat tata letaknya sendiri. Work Area mengisi bagian tengah jendela. Di PDS, Toolbox ada di kiri, Properties di kanan, dan Pieces Window menjadi tab pertama panel bawah; Grading menaruh Pieces Window-nya dan Marker menaruh Piece Bar-nya di tempat yang sama. Tema mengikuti sistem operasi secara bawaan; kontrol di ujung kanan bilah menu, Tools, Theme Settings, dan View, Theme, mengalihkannya ke Dark atau Light.
 
 | Tombol | Fungsi |
 |---|---|
@@ -46,7 +48,7 @@ Empat ruang kerja ada di tab di bawah menu: PDS, Grading, Marker, dan Cut Plan. 
 | `Ctrl+L` | Plot. |
 | `Esc` | Batalkan langkah yang sedang berjalan. |
 
-Simpan otomatis berjalan setiap lima menit. Jika berkas simpan otomatis lebih baru daripada dokumennya saat program dimulai lagi, Rajutara menawarkan untuk memulihkannya.
+Simpan otomatis berjalan setiap lima menit. Jika berkas simpan otomatis lebih baru daripada dokumennya saat program dimulai lagi, Rajutara menawarkan untuk memulihkannya. Setiap simpan juga menyimpan berkas sebelumnya sebagai `.bak`; di PDS, File, Open Backup membuka cadangan sebuah Style sebagai dokumen baru yang belum disimpan.
 
 ## Bangun dari sumber
 
@@ -59,9 +61,10 @@ mise install            # rustup dan toolchain stable yang disematkan di rust-to
 cargo run -p rajutara --release -- --version
 ```
 
-Uji coba menjalankan jendela sungguhan, jadi dijalankan di layar virtual: `LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s "-screen 0 1280x800x24" cargo test --workspace`.
+Uji coba menjalankan jendela sungguhan, jadi dijalankan di layar virtual: `LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s "-screen 0 1280x800x24" cargo test --workspace`. [Berkontribusi](../contributing/) mencantumkan setiap gerbang pemeriksaan.
 
 ## Berikutnya
 
 - [Workflows](../workflows/): lima jalur kerja di dalam program.
 - [PDS](../workspaces/pds/), [Grading](../workspaces/grading/), [Marker](../workspaces/marker/), dan [Cut Plan](../workspaces/cut-plan/): satu panduan untuk setiap ruang kerja.
+- [Headless dan skrip](../headless/): jalankan dari skrip.

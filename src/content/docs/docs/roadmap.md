@@ -1,34 +1,39 @@
 ---
 title: Roadmap
-description: What 1.0.0 ships, what the specifications schedule and have not delivered, what Rajutara will not do, and the plan for v2.
+description: What 1.5.0 ships, what the specifications schedule and have not delivered, what Rajutara will not do, and the plan for v2.
 ---
 
-This page is the project plan in plain words. It has what 1.0.0 ships, what the specifications schedule and have not delivered, what is not planned, and the plan for v2, which was drawn up by measuring 1.0 against the features Optitex has added since release 15. The sources are `ROADMAP.md` and `docs/spec/08-v2-roadmap.md` in the repository, and the [parity checklist](../parity-checklist/) has the tool-by-tool view.
+This page is the project plan in plain words. It has what 1.5.0 ships, what the specifications schedule and have not delivered, what is not planned, and the plan for v2, which was drawn up by measuring 1.0 against the features Optitex has added since release 15. The sources are `ROADMAP.md` and `docs/spec/08-v2-roadmap.md` in the repository, and the [parity checklist](../parity-checklist/) has the tool-by-tool view. What changed in each release is in the [changelog](../changelog/).
 
 ## Phases
 
-| Phase | Delivers | In 1.0.0 |
+| Phase | Delivers | In 1.5.0 |
 |---|---|---|
 | 0 Foundation | Workspace, CI, core model with undo, native format, docking shell, English and Indonesian, `--version` and `--smoke` | Shipped |
 | 1a Import path | ASTM D6673 and AAMA-292 DXF and RUL import, Pieces panes, properties, seam allowance, plot to PDF (tiled A4, A0) and HPGL/2 | Shipped |
 | 1b Grade to marker | The Grading workspace, graded-nest and RUL export, the Marker workspace with manual placement, auto-nesting, the report and the marker plot | Shipped |
-| 1c Draw from scratch | Drafting, points, curves, darts, pleats, walk, trace, mirror, split and join, measure, text, internal lines | Shipped. The 89 PDS tools include the ones the specification tagged Phase 3: spiral, fullness, gusset, pleat lines, fold, remove excess cloth and extend in parallel |
-| 2 Cut planning | The Cut Plan workspace, orders, lay planning, consumption and cost, reports, ply modes, the Cut Order | Shipped in the Cut Plan workspace, with Cut Order and fabric rolls. Not shipped in the Marker workspace: ply modes other than single, the text tool, cutting order, optimize cut order, bump and cut lines |
-| 3 Production extras | Stripe and plaid matching, tilt, piece buffers by side, block fuse, flaws, cross grading, multi-material spreading | Not started |
+| 1c Draw from scratch | Drafting, points, curves, darts, pleats, walk, trace, mirror, split and join, measure, text, internal lines | Shipped. The 89 PDS tools of 1.0 include the ones the specification tagged Phase 3: spiral, fullness, gusset, pleat lines, fold, remove excess cloth and extend in parallel. 1.5.0 brings the count to 101: Segment Editor, Track Lines, Wave, Deform Internals, Equal Segments, Fold Line to Line, Swap Piece Properties, Zones, Spread and Gather Pieces, Fabric And Stripes, Save and Restore Placement, Reopen Darts |
+| 2 Cut planning | The Cut Plan workspace, orders, lay planning, consumption and cost, reports, ply modes, the Cut Order | Shipped in the Cut Plan workspace, with Cut Order and fabric rolls. 1.5.0 adds to the Marker workspace the Cutting Order and Optimize Cut Order, the Tubular, Faced and Folded ply modes, the text tool and bump and cut lines |
+| 3 Production extras | Stripe and plaid matching, tilt, piece buffers by side, block fuse, flaws, cross grading, multi-material spreading | Started early. Shipped in 1.5.0: block fuse with Cluster Pieces, Insert to Hole, the Auto Nest Queue, flaws, Substitute Size, Single Piece Gap, Stack Along Line and the Custom seam corner. Open: stripe and plaid matching (PDS already stores the stripe data), tilt, buffers by side, cross grading, multi-material spreading |
 | 4 and later, 3D | 3D garment simulation, only after the decision to leave it out is replaced | Interface contract only |
 
-## Known limits in 1.0.0
+## Known limits in 1.5.0
 
 - Windows 7 builds are verified under Wine and by the import-table check only. The run on real Windows 7 hardware is pending. See [Windows 7](../windows-7/).
 - 3D is interface-only. There is no 3D window.
 - Vendor cutter drivers are not included. The marker writes one generic HPGL/2 cut file.
 - The Indonesian strings are unconfirmed: every English string has an Indonesian one, and CI checks that, but no Indonesian-speaking Operator has reviewed the wording.
+- Marker: a Cluster or Fuse Block only translates, so turning or flipping one is refused, and waiting pieces cannot be clustered. The cut file cuts a Fuse Block as its border alone, with no second file for the block contents, no tool or layer per sequence and no overlap. Insert to Hole moves one piece per drag. The Auto Nest Queue has one engine, no queue files and no headless run.
+- PDS: Dynamic Input works in Draft only, and Polar Tracking has fixed 45° steps. A Point Name is kept in the file but not drawn or written to DXF. Walk's Support Notch has no Reconnect and no Grading Walking.
+- PDS: the Segment Editor has no pane and no Use Darts. Track lines last for the session and cannot be snapped to. Equal Segments has no group window and no Options. Fabric And Stripes stores and draws the stripe data, but nothing is matched yet. Swap Zone Segment and Move Piece On Piece are not built, because no public description says what they do. A spread piece turned by Arrange For Plot lays its copies in its turned frame.
+- Marker: half pieces are nested unfolded in Tubular and Folded. Substitute Size takes the next size only. Flaws are not plotted. Bump and cut lines have no Lock or OpStop. The Marker Creation Wizard has no Overlay properties. Marker plot labels do not follow the PDS one-line label layout.
+- Files stay at format version 2. A 1.4.0 build opens a file with any of the 1.5.0 content (clusters, Fuse Blocks, a cutting order, point names, Equal Segments Groups, zones, bump or cut lines, flaws, marker texts) but drops it, and it does not open a Style that uses Stack Along Line.
 
 ## Scheduled by the specifications, not delivered
 
-- **Marker.** Cluster pieces, delete cluster, fix on marker, optimum and rectangular block fuse, substitute size and the nesting queue, plus the Phase 2 and 3 items in the table above.
-- **Grading.** Stack Along Line is listed and disabled until Phase 3. Multi-dimensional size systems, cross grading by merging style files and measurement charts are Phase 3.
-- **PDS.** The Custom seam corner is a disabled button until Phase 3. Wave, Deform Internals, Zones, Equal Segments, Track Lines and the Segment Editor are not mirrored.
+- **Marker.** Tilt, stripe and plaid matching and piece buffers by side (Phase 3), and placing half pieces on the fold edge in Tubular and Folded (v2). A choice of nesting engine waits for a second engine, and bundle grouping for the shading groups of v2. Auto Save of Markers, which splits one order over several markers, waits for the batch work of v2.
+- **Grading.** Multi-dimensional size systems, cross grading by merging style files and measurement charts are Phase 3.
+- **PDS.** The Segment Editor pane and Use Darts, Snap To Track Lines, and the Equal Segments Options and group window are deferred. The Seam and Stitch Manager belongs to 3D.
 - **Cut Plan.** Spreading groups that mix materials, a fabric-room inventory shared between plans, roll groups by width and shrinkage with their own markers, several cutting tables per material and several styles in one plan.
 
 ## Not planned
@@ -59,7 +64,9 @@ Marker constraints, the nesting engine and the batch commands share work and run
 
 ### v2.x, the should items
 
-Flaws, with a flaw-list import and a command that removes pieces that hit a flaw. Bump and cut lines. Several materials and styles per Cut Plan, with a shared fabric-room inventory. A production sheet PDF with the annotated layout and tech-pack basics. A marker creation wizard. A column chooser for reports. Preferences search. Track lines. A piece-name dictionary for plot labels, for example English to Indonesian. Style sets and search. Piece label layout. Fold line to line, swap piece properties and multi-target 2D tools. Parent references kept on new grade points. XLSX import for the measurement chart and orders.
+Several materials and styles per Cut Plan, with a shared fabric-room inventory. A production sheet PDF with the annotated layout and tech-pack basics. A column chooser for reports. Preferences search. A piece-name dictionary for plot labels, for example English to Indonesian. Style sets and search. Multi-target 2D tools. Parent references kept on new grade points. XLSX import for the measurement chart and orders.
+
+Shipped early, in 1.5.0: flaws with a flaw-list import and Remove Pieces Hitting Flaws, bump and cut lines, the Marker Creation Wizard, track lines, the piece label layout in PDS, Fold Line to Line and Swap Piece Properties, and Report to Excel as an `.xlsx` workbook. The batch commands for flaws and bump lines wait for headless batch.
 
 ### Out of scope for v2
 

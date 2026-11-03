@@ -19,6 +19,12 @@ The words of Rajutara. They are also the names of its types and modules, so a te
 | **Marker Table** | The canvas of the Marker workspace: the fabric band of the Marker's Material width on which pieces are placed. X runs along the marker length (the warp), Y across the width. | Canvas, desk, work area |
 | **Piece Bar** | The strip of the Marker workspace that holds the piece instances still waiting to be placed: one thumbnail per Style, piece and size with the remaining count. Its order seeds Nesting. | Piece tray, palette, queue |
 | **Piece List** | The Marker workspace table with one row per piece and size of the embedded Styles, where Marker-only properties (code, material, quantity, rotation, flip, buffer) are edited on the embedded copy. | Pieces Table (the PDS pane), parts list |
+| **Cluster** | Two or more placed pieces of a Marker that keep their arrangement and are moved, shot and nested as one piece. While they wait, the Piece Bar shows them as one thumbnail. | Group, bundle (a Bundle is the pieces of one size request), assembly |
+| **Fuse Block** | A Cluster with a border (a rectangle round the pieces or a contour that follows them, at a set gap) that Export Cut File cuts instead of the pieces, so the block can be fused before the pieces are cut. | Fusing zone, interlining block |
+| **Cutting Order** | The order in which a Marker's pieces go to the cutter, with the start point and the direction of each cut. Not the Cut Order of a Cut Plan. | Cut sequence, plot order, Cut Order (that is the Cut Plan's) |
+| **Bump Line** | A vertical or horizontal wall of a Marker that pieces do not cross during Nesting and Shoot. A Bump Line may also be a Cut Line, or a No Bump line that pieces may cross. | Wall, barrier, stop line |
+| **Cut Line** | A Bump Line that Export Cut File writes as a cut across the fabric, with an overcut at each end and a shortest segment kept. | Cross cut, split line |
+| **Flaw** | A rectangle of the fabric, marked on the Marker, that no piece may overlap. A Flaw may span the whole marker length or the whole Material width. | Defect, hole, damage |
 | **Nesting** | The act of placing pieces on a marker, by hand or by algorithm, to minimise fabric length. | Packing, layout, optimisation |
 | **Lay** | A stack of fabric plies cut together under one marker. | Spread, ply stack |
 | **Order** | The quantities of a style per size and colour that cut planning must satisfy. | Job, production order, PO |
@@ -35,6 +41,12 @@ The words of Rajutara. They are also the names of its types and modules, so a te
 | **Mirror Line** | The straight edge of a half piece about which it unfolds into the full, symmetric piece. | Fold line, symmetry line, half line |
 | **Dart** | A wedge of fabric taken out of a piece, defined by two legs on the contour and a tip. | Tuck, suppression |
 | **Pleat** | A fold of fabric set into a piece from the contour, defined by its fold lines, type (knife, box, axe) and depth. | Tuck, fold |
+| **Track Line** | The thin dashed ghost of a Piece as it was when Track Lines was switched on, base size only, with its internals. It lives for the session and is not saved. Restore By Track Line puts the remembered shape back. | Trace, history line, undo ghost |
+| **Zone** | An area of a Map Piece marked by clicking inside it (Build Zone) or by tracing the runs that confine it (Trace Zone). Create Pieces From Map turns each Zone into a Piece. | Region, area, section |
+| **Map Piece** | A Piece that holds Zones: a flat sketch of the garment whose areas become the real Pieces. Pieces made from it remember their Zone, so Correct All Pieces By Map can rebuild them. | Block, master piece, base pattern |
+| **Equal Segments Group** | Runs of contours or Internal Lines of one Style that stay equal while the Operator edits: in length only, or in shape as well. The first run edited leads and the others follow. | Linked segments, match group, sibling lines |
+| **Stripe Group** | A number given to Pieces that share one stripe or check match in a Marker. Relate Piece To Stripes marks the point of a Piece that sits on a stripe line. | Match group, pattern group |
+| **Spread Pieces** | A Piece flagged so that the Work Area and the Plot show one derived copy for each further Quantity and Pair beside it. Gather Pieces clears the flag. Not the spreading of a Lay. | Duplicate, copy pieces, array |
 | **Material** | A named fabric that pieces are cut from. A Marker is made on one Material, which supplies its width, ply mode, shrinkage and cost. | Fabric type, cloth, textile |
 | **Ply Mode** | How each Ply of a Material lies on the table: single (open), tubular, faced (face to face) or folded. | Layout mode, spread type, fabric layout |
 | **Bundle** | The set of pieces that makes one garment of one size of a style. A Marker asks for a number of Bundles per size. | Set, kit, garment |

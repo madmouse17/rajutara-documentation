@@ -1,34 +1,39 @@
 ---
 title: Peta jalan
-description: Apa yang dibawa 1.0.0, apa yang dijadwalkan spesifikasi tetapi belum dikirim, apa yang tidak akan dikerjakan Rajutara, dan rencana v2.
+description: Apa yang dibawa 1.5.0, apa yang dijadwalkan spesifikasi tetapi belum dikirim, apa yang tidak akan dikerjakan Rajutara, dan rencana v2.
 ---
 
-Halaman ini adalah rencana proyek dalam kata-kata sederhana. Isinya apa yang dibawa 1.0.0, apa yang dijadwalkan spesifikasi tetapi belum dikirim, apa yang tidak direncanakan, dan rencana v2, yang disusun dengan mengukur 1.0 terhadap fitur yang ditambahkan Optitex sejak rilis 15. Sumbernya adalah `ROADMAP.md` dan `docs/spec/08-v2-roadmap.md` di repositori, dan [daftar paritas](../parity-checklist/) memuat tampilan alat demi alat.
+Halaman ini adalah rencana proyek dalam kata-kata sederhana. Isinya apa yang dibawa 1.5.0, apa yang dijadwalkan spesifikasi tetapi belum dikirim, apa yang tidak direncanakan, dan rencana v2, yang disusun dengan mengukur 1.0 terhadap fitur yang ditambahkan Optitex sejak rilis 15. Sumbernya adalah `ROADMAP.md` dan `docs/spec/08-v2-roadmap.md` di repositori, dan [daftar paritas](../parity-checklist/) memuat tampilan alat demi alat. Apa yang berubah di setiap rilis ada di [catatan perubahan](../changelog/).
 
 ## Fase
 
-| Fase | Menghasilkan | Di 1.0.0 |
+| Fase | Menghasilkan | Di 1.5.0 |
 |---|---|---|
 | 0 Fondasi | Workspace, CI, model inti dengan urungkan, format asli, shell docking, bahasa Inggris dan Indonesia, `--version` dan `--smoke` | Dirilis |
 | 1a Jalur impor | Impor DXF dan RUL ASTM D6673 dan AAMA-292, panel Pieces, properti, kampuh, plot ke PDF (A4 berubin, A0) dan HPGL/2 | Dirilis |
 | 1b Dari grade ke marker | Ruang kerja Grading, ekspor graded nest dan RUL, ruang kerja Marker dengan penataan manual, auto-nesting, laporan, dan plot marker | Dirilis |
-| 1c Menggambar dari nol | Drafting, titik, kurva, kup, lipit, walk, trace, cermin, pisah dan gabung, ukur, teks, garis dalam | Dirilis. 89 alat PDS mencakup alat yang oleh spesifikasi diberi tanda Fase 3: spiral, fullness, gusset, garis lipit, fold, remove excess cloth, dan extend in parallel |
-| 2 Perencanaan potong | Ruang kerja Cut Plan, order, perencanaan lay, konsumsi dan biaya, laporan, mode lapis, Cut Order | Dirilis di ruang kerja Cut Plan, dengan Cut Order dan gulungan kain. Belum dirilis di ruang kerja Marker: mode lapis selain tunggal, alat teks, cutting order, optimize cut order, bump dan garis potong |
-| 3 Tambahan produksi | Pencocokan belang dan kotak-kotak, tilt, buffer potongan per sisi, block fuse, cacat kain, cross grading, penghamparan multi-material | Belum dimulai |
+| 1c Menggambar dari nol | Drafting, titik, kurva, kup, lipit, walk, trace, cermin, pisah dan gabung, ukur, teks, garis dalam | Dirilis. 89 alat PDS di 1.0 mencakup alat yang oleh spesifikasi diberi tanda Fase 3: spiral, fullness, gusset, garis lipit, fold, remove excess cloth, dan extend in parallel. 1.5.0 menaikkan jumlahnya menjadi 101: Segment Editor, Track Lines, Wave, Deform Internals, Equal Segments, Fold Line to Line, Swap Piece Properties, Zones, Spread dan Gather Pieces, Fabric And Stripes, Save dan Restore Placement, Reopen Darts |
+| 2 Perencanaan potong | Ruang kerja Cut Plan, order, perencanaan lay, konsumsi dan biaya, laporan, mode lapis, Cut Order | Dirilis di ruang kerja Cut Plan, dengan Cut Order dan gulungan kain. 1.5.0 menambahkan ke ruang kerja Marker: Cutting Order dan Optimize Cut Order, mode lapis Tubular, Faced, dan Folded, alat teks, serta bump line dan cut line |
+| 3 Tambahan produksi | Pencocokan belang dan kotak-kotak, tilt, buffer potongan per sisi, block fuse, cacat kain, cross grading, penghamparan multi-material | Dimulai lebih awal. Dirilis di 1.5.0: block fuse bersama Cluster Pieces, Insert to Hole, Auto Nest Queue, cacat kain, Substitute Size, Single Piece Gap, Stack Along Line, dan sudut kampuh Custom. Masih terbuka: pencocokan belang dan kotak-kotak (PDS sudah menyimpan data belangnya), tilt, buffer per sisi, cross grading, penghamparan multi-material |
 | 4 dan seterusnya, 3D | Simulasi garmen 3D, hanya setelah keputusan untuk meninggalkannya diganti | Hanya kontrak antarmuka |
 
-## Batasan yang diketahui di 1.0.0
+## Batasan yang diketahui di 1.5.0
 
 - Build Windows 7 hanya diverifikasi di bawah Wine dan lewat pemeriksaan tabel impor. Uji di perangkat keras Windows 7 sungguhan masih tertunda. Lihat [Windows 7](../windows-7/).
 - 3D hanya antarmuka. Tidak ada jendela 3D.
 - Driver pemotong vendor tidak disertakan. Marker menulis satu berkas potong HPGL/2 generik.
 - String bahasa Indonesia belum dikonfirmasi: setiap string bahasa Inggris punya padanan Indonesia, dan CI memeriksanya, tetapi belum ada Operator berbahasa Indonesia yang meninjau pilihan katanya.
+- Marker: Cluster atau Fuse Block hanya bergeser, jadi memutar atau membaliknya ditolak, dan potongan yang masih menunggu tidak bisa dijadikan cluster. Berkas potong memotong Fuse Block sebagai batasnya saja, tanpa berkas kedua untuk isi blok, tanpa alat atau layer per urutan, dan tanpa overlap. Insert to Hole memindahkan satu potongan per seretan. Auto Nest Queue punya satu mesin, tanpa berkas antrean, dan tanpa mode headless.
+- PDS: Dynamic Input hanya bekerja di Draft, dan Polar Tracking punya langkah 45° yang tetap. Point Name disimpan di berkas tetapi tidak digambar dan tidak ditulis ke DXF. Support Notch milik Walk belum punya Reconnect dan Grading Walking.
+- PDS: Segment Editor tidak punya panel dan tidak punya Use Darts. Track line bertahan selama sesi dan tidak bisa dijadikan sasaran snap. Equal Segments tidak punya jendela grup dan Options. Fabric And Stripes menyimpan dan menggambar data belang, tetapi belum ada yang dicocokkan. Swap Zone Segment dan Move Piece On Piece belum dibuat, karena tidak ada keterangan publik tentang apa yang dilakukannya. Potongan yang di-spread dan diputar oleh Arrange For Plot menata salinannya dalam bingkai yang sudah diputar.
+- Marker: potongan separuh di-nesting tanpa dilipat pada Tubular dan Folded. Substitute Size hanya mengambil ukuran berikutnya. Cacat tidak diplot. Bump line dan cut line tidak punya Lock atau OpStop. Marker Creation Wizard tidak punya properti Overlay. Label plot Marker tidak mengikuti tata letak label satu baris milik PDS.
+- Berkas tetap pada format versi 2. Build 1.4.0 membuka berkas dengan isi 1.5.0 apa pun (cluster, Fuse Block, urutan potong, nama titik, Equal Segments Group, zona, bump line atau cut line, cacat, teks marker) tetapi membuangnya, dan tidak membuka Style yang memakai Stack Along Line.
 
 ## Dijadwalkan spesifikasi, belum dikirim
 
-- **Marker.** Cluster pieces, delete cluster, fix on marker, optimum dan rectangular block fuse, substitute size, dan antrean nesting, ditambah butir Fase 2 dan 3 di tabel di atas.
-- **Grading.** Stack Along Line tercantum dan dinonaktifkan sampai Fase 3. Sistem ukuran multidimensi, cross grading dengan menggabungkan berkas style, dan bagan ukuran adalah Fase 3.
-- **PDS.** Sudut kampuh Custom adalah tombol nonaktif sampai Fase 3. Wave, Deform Internals, Zones, Equal Segments, Track Lines, dan Segment Editor tidak ditiru.
+- **Marker.** Tilt, pencocokan belang dan kotak-kotak, dan buffer potongan per sisi (Fase 3), serta menata potongan separuh di tepi lipatan pada Tubular dan Folded (v2). Pilihan mesin nesting menunggu mesin kedua, dan pengelompokan bundle menunggu shading group v2. Auto Save of Markers, yang membagi satu order ke beberapa marker, menunggu kerja batch v2.
+- **Grading.** Sistem ukuran multidimensi, cross grading dengan menggabungkan berkas style, dan bagan ukuran adalah Fase 3.
+- **PDS.** Panel Segment Editor dan Use Darts, Snap To Track Lines, serta Options dan jendela grup Equal Segments ditunda. Seam and Stitch Manager adalah bagian dari 3D.
 - **Cut Plan.** Grup penghamparan yang mencampur material, inventaris gudang kain yang dipakai bersama antarrencana, grup gulungan menurut lebar dan penyusutan dengan marker sendiri, beberapa meja potong per material, dan beberapa style dalam satu rencana.
 
 ## Tidak direncanakan
@@ -59,7 +64,9 @@ Batasan marker, mesin nesting, dan perintah batch berbagi pekerjaan dan dikerjak
 
 ### v2.x, butir sebaiknya
 
-Cacat kain, dengan impor daftar cacat dan perintah yang menghapus potongan yang terkena cacat. Garis bump dan potong. Beberapa material dan style per Cut Plan, dengan inventaris gudang kain bersama. PDF lembar produksi dengan tata letak beranotasi dan dasar tech pack. Wizard pembuatan marker. Pemilih kolom untuk laporan. Pencarian Preferences. Track lines. Kamus nama potongan untuk label plot, misalnya Inggris ke Indonesia. Set style dan pencarian. Tata letak label potongan. Fold line to line, swap piece properties, dan alat 2D multi-target. Referensi induk dipertahankan pada grade point baru. Impor XLSX untuk bagan ukuran dan order.
+Beberapa material dan style per Cut Plan, dengan inventaris gudang kain bersama. PDF lembar produksi dengan tata letak beranotasi dan dasar tech pack. Pemilih kolom untuk laporan. Pencarian Preferences. Kamus nama potongan untuk label plot, misalnya Inggris ke Indonesia. Set style dan pencarian. Alat 2D multi-target. Referensi induk dipertahankan pada grade point baru. Impor XLSX untuk bagan ukuran dan order.
+
+Dirilis lebih awal, di 1.5.0: cacat kain dengan impor daftar cacat dan Remove Pieces Hitting Flaws, bump line dan cut line, Marker Creation Wizard, track line, tata letak label potongan di PDS, Fold Line to Line dan Swap Piece Properties, serta Report to Excel sebagai workbook `.xlsx`. Perintah batch untuk cacat dan bump line menunggu batch headless.
 
 ### Di luar lingkup v2
 

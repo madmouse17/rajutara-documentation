@@ -1,6 +1,6 @@
 ---
 title: Format berkas
-description: DXF ASTM D6673 dan AAMA-292, ASTM RUL, HPGL/2, PDF, CSV, serta berkas asli style, marker, dan cut plan.
+description: DXF ASTM D6673 dan AAMA-292, ASTM RUL, HPGL/2, PDF, CSV, workbook Excel, serta berkas asli style, marker, dan cut plan.
 ---
 
 Rajutara bertukar pola lewat standar terbuka dan menyimpan pekerjaannya sendiri dalam zip dan JSON biasa. Rajutara tidak pernah membaca atau menulis format berkas Optitex.
@@ -11,14 +11,30 @@ Rajutara bertukar pola lewat standar terbuka dan menyimpan pekerjaannya sendiri 
 | ASTM RUL | Impor dan ekspor | Aturan grade di samping DXF graded nest |
 | HPGL/2 | Ekspor | Berkas plotter dan berkas potong marker |
 | PDF | Ekspor | Ubin A4, satu lembar A0, atau satu halaman A4; marker dan laporan |
-| CSV | Impor dan ekspor | Masuk: jumlah order dan gulungan kain; keluar: laporan marker dan Cut Plan |
+| CSV | Impor dan ekspor | Masuk: jumlah order, gulungan kain, dan daftar cacat marker; keluar: laporan Cut Plan |
+| Workbook Excel (`.xlsx`) | Ekspor | Report to Excel di PDS dan Marker |
 | `.rjx`, `.rjm`, `.rjc` | Buka dan simpan | Style, Marker, dan Cut Plan: zip dan JSON, format 2 |
 
 Ekstensi lama `.optx`, `.optm`, dan `.optc` juga bisa dibuka. [Galeri](/rajutara-documentation/id/gallery/) menyediakan contoh kaos dalam sebagian besar format di atas.
 
 ## Berkas asli
 
-Style, marker, dan cut plan masing-masing adalah satu arsip zip dengan dua entri: `manifest.json`, yang menyebut format dan versinya, dan `document.json`, yang memuat isinya. Satuan panjang adalah milimeter. Marker menyematkan style yang dipakainya, jadi marker terbuka tanpa berkas style. Masukan yang sama dan pengaturan yang sama menghasilkan berkas yang identik byte demi byte. Berkas yang ditulis oleh versi format yang lebih baru ditolak, tidak pernah dipotong. [Headless dan skrip](../headless/) menunjukkan cara membacanya dengan beberapa baris Python.
+Style, marker, dan cut plan masing-masing adalah satu arsip zip dengan dua entri: `manifest.json`, yang menyebut format dan versinya, dan `document.json`, yang memuat isinya. Satuan panjang adalah milimeter. Marker menyematkan style yang dipakainya, jadi marker terbuka tanpa berkas style. Masukan yang sama dan pengaturan yang sama menghasilkan berkas yang identik byte demi byte. Berkas yang ditulis oleh versi format yang lebih baru ditolak, tidak pernah dipotong. Penyimpanan bersifat atomik dan menyimpan berkas sebelumnya sebagai `.bak`. [Headless dan skrip](../headless/) menunjukkan cara membacanya dengan beberapa baris Python.
+
+Formatnya masih versi 2 di 1.5.0. Rilis yang lebih baru menambahkan kunci opsional; berkas tanpa kunci itu dimuat seperti sebelumnya, dan saat disimpan tidak mendapat kunci baru:
+
+| Kunci | Sejak | Isinya |
+|---|---|---|
+| `thickness_mm` pada setiap ukuran | 1.4.0 | Ketebalan garis ukuran itu di Graded Nest. |
+| `clusters`, `cut_order` di `.rjm` | 1.5.0 | Cluster dan Fuse Block, serta Cutting Order: urutan, verteks awal, dan arah per potongan. |
+| `bump_lines`, `cut_lines`, `flaws`, `texts` di `.rjm` | 1.5.0 | Bump line dan cut line beserta pengaturannya, cacat, dan teks marker. |
+| `name` pada verteks `.rjx` | 1.5.0 | Point Name. |
+| `equal_segments`, `fabric` pada Style `.rjx` | 1.5.0 | Equal Segments Group dan Fabric Pattern. |
+| `placement`, `spread`, `zones`, `from_zone`, `color` pada potongan | 1.5.0 | Fixed Placement, Spread Pieces, zona map piece dan zona asal sebuah potongan, serta warna milik potongan. |
+| `stripe_group`, `stripe_point` di aturan potong sebuah potongan | 1.5.0 | Stripe Group dan titik belang. |
+| `one_line`, `separator` di label potongan | 1.5.0 | Tata letak label satu baris. |
+
+Buka berkas yang memakai kunci ini dengan 1.5.0 atau yang lebih baru. Build 1.4.0 membukanya tetapi membuang isi itu, jadi menyimpan di sana menghilangkannya, dan menolak Style yang Graded Nest-nya memakai Stack Along Line.
 
 ## DXF ASTM D6673 dan AAMA-292
 
@@ -29,9 +45,9 @@ Rajutara membaca dan menulis DXF ASTM D6673-10, AutoCAD R13, dengan satu blok pe
 | 1 | Batas potongan, dan teks sistem untuk style serta tiap potongan | 9, 10 | Garis acuan belang dan kotak-kotak |
 | 2 | Turn point | 11 | Lubang dalam |
 | 3 | Curve point | 13 | Lubang bor, dengan diameter |
-| 4 | Notch V dan celah | 14 | Garis jahit |
+| 4 | Penandaan V dan celah (I) | 14 | Garis jahit |
 | 5 | Garis acuan grade | 15 | Teks anotasi |
-| 6 | Garis cermin | 80 sampai 83 | Notch T, castle (Box), check (L), dan U |
+| 6 | Garis cermin | 80 sampai 83 | Penandaan T, castle (Box), check (L), dan U |
 | 7 | Garis serat | 84 sampai 87 | Kurva validasi kualitas untuk layer 1, 8, 11, dan 14 |
 | 8 | Garis dalam, tidak dipotong | | |
 
@@ -66,7 +82,7 @@ Pembacaan longgar soal pemisah dan akhir baris, tetapi ketat soal angka: aturan 
 
 ## HPGL/2
 
-Satu unit plotter adalah 0,025 mm, jadi ada 40 unit per milimeter. Marker diplot dengan X sepanjang panjangnya dan Y melintang lebarnya. Berkas potong memakai pena sebagai alat: 1 untuk label dan garis gambar, 2 untuk pisau, 3 untuk bor. Nomor pena bisa diubah di pengaturan plotter.
+Satu unit plotter adalah 0,025 mm, jadi ada 40 unit per milimeter. Marker diplot dengan X sepanjang panjangnya dan Y melintang lebarnya. Berkas potong memakai pena sebagai alat: 1 untuk label dan garis gambar, 2 untuk pisau, 3 untuk bor. Nomor pena bisa diubah di pengaturan plotter. Pisau berjalan searah jarum jam mengelilingi setiap potongan, dari verteks kiri bawahnya, kecuali Cutting Order marker menetapkan titik awal atau arah lain; potongan dipotong menurut urutan itu. Fuse Block dipotong sebagai batasnya saja.
 
 ## PDF
 
@@ -74,4 +90,8 @@ Potongan dan marker diplot sebagai PDF vektor. Lembarnya A0, atau ubin A4 untuk 
 
 ## CSV
 
-Laporan berupa UTF-8, dengan `.` sebagai tanda desimal dan `,` di antara kolom. Jumlah order diimpor dari CSV dengan baris judul, warna di kolom pertama dan satu kolom per nama ukuran. Laporan marker punya bagian untuk angka umum, order, setiap potongan, dan notch. Laporan Cut Plan menulis satu berkas per bagian.
+Laporan dan daftar berupa UTF-8, dengan `.` sebagai tanda desimal dan `,` di antara kolom. Jumlah order diimpor dari CSV dengan baris judul, warna di kolom pertama dan satu kolom per nama ukuran. Daftar cacat marker punya satu baris `x_from,y_from,x_to,y_to` per cacat, dalam milimeter. Laporan Cut Plan menulis satu berkas per bagian.
+
+## Workbook Excel
+
+Report to Excel menulis workbook `.xlsx`. Laporan PDS punya satu lembar kerja dengan potongan, kode, ukuran, jumlah, material, luas, serta keliling potong dan jahit. Laporan Marker punya satu lembar kerja per bagian, General, Order, Pieces, dan Notches, dengan angka sebagai sel angka. Rajutara menulis workbook itu sendiri, tanpa pustaka tambahan.

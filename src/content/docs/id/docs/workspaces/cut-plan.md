@@ -7,9 +7,13 @@ Cut Plan (Rencana Potong) dimulai dari sebuah Order, garmen yang diinginkan per 
 
 ![Ruang kerja Cut Plan untuk order PO-100: panel Plan di kiri, panel Results di kanan dengan tiga marker, sembilan lay, tabel dipesan, direncanakan, dan selisih, serta total.](../../../../../assets/screens/full-cutplan.jpg)
 
+## Create New
+
+CutPlan, Create New… membuka wizard dengan langkah-langkah Optitex: Adding Style Files, Defining the Order Details, Adding Colors and Defining Quantity for each Size, Defining Material Properties, dan Defining the Marker. Back, Next, Finish, dan Cancel berpindah di dalamnya; `Enter` melanjutkan dan `Esc` membatalkan. Langkah pertama menawarkan Style yang terbuka di PDS sebelum berkas Style. Rencana terbuka saat Finish. Panel Plan, Results, atau Cut Order yang kosong juga punya tombol Create New….
+
 ## Panel Plan
 
-Panel ini berupa daftar bagian yang bisa dilipat, jadi Anda bisa kembali ke langkah mana pun dan menyelesaikan ulang.
+Setiap langkah wizard tetap ada di panel Plan, sebagai daftar bagian yang bisa dilipat, jadi Anda bisa kembali ke langkah mana pun dan menyelesaikan ulang.
 
 | Bagian | Bidang |
 |---|---|
@@ -22,11 +26,13 @@ Panel ini berupa daftar bagian yang bisa dilipat, jadi Anda bisa kembali ke lang
 
 **Mode rasio** mengambil rasio per ukuran dan total per warna lalu membagi jumlahnya dengan pembulatan sisa terbesar, sehingga setiap baris berjumlah sama dengan totalnya. **Deviasi** adalah kelebihan potong yang Anda terima, sebagai persen dari jumlah yang dipesan, per sel: pemotongan kurang tidak pernah direncanakan. **Import quantities** membaca berkas CSV dengan baris judul, warna di kolom pertama dan satu kolom per nama ukuran.
 
-## Solve
+## Viewing the Final Results
 
-Tekan Solve (`F5`). Penyelesainya adalah greedy deterministik: untuk setiap warna, dari lapis terbanyak ke paling sedikit, ia memilih rasio ukuran per marker yang memotong garmen paling banyak yang benar-benar dibutuhkan, mengutamakan rasio yang sudah dipakai rencana, lalu yang kelebihan potongnya paling kecil. Marker dengan rasio sama pada warna berbeda digabung, sehingga ada lebih sedikit marker yang harus dibuat. Masukan yang sama selalu menghasilkan rencana yang sama, dan rencana untuk sepuluh warna dan dua belas ukuran memakan sepersekian detik.
+Tekan Viewing the Final Results (`F5`) untuk menyelesaikan rencana. Penyelesainya adalah greedy deterministik: untuk setiap warna, dari lapis terbanyak ke paling sedikit, ia memilih rasio ukuran per marker yang memotong garmen paling banyak yang benar-benar dibutuhkan, mengutamakan rasio yang sudah dipakai rencana, lalu yang kelebihan potongnya paling kecil. Marker dengan rasio sama pada warna berbeda digabung, sehingga ada lebih sedikit marker yang harus dibuat. Masukan yang sama selalu menghasilkan rencana yang sama, dan rencana untuk sepuluh warna dan dua belas ukuran memakan sepersekian detik.
 
-Nyalakan Nest markers dan setiap marker yang direncanakan di-nesting oleh mesin yang sama dengan ruang kerja Marker, sehingga panjang dan efisiensi sebenarnya menggantikan perkiraan. Marker yang lebih panjang dari batas ditandai "too long", tidak disembunyikan.
+Main Algorithm with Nesting me-nesting setiap marker yang direncanakan dengan mesin yang sama dengan ruang kerja Marker, sehingga panjang dan efisiensi sebenarnya menggantikan perkiraan. Marker yang lebih panjang dari batas ditandai "too long", tidak disembunyikan.
+
+Keduanya memeriksa rencana sebelum nesting apa pun. Keduanya menolak potongan yang dipesan bila lebih lebar dari Material, dan menyebut namanya. Berkas rencana dengan potongan seperti itu tetap terbuka, dengan peringatan, jadi Anda bisa melebarkan Material. Selama Anda menyunting, panel Plan dan wizard memperingatkan bila satu Bundle lebih panjang dari panjang marker maksimum; marker itu tetap disimpan dan ditandai "too long".
 
 ## Results
 
@@ -51,8 +57,8 @@ Masukkan gulungan di panel Cut Order: kode, warna, shade, lebar, dan panjang. Gu
 
 ## Laporan
 
-Report (CSV) menulis berkas UTF-8, satu per bagian, karena CSV tidak punya tab: marker rencana, lay-nya, dan seterusnya. Report (PDF) menulis isi yang sama di A4. Production Report menghilangkan biaya dan menambahkan garmen per lay, untuk lantai pemotongan. Rencana dengan gulungan menambahkan bagian Cut Order ke keduanya.
+Generating a CutPlan Report (CSV) menulis berkas UTF-8, satu per bagian, karena CSV tidak punya tab: marker rencana, lay-nya, dan seterusnya. Generating a CutPlan Report (PDF) menulis isi yang sama di A4. Viewing the Production Report menghilangkan biaya dan menambahkan garmen per lay, untuk lantai pemotongan. Rencana dengan gulungan menambahkan bagian Cut Order ke keduanya. Dua impor CSV tetap bernama Import quantities… dan Import Fabric Rolls…, karena Optitex tidak punya perintah impor dari CSV.
 
-## Belum ada di 1.0
+## Belum dirilis
 
 Grup penghamparan yang mencampur material, inventaris gudang kain yang dipakai bersama antarrencana, grup gulungan menurut lebar dan penyusutan dengan marker sendiri, beberapa meja potong per material, dan beberapa style dalam satu rencana dijadwalkan untuk Fase 3. Menjalankan Cut Plan dari baris perintah tidak direncanakan. Lihat [peta jalan](../../roadmap/).

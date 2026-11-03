@@ -46,7 +46,7 @@ Workflow tidak punya jendela sendiri: crate pustaka penyusun program berjalan ta
 cargo run --release -p rajutara --example tshirt_sample -- out/
 ```
 
-Contoh itu menulis style, marker hasil nesting, DXF ter-grade beserta RUL-nya, PDF marker A0, plot HPGL/2, laporan CSV, dan PDF potongan berubin A4. Itulah berkas di [galeri](/rajutara-documentation/id/gallery/).
+Contoh itu menulis style, marker hasil nesting, DXF ter-grade beserta RUL-nya, PDF marker A0, plot HPGL/2, laporan Excel (`.xlsx`), dan PDF potongan berubin A4. Itulah berkas di [galeri](/rajutara-documentation/id/gallery/).
 
 Masukan dan pengaturan yang sama menghasilkan berkas identik byte demi byte. Header ekspor membawa cap waktu UTC, jadi hanya baris itu yang berbeda di antara dua ekspor. Mesin nesting menerima seed eksplisit, jadi uji coba bisa mengunci keluarannya. Proses yang berhenti karena batas waktu juga bergantung pada kecepatan mesin.
 
