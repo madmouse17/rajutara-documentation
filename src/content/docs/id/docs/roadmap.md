@@ -1,79 +1,93 @@
 ---
 title: Peta jalan
-description: Apa yang dibawa 1.5.0, apa yang dijadwalkan spesifikasi tetapi belum dikirim, apa yang tidak akan dikerjakan Rajutara, dan rencana v2.
+description: Apa yang dibawa 2.0.0, batasan yang diketahui, isi gelombang D, dan apa yang tidak akan dikerjakan Rajutara.
 ---
 
-Halaman ini adalah rencana proyek dalam kata-kata sederhana. Isinya apa yang dibawa 1.5.0, apa yang dijadwalkan spesifikasi tetapi belum dikirim, apa yang tidak direncanakan, dan rencana v2, yang disusun dengan mengukur 1.0 terhadap fitur yang ditambahkan Optitex sejak rilis 15. Sumbernya adalah `ROADMAP.md` dan `docs/spec/08-v2-roadmap.md` di repositori, dan [daftar paritas](../parity-checklist/) memuat tampilan alat demi alat. Apa yang berubah di setiap rilis ada di [catatan perubahan](../changelog/).
+Halaman ini adalah rencana proyek dalam kata-kata sederhana: apa yang dibawa 2.0.0, batasan yang diketahui, isi gelombang berikutnya, dan apa yang tidak direncanakan. Sumbernya adalah `ROADMAP.md`, [`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §8, dan [`docs/spec/08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md) §3 di repositori. [Daftar paritas](../parity-checklist/) memuat tampilan alat demi alat, dan [catatan perubahan](../changelog/) apa yang berubah di setiap rilis.
 
 ## Fase
 
-| Fase | Menghasilkan | Di 1.5.0 |
+| Fase | Menghasilkan | Status di 2.0.0 |
 |---|---|---|
-| 0 Fondasi | Workspace, CI, model inti dengan urungkan, format asli, shell docking, bahasa Inggris dan Indonesia, `--version` dan `--smoke` | Dirilis |
-| 1a Jalur impor | Impor DXF dan RUL ASTM D6673 dan AAMA-292, panel Pieces, properti, kampuh, plot ke PDF (A4 berubin, A0) dan HPGL/2 | Dirilis |
-| 1b Dari grade ke marker | Ruang kerja Grading, ekspor graded nest dan RUL, ruang kerja Marker dengan penataan manual, auto-nesting, laporan, dan plot marker | Dirilis |
-| 1c Menggambar dari nol | Drafting, titik, kurva, kup, lipit, walk, trace, cermin, pisah dan gabung, ukur, teks, garis dalam | Dirilis. 89 alat PDS di 1.0 mencakup alat yang oleh spesifikasi diberi tanda Fase 3: spiral, fullness, gusset, garis lipit, fold, remove excess cloth, dan extend in parallel. 1.5.0 menaikkan jumlahnya menjadi 101: Segment Editor, Track Lines, Wave, Deform Internals, Equal Segments, Fold Line to Line, Swap Piece Properties, Zones, Spread dan Gather Pieces, Fabric And Stripes, Save dan Restore Placement, Reopen Darts |
-| 2 Perencanaan potong | Ruang kerja Cut Plan, order, perencanaan lay, konsumsi dan biaya, laporan, mode lapis, Cut Order | Dirilis di ruang kerja Cut Plan, dengan Cut Order dan gulungan kain. 1.5.0 menambahkan ke ruang kerja Marker: Cutting Order dan Optimize Cut Order, mode lapis Tubular, Faced, dan Folded, alat teks, serta bump line dan cut line |
-| 3 Tambahan produksi | Pencocokan belang dan kotak-kotak, tilt, buffer potongan per sisi, block fuse, cacat kain, cross grading, penghamparan multi-material | Dimulai lebih awal. Dirilis di 1.5.0: block fuse bersama Cluster Pieces, Insert to Hole, Auto Nest Queue, cacat kain, Substitute Size, Single Piece Gap, Stack Along Line, dan sudut kampuh Custom. Masih terbuka: pencocokan belang dan kotak-kotak (PDS sudah menyimpan data belangnya), tilt, buffer per sisi, cross grading, penghamparan multi-material |
+| 0 Fondasi | Workspace, CI, model inti dengan urungkan, format asli, shell docking, bahasa Inggris dan Indonesia, `--version` dan `--smoke` | Dirilis di 1.0.0 |
+| 1a Jalur impor | Impor DXF dan RUL ASTM D6673 dan AAMA-292, panel Pieces, properti, kampuh, plot ke PDF (A4 berubin, A0) dan HPGL/2 | Dirilis di 1.0.0 |
+| 1b Dari grade ke marker | Ruang kerja Grading, ekspor graded nest dan RUL, ruang kerja Marker dengan penataan manual, auto-nesting, laporan, dan plot marker | Dirilis di 1.0.0 |
+| 1c Menggambar dari nol | Drafting, titik, kurva, kup, lipit, walk, trace, cermin, pisah dan gabung, ukur, teks, garis dalam | Dirilis. 89 alat PDS di 1.0.0, 101 sejak 1.5.0: Segment Editor, Track Lines, Wave, Deform Internals, Equal Segments, Fold Line to Line, Swap Piece Properties, Zones, Spread dan Gather Pieces, Fabric And Stripes, Save dan Restore Placement, Reopen Darts |
+| 2 Perencanaan potong | Ruang kerja Cut Plan, order, perencanaan lay, konsumsi dan biaya, laporan, mode lapis, Cut Order | Dirilis di 1.0.0 dan 1.5.0. 2.0.0 menambahkan Purchase Order, beberapa Style dan Material per rencana, Spreading Group, Cutting Table, pengelompokan gulungan, Fabric Room, dan Customize Report |
+| 3 Tambahan produksi | Pencocokan belang dan kotak-kotak, tilt, buffer potongan per sisi, block fuse, cacat kain, cross grading, penghamparan multi-material | Dirilis. Block fuse, cacat kain, Substitute Size, dan Single Piece Gap di 1.5.0; pencocokan belang dan kotak-kotak, tilt, buffer per sisi, penataan terlipat, variasi ukuran, Cross Grading, Measurement Chart, dan penghamparan multi-material di 2.0.0 |
+| v2.0 | V1 sampai V9: mesin nesting v2, batasan Marker, belang, batch headless, Purchase Order, Measurement Chart, lubang bor dan teks per ukuran, penyempurnaan PDS, opsi keluaran DXF | Dirilis di 2.0.0 (gelombang C) |
+| v2.x | X1 sampai X14 | X1, X2, X5, X8, dan X11 di 1.5.0; X3, X4, X6, X7, X9, X10, X13, dan X14 di 2.0.0. X12 sebagian: Fold Line to Line dan Swap Piece Properties sudah dibuat, alat 2D multi-target belum |
+| Lapisan perintah agen | `rajutara batch`, `rajutara mcp`, playbook, indeks pengetahuan, memori asisten, dan berkas prompt | Dirilis di 2.0.0, tanpa panggilan model. Asisten di dalam aplikasi adalah gelombang D |
 | 4 dan seterusnya, 3D | Simulasi garmen 3D, hanya setelah keputusan untuk meninggalkannya diganti | Hanya kontrak antarmuka |
 
-## Batasan yang diketahui di 1.5.0
+## Batasan yang diketahui di 2.0.0
 
-- Build Windows 7 hanya diverifikasi di bawah Wine dan lewat pemeriksaan tabel impor. Uji di perangkat keras Windows 7 sungguhan masih tertunda. Lihat [Windows 7](../windows-7/).
-- 3D hanya antarmuka. Tidak ada jendela 3D.
-- Driver pemotong vendor tidak disertakan. Marker menulis satu berkas potong HPGL/2 generik.
-- String bahasa Indonesia belum dikonfirmasi: setiap string bahasa Inggris punya padanan Indonesia, dan CI memeriksanya, tetapi belum ada Operator berbahasa Indonesia yang meninjau pilihan katanya.
-- Marker: Cluster atau Fuse Block hanya bergeser, jadi memutar atau membaliknya ditolak, dan potongan yang masih menunggu tidak bisa dijadikan cluster. Berkas potong memotong Fuse Block sebagai batasnya saja, tanpa berkas kedua untuk isi blok, tanpa alat atau layer per urutan, dan tanpa overlap. Insert to Hole memindahkan satu potongan per seretan. Auto Nest Queue punya satu mesin, tanpa berkas antrean, dan tanpa mode headless.
-- PDS: Dynamic Input hanya bekerja di Draft, dan Polar Tracking punya langkah 45° yang tetap. Point Name disimpan di berkas tetapi tidak digambar dan tidak ditulis ke DXF. Support Notch milik Walk belum punya Reconnect dan Grading Walking.
-- PDS: Segment Editor tidak punya panel dan tidak punya Use Darts. Track line bertahan selama sesi dan tidak bisa dijadikan sasaran snap. Equal Segments tidak punya jendela grup dan Options. Fabric And Stripes menyimpan dan menggambar data belang, tetapi belum ada yang dicocokkan. Swap Zone Segment dan Move Piece On Piece belum dibuat, karena tidak ada keterangan publik tentang apa yang dilakukannya. Potongan yang di-spread dan diputar oleh Arrange For Plot menata salinannya dalam bingkai yang sudah diputar.
-- Marker: potongan separuh di-nesting tanpa dilipat pada Tubular dan Folded. Substitute Size hanya mengambil ukuran berikutnya. Cacat tidak diplot. Bump line dan cut line tidak punya Lock atau OpStop. Marker Creation Wizard tidak punya properti Overlay. Label plot Marker tidak mengikuti tata letak label satu baris milik PDS.
-- Berkas tetap pada format versi 2. Build 1.4.0 membuka berkas dengan isi 1.5.0 apa pun (cluster, Fuse Block, urutan potong, nama titik, Equal Segments Group, zona, bump line atau cut line, cacat, teks marker) tetapi membuangnya, dan tidak membuka Style yang memakai Stack Along Line.
+Platform dan berkas:
 
-## Dijadwalkan spesifikasi, belum dikirim
+- Build Windows hanya diverifikasi di bawah Wine dan lewat pemeriksaan tabel impor. Uji di perangkat keras Windows 7 sungguhan masih tertunda. Lihat [Windows 7](../windows-7/).
+- Berkas yang disimpan 2.0.0 adalah format native 3. Rajutara 1.5.x dan yang lebih lama menolaknya, jadi setiap PC yang berbagi berkas harus diperbarui bersamaan. 2.0.0 membuka berkas lama.
+- 3D hanya antarmuka. Driver pemotong vendor tidak disertakan; Marker menulis satu berkas potong HPGL/2 generik dan satu DXF generik.
+- String bahasa Indonesia belum dikonfirmasi: setiap string bahasa Inggris punya padanan bahasa Indonesia, dan CI memeriksanya, tetapi belum ada Operator berbahasa Indonesia yang meninjau kata-katanya.
 
-- **Marker.** Tilt, pencocokan belang dan kotak-kotak, dan buffer potongan per sisi (Fase 3), serta menata potongan separuh di tepi lipatan pada Tubular dan Folded (v2). Pilihan mesin nesting menunggu mesin kedua, dan pengelompokan bundle menunggu shading group v2. Auto Save of Markers, yang membagi satu order ke beberapa marker, menunggu kerja batch v2.
-- **Grading.** Sistem ukuran multidimensi, cross grading dengan menggabungkan berkas style, dan bagan ukuran adalah Fase 3.
-- **PDS.** Panel Segment Editor dan Use Darts, Snap To Track Lines, serta Options dan jendela grup Equal Segments ditunda. Seam and Stitch Manager adalah bagian dari 3D.
-- **Cut Plan.** Grup penghamparan yang mencampur material, inventaris gudang kain yang dipakai bersama antarrencana, grup gulungan menurut lebar dan penyusutan dengan marker sendiri, beberapa meja potong per material, dan beberapa style dalam satu rencana.
+PDS dan Grading:
+
+- Segment Editor tidak punya panel dan tidak punya Use Darts. Track Lines bertahan selama sesi dan tidak bisa dijadikan sasaran snap. Equal Segments tidak punya jendela grup dan Options. Swap Zone Segment dan Move Piece On Piece belum dibuat, karena tidak ada keterangan publik tentang apa yang dilakukannya.
+- Dynamic Input hanya bekerja di Draft, dan Polar Tracking punya langkah tetap 45°. Point Name disimpan di berkas tetapi tidak digambar dan tidak ditulis ke DXF. Support Notch milik Walk tidak punya Reconnect dan Grading Walking.
+- Pleat Lines mengikuti aturan Rajutara sendiri, karena tidak ada sumber publik yang memberi geometrinya. Bentuk penandaan khusus buatan sendiri belum dibuat. Style Set tidak bisa diganti namanya setelah dibuat.
+- Tabel chart di Production Sheet hanya menampilkan nilai terukur, dan Date-nya adalah hari pencetakan.
+- Variasi ukuran baru sampai ke Marker dan Rencana Potong setelah Reshape Variation Grading. Rule Table milik ukuran utama.
+- Pencarian Preferences mencocokkan bahasa antarmuka dan bahasa Inggris, bukan bahasa antarmuka yang lain.
+
+Marker:
+
+- Advanced menjadi Algorithm bawaan sejak uji keputusan tolok ukur ADR-0019 lulus, jadi Marker yang di-nesting ulang bisa berbeda hasilnya dari 1.5.x. Pilih Standard di Auto Nesting Setup, atau `@NEST /AL=QUA`, untuk mesin 1.x.
+- Auto Nesting tidak pernah melipat potongan sendiri; Place Folded dilakukan manual. Pasangan terlipat adalah satu bentuk bersama, jadi tidak bisa dipindah, ditembak, atau diputar sampai dibuka.
+- Hanya potongan tunggal yang menempel ke belang; seleksi atau cluster bergerak sesuai seretan. Ukuran belang diagonal, warna belang yang berubah-ubah, Revise Pieces Placements, dan motif bunga belum dibuat.
+- Satu buffer potongan melayani setiap ukuran, dan garis tepi buffer tidak bisa disunting titik demi titik.
+- Additional Mixing, Optimize Last Bundles, Idle Time, dan nama mesin Nest++ belum dibuat. Pecahan Bundles Overlap (5, 15, dan 30 %) dan lajur setiap Bundle adalah pilihan Rajutara sendiri.
+- Auto Save Of Markers menamai berkasnya `<file>-1.rjm`, `<file>-2.rjm`, bukan `MARKER-n` seperti Optitex.
+- Customize Excel Report mengubah laporan Excel dan PDF, bukan panel Report di layar.
+- Masih terbuka sejak 1.5.0: Cluster atau Fuse Block hanya bergeser; berkas potong memotong Fuse Block sebagai batasnya saja dan tidak punya alat atau layer per urutan; Insert to Hole memindahkan satu potongan per seretan; Substitute Size hanya mengambil ukuran berikutnya; cacat kain tidak diplot; bump line dan cut line tidak punya Lock atau OpStop; Marker Creation Wizard tidak punya properti Overlay; Text Tool tidak punya Quality Text.
+
+Rencana Potong:
+
+- Semua Purchase Order berbagi satu Cut Order dan satu set gulungan, PO demi PO. Satu marker tidak pernah mencampur Style.
+- Baris Fabric Room diubah dengan menghapus lalu menambahkannya lagi. Langkah pertama wizard Create New tidak menawarkan pilihan Material atau Style Set.
+- Cut Order dihitung ulang setiap frame, jadi rencana dengan sangat banyak Fabric Roll memperlambat panelnya.
+
+Lapisan perintah agen:
+
+- 2.0.0 tidak memanggil model. Perakitan prompt, redaksi, dan templat jawaban sudah dibuat dan diuji, tetapi tidak ada yang mengirim prompt.
+- MCP tidak punya konfirmasi di dalam klien: di luar titik persetujuan playbook yang sudah disetujui, simpan, timpa, hapus, atau buang menjawab `confirmation_required` kecuali server berjalan dengan `--yes`.
+- `rajutara batch` mencetak keluarannya di akhir proses; berkas `--log` ditulis baris demi baris.
+- Ke-13 nilai profil bengkel `profil-bengkel.toml` belum punya sumber dan dilaporkan sebagai "perlu konfirmasi operator" sampai bengkel mengisinya.
+- Indeks pengetahuan hanya membaca PDF dengan lapisan teks, memuat seluruh indeks di setiap panggilan, dan bisa kehilangan satu dari dua penambahan yang dilakukan bersamaan.
+- Replay playbook memberi hasil nesting yang sama hanya dengan penghentian berdasarkan iterasi dan satu thread.
+
+## Gelombang D
+
+Setiap butir perlu desainnya sendiri; gelombang C hanya menyiapkan kaitannya.
+
+- Panel asisten di jendela: utas, kartu langkah dan hasil dengan thumbnail sebelum dan sesudah, kartu persetujuan, dan penyusun pesan dengan lampiran.
+- Model yang memilih playbook, mengisi parameternya, dan menangani masalah.
+- Tombol aksi cepat, penjalan playbook, dan perbandingan skenario di jendela.
+- Pengalih peran dan menu yang mengikuti peran di jendela.
+- Keterampilan pengetahuan untuk pembuatan pola, grading, marker, ruang potong, material, QC, dan pertukaran berkas, dibangun di atas berkas prompt, memori, dan indeks pengetahuan.
+- Runtime model: pengaturan model bawaan (mati sampai diatur), deteksi Ollama, dan keluaran terbatas lewat `format` Ollama dan grammar llama.cpp.
+- Tampilan anggaran token dan biaya.
+- Socket GUI lokal, dengan token dan mati secara bawaan.
+- Pratinjau setiap prompt sebelum dikirim ke model cloud.
+- Tinjauan memori dan pemicu belajar, umpan balik atas jawaban, dan halaman dokumentasi asisten.
+- Masukan suara.
+- Menjiplak potongan draf dari foto yang terkalibrasi (eksperimental).
+- Penjalan evaluasi atas folder lokal berisi berkas pemilik yang dipilih sendiri.
+- Konfirmasi di dalam klien MCP.
 
 ## Tidak direncanakan
 
-- Driver pemotong vendor, driver digitizer, layanan cloud, dan skrip batch milik Optitex.
+- Driver pemotong vendor, driver digitizer, dan layanan cloud.
 - Membaca atau menulis format asli Optitex. Proyek ini clean-room, jadi tidak ada berkas Optitex yang pernah dibuka.
-- Menjalankan Cut Plan dari baris perintah.
-
-## v2
-
-Rencana untuk rilis setelah 1.0 disusun pada 2026-11-01. Rencana ini mengurutkan pekerjaan menurut apa yang diperoleh Operator dalam pekerjaan harian PDS, grading, marker, dan rencana potong, serta apakah cocok dengan batasan: egui dengan renderer `glow`, Linux lebih dulu, batas bawah Windows 7, dan anggaran memori. Tidak ada di dalamnya yang membutuhkan lebih dari OpenGL 2.1, dan tidak ada yang meninggalkan Windows 7. Beberapa fitur Optitex yang lebih baru bertumpu pada fitur Optitex 15 yang ditunda 1.0, seperti buffer per sisi, grup shading, cacat kain, dan pencocokan belang dan kotak-kotak, jadi v2 mengambil setiap prasyarat bersama fitur yang membutuhkannya.
-
-### v2.0, butir wajib
-
-| Butir | Apa itu | Nilai | Ukuran |
-|---|---|---|---|
-| Nesting engine v2 | Pencarian peminimalan tumpang tindih yang diterbitkan, di atas mesin yang ada, log efisiensi langsung sebagai CSV, dan penyimpanan marker sementara. Menjadi bawaan hanya jika mengalahkan 1.0 pada tolok ukur dalam batas waktu dan batas memori 32-bit. | Tinggi | Besar |
-| Batasan marker | Buffer per tepi, pengelompokan bundle, grup shading, dan area meja. | Tinggi | Besar |
-| Pencocokan belang dan kotak-kotak | Titik cocok, pengulangan kain, dan tilt pada marker. Dimulai setelah batasan marker. | Tinggi | Sangat besar |
-| Headless batch | `rajutara batch SCRIPT` menjalankan skrip perintah, satu per baris, tanpa jendela: impor, ekspor, antrean nesting, laporan, plot. Daftar perintah tertutup, tanpa variabel atau perulangan. | Tinggi | Sedang |
-| Cut Plan per purchase order | Beberapa purchase order per rencana, masing-masing dengan jumlah, marker, dan lapisnya sendiri, ditampilkan berdampingan. | Tinggi | Sedang |
-| Bagan ukuran | Titik ukur per ukuran yang diambil dari pola, spesifikasi pembeli yang diimpor dari CSV, dan laporan di luar spesifikasi. Memeriksa; tidak mengubah ukuran. | Tinggi | Sedang |
-| Lubang bor dan teks per ukuran | Lebih sedikit kancing pada ukuran kecil sebuah kemeja. Ini membawa format asli versi 3. | Sedang | Sedang |
-| Penyempurnaan PDS | Preset notch dengan lebar atas, filter menurut dimensi, salinan yang dinomori ulang otomatis, panjang segmen dari kedua ujung, dan peringatan sebelum berpindah antara sew dan cut. | Sedang | Sedang |
-| Opsi keluaran | Geometri notch L yang benar di DXF sebagai opsi, dan ekspor DXF generik marker dengan nama potongan dan satu warna per bundle. | Sedang | Kecil |
-
-Batasan marker, mesin nesting, dan perintah batch berbagi pekerjaan dan dikerjakan lebih dulu; Cut Plan, bagan ukuran, dan butir per ukuran bersifat mandiri. Ketiga butir yang mengubah model asli berbagi satu kenaikan ke format versi 3, dengan migrasi dari format 2, dan berkas yang lebih baru ditolak, bukan dipotong.
-
-### v2.x, butir sebaiknya
-
-Beberapa material dan style per Cut Plan, dengan inventaris gudang kain bersama. PDF lembar produksi dengan tata letak beranotasi dan dasar tech pack. Pemilih kolom untuk laporan. Pencarian Preferences. Kamus nama potongan untuk label plot, misalnya Inggris ke Indonesia. Set style dan pencarian. Alat 2D multi-target. Referensi induk dipertahankan pada grade point baru. Impor XLSX untuk bagan ukuran dan order.
-
-Dirilis lebih awal, di 1.5.0: cacat kain dengan impor daftar cacat dan Remove Pieces Hitting Flaws, bump line dan cut line, Marker Creation Wizard, track line, tata letak label potongan di PDS, Fold Line to Line dan Swap Piece Properties, serta Report to Excel sebagai workbook `.xlsx`. Perintah batch untuk cacat dan bump line menunggu batch headless.
-
-### Di luar lingkup v2
-
-Simulasi kain, rendering, animasi, dan avatar. Pratinjau 3D: tidak akan menggantikan apa pun yang dipakai Operator dari 3D dan tidak bisa menilai kecocokan pakaian, dan membutuhkan laju frame di OpenGL 2.1 yang belum diukur. Sinkronisasi cloud dan fitur hosting. Konektor PLM. Konverter untuk berkas asli Lectra, Gerber, atau Optitex. Plug-in Adobe Illustrator. Print and cut dari ujung ke ujung. Kamus pemotong dan proyektor vendor. Dialog berkas bawaan sistem operasi.
-
-### Keputusan yang harus diambil pemilik
-
-Headless batch membalik dua pernyataan sebelumnya, bahwa skrip batch tidak ditiru dan bahwa Cut Plan tidak punya baris perintah, jadi memerlukan keputusan tercatat dengan daftar perintah tertutup. Ekspor DXF generik marker melampaui PDF dan HPGL/2 yang kini ditulis marker. Format asli versi 3 adalah satu kenaikan untuk semua perubahan model v2. Mesin nesting adalah kode milik proyek sendiri dari metode yang diterbitkan, kecuali gagal pada gerbang tolok ukur.
+- Templat garmen parametrik dan pengubahan ukuran made-to-measure.
+- Perintah batch `@CHNT` dan `@CHBTN`, nama Nest++, Idle Time, dan pelipatan otomatis (`/AF`): tidak ada perilaku publik yang bisa diikuti.
 
 Ingin mengambil satu butir? Buka issue lebih dulu, seperti yang diminta [Berkontribusi](../contributing/).

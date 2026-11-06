@@ -85,6 +85,7 @@ Rajutara is licensed `MIT OR Apache-2.0`. Unless you explicitly state otherwise,
 | `i_overlay` | Polygon booleans: seam clean-up, nesting buffers, no-fit polygon unions |
 | `lyon_tessellation` | Triangulating concave pieces for drawing and nesting |
 | `dxf`, `pdf-writer`, `zip`, `csv` | ASTM DXF, vector PDF, the native container, reports |
+| `calamine` | Reading `.xlsx` and `.ods` sheets (since 2.0.0); the `.xlsx` writer is Rajutara's own |
 | `serde`, `serde_json` | Document JSON |
 | `i18n-embed` | Fluent translations with compile-time key checks |
 | Mesa 3D | Optional software OpenGL in the Windows packages |

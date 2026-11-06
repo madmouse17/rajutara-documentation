@@ -1,6 +1,6 @@
 ---
 title: File formats
-description: ASTM D6673 and AAMA-292 DXF, ASTM RUL, HPGL/2, PDF, CSV, Excel workbooks and the native style, marker and cut plan files.
+description: ASTM D6673 and AAMA-292 DXF, ASTM RUL, HPGL/2, PDF, CSV, Excel and OpenDocument workbooks and the native style, marker and cut plan files.
 ---
 
 Rajutara exchanges patterns through open standards and keeps its own work in plain zip and JSON. It never reads or writes the file formats of Optitex.
@@ -8,12 +8,14 @@ Rajutara exchanges patterns through open standards and keeps its own work in pla
 | Format | Direction | Used for |
 |---|---|---|
 | ASTM D6673 and AAMA-292 DXF | Import and export | Patterns and graded nests |
+| DXF release 12 | Export | The PDS plot and the Marker plot content (Export to CAD/CAM Files) |
 | ASTM RUL | Import and export | Grade rules beside a graded-nest DXF |
 | HPGL/2 | Export | Plotter files and the marker cut file |
-| PDF | Export | A4 tiles, one A0 sheet or one A4 page; markers and reports |
-| CSV | Import and export | Order quantities, fabric rolls and marker flaw lists in; Cut Plan reports out |
-| Excel workbook (`.xlsx`) | Export | Report to Excel in PDS and Marker |
-| `.rjx`, `.rjm`, `.rjc` | Open and save | Style, Marker and Cut Plan: zip and JSON, format 2 |
+| PDF | Export | A4 tiles, one A0 sheet or one A4 page; markers, reports and the Production Sheet |
+| CSV | Import and export | Order quantities, fabric rolls, the Fabric Room, measurement specs, the Piece Name Dictionary and marker flaw lists in; reports out |
+| Excel workbook (`.xlsx`) | Import and export | Report to Excel, Measurement Chart reports, the Fabric Room and the Piece Name Dictionary out; quantities, fabric rolls, the Fabric Room, measurement specs and the Piece Name Dictionary in |
+| OpenDocument spreadsheet (`.ods`) | Import | Quantities, fabric rolls, the Fabric Room, measurement specs and the Piece Name Dictionary |
+| `.rjx`, `.rjm`, `.rjc` | Open and save | Style, Marker and Cut Plan: zip and JSON, format 3 |
 
 The earlier extensions `.optx`, `.optm` and `.optc` open as well. The [gallery](/rajutara-documentation/gallery/) offers the sample tee in most of the formats above.
 
@@ -21,7 +23,9 @@ The earlier extensions `.optx`, `.optm` and `.optc` open as well. The [gallery](
 
 A style, a marker and a cut plan are each one zip archive with two entries: `manifest.json`, which names the format and its version, and `document.json`, which holds the content. Lengths are millimetres. A marker embeds the styles it uses, so it opens without the style files. The same input and the same settings write byte-identical files. A file written by a newer format version is refused, never truncated. Save is atomic and keeps the previous file as a `.bak`. [Headless and scripting](../headless/) shows how to read one with a few lines of Python.
 
-The format is still version 2 in 1.5.0. Newer releases add optional keys, and a file without them loads as before and writes none of them:
+Rajutara 2.0.0 writes native format 3 ([ADR-0018](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0018-native-format-3.md)). It opens files of format 2 and older and migrates them as they load: a Style or a Marker keeps its content, and a Cut Plan becomes a plan with one Purchase Order that holds the old order, markers and Lays. Rajutara 1.5.x and older refuse a format 3 file with "made by a newer rajutara (format version 3; this build reads up to 2)". If several PCs share files, update them together.
+
+Within format 2, releases 1.4.0 and 1.5.0 added optional keys. A file without them loads as before:
 
 | Key | Since | Holds |
 |---|---|---|
@@ -34,7 +38,7 @@ The format is still version 2 in 1.5.0. Newer releases add optional keys, and a 
 | `stripe_group`, `stripe_point` in the cut rules of a piece | 1.5.0 | The Stripe Group and the stripe point. |
 | `one_line`, `separator` in a piece label | 1.5.0 | The one-line label layout. |
 
-Open files that use these keys with 1.5.0 or later. A 1.4.0 build opens them but drops that content, so saving there loses it, and it refuses a Style whose Graded Nest uses Stack Along Line.
+A 1.4.0 build opens a 1.5 file but drops that content, so saving there loses it, and it refuses a Style whose Graded Nest uses Stack Along Line.
 
 ## ASTM D6673 and AAMA-292 DXF
 
@@ -51,9 +55,13 @@ Rajutara reads and writes the DXF of ASTM D6673-10, AutoCAD R13, with one block 
 | 7 | Grain line | 84 to 87 | Quality validation curves for layers 1, 8, 11 and 14 |
 | 8 | Internal lines, not cut | | |
 
-The specification of AAMA-292 is not public, so Rajutara reads and writes it by the rules it shares with ASTM. Each import lists what it could not keep: nothing is dropped silently. On export, notch shapes that AAMA has no layer for are written as V or I with a warning.
+The specification of AAMA-292 is not public, so Rajutara reads and writes it by the rules it shares with ASTM. Each import lists what it could not keep: nothing is dropped silently. On export, notch shapes that AAMA has no layer for are written as V or I with a warning. Export Graded Nest has the option L-notches as L shapes, off by default: an L notch then also writes its L-shaped outline as a polyline beside its point.
 
-A DXF carries the sample size and the grade points. The grade rules go in the RUL file, or the whole graded style goes out as a graded nest with one block per size. Both options are in the export dialog.
+A DXF carries the sample size and the grade points. The grade rules go in the RUL file, or the whole graded style goes out as a graded nest with one block per size. Both options are in the export dialog. A drill hole or a text that exists only in some sizes is written per size in a graded nest; a Base Size DXF with a rule file cannot hold this, so it writes every hole and the main text and says so in the export notes.
+
+## Plot DXF
+
+The PDS Plot dialog has a DXF target, and the Marker has File, Export to CAD/CAM Files…. Both write DXF release 12 in millimetres from the same content as the plot: cutting lines, internal lines, notches, drill holes, grainlines and the labels as text, plus the table frame for a Marker. There is one layer per kind of element. A Marker export gives each Bundle its own colour; the PDS plot takes its colours from the Plotter Setup pens. With Translate piece names on, the labels print the Piece Name Dictionary's translation of each name ([ADR-0017](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0017-marker-dxf-output.md)).
 
 ## ASTM RUL
 
@@ -90,8 +98,10 @@ Pieces and markers plot as vector PDF. A sheet is A0, or A4 tiles for a desktop 
 
 ## CSV
 
-Reports and lists are UTF-8, with `.` as the decimal point and `,` between fields. Order quantities import from a CSV with a header row, the colour first and one column per size name. A marker flaw list has one `x_from,y_from,x_to,y_to` line per flaw, in millimetres. A Cut Plan report writes one file per section.
+Reports and lists are UTF-8, with `.` as the decimal point and `,` between fields. Order quantities import from a CSV with a header row, the colour first and one column per size name. A marker flaw list has one `x_from,y_from,x_to,y_to` line per flaw, in millimetres. A Cut Plan report writes one file per section; with several Purchase Orders the files are named `<stem>-<po>-<part>.csv`. The Marker's Auto Nesting can also write an efficiency log, `<stem>-nesting.csv`, with `time_s,length_mm,efficiency_pct,placed`.
 
-## Excel workbook
+## Excel and OpenDocument workbooks
 
-Report to Excel writes an `.xlsx` workbook. The PDS report has one worksheet with the piece, code, size, quantity, material, area and the cut and sew perimeters. The Marker report has one worksheet per section, General, Order, Pieces and Notches, with numbers as number cells. Rajutara writes the workbook itself, with no extra library.
+Report to Excel writes an `.xlsx` workbook. The PDS report has one worksheet with the piece, code, size, quantity, material, area and the cut and sew perimeters. The Marker report has one worksheet per section, General, Order, Pieces and Notches, with numbers as number cells; File, Customize Excel Report… chooses and orders its columns. Rajutara writes the workbook itself.
+
+Cut Plan quantities and Fabric Rolls, the Fabric Room, Measurement Chart specs and the Piece Name Dictionary read `.xlsx` and `.ods` as well as `.csv`. Only the first sheet is read, with the `calamine` library. Reading has fixed bounds: a file over 20 MB, a workbook that unpacks to more than 256 MB, an `.xlsx` that declares more than 1 000 000 shared strings, or a cell beyond row 100 000 or column 1 000 is refused, and at most 1 000 000 cells are read. Old `.xls` workbooks are not read at all; save them as `.xlsx` or `.csv`.

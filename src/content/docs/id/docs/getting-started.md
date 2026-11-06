@@ -7,17 +7,21 @@ Halaman ini membawa Anda dari berkas unduhan sampai contoh kaos tampil di layar.
 
 ## Pasang
 
-Setiap rilis ada di [halaman rilis](https://github.com/madmouse17/rajutara/releases) beserta checksum-nya. Rilis terbaru adalah 1.5.1. Pilih berkas yang cocok dengan komputer Anda.
+Setiap rilis ada di [halaman rilis](https://github.com/madmouse17/rajutara/releases) beserta checksum-nya. Rilis terbaru adalah 2.0.0. Pilih berkas yang cocok dengan komputer Anda.
 
 | Berkas | Untuk |
 |---|---|
-| `rajutara-1.5.1-x86_64.AppImage` | Linux, x86_64. Jalankan `chmod +x` pada berkas itu, lalu mulai. Tanpa FUSE 2, mulai dengan `APPIMAGE_EXTRACT_AND_RUN=1`. |
-| `rajutara-1.5.1-windows-x64.msi` | Windows 7 SP1 sampai Windows 11, 64-bit. Pemasang. |
-| `rajutara-1.5.1-windows-x64.zip` | Sama, tanpa pemasangan: ekstrak lalu jalankan `rajutara.exe`. |
-| `rajutara-1.5.1-windows-x86.msi` | Windows 7 SP1 sampai Windows 11, 32-bit. Pemasang. |
-| `rajutara-1.5.1-windows-x86.zip` | Sama, tanpa pemasangan. |
+| `rajutara-2.0.0-x86_64.AppImage` | Linux, x86_64. Jalankan `chmod +x` pada berkas itu, lalu mulai. Tanpa FUSE 2, mulai dengan `APPIMAGE_EXTRACT_AND_RUN=1`. |
+| `rajutara-2.0.0-windows-x64.msi` | Windows 7 SP1 sampai Windows 11, 64-bit. Pemasang. |
+| `rajutara-2.0.0-windows-x64.zip` | Sama, tanpa pemasangan: ekstrak lalu jalankan `rajutara.exe`. |
+| `rajutara-2.0.0-windows-x86.msi` | Windows 7 SP1 sampai Windows 11, 32-bit. Pemasang. |
+| `rajutara-2.0.0-windows-x86.zip` | Sama, tanpa pemasangan. |
 
 Rilis lain memakai nama yang sama dengan nomor versinya sendiri. Sekali sehari saat start, Rajutara memeriksa rilis yang lebih baru dan menawarkan untuk memasangnya; Help, Check for Updates… memeriksa atas permintaan.
+
+:::caution[Berkas yang disimpan 2.0 tidak terbuka di 1.5]
+Rajutara 2.0.0 menyimpan setiap Style, Marker, dan Rencana Potong dalam format native 3. Rajutara 1.5.x dan yang lebih lama menolak berkas seperti itu dengan "made by a newer rajutara (format version 3; this build reads up to 2)", jadi tidak ada data yang hilang, tetapi berkasnya tidak terbuka di sana. Berkas dari 1.5.x dan yang lebih lama terbuka di 2.0.0 seperti biasa, dan Rencana Potong lama terbuka sebagai satu Purchase Order. Bila beberapa PC berbagi berkas, perbarui semuanya pada saat yang sama.
+:::
 
 Setiap paket membawa berkas lisensi dan `THIRD-PARTY.html`, daftar perangkat lunak pihak ketiga. Jika di Windows program menyatakan tidak bisa membuat konteks OpenGL, baca [Windows 7](../windows-7/).
 
@@ -50,6 +54,8 @@ Empat ruang kerja ada di tab di bawah menu: PDS, Grading, Marker, dan Cut Plan. 
 
 Simpan otomatis berjalan setiap lima menit. Jika berkas simpan otomatis lebih baru daripada dokumennya saat program dimulai lagi, Rajutara menawarkan untuk memulihkannya. Setiap simpan juga menyimpan berkas sebelumnya sebagai `.bak`; di PDS, File, Open Backup membuka cadangan sebuah Style sebagai dokumen baru yang belum disimpan.
 
+Tools, Preferences… punya bidang cari di atas daftar halamannya. Ketik sebagian nama pengaturan, dalam bahasa antarmuka atau bahasa Inggris; huruf besar-kecil dan aksen diabaikan, dan setiap hasil terbaca "Halaman › Bidang".
+
 ## Bangun dari sumber
 
 Linux adalah platform acuan, Xubuntu atau Ubuntu 24.04.
@@ -67,4 +73,4 @@ Uji coba menjalankan jendela sungguhan, jadi dijalankan di layar virtual: `LIBGL
 
 - [Workflows](../workflows/): lima jalur kerja di dalam program.
 - [PDS](../workspaces/pds/), [Grading](../workspaces/grading/), [Marker](../workspaces/marker/), dan [Cut Plan](../workspaces/cut-plan/): satu panduan untuk setiap ruang kerja.
-- [Headless dan skrip](../headless/): jalankan dari skrip.
+- [Headless dan skrip](../headless/): jalankan dari skrip, dengan `rajutara batch`, `rajutara mcp`, playbook, dan indeks pengetahuan.

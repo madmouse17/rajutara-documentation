@@ -1,6 +1,6 @@
 ---
 title: Marker
-description: Tentukan kain, minta bundle per ukuran, tata potongan dengan tangan atau biarkan mesin nesting yang mengerjakannya, baca efisiensi, plot, potong, dan laporkan.
+description: Tentukan kain, minta bundle per ukuran, tata potongan dengan tangan, terlipat, dimiringkan, atau pada belang, atau biarkan mesin nesting yang mengerjakannya, baca efisiensi, plot, potong, dan laporkan.
 ---
 
 Marker adalah tata letak potongan satu style atau lebih dan satu ukuran atau lebih pada kain dengan lebar tertentu, siap diplot atau dipotong. Di ruang kerja ini Anda menentukan kain, meminta garmen yang dibutuhkan, menata potongan, dan membaca berapa kain yang dihabiskan tata letak itu.
@@ -14,9 +14,9 @@ Marker adalah tata letak potongan satu style atau lebih dan satu ukuran atau leb
 | Marker Table | Pita kain, di tengah. X membentang sepanjang panjang marker, yaitu lusi, dan Y melintang lebarnya. Sebuah garis menunjukkan panjang terpakai beserta nilainya. Penggaris menandai setiap 10 cm. |
 | Pieces | View, Pieces, tab pertama di kiri. Satu tabel per Style dengan `placed/total` untuk setiap potongan dan ukuran, dan baris Total. |
 | Piece Bar | Tab pertama panel bawah. Satu thumbnail per style, potongan, dan ukuran, berlabel nama potongan dan jumlah yang masih harus ditata; tooltip-nya memberi potongan, Style, dan ukuran. Seret untuk mengurutkan ulang: urutannya menjadi benih nesting. |
-| Piece List | Satu baris per potongan dan ukuran. Kode, material, jumlah, rotasi, balik, dan buffer bisa disunting; koordinat, luas, dan keliling hanya baca. |
+| Piece List | Satu baris per potongan dan ukuran. Kode, material, jumlah, rotasi, balik, buffer, Max Tilt (°), Folding, dan buffer sisi bisa disunting; koordinat, luas, dan keliling hanya baca. Panjang memakai satuan kerja. Angka yang diketik atau diseret diterapkan sekali, saat `Enter`, di akhir seretan, atau saat Anda mengklik di tempat lain; `Esc` membuangnya. |
 | Marker Definitions | Nama, material, lebar, panjang, lapis, mode lapis, margin, buffer, penyusutan, berat kain, biaya per meter, dan Total Pieces Area. |
-| Order | Bundle per ukuran, dan arah untuk setiap ukuran: One Way, Opposite, atau Any. |
+| Order | Bundle per ukuran, dan arah untuk setiap ukuran: One Way, Opposite, atau Any. Angka yang diketik diterapkan seperti di Piece List. |
 | Report | Laporan sebelum ditulis. Marker, Report… menampilkannya lagi setelah Anda menutupnya. |
 
 Marker Table mengisi setiap potongan dengan warna ukurannya secara pekat, mengarsir tumpang tindih dengan merah, dan menggaris tepi oranye pada potongan yang berada di dalam margin. Potongan yang dipaku menampilkan pin. Marker baru atau yang dibuka menyesuaikan lebar kain ke tampilan.
@@ -25,17 +25,17 @@ Bilah status menjaga bidang berikut tetap hidup: posisi kursor, potongan yang di
 
 ## Penyiapan
 
-File, New Marker (`Ctrl+N`) membuka satu dialog berisi Marker Definitions, Style (yang terbuka di PDS, atau sebuah berkas lewat Browse), Material dengan potongan yang diambil satu Bundle dari masing-masing, serta Bundle dan arah per ukuran. Create tetap terkunci, dengan alasannya, sampai Style dipilih dan sesuatu dipesan.
+File, New Marker (`Ctrl+N`) membuka satu dialog berisi Marker Definitions, Style (yang terbuka di PDS, atau sebuah berkas lewat Browse), Material dengan potongan yang diambil satu Bundle dari masing-masing, serta Bundle dan arah per ukuran. Alih-alih seluruh Style, Anda bisa memilih salah satu Style Set-nya. Create tetap terkunci, dengan alasannya, sampai Style dipilih dan sesuatu dipesan.
 
-Marker, Add Style… (`Shift+O`) menambahkan berkas style lain. Setiap style disematkan di marker, jadi marker tetap berfungsi jika berkas style dipindahkan. Jika berkas style berubah kemudian, marker memberi tahu dan menawarkan Update from Style, yang mempertahankan pose potongan yang masih ada. Marker, Marker Definitions… (`Ctrl+M`) mengubah kain dan batas-batasnya sebagai satu langkah urungkan.
+Marker, Add Style… (`Shift+O`) menambahkan berkas style lain. Setiap style disematkan di marker, jadi marker tetap berfungsi jika berkas style dipindahkan. Jika berkas style berubah kemudian, marker memberi tahu dan menawarkan Update from Style, yang mempertahankan pose potongan yang masih ada dan Style Set yang tertanam. Pratinjau dan pemberitahuannya menghitung pasangan terlipat yang dibukanya, dan menyebut berkas sumber yang hilang. Marker, Marker Definitions… (`Ctrl+M`) mengubah kain dan batas-batasnya sebagai satu langkah urungkan.
 
 Bundle adalah kumpulan potongan yang membuat satu garmen satu ukuran. Ketik bundle per ukuran di panel Order. Arah menentukan bagaimana potongan boleh berputar 180 derajat: One Way menjaga setiap bundle sama, Opposite berganti-ganti antarbundle, Any bebas.
 
-**Mode lapis.** Marker Definitions, New Marker, dan wizard menawarkan Single, Tubular, Faced, dan Folded. Faced dan Folded memuat potongan berpasangan sekali, karena lapis lawan memberi cerminnya. Potongan separuh masih di-nesting tanpa dilipat pada Tubular dan Folded, dan panelnya menyebutkan itu.
+**Mode lapis.** Marker Definitions, New Marker, dan wizard menawarkan Single, Tubular, Faced, dan Folded. Faced dan Folded memuat potongan berpasangan sekali, karena lapis lawan memberi cerminnya. Mode lapis juga menentukan di mana pasangan bisa berbaring terlipat; lihat [Potongan terlipat](#potongan-terlipat).
 
 ## Marker Creation Wizard
 
-File, Marker Creation Wizard… membuat beberapa Marker sekaligus. Langkahnya adalah Select Style Files, Define Marker Files, Define Quantities (Bundle per Marker dan ukuran), Define Table Properties, Define Global Properties (dengan buffer), Define Piece Properties (rotasi, balik, dan buffer setiap potongan), dan Finish. Create Markers membuka satu Marker belum tersimpan per baris. Pengaturan potongan masuk ke salinan Style milik setiap Marker, tidak pernah ke Style yang terbuka di PDS.
+File, Marker Creation Wizard… membuat beberapa Marker sekaligus. Langkahnya adalah Select Style Files, Define Marker Files, Define Quantities (Bundle per Marker dan ukuran), Define Table Properties, Define Global Properties (dengan buffer), Define Piece Properties (rotasi, balik, dan buffer setiap potongan), dan Finish. Berkas Style bisa ditanamkan sebagai salah satu Style Set-nya. Create Markers membuka satu Marker belum tersimpan per baris. Pengaturan potongan masuk ke salinan Style milik setiap Marker, tidak pernah ke Style yang terbuka di PDS.
 
 ## Tata dengan tangan
 
@@ -58,6 +58,33 @@ File, Marker Creation Wizard… membuat beberapa Marker sekaligus. Langkahnya ad
 ## Insert to Hole
 
 Piece, Insert to Hole mengaktifkan mode di samping Select, Shoot, dan Rotate Piece. Seret potongan yang sudah ditata ke atas lubang dengan tombol kiri atau kanan. Potongan mengambil tempat kosong terdekat yang muat, dan berputar ke orientasi apa pun yang diizinkan aturannya bila perlu. Lalu potongan itu menabrak sepanjang arah seretan, seperti Shoot. Perpindahannya satu langkah urungkan. Potongan yang dipaku, anggota cluster, dan jatuhan tanpa lubang yang muat dalam jangkauan ditolak dengan pemberitahuan. Satu seretan memindahkan satu potongan. Potongan yang dijatuhkan kembali ke lubang asalnya masuk, meski dilepas beberapa sentimeter dari situ.
+
+## Buffer potongan per sisi
+
+Piece, Edit Piece Buffer… memberi potongan ruang lebih di beberapa sisi daripada sisi lain. Around adalah buffer di setiap sisi. Up, Down, Left, dan Right menambah satu sisi dari bingkai serat potongan, jadi ikut berputar bersama potongan; salinan yang dicerminkan menukar Up dan Down. Convex memberi buffer pada selubung cembung, bukan garis tepi, dan Round Corners membulatkan sudut yang diberi buffer. Rantai memberi satu ruas garis potong lebarnya sendiri; pilih titiknya One by One atau Start-End. Apply to Selected Pieces atau Apply to All Pieces membuat perubahan dalam satu langkah urungkan.
+
+View, Piece Buffer menggambar garis tepi yang sudah diberi buffer. Potongan tanpa buffer sisi dan tanpa rantai di-nesting persis seperti sebelumnya. Satu buffer melayani setiap ukuran.
+
+## Potongan terlipat
+
+Sepasang potongan bisa berbaring di meja sebagai satu separuh pada lipatan, seperti saat dipotong dari kain terlipat.
+
+- Piece, Foldable Up & Down (`Ctrl+U`), Foldable Left & Right, dan Not Foldable (`Ctrl+Q`) mengatur aturan salinan potongan di Marker.
+- Piece, Place Folded menawarkan empat tepi dan empat sudut. Atau tahan `U`, `D`, `L`, atau `R` saat menjatuhkan atau mengklik ganda potongan yang menunggu; dua tombol membuat sudut.
+- Mode lapis menentukan tepinya. Tubular melipat di atas dan bawah, Faced di kiri dan kanan, dan Folded di keempatnya. Sudut memerlukan Folded dengan 4 lapis atau lebih, dan tepi kanan memerlukan panjang Marker.
+- Pasangan terlipat adalah dua salinan yang berbaring sebagai satu separuh pada garis lipat. Keduanya berbagi satu bentuk, jadi pasangan itu tidak bisa dipindah, ditembak, atau diputar sampai dibuka. Klik ganda, atau pakai Piece, Unfold, untuk mengembalikan keduanya.
+
+Plot dan berkas potong menggambar separuh itu dengan tanda lipat. Auto Nesting membiarkan potongan terlipat di tempatnya dan tidak melipat potongan sendiri.
+
+## Belang dan kotak-kotak
+
+Marker, Stripe Definition… mengatur belang kain di meja: Start X dan Y, jarak antara belang vertikal dan antara belang horizontal, sudut masing-masing, dan Stripe Adjust According To Set Only. Nilai awalnya diambil dari Fabric Pattern milik Style. View, Stripes Lines menggambar belangnya.
+
+Potongan ikut serta bila punya titik belang, yaitu titik yang berada di garis belang; PDS mengaturnya dengan Relate Piece To Stripes. Marker, Relate Piece to Stripes… memberi potongan jarak X dan Y dari belang, dan Grouping, Stripe Adjust Group (`Ctrl+G`) mempertahankan posisi belang potongan terpilih. Dengan Tools, Stripe Adjust menyala, potongan yang punya titik belang menempel ke belang saat dijatuhkan, diseret sendirian, ditembak, atau dimasukkan ke lubang, dan Auto Nesting hanya menaruh potongan seperti itu di posisi belang. Seleksi atau cluster bergerak sesuai seretan, tanpa menempel.
+
+## Tilt
+
+Piece, Tilt Left (`F11`) dan Tilt Right (`F12`) memutar potongan terpilih yang sudah ditata sebesar Tilt Step dari Preferences, Marker, dalam satu langkah urungkan. Potongan tidak pernah berputar melewati Max Tilt-nya, yang diatur dalam derajat di PDS Piece Properties atau di Piece List. Preferences, Marker, Ignore Automatic Tilt Rotations menyala secara bawaan. Matikan, dan Auto Nesting juga mencoba setiap orientasi yang dimiringkan sebesar Max Tilt ke kedua arah.
 
 ## Cluster dan Fuse Block
 
@@ -94,25 +121,43 @@ Piece, Internal Text mengaktifkan Text Tool. Klik meja atau potongan yang ditata
 
 ## Auto-nesting
 
-Nesting, Start AutoNesting (`Shift+N`) menata potongan untuk Anda. Mesinnya milik Rajutara sendiri: ia membangun no-fit polygon dengan ring convolution, mengisi dari kiri bawah, dan memperbaiki hasil dengan simulated annealing, mengikuti metode terbitan Burke dan kawan-kawan. Mesin berjalan di thread pekerja. Dialognya menampilkan waktu berjalan terhadap Time limit, panjang terbaik dan Efficiency sejauh ini, dan potongan yang sudah ditata, dengan Stop (`Esc`, atau `Ctrl+Shift+N`), lalu ringkasan. Dokumen berubah sekali, dengan satu perintah, saat proses berakhir.
+Nesting, Start AutoNesting (`Shift+N`) menata potongan untuk Anda. Mesinnya milik Rajutara sendiri: ia membangun no-fit polygon dengan ring convolution, mengisi dari kiri bawah, dan memperbaiki hasil dengan simulated annealing, mengikuti metode terbitan Burke dan kawan-kawan. Mesin berjalan di thread pekerja. Dialognya menampilkan waktu berjalan terhadap Time limit, panjang terbaik dan Efficiency sejauh ini, dan potongan yang sudah ditata, dengan Stop (`Esc`, atau `Ctrl+Shift+N`), lalu ringkasan. Efficiency langsung diukur sama seperti hasilnya. Dokumen berubah sekali, dengan satu perintah, saat proses berakhir.
 
 Nesting, Auto Nesting Setup… (`Ctrl+Shift+Alt+N`) memuat pengaturannya, dan Save menyimpannya.
 
 | Pengaturan | Bawaan | Arti |
 |---|---|---|
+| Algorithm | Advanced | Standard adalah mesin di atas. Standard Quick hanya menjalankan putaran awal dan pemadatannya. Advanced dimulai dengan Standard, lalu meminimalkan tumpang tindih pada no-fit polygon dan mengembalikan yang lebih baik dari keduanya. |
 | Time limit | 60 detik | Batas waktu dinding yang keras. |
 | Efficiency limit | mati | Berhenti lebih awal ketika marker mencapainya. |
 | Unlimited marker length | nyala | Abaikan panjang maksimum saat nesting. |
 | Keep placed pieces | nyala | Nesting potongan yang belum ditata di sekitar yang sudah ditata. Potongan yang dipaku tetap di tempat walaupun ini mati. |
 | Seed | 1 | Membuat satu proses bisa diulang. |
+| Write efficiency log (CSV) | mati | Menulis `<stem>-nesting.csv`, satu baris per perbaikan: `time_s,length_mm,efficiency_pct,placed`. Memerlukan Marker yang sudah disimpan. |
+| Save interim markers | mati | Menulis ulang `<stem>-interim.rjm` dengan susunan terbaik sejauh ini, paling sering sekali semenit. Memerlukan Marker yang sudah disimpan. |
+
+Advanced menjadi bawaan sejak 2.0.0. Dalam keputusan tolok ukur [ADR-0019](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0019-nesting-engine-v2.md) (lima set garmen ESICUP, tiga seed, masing-masing 60 detik) Advanced mengungguli Standard di setiap set, rata-rata 2,54 poin Efficiency. Pilih Standard untuk mesin 1.x; baris Auto Nest Queue, `@NEST` tanpa `/AL`, dan `marker_nest` tanpa `algorithm` juga memakai Advanced.
+
+Bagian Grouping di dialog menjaga potongan satu garmen tetap bersama. Pilihan pengelompokan dan lajur disimpan di Marker; Block Fuse During Nesting dan Separate Blocks hanya bertahan selama sesi.
+
+- **Nesting According To Bundles** memberi setiap Bundle areanya sendiri sepanjang marker. Groups According to Sizes melakukan hal yang sama per ukuran. Bundles Overlap (Small, Medium, Large) membiarkan area itu bertumpang tindih.
+- **Maintain Piece Orientation Within Bundles** menjaga setiap potongan dalam satu Bundle pada orientasi yang sama.
+- **Horizontal Groups** membagi lebar menjadi 1 sampai 6 lajur, untuk kain yang shade-nya berubah melintang lebar. Setiap Bundle tetap di satu lajur, dan area bundle setiap lajur berjalan berdampingan. Horizontal Groups Overlap membiarkan potongan keluar dari lajurnya sejauh itu.
+- **Block Fuse During Nesting** adalah Regular, Nest Blocks First, Nest Blocks Last, Nest Blocks Only, atau Nest With No Blocks, dengan Separate Blocks.
 
 Proses yang berhenti karena batas waktu bergantung pada kecepatan mesin. Dalam tolok ukur rilis, 300 potongan di-nesting dalam 58 detik dengan efisiensi 90,1 %. Mesin tidak pernah meninggalkan tumpang tindih pada hasilnya, dan pemeriksaan eksak terpisah memastikannya.
 
 ![Marker 300 potongan badan depan kemeja pada kain 150 cm, di-nesting oleh mesin, tanpa tumpang tindih.](../../../../../assets/screens/full-nest.jpg)
 
+## Auto Save Of Markers
+
+Nesting, Auto Save Of Markers membagi satu order ke beberapa marker bila satu sudah penuh. Bila menyala dan panjang Marker diisi, Start AutoNesting meninggalkan susunan pertama di Marker yang terbuka dan me-nesting yang tidak muat ke `<file>-1.rjm`, `<file>-2.rjm`, dan seterusnya. Proses berhenti bila setiap potongan sudah ditata atau satu putaran tidak menata apa pun.
+
+Potongan yang dipotong oleh marker lain dari rangkaian ini berstatus "cut elsewhere": disembunyikan dari Piece Bar, tidak di-nesting, dan tidak dihitung hilang. Save Only Nested Pieces (And Zero Remainders) dan Write Log Report To File (satu baris CSV per marker yang disimpan, dengan kolom `date_utc`) adalah opsi. Ringkasan mendaftar berkasnya dengan tombol Open. Skrip batch mencapai hal yang sama dengan `@NEST /SM`.
+
 ## Auto Nest Queue
 
-Nesting, Auto Nest Queue… me-nesting beberapa berkas `.rjm` berurutan dalam satu pekerjaan latar, tanpa Marker terbuka. Tambahkan berkasnya dengan Add Markers…, lalu beri setiap baris modenya di kolom Advanced, waktu maksimum, dan batas efisiensi, lalu tekan Run. Regular me-nesting ulang setiap potongan; Continue mempertahankan potongan yang sudah ditata dan me-nesting yang menunggu di sekitarnya. Setiap hasil masuk ke `<stem>-nested.rjm` di samping masukannya, dan masukannya tidak pernah ditulis. Berkas yang gagal menampilkan alasannya dan antrean berlanjut. Stop menyimpan baris yang sedang berjalan dan membiarkan yang lain Pending. Menutup dialog membiarkan pekerjaan tetap berjalan, dengan strip yang menyebut barisnya. Mesinnya hanya satu, jadi antrean tidak punya pilihan algoritma, dan tidak ada berkas antrean yang ditulis. Baris baru dimulai sebagai Regular, jadi Marker yang sudah di-nesting di-nesting ulang.
+Nesting, Auto Nest Queue… me-nesting beberapa berkas `.rjm` berurutan dalam satu pekerjaan latar, tanpa Marker terbuka. Tambahkan berkasnya dengan Add Markers…, lalu beri setiap baris modenya di kolom Advanced, Algorithm dan mode Block Fuse-nya, waktu maksimum, dan batas efisiensi, lalu tekan Run. Regular me-nesting ulang setiap potongan; Continue mempertahankan potongan yang sudah ditata dan me-nesting yang menunggu di sekitarnya. Baris baru dimulai sebagai Regular. Setiap hasil masuk ke `<stem>-nested.rjm` di samping masukannya, dan masukannya tidak pernah ditulis. Berkas yang gagal menampilkan alasannya dan antrean berlanjut. Stop menyimpan baris yang sedang berjalan dan membiarkan yang lain Pending; baris yang dihentikan menampilkan efisiensi dan panjang hasil yang disimpannya. Menutup dialog membiarkan pekerjaan tetap berjalan, dengan strip yang menyebut barisnya. Tidak ada berkas antrean yang ditulis.
 
 ## Arti angka-angkanya
 
@@ -137,16 +182,22 @@ Tanpa Cutting Order, setiap potongan dipotong searah jarum jam dari titik kiri b
 
 ## Laporan, plot, dan potong
 
-File, Report to Excel… (`Ctrl+R`) menulis workbook Excel (`.xlsx`) dengan satu lembar kerja per bagian, dan File, Print… (`Ctrl+P`) menulis PDF. Keduanya punya bagian yang sama: angka umum, order, setiap potongan, dan penandaan menurut bentuk.
+File, Report to Excel… (`Ctrl+R`) menulis workbook Excel (`.xlsx`) dengan satu lembar kerja per bagian, dan File, Print… (`Ctrl+P`) menulis PDF. Keduanya punya bagian yang sama: angka umum, order, setiap potongan, dan penandaan menurut bentuk. Order mencantumkan Lane setiap Bundle, dan potongan mencantumkan Tilt (°) dan Folded. Hitungan terbaca "1 piece" dan "2 pieces", dan tanggal terbaca "Date (UTC)".
 
-File, Plot/Cut… (`Ctrl+L`) menawarkan PDF sebagai ubin A4, PDF di lembar A0 (berubin sepanjang panjangnya ketika marker lebih panjang dari satu lembar), HPGL/2 untuk plotter gulungan, dan berkas potong. Plot membawa label pada setiap potongan, teks marker, dan blok header berisi nama marker, material, lebar, panjang, dan efisiensi. Berkas potong adalah satu berkas HPGL/2 generik dengan satu pena per elemen; pena 0 melewati elemen itu. Berkas ini mengikuti Cutting Order, titik awal, dan arahnya, memotong Fuse Block sebagai batasnya saja, dan menambahkan Cut line. File, Plotter Setup… memuat lebar kertas, offset, dan kalibrasi.
+File, Customize Excel Report… punya satu tab per tabel laporan. Setiap kolom punya Show, Title, Move Up, dan Move Down, dan Restore Defaults mengembalikan kolom bawaan. Pilihan disimpan di preferensi; laporan Excel dan PDF mengikutinya, panel Report di layar tidak.
+
+Preferences, Marker, Piece Description mengatur label setiap potongan yang ditata: bidang (Style Name, Piece Name, Code, Size, Bundle, Material, Description Text) dalam urutan yang Anda atur, Multi-Line Piece Description, Separator, Alphabetical Bundle Names, Don't Reset Bundle Numbering for Each Size, Orientation Next to Bundle Number, Auto Adjust Description Text, dan Show Piece Description Text in non-flipped form. Tabel, plot, label berkas potong, dan ekspor DXF mengikutinya.
+
+File, Plot/Cut… (`Ctrl+L`) menawarkan PDF sebagai ubin A4, PDF di lembar A0 (berubin sepanjang panjangnya ketika marker lebih panjang dari satu lembar), HPGL/2 untuk plotter gulungan, dan berkas potong. Plot membawa label pada setiap potongan, teks marker, dan blok header berisi nama marker, material, lebar, panjang, dan efisiensi. Berkas potong adalah satu berkas HPGL/2 generik dengan satu pena per elemen; pena 0 melewati elemen itu. Berkas ini mengikuti Cutting Order, titik awal, dan arahnya, memotong Fuse Block sebagai batasnya saja, menggambar separuh terlipat dengan tanda lipat, dan menambahkan Cut line. File, Plotter Setup… memuat lebar kertas, offset, dan kalibrasi.
+
+File, Export to CAD/CAM Files… menulis DXF (rilis 12, milimeter) dari isi plot, dengan label sebagai teks, satu warna per Bundle, dan satu layer per jenis elemen. Translate piece names mencetak nama lewat Tools, Piece Name Dictionary…. [Format berkas](../../formats/) memuat rinciannya.
 
 ## Belum dibuat
 
-- Tilt, pencocokan belang dan kotak-kotak, dan buffer potongan per sisi.
-- Menata potongan separuh di tepi lipatan pada Tubular dan Folded.
-- Pilihan mesin nesting, dan pengelompokan bundle di Auto Nesting Setup.
 - Pemilih ukuran untuk Substitute Size: perintah ini hanya mengambil ukuran berikutnya.
 - Quality Text dan Exclusive View untuk Text Tool, Lock dan OpStop untuk bump line, dan properti Overlay di wizard.
+- Pelipatan otomatis oleh Auto Nesting, dan menyunting garis tepi buffer titik demi titik.
+- Opsi Nesting Additional Mixing, Optimize Last Bundles, dan Idle Time.
+- Ukuran belang diagonal, warna belang, Revise Pieces Placements, dan motif bunga.
 
 Lihat [peta jalan](../../roadmap/).

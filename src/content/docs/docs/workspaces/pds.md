@@ -1,6 +1,6 @@
 ---
 title: PDS, pattern design
-description: Import or draft pieces, edit points, notches and seams, check lengths and plot. The PDS workspace and its 101 tools.
+description: Import or draft pieces, edit points, notches and seams, group pieces in Style Sets, check lengths and plot. The PDS workspace and its 101 tools.
 ---
 
 PDS is where pieces come from. Import them from an ASTM or AAMA DXF, or draw them, then edit points, notches, seams and internal lines, check segment lengths, and plot the pieces at 1:1.
@@ -23,6 +23,7 @@ Since 1.5.0 the default layout gives the Work Area most of the window: the Toolb
 | Grading Table | The grade rule of the selected point. | `2` |
 | Pieces Table | Every piece in a grid: name, code, quantity, pair, material, rotation, flip, buffer, area, perimeter. | `6` |
 | Compare Length | Two runs of a contour, measured against each other. | `5` |
+| Style Set | The Style Sets of the Style and the rows of the selected set. | `4` |
 | History | The undo history, shared with the other workspaces. | |
 | Import Report | The issues of the last import. It opens when there are any. | |
 
@@ -57,7 +58,7 @@ There are 101 tools, in the groups the toolbars and menus use.
 | Darts, pleats and fullness | Dart (`Ctrl+Alt+D`), pleat (`L`), add fullness, gusset, Reopen Darts |
 | Piece properties | Swap Piece Properties, a colour per piece, the one-line label, Spread and Gather Pieces, Fabric And Stripes, Track Lines |
 
-Press `Ctrl+Shift+P` to find a tool by name instead of by key. A tool that needs several clicks shows the next step in the status bar, and `Esc` cancels it. Holding `Alt` while you click opens a dialog for exact values. Each tool has its own pointer: its icon on a crosshair, the move cross over a piece Move Piece would drag, and "not allowed" over a protected piece.
+Press `Ctrl+Shift+P` to find a tool by name instead of by key. A tool that needs several clicks shows the next step in the status bar, and `Esc` cancels it. Holding `Alt` while you click opens a dialog for exact values. Each tool has its own pointer: its icon on a crosshair, the move cross over a piece Move Piece would drag, and "not allowed" over a protected piece. From a display scale of 1.5× up, the pointers are drawn at 48 px instead of 32 px.
 
 Every notch has a shape (V, T, I, L, U or Box), a depth and a width. I is the straight slit. A grainline is a directed line the marker uses to turn the piece along the fabric. The seam allowance has a width per segment: the cutting contour is the sewing contour plus the allowance.
 
@@ -77,26 +78,36 @@ The other tools keep their `Alt+click` dialogs.
 - **Add Point on Contour** (`O`) shows the spot, the distance from the previous point, the distance to the next point and the ratio before you click. For a point in the middle of a segment, `Alt+click` and choose Proportional 0.5. Add Point at Midpoint is gone, because Optitex has no such command.
 - **Point Name.** The Add Point on Contour dialog has a Point Name field. Point Properties has a Name row for selected contour points and Internal Line points. The name is saved in the `.rjx`. It is not drawn and not written to DXF.
 - **A slit in the middle of a segment.** Arm the Notch Tool and `Alt+click` the segment. In Notch Properties choose Type I, a Depth, Direction Perpendicular and Relationship Proportional with 0.5. The plot, the DXF (layer 4) and the cut file carry it as a slit notch.
+- **Notch presets.** The Notch Tool dialog and Notch Properties have Preset and Save as Preset…. A preset keeps the shape, depth, width, Top Width, reverse and command. View, Notch Presets… renames and deletes presets. They live in the preferences, so every Style sees the same list.
+- **Top Width.** A Box notch has a Top Width, its width at the tip; empty means the same as the width. The Work Area, the plot, and the Marker plot and cut file draw it.
+- **A notch in the seam allowance** of a piece whose stored line is the sew line can be selected: a click tests the cutting line, so Select and Properties reach it. A notch that a point edit re-anchors keeps its place in every size.
 - **Move Point and Move Point Along Contour** work by click, click or by press, drag and release. The new contour shows as a dashed outline while the old one dims.
+- **Drill holes and texts per size.** Drill Hole Properties, Appearance in sizes, has one check per size. Annotation Properties, Text in sizes, has one field per size; an empty field means the main text. The plot, the graded-nest DXF, the Marker and the Grading views follow each size. The Work Area marks a hole that is absent in the shown size with a small cross.
 
 ## Editing many pieces at once
 
 - **Global Piece Info** (Piece menu) selects every piece on the desk. **Global Internal** selects every internal line of the selected pieces, or of all pieces when none is selected. The Properties pane then edits them together and shows "Different" where the values disagree. One edit is one undo step.
 - **Set Basic Seam** (Tools, Seam) gives one seam width to the whole contour of every selected piece, in one undo step.
+- **Change Multiple Internal Attributes** filters by Min and Max of notch depth, width and Top Width, and of drill-hole radius.
 - **Swap Piece Properties Tool** (Piece, General) gives two selected pieces each other's name, code, description, quantity, pair, material, label and Marker rules. Their shapes stay where they are.
+- **Copied piece names.** With Preferences, PDS, Copied pieces set to Auto Renumber, Paste and Save Active as New give the copy the source's trailing `_n` plus one, or `_1`, and count on while that name is taken. Standard copy keeps the old naming. A paste between Styles with different Base Sizes keeps every size where it was.
 
 ## Seam corners
 
 Seam Corner, the corner fields of the Seam Tool and Point Properties offer Intersect, Bevel, Square, Mirror and Custom. Custom asks for Depth A and Depth B, 5 mm at first.
 
+Switch Cut/Sew and Switch Pieces to SEW/CUT say how many pieces change their stored line and ask you to Continue. Do not ask again turns the question off; Preferences, PDS, Confirm switching between sew and cut lines turns it back on. Convert Sew Internals To Seam moves darts, pleats and the mirror line onto the new sew line, or keeps them internal and says why.
+
 ## Contour and internal lines
 
-- **Extend in Parallel** is on the Contour toolbar, next to Extend. After you pick the first and the last point of the edge, it asks for the distance: a positive value extends, a negative one trims.
+- **Extend in Parallel** is on the Contour toolbar, next to Extend. After you pick the first and the last point of the edge, it asks for the distance: a positive value extends, a negative one trims. A neighbour it cannot reach is joined with a straight step, and the notice names the point.
+- **Segment Length** has Moving end Both ends: each end moves half the change. Extend By Curve is refused with Both ends.
 - **Extend Internal Object** opens on the amount field with "By an extension amount" chosen, so a typed length is used at once. A click on a contour segment is refused with a pointer to Extend in Parallel.
 - **Wave Tool** (Insert toolbar, Design, Contour). Click the first and the last point, move the pointer for the height and click. It makes two waves by default; `Tab` adds one and `Shift+Tab` removes one. `Alt` on the third click opens the dialog: Waves, Internal Points On Wave, Height, Angle, and New Wave or Contour Change. Between two contour points of one piece it reshapes the contour; anywhere else it adds an internal line.
 - **Deform Internals** (Design, Deform Internals) has Transform Circle To Contour, Transform Circle To Button and Transform Button To Circle, one undo step each.
 - **Fold Line to Line Tool** (Piece, Modify) folds a piece so that one of its lines takes the direction of another.
 - **Reopen Darts** (Tools, Darts) opens every dart that Close Dart shows closed.
+- **Grading follows the edit.** Build Piece points on an Internal Line take the grading interpolated along it. Remove Excess Cloth turns the internal lines, drill holes and texts of the moved region with their Grade Rules. Pleat Lines keep their own geometry, since no public source describes Optitex's.
 
 ## Segment Editor
 
@@ -116,7 +127,7 @@ A map piece is a flat sketch of the garment whose areas become the real pieces. 
 
 ## Fabric, stripes and spread pieces
 
-- **Fabric And Stripes** (Piece, Fabric And Stripes). Fabric Pattern… stores the stripe repeat and gap of the fabric, and View Fabric draws the stripe grid. Set Stripes Group and Stripes Ungroup number the pieces that share one stripe match, and Relate Piece To Stripes marks the point of a piece that sits on a stripe. The Marker does not match stripes yet.
+- **Fabric And Stripes** (Piece, Fabric And Stripes). Fabric Pattern… stores the stripe repeat and gap of the fabric, and View Fabric draws the stripe grid. Set Stripes Group and Stripes Ungroup number the pieces that share one stripe match, and Relate Piece To Stripes marks the point of a piece that sits on a stripe. The Marker matches these pieces to its stripes with Stripe Adjust; see [Marker](../marker/).
 - **Spread Pieces** (same menu) shows a copy beside a piece for each further quantity and pair, the pair copies mirrored, in the Work Area and in the plot. Arrange For Plot leaves room for them. Gather Pieces removes them.
 
 ## Placement, colour and label
@@ -124,6 +135,14 @@ A map piece is a flat sketch of the garment whose areas become the real pieces. 
 - **Save Placement** (Piece, General) gives every piece on the desk Fixed Placement. **Restore Placement** moves the fixed pieces back where they were. It undoes moves, turns and flips, but not point edits, and takes the other pieces off the desk. Fixed Placement is also a check in Piece Properties.
 - **Color** in Piece Properties picks a fill for the selected pieces in one undo step. Auto goes back to the palette colour.
 - **One line** in Piece Properties prints the description on one line, joined by the Separator. The Work Area, the plot and the DXF label follow it. With the Text Tool, drag a piece's description to move it, or `Alt+click` it to set its height and angle.
+
+## Style Sets
+
+A Style Set is a named list of the Style's pieces, for example the pieces of one fabric or one variant. View, Style Set (`4`) opens its pane. Each row has its own Code, Description, Material, Quantity, Pair and X/Y Shrink, so the same piece can appear in two sets, or twice in one set, with different values.
+
+The pane has a search field that ignores case and accents, and Create, Remove, Duplicate (named `@<name>`), Description, Add Pieces, Remove Pieces and Place. Place puts only the set's pieces on the desk and arranges them for plot. Each edit is one undo step. A set cannot be renamed once made.
+
+New Marker, the Marker Creation Wizard and Cut Plan, Add Style… can embed one Style Set instead of the whole Style. Update from Style keeps the set.
 
 ## Walk with a support notch
 
@@ -134,6 +153,8 @@ Walk Options has Support Notch (on by default), its Type and its Command (Cut fi
 File, Import From CAD/CAM Files reads ASTM D6673 and AAMA-292 DXF files, with the RUL file of a graded style. File, Export To CAD/CAM Files writes them back, with a choice between a rule file (the default) and a graded nest. Layer by layer, the DXF is described in [File formats](../../formats/). Rajutara never reads or writes the formats of Optitex itself.
 
 File, Report to Excel writes an Excel workbook, `<style>.xlsx`, with the piece, code, size, quantity, material, area and the cut and sew perimeters.
+
+File, Production Sheet… writes an A4 PDF for the sewing floor: the Style facts (Author, Date, Sizes, Base Size, Notes), the pieces table (Name, Code, Description, Quantity, Pair, Material, and Area and Perimeter at the Base Size), a drawing of the Base Size pieces and one table per Measurement Chart. The chart tables show the measured values only. The Date is the day of printing, in UTC.
 
 ## Backups
 
@@ -148,10 +169,13 @@ Every save keeps the previous file as a `.bak`. File, Open Backup opens the `.ba
 | Pieces | All, on the desk, or selected. Selected if there is a selection, else on the desk. |
 | Sizes | A check list of sizes, and whether to nest the sizes in one outline set. |
 | Elements | Cut line, sew line, internal lines, notches, drill holes, grainline, mirror line, annotations, piece label. |
-| Target | PDF as A4 tiles (the default), PDF on A0, or an HPGL/2 file. |
+| Target | PDF as A4 tiles (the default), PDF on A0, an HPGL/2 file, or a DXF (release 12, millimetres, colours from the Plotter Setup pens). The dialog remembers the target used last. |
 | Arrange first | Lays the pieces out on the sheet width before plotting. |
+| Translate piece names | Prints each name through Tools, Piece Name Dictionary…. |
 
 The cut line plots solid and the sew line dashed, notches are drawn as their shape on the cutting line, and the grainline has arrowheads. The piece label prints every label field in order, one per line. Arrange for Plot (`Ctrl+K`) does the layout by itself: pieces sorted by height, placed in rows left to right with a gap (10 mm by default), and rotated 90 degrees when a long piece would not fit the width. Plotting runs on a worker thread with progress and a Cancel button.
+
+Tools, Piece Name Dictionary… is a Name → Translation table, for example English to Indonesian, with Add, Remove, Import and Export (`.csv` or `.xlsx`). It is stored in the preferences. With Translate piece names on, the PDS and Marker plots and the Marker's Export to CAD/CAM print the translation of a name that matches exactly.
 
 ## Not built
 
@@ -160,6 +184,6 @@ The cut line plots solid and the sew line dashed, notches are drawn as their sha
 - The Equal Segments group window and Equal Segments, Options.
 - Swap Zone Segment Tool and Move Piece On Piece Tool: no public description says what they do.
 - The Seam and Stitch Manager, which belongs to 3D.
-- Stripe and plaid matching in the Marker. PDS already stores the stripe data.
+- Custom special notch forms, and renaming a Style Set.
 
 [Roadmap](../../roadmap/) has the full list.

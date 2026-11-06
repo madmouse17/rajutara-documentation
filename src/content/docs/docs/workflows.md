@@ -30,7 +30,7 @@ Guides: [PDS](../workspaces/pds/), [Grading](../workspaces/grading/).
 ## 3. Nest a marker and read the numbers
 
 1. In Marker, choose File, New Marker (`Ctrl+N`). In the one dialog, set the Marker Definitions (fabric width, buffer, margins), take the Style open in PDS or browse for a file, check the Material and type the Bundles per size, with a direction for each: One Way, Opposite or Any. Create stays blocked until something is ordered.
-2. Place pieces. Drag them from the Piece Bar, double-click a thumbnail, click a thumbnail and then the table, or press Place All. To let the engine do it, choose Nesting, Start AutoNesting (`Shift+N`). Its dialog shows the time, the best length and the efficiency as it runs, and Stop (`Esc`) keeps the best result so far. Nesting, Auto Nesting Setup… sets the time limit (60 s by default), an optional efficiency limit, whether the length is unlimited, whether to keep the pieces already placed, and a seed that makes a run repeatable.
+2. Place pieces. Drag them from the Piece Bar, double-click a thumbnail, click a thumbnail and then the table, or press Place All. To let the engine do it, choose Nesting, Start AutoNesting (`Shift+N`). Its dialog shows the time, the best length and the efficiency as it runs, and Stop (`Esc`) keeps the best result so far. Nesting, Auto Nesting Setup… sets the Algorithm (Standard by default), the time limit (60 s by default), an optional efficiency limit, whether the length is unlimited, whether to keep the pieces already placed, a seed that makes a run repeatable, and how Bundles are grouped.
 3. Read the status bar: pieces, bundles, overlaps, efficiency, width, used length and length per garment. Overlaps are hatched red on the table. Fine-tune with Rotate (`Shift+R`), Flip X and Flip Y (`Shift+X`, `Shift+Y`), Shoot (`Shift+Arrow`) and the arrow keys. Piece, Fix on Marker pins a piece, and Grouping, Cluster Pieces keeps several pieces together.
 4. To set the knife's path, choose Marker, Optimize Cut Order…, and switch on View, Cut/Plot Order to see the numbers.
 5. Write the report with File, Report to Excel… (`Ctrl+R`, an `.xlsx` workbook) or File, Print… (`Ctrl+P`, a PDF).
@@ -42,20 +42,22 @@ Guide: [Marker](../workspaces/marker/).
 
 ## 4. Plan the cut from an order
 
-1. In Cut Plan, choose CutPlan, Create New…. The wizard walks the steps in order: Adding Style Files (the style open in PDS, or a file), Defining the Order Details (name, client, operator), Adding Colors and Defining Quantity for each Size, Defining Material Properties and Defining the Marker. Every step stays in the Plan pane afterwards.
-2. Colours and quantities: one row per colour, one column per size. Switch on the ratio mode to give a ratio and a total per colour, set a deviation for the over-cut you accept, or import the quantities from a CSV file.
+1. In Cut Plan, choose Cut Plan, Create New…. The wizard walks the steps in order: Adding Style Files (the style open in PDS, or a file), Defining the Order Details (name, client, operator), Adding Colors and Defining Quantity for each Size, Defining Material Properties and Defining the Marker. Every step stays in the Plan pane afterwards. Add more Purchase Orders, Styles or Materials there if the order needs them.
+2. Colours and quantities: one row per colour, one column per size. Switch on the ratio mode to give a ratio and a total per colour, set a deviation for the over-cut you accept, or import the quantities from a `.csv`, `.xlsx` or `.ods` file.
 3. Material: name, width, ply mode, shrinkage, price per metre. Marker limits: minimum and maximum plies, bundles per marker, marker length, the allowance at each end of a ply and the waste limit. A Bundle longer than the maximum marker length is warned about while you type.
 4. Press Viewing the Final Results (`F5`). The Results tab lists the markers with their ratio, length and efficiency, the lays with their plies and fabric, a table of ordered, planned and difference per size and colour, and the totals with cost. A piece wider than the Material stops the solve with its name.
 5. Edit the plies of a lay or the ratio of a marker by hand if the floor needs it. The plan is then marked as edited.
-6. Open the Cut Order tab. Enter your fabric rolls with code, colour, shade, width and length. Rajutara sequences the lays, takes whole plies from rolls, and reports the remnants and any missing fabric.
-7. Write the reports with Generating a CutPlan Report (CSV) or (PDF), and Viewing the Production Report for the cutting floor.
+6. Open the Cut Order tab. Enter your fabric rolls with code, colour, shade, width and length, or take them from the Fabric Room. Rajutara sequences the lays, takes whole plies from rolls, and reports the remnants and any missing fabric. Return Remnants writes what is left back to the Fabric Room.
+7. Write the reports with Generating a Cut Plan Report (CSV) or (PDF), and Viewing the Production Report for the cutting floor.
 
 Guide: [Cut Plan](../workspaces/cut-plan/).
 
 ## 5. Run it without a window
 
 1. Check a build: `rajutara --smoke` opens the real window, renders 60 frames, prints one JSON line and exits 0, or non-zero on any window or OpenGL failure.
-2. Draft, grade, nest and write every output of the workflow with the headless examples: the same code the program runs, with no window.
-3. Read or write documents with any zip library: a native file is a zip archive holding JSON.
+2. Run the same job on many orders with `rajutara batch SCRIPT`: one `@COMMAND /KEY=VALUE` per line opens a marker, nests it, writes the plot and the report, solves a Cut Plan or exports a graded nest.
+3. Repeat a whole procedure, such as importing and checking a pattern or optimising a marker, with `rajutara playbook`. Each run keeps a record, so `replay` repeats it.
+4. Give an MCP client the same tools with `rajutara mcp`.
+5. Read or write documents with any zip library: a native file is a zip archive holding JSON.
 
 Guide: [Headless and scripting](../headless/).

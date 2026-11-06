@@ -1,6 +1,6 @@
 ---
 title: Grading
-description: "Grading berbasis aturan: tabel ukuran dengan satu base size, aturan grade pada setiap grade point, graded nest, dan pertukaran ASTM RUL."
+description: "Grading berbasis aturan: tabel ukuran dengan satu base size dan variasi ukuran, aturan grade pada setiap grade point, cross grading, measurement chart, graded nest, dan pertukaran ASTM RUL."
 ---
 
 Rajutara men-grade berdasarkan aturan, seperti sistem aturan-titik pada rangkaian CAD lain. Sebuah style punya Size Table dengan tepat satu Base Size, dan Grade Rule, dX dan dY per ukuran, pada setiap Grade Point. Ukuran selain base tidak pernah digambar ulang: ukuran itu diturunkan dari base size oleh aturan. Base size adalah ukuran yang Anda gambar.
@@ -18,6 +18,7 @@ Grading memakai style dan riwayat urungkan yang sama dengan PDS, dengan panel da
 | Grading Table | Aturan grade point terpilih: terlihat, warna, ukuran, dX, dY, dan dd (panjang perpindahan). | `2` |
 | Rule Table | Aturan bernomor yang disimpan bersama style. | `Ctrl+Shift+Alt+R` |
 | Properties, Pieces Table, History | Seperti di PDS. | `Ctrl+I`, `6` |
+| Measurement Charts | Chart milik Style dan ukuran-ukurnya. View, Measurement Charts. | |
 
 `F4` hanya menampilkan base size, dan `Ctrl+Shift+F4` menampilkan ukuran kecil, besar, dan base. Legenda Sizes bisa diseret dan diciutkan, dan tetap berada di dalam Work Area. Potongan ter-grade membawa tanda seleksi sekali saja, pada Base Size-nya.
 
@@ -43,7 +44,25 @@ Grading memakai style dan riwayat urungkan yang sama dengan PDS, dengan panel da
 - Tandai break size, lalu Regrade By Break Size: ukuran di antara dua break mengambil interpolasi linear dari break-nya. Perintah ini men-grade ulang setiap potongan yang tidak terlindungi, apa pun yang terpilih.
 - Beri setiap ukuran warna, jenis garis, dan ketebalan garis (0,05 sampai 5 mm, bawaan 0,25 mm). Ini hanya mengubah cara ukuran digambar; Base Size digambar 0,10 mm lebih tebal.
 
-Rajutara dibuat untuk satu dimensi ukuran hingga 12 ukuran. Program menerima hingga 99, batas yang melindungi memori pada build 32-bit.
+Rajutara dibuat untuk satu dimensi ukuran hingga 12 ukuran. Program menerima hingga 99, batas yang melindungi memori pada build 32-bit. Dimensi kedua, misalnya panjang, adalah Size Variation.
+
+## Size Variation
+
+Size Variation adalah satu set ukuran tambahan dengan grading sendiri, disimpan di samping daftar ukuran utama, misalnya Short, Regular, dan Long. Sizes Table punya Current Size Variation, Insert, Append, Delete, dan Name. Selama satu variasi aktif, Sizes Table, alat Grading, dan Graded Nest bekerja pada ukuran dan delta variasi itu.
+
+Grading, Reshape Variation Grading mengubah variasi menjadi satu daftar ukuran, setiap ukuran bernama `<variation size>-<main size>`. Perintah ini ditolak bila hasilnya lebih dari 99 ukuran. Marker dan Rencana Potong baru melihat ukuran variasi setelah Reshape; sampai saat itu sebuah spanduk di ruang kerja Grading menyebutkannya.
+
+## Cross Grading
+
+Merge Style File punya Special Merge Sizes List. Dengan itu, Style mempertahankan ukurannya sendiri dan mendapat ukuran lain dari berkas yang digabung, dalam urutan berkas. Base Size berkas yang digabung ditandai `*` di Sizes Table dan Grading Table. Potongannya mempertahankan geometri pada ukuran itu dan delta miliknya sendiri. Penggabungan adalah satu langkah urungkan.
+
+## Measurement Chart
+
+Measurement Chart memuat ukuran-ukur yang ditetapkan buyer untuk sebuah Style. Satu Style bisa punya beberapa chart. Grading, Measure Definition mendefinisikan satu ukuran-ukur: jumlah bagian-bagiannya, dikali faktor. Satu bagian berjalan di antara dua titik pada satu potongan, diambil Along Contour, Straight, Horizontal, atau Vertical, dan Rajutara mengukurnya di setiap ukuran.
+
+Setiap ukuran-ukur punya Tolerance − dan +, dan spesifikasi buyer per ukuran, ditampilkan di baris Spec dan Diff. Nilai di luar toleransi terbaca sebagai teks, misalnya `OUT +5.0`, bukan hanya warna. Import Spec… membaca nilai buyer dari `.csv`, `.xlsx`, atau `.ods`. Report… dan Out of Spec Report… menulis `.csv`, `.xlsx`, atau `.pdf`. Chart disimpan di Style, dan Production Sheet PDS mencetak satu tabel per chart.
+
+Chart hanya memeriksa. Chart tidak pernah mengubah ukuran potongan agar sesuai spesifikasi; pengubahan ukuran parametrik dikecualikan oleh [ADR-0004](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0004-rule-based-grading-not-parametric.md).
 
 ## Tabel grading
 
@@ -83,4 +102,4 @@ Tampilan Graded Nest menggambar setiap ukuran dengan warna dan ketebalan garisny
 
 Style yang sudah di-grade keluar sebagai DXF ASTM D6673 ukuran sampel ditambah berkas ASTM RUL yang memuat aturan, atau sebagai graded nest dengan satu blok per ukuran. Keduanya bisa dibaca kembali. Sintaks RUL ditunjukkan di [Format berkas](../../formats/). Tabel aturan dalam format asli Optitex tidak dibaca atau ditulis.
 
-Sistem ukuran multidimensi, cross grading dengan menggabungkan berkas style, dan bagan ukuran adalah Fase 3. Lihat [peta jalan](../../roadmap/).
+Export Graded Nest punya L-notches as L shapes, mati secara bawaan. Bila menyala, penandaan L juga menulis garis tepi berbentuk L sebagai polyline di samping titiknya. Lubang bor dan teks yang berbeda per ukuran mengikuti setiap ukuran di graded nest.

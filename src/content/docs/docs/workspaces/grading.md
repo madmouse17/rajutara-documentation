@@ -1,6 +1,6 @@
 ---
 title: Grading
-description: "Rule-based grading: a size table with one base size, a grade rule on each grade point, the graded nest, and ASTM RUL exchange."
+description: "Rule-based grading: a size table with one base size and size variations, a grade rule on each grade point, cross grading, measurement charts, the graded nest, and ASTM RUL exchange."
 ---
 
 Rajutara grades by rule, the way the point-rule systems of other CAD suites do. A style has a Size Table with exactly one Base Size, and a Grade Rule, a dX and a dY per size, on each Grade Point. A size other than the base is never redrawn: it is derived from the base size by the rules. The base size is the one you draw.
@@ -18,6 +18,7 @@ Grading is the same style and the same undo history as PDS, with other panes and
 | Grading Table | The rule of the selected grade point: visible, colour, size, dX, dY and dd (the length of the move). | `2` |
 | Rule Table | The numbered rules kept with the style. | `Ctrl+Shift+Alt+R` |
 | Properties, Pieces Table, History | As in PDS. | `Ctrl+I`, `6` |
+| Measurement Charts | The charts of the Style and their measures. View, Measurement Charts. | |
 
 `F4` shows the base size only, and `Ctrl+Shift+F4` shows the small, big and base sizes. The Sizes legend can be dragged and collapsed, and it stays inside the Work Area. A graded piece carries the selection mark once, on its Base Size.
 
@@ -43,7 +44,25 @@ Grading is the same style and the same undo history as PDS, with other panes and
 - Mark break sizes, then Regrade By Break Size: the sizes between two breaks take the linear interpolation of the breaks. It regrades every unprotected piece, whatever is selected.
 - Give each size a colour, a line type and a line thickness (0.05 to 5 mm, 0.25 mm by default). These change only how it is drawn; the Base Size is drawn 0.10 mm thicker.
 
-Rajutara is built for one size dimension of up to 12 sizes. The program accepts up to 99, a cap that protects memory on 32-bit builds.
+Rajutara is built for one size dimension of up to 12 sizes. The program accepts up to 99, a cap that protects memory on 32-bit builds. A second dimension, such as lengths, is a Size Variation.
+
+## Size Variations
+
+A Size Variation is a further set of sizes with its own grading, kept beside the main size list, for example Short, Regular and Long. The Sizes Table has Current Size Variation, Insert, Append, Delete and Name. While a variation is current, the Sizes Table, the Grading tools and the Graded Nest work on its sizes and deltas.
+
+Grading, Reshape Variation Grading turns the variations into one size list, each size named `<variation size>-<main size>`. It is refused when the result would have more than 99 sizes. Markers and Cut Plans see the variation sizes only after Reshape; until then a banner in the Grading workspace says so.
+
+## Cross Grading
+
+Merge Style File has Special Merge Sizes List. With it, the Style keeps its own sizes and gains the other sizes of the merged file, in the file's order. The merged file's Base Size is marked `*` in the Sizes Table and the Grading Table. Its pieces keep their geometry at that size and their own deltas. The merge is one undo step.
+
+## Measurement Charts
+
+A Measurement Chart holds the measures a buyer specifies for a Style. A Style can have several charts. Grading, Measure Definition defines a measure: the sum of its parts, times a factor. A part runs between two points of one piece, taken Along Contour, Straight, Horizontal or Vertical, and Rajutara measures it in every size.
+
+Each measure has a Tolerance − and +, and a buyer spec per size, shown in Spec and Diff rows. A value outside the tolerance reads as text, for example `OUT +5.0`, not by colour alone. Import Spec… reads the buyer's values from `.csv`, `.xlsx` or `.ods`. Report… and Out of Spec Report… write `.csv`, `.xlsx` or `.pdf`. The charts are saved in the Style, and the PDS Production Sheet prints one table per chart.
+
+A chart only checks. It never resizes a piece to meet the spec; parametric resizing is excluded by [ADR-0004](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0004-rule-based-grading-not-parametric.md).
 
 ## The grading table
 
@@ -83,4 +102,4 @@ The Graded Nest view draws every size in its own colour and line thickness, alig
 
 A graded style leaves as an ASTM D6673 DXF of the sample size plus an ASTM RUL file holding the rules, or as a graded nest with one block per size. Both are read back. The RUL syntax is shown in [File formats](../../formats/). Rule tables in Optitex's own format are not read or written.
 
-Multi-dimensional size systems, cross grading by merging style files and measurement charts are Phase 3. See the [roadmap](../../roadmap/).
+Export Graded Nest has L-notches as L shapes, off by default. When it is on, an L notch also writes its L-shaped outline as a polyline beside its point. Drill holes and texts that differ per size follow each size in the graded nest.

@@ -30,7 +30,7 @@ Panduan: [PDS](../workspaces/pds/), [Grading](../workspaces/grading/).
 ## 3. Nesting marker dan baca angkanya
 
 1. Di Marker, pilih File, New Marker (`Ctrl+N`). Dalam satu dialog itu, atur Marker Definitions (lebar kain, buffer, margin), ambil Style yang terbuka di PDS atau cari berkasnya, periksa Material, dan ketik Bundle per ukuran, dengan arah untuk masing-masing: One Way, Opposite, atau Any. Create tetap terkunci sampai ada yang dipesan.
-2. Tata potongan. Seret dari Piece Bar, klik ganda thumbnail, klik thumbnail lalu meja, atau tekan Place All. Agar mesin yang mengerjakannya, pilih Nesting, Start AutoNesting (`Shift+N`). Dialognya menampilkan waktu, panjang terbaik, dan efisiensi selama berjalan, dan Stop (`Esc`) mempertahankan hasil terbaik sejauh ini. Nesting, Auto Nesting Setup… mengatur batas waktu (bawaan 60 detik), batas efisiensi opsional, apakah panjang tak terbatas, apakah potongan yang sudah ditata dipertahankan, dan seed yang membuat satu proses bisa diulang.
+2. Tata potongan. Seret dari Piece Bar, klik ganda thumbnail, klik thumbnail lalu meja, atau tekan Place All. Agar mesin yang mengerjakannya, pilih Nesting, Start AutoNesting (`Shift+N`). Dialognya menampilkan waktu, panjang terbaik, dan efisiensi selama berjalan, dan Stop (`Esc`) mempertahankan hasil terbaik sejauh ini. Nesting, Auto Nesting Setup… mengatur Algorithm (bawaan Standard), batas waktu (bawaan 60 detik), batas efisiensi opsional, apakah panjang tak terbatas, apakah potongan yang sudah ditata dipertahankan, seed yang membuat satu proses bisa diulang, dan cara Bundle dikelompokkan.
 3. Baca bilah status: potongan, bundle, tumpang tindih, efisiensi, lebar, panjang terpakai, dan panjang per garmen. Tumpang tindih diarsir merah di meja. Sempurnakan dengan Rotate (`Shift+R`), Flip X dan Flip Y (`Shift+X`, `Shift+Y`), Shoot (`Shift+Arrow`), dan tombol panah. Piece, Fix on Marker memaku satu potongan, dan Grouping, Cluster Pieces menyatukan beberapa potongan.
 4. Untuk mengatur jalur pisau, pilih Marker, Optimize Cut Order…, lalu nyalakan View, Cut/Plot Order untuk melihat nomornya.
 5. Tulis laporan dengan File, Report to Excel… (`Ctrl+R`, workbook `.xlsx`) atau File, Print… (`Ctrl+P`, PDF).
@@ -42,20 +42,22 @@ Panduan: [Marker](../workspaces/marker/).
 
 ## 4. Rencanakan potong dari order
 
-1. Di Cut Plan, pilih CutPlan, Create New…. Wizard menjalani langkahnya berurutan: Adding Style Files (style yang terbuka di PDS, atau sebuah berkas), Defining the Order Details (nama, klien, operator), Adding Colors and Defining Quantity for each Size, Defining Material Properties, dan Defining the Marker. Setiap langkah tetap ada di panel Plan sesudahnya.
-2. Warna dan jumlah: satu baris per warna, satu kolom per ukuran. Nyalakan mode rasio untuk memberi rasio dan total per warna, atur deviasi untuk kelebihan potong yang Anda terima, atau impor jumlah dari berkas CSV.
+1. Di Cut Plan, pilih Cut Plan, Create New…. Wizard menjalani langkahnya berurutan: Adding Style Files (style yang terbuka di PDS, atau sebuah berkas), Defining the Order Details (nama, klien, operator), Adding Colors and Defining Quantity for each Size, Defining Material Properties, dan Defining the Marker. Setiap langkah tetap ada di panel Plan sesudahnya. Tambahkan Purchase Order, Style, atau Material lain di sana bila order membutuhkannya.
+2. Warna dan jumlah: satu baris per warna, satu kolom per ukuran. Nyalakan mode rasio untuk memberi rasio dan total per warna, atur deviasi untuk kelebihan potong yang Anda terima, atau impor jumlah dari berkas `.csv`, `.xlsx`, atau `.ods`.
 3. Material: nama, lebar, mode lapis, penyusutan, harga per meter. Batas marker: lapis minimum dan maksimum, bundle per marker, panjang marker, kelonggaran di tiap ujung lapis, dan batas limbah. Bundle yang lebih panjang dari panjang marker maksimum diperingatkan selagi Anda mengetik.
 4. Tekan Viewing the Final Results (`F5`). Tab Results mencantumkan marker dengan rasio, panjang, dan efisiensinya, lay dengan lapis dan kainnya, tabel dipesan, direncanakan, dan selisih per ukuran dan warna, serta total beserta biaya. Potongan yang lebih lebar dari Material menghentikan penyelesaian dengan menyebut namanya.
 5. Sunting lapis sebuah lay atau rasio sebuah marker dengan tangan jika lantai produksi membutuhkannya. Rencana lalu ditandai sebagai sudah disunting.
-6. Buka tab Cut Order. Masukkan gulungan kain dengan kode, warna, shade, lebar, dan panjang. Rajutara mengurutkan lay, mengambil lapis utuh dari gulungan, dan melaporkan sisa serta kain yang kurang.
-7. Tulis laporan dengan Generating a CutPlan Report (CSV) atau (PDF), dan Viewing the Production Report untuk lantai pemotongan.
+6. Buka tab Cut Order. Masukkan gulungan kain dengan kode, warna, shade, lebar, dan panjang, atau ambil dari Fabric Room. Rajutara mengurutkan lay, mengambil lapis utuh dari gulungan, dan melaporkan sisa serta kain yang kurang. Return Remnants menulis sisa kembali ke Fabric Room.
+7. Tulis laporan dengan Generating a Cut Plan Report (CSV) atau (PDF), dan Viewing the Production Report untuk lantai pemotongan.
 
 Panduan: [Cut Plan](../workspaces/cut-plan/).
 
 ## 5. Jalankan tanpa jendela
 
 1. Periksa sebuah build: `rajutara --smoke` membuka jendela sungguhan, merender 60 frame, mencetak satu baris JSON dan keluar dengan 0, atau bukan nol jika jendela atau OpenGL gagal.
-2. Susun, grade, nesting, dan tulis setiap keluaran workflow dengan contoh headless: kode yang sama dengan yang dijalankan program, tanpa jendela.
-3. Baca atau tulis dokumen dengan pustaka zip apa pun: berkas asli adalah arsip zip berisi JSON.
+2. Jalankan pekerjaan yang sama untuk banyak order dengan `rajutara batch SCRIPT`: satu `@COMMAND /KEY=VALUE` per baris membuka marker, me-nesting-nya, menulis plot dan laporan, menyelesaikan Rencana Potong, atau mengekspor graded nest.
+3. Ulangi satu prosedur utuh, seperti mengimpor dan memeriksa pola atau mengoptimalkan marker, dengan `rajutara playbook`. Setiap run menyimpan catatan, jadi `replay` mengulangnya.
+4. Beri klien MCP alat yang sama dengan `rajutara mcp`.
+5. Baca atau tulis dokumen dengan pustaka zip apa pun: berkas asli adalah arsip zip berisi JSON.
 
 Panduan: [Headless dan skrip](../headless/).

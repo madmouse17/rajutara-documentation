@@ -85,6 +85,7 @@ Rajutara berlisensi `MIT OR Apache-2.0`. Kecuali Anda menyatakan lain secara eks
 | `i_overlay` | Operasi boolean poligon: pembersihan kampuh, buffer nesting, gabungan no-fit polygon |
 | `lyon_tessellation` | Mentriangulasi potongan cekung untuk penggambaran dan nesting |
 | `dxf`, `pdf-writer`, `zip`, `csv` | DXF ASTM, PDF vektor, wadah asli, laporan |
+| `calamine` | Membaca sheet `.xlsx` dan `.ods` (sejak 2.0.0); penulis `.xlsx` tetap milik Rajutara sendiri |
 | `serde`, `serde_json` | JSON dokumen |
 | `i18n-embed` | Terjemahan Fluent dengan pemeriksaan kunci saat kompilasi |
 | Mesa 3D | OpenGL perangkat lunak opsional di paket Windows |

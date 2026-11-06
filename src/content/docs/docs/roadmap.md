@@ -1,79 +1,93 @@
 ---
 title: Roadmap
-description: What 1.5.0 ships, what the specifications schedule and have not delivered, what Rajutara will not do, and the plan for v2.
+description: What 2.0.0 ships, its known limits, what wave D holds, and what Rajutara will not do.
 ---
 
-This page is the project plan in plain words. It has what 1.5.0 ships, what the specifications schedule and have not delivered, what is not planned, and the plan for v2, which was drawn up by measuring 1.0 against the features Optitex has added since release 15. The sources are `ROADMAP.md` and `docs/spec/08-v2-roadmap.md` in the repository, and the [parity checklist](../parity-checklist/) has the tool-by-tool view. What changed in each release is in the [changelog](../changelog/).
+This page is the project plan in plain words: what 2.0.0 ships, its known limits, what the next wave holds, and what is not planned. The sources are `ROADMAP.md`, [`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §8 and [`docs/spec/08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md) §3 in the repository. The [parity checklist](../parity-checklist/) has the tool-by-tool view, and the [changelog](../changelog/) what changed in each release.
 
 ## Phases
 
-| Phase | Delivers | In 1.5.0 |
+| Phase | Delivers | Status in 2.0.0 |
 |---|---|---|
-| 0 Foundation | Workspace, CI, core model with undo, native format, docking shell, English and Indonesian, `--version` and `--smoke` | Shipped |
-| 1a Import path | ASTM D6673 and AAMA-292 DXF and RUL import, Pieces panes, properties, seam allowance, plot to PDF (tiled A4, A0) and HPGL/2 | Shipped |
-| 1b Grade to marker | The Grading workspace, graded-nest and RUL export, the Marker workspace with manual placement, auto-nesting, the report and the marker plot | Shipped |
-| 1c Draw from scratch | Drafting, points, curves, darts, pleats, walk, trace, mirror, split and join, measure, text, internal lines | Shipped. The 89 PDS tools of 1.0 include the ones the specification tagged Phase 3: spiral, fullness, gusset, pleat lines, fold, remove excess cloth and extend in parallel. 1.5.0 brings the count to 101: Segment Editor, Track Lines, Wave, Deform Internals, Equal Segments, Fold Line to Line, Swap Piece Properties, Zones, Spread and Gather Pieces, Fabric And Stripes, Save and Restore Placement, Reopen Darts |
-| 2 Cut planning | The Cut Plan workspace, orders, lay planning, consumption and cost, reports, ply modes, the Cut Order | Shipped in the Cut Plan workspace, with Cut Order and fabric rolls. 1.5.0 adds to the Marker workspace the Cutting Order and Optimize Cut Order, the Tubular, Faced and Folded ply modes, the text tool and bump and cut lines |
-| 3 Production extras | Stripe and plaid matching, tilt, piece buffers by side, block fuse, flaws, cross grading, multi-material spreading | Started early. Shipped in 1.5.0: block fuse with Cluster Pieces, Insert to Hole, the Auto Nest Queue, flaws, Substitute Size, Single Piece Gap, Stack Along Line and the Custom seam corner. Open: stripe and plaid matching (PDS already stores the stripe data), tilt, buffers by side, cross grading, multi-material spreading |
+| 0 Foundation | Workspace, CI, core model with undo, native format, docking shell, English and Indonesian, `--version` and `--smoke` | Shipped in 1.0.0 |
+| 1a Import path | ASTM D6673 and AAMA-292 DXF and RUL import, Pieces panes, properties, seam allowance, plot to PDF (tiled A4, A0) and HPGL/2 | Shipped in 1.0.0 |
+| 1b Grade to marker | The Grading workspace, graded-nest and RUL export, the Marker workspace with manual placement, auto-nesting, the report and the marker plot | Shipped in 1.0.0 |
+| 1c Draw from scratch | Drafting, points, curves, darts, pleats, walk, trace, mirror, split and join, measure, text, internal lines | Shipped. 89 PDS tools in 1.0.0, 101 since 1.5.0: Segment Editor, Track Lines, Wave, Deform Internals, Equal Segments, Fold Line to Line, Swap Piece Properties, Zones, Spread and Gather Pieces, Fabric And Stripes, Save and Restore Placement, Reopen Darts |
+| 2 Cut planning | The Cut Plan workspace, orders, lay planning, consumption and cost, reports, ply modes, the Cut Order | Shipped in 1.0.0 and 1.5.0. 2.0.0 adds Purchase Orders, several Styles and Materials per plan, Spreading Groups, Cutting Tables, roll grouping, the Fabric Room and Customize Report |
+| 3 Production extras | Stripe and plaid matching, tilt, piece buffers by side, block fuse, flaws, cross grading, multi-material spreading | Shipped. Block fuse, flaws, Substitute Size and Single Piece Gap in 1.5.0; stripe and plaid matching, tilt, buffers by side, folded placement, size variations, Cross Grading, Measurement Charts and multi-material spreading in 2.0.0 |
+| v2.0 | V1 to V9: nesting engine v2, Marker constraints, stripes, headless batch, Purchase Orders, Measurement Charts, per-size drill holes and texts, PDS refinements, DXF output options | Shipped in 2.0.0 (wave C) |
+| v2.x | X1 to X14 | X1, X2, X5, X8 and X11 in 1.5.0; X3, X4, X6, X7, X9, X10, X13 and X14 in 2.0.0. X12 is partial: Fold Line to Line and Swap Piece Properties are built, multi-target 2D tools are not |
+| Agent command layer | `rajutara batch`, `rajutara mcp`, playbooks, the knowledge index, assistant memory and prompt files | Shipped in 2.0.0, with no model call. The in-app assistant is wave D |
 | 4 and later, 3D | 3D garment simulation, only after the decision to leave it out is replaced | Interface contract only |
 
-## Known limits in 1.5.0
+## Known limits in 2.0.0
 
-- Windows 7 builds are verified under Wine and by the import-table check only. The run on real Windows 7 hardware is pending. See [Windows 7](../windows-7/).
-- 3D is interface-only. There is no 3D window.
-- Vendor cutter drivers are not included. The marker writes one generic HPGL/2 cut file.
+Platform and files:
+
+- Windows builds are verified under Wine and by the import-table check only. The run on real Windows 7 hardware is pending. See [Windows 7](../windows-7/).
+- Files saved by 2.0.0 are native format 3. Rajutara 1.5.x and older refuse them, so every PC that shares files must update at the same time. 2.0.0 opens older files.
+- 3D is interface-only. Vendor cutter drivers are not included; the Marker writes one generic HPGL/2 cut file and a generic DXF.
 - The Indonesian strings are unconfirmed: every English string has an Indonesian one, and CI checks that, but no Indonesian-speaking Operator has reviewed the wording.
-- Marker: a Cluster or Fuse Block only translates, so turning or flipping one is refused, and waiting pieces cannot be clustered. The cut file cuts a Fuse Block as its border alone, with no second file for the block contents, no tool or layer per sequence and no overlap. Insert to Hole moves one piece per drag. The Auto Nest Queue has one engine, no queue files and no headless run.
-- PDS: Dynamic Input works in Draft only, and Polar Tracking has fixed 45° steps. A Point Name is kept in the file but not drawn or written to DXF. Walk's Support Notch has no Reconnect and no Grading Walking.
-- PDS: the Segment Editor has no pane and no Use Darts. Track lines last for the session and cannot be snapped to. Equal Segments has no group window and no Options. Fabric And Stripes stores and draws the stripe data, but nothing is matched yet. Swap Zone Segment and Move Piece On Piece are not built, because no public description says what they do. A spread piece turned by Arrange For Plot lays its copies in its turned frame.
-- Marker: half pieces are nested unfolded in Tubular and Folded. Substitute Size takes the next size only. Flaws are not plotted. Bump and cut lines have no Lock or OpStop. The Marker Creation Wizard has no Overlay properties. Marker plot labels do not follow the PDS one-line label layout.
-- Files stay at format version 2. A 1.4.0 build opens a file with any of the 1.5.0 content (clusters, Fuse Blocks, a cutting order, point names, Equal Segments Groups, zones, bump or cut lines, flaws, marker texts) but drops it, and it does not open a Style that uses Stack Along Line.
 
-## Scheduled by the specifications, not delivered
+PDS and Grading:
 
-- **Marker.** Tilt, stripe and plaid matching and piece buffers by side (Phase 3), and placing half pieces on the fold edge in Tubular and Folded (v2). A choice of nesting engine waits for a second engine, and bundle grouping for the shading groups of v2. Auto Save of Markers, which splits one order over several markers, waits for the batch work of v2.
-- **Grading.** Multi-dimensional size systems, cross grading by merging style files and measurement charts are Phase 3.
-- **PDS.** The Segment Editor pane and Use Darts, Snap To Track Lines, and the Equal Segments Options and group window are deferred. The Seam and Stitch Manager belongs to 3D.
-- **Cut Plan.** Spreading groups that mix materials, a fabric-room inventory shared between plans, roll groups by width and shrinkage with their own markers, several cutting tables per material and several styles in one plan.
+- The Segment Editor has no pane and no Use Darts. Track Lines last for the session and cannot be snapped to. Equal Segments has no group window and no Options. Swap Zone Segment and Move Piece On Piece are not built, because no public description says what they do.
+- Dynamic Input works in Draft only, and Polar Tracking has fixed 45° steps. A Point Name is kept in the file but not drawn or written to DXF. Walk's Support Notch has no Reconnect and no Grading Walking.
+- Pleat Lines follow Rajutara's own rules, since no public source gives their geometry. Custom special notch forms are not built. A Style Set cannot be renamed once made.
+- The Production Sheet's chart tables show measured values only, and its Date is the day of printing.
+- A size variation reaches Markers and Cut Plans only after Reshape Variation Grading. The Rule Table belongs to the main sizes.
+- Preferences search matches the interface language and English, not the other interface language.
+
+Marker:
+
+- Advanced is the default Algorithm since the benchmark decision run of ADR-0019 passed, so a Marker nested again can come out different from 1.5.x. Choose Standard in Auto Nesting Setup, or `@NEST /AL=QUA`, for the 1.x engine.
+- Auto Nesting never folds a piece by itself; Place Folded is manual. A folded pair is one shared shape, so it cannot be moved, shot or turned until it is unfolded.
+- Only a lone piece snaps to the stripes; a selection or a cluster moves as dragged. Diagonal stripe measurements, variable stripe colours, Revise Pieces Placements and floral prints are not built.
+- One piece buffer serves every size, and the buffered outline cannot be edited point by point.
+- Additional Mixing, Optimize Last Bundles, Idle Time and the Nest++ engine names are not built. The Bundles Overlap fractions (5, 15 and 30 %) and the lane of each Bundle are Rajutara's own choices.
+- Auto Save Of Markers names its files `<file>-1.rjm`, `<file>-2.rjm`, not Optitex's `MARKER-n`.
+- Customize Excel Report changes the Excel and PDF reports, not the Report pane on screen.
+- Still open from 1.5.0: a Cluster or Fuse Block only translates; the cut file cuts a Fuse Block as its border alone and has no tool or layer per sequence; Insert to Hole moves one piece per drag; Substitute Size takes the next size only; flaws are not plotted; bump and cut lines have no Lock or OpStop; the Marker Creation Wizard has no Overlay properties; the Text Tool has no Quality Text.
+
+Cut Plan:
+
+- All Purchase Orders share one Cut Order and one set of rolls, PO after PO. A marker never mixes Styles.
+- A Fabric Room row is changed by removing it and adding it again. The first step of the Create New wizard offers no Material or Style Set choice.
+- The Cut Order is worked out again on every frame, so a plan with a very large number of Fabric Rolls slows the pane.
+
+Agent command layer:
+
+- 2.0.0 makes no model call. Prompt assembly, redaction and the answer templates are built and tested, but nothing sends a prompt.
+- MCP has no confirmation inside the client: outside an approved playbook checkpoint, a save, overwrite, delete or discard answers `confirmation_required` unless the server runs with `--yes`.
+- `rajutara batch` prints its output at the end of the run; the `--log` file is written line by line.
+- The 13 values of the workshop profile `profil-bengkel.toml` have no source yet and are reported as "perlu konfirmasi operator" until the shop fills them in.
+- The knowledge index reads PDFs with a text layer only, loads the whole index on every call, and can lose one of two adds made at the same time.
+- A playbook replay gives the same nesting result only with an iteration stop and one thread.
+
+## Wave D
+
+Each item needs its own design; wave C leaves only the hooks.
+
+- An assistant pane in the window: threads, step and result cards with before and after thumbnails, approval cards, and a composer with attachments.
+- A model that chooses a playbook, fills its parameters and handles issues.
+- Quick-action buttons, a playbook runner and scenario comparison in the window.
+- A role switch and role-aware menus in the window.
+- Knowledge skills for pattern making, grading, markers, the cutting room, materials, QC and file exchange, built on the prompt files, memory and the knowledge index.
+- A model runtime: a default model setting (off until set), Ollama detection, and constrained output through Ollama `format` and llama.cpp grammars.
+- Token budget and cost display.
+- A local GUI socket, with a token and off by default.
+- A preview of every prompt before it goes to a cloud model.
+- Memory review and learning triggers, feedback on answers, and assistant documentation pages.
+- Voice input.
+- Tracing a draft piece from a calibrated photo (experimental).
+- An evaluation runner over an opt-in local folder of the owner's files.
+- Confirmations inside the MCP client.
 
 ## Not planned
 
-- Vendor cutter drivers, digitizer drivers, a cloud service and the batch scripting of Optitex.
+- Vendor cutter drivers, digitizer drivers and a cloud service.
 - Reading or writing Optitex native formats. The project is clean-room, so no Optitex file is ever opened.
-- Running a Cut Plan from the command line.
-
-## v2
-
-The plan for the release after 1.0 was drawn up on 2026-11-01. It ranks work by what an Operator gains in daily PDS, grading, marker and cut-plan work, and by whether it fits the constraints: egui with the `glow` renderer, Linux first, the Windows 7 floor and the memory budgets. Nothing in it needs more than OpenGL 2.1, and nothing in it drops Windows 7. Several later Optitex features build on features of Optitex 15 that 1.0 deferred, such as buffers per side, shading groups, flaws and stripe and plaid matching, so v2 takes each prerequisite together with the feature that needs it.
-
-### v2.0, the must items
-
-| Item | What it is | Value | Size |
-|---|---|---|---|
-| Nesting engine v2 | The published overlap-minimisation search on top of the existing engine, a live efficiency log as CSV, and interim marker saves. It becomes the default only if it beats 1.0 on the benchmark within the time limit and the 32-bit memory cap. | High | Large |
-| Marker constraints | Buffers per edge, bundle grouping, shading groups and table areas. | High | Large |
-| Stripe and plaid matching | Match points, fabric repeat and tilt on the marker. It starts after the marker constraints. | High | Extra large |
-| Headless batch | `rajutara batch SCRIPT` runs a script of commands, one per line, with no window: import, export, nesting queue, report, plot. A closed command list, with no variables or loops. | High | Medium |
-| Cut Plan per purchase order | Several purchase orders per plan, each with its own quantities, markers and plies, shown side by side. | High | Medium |
-| Measurement chart | Points of measure per size taken from the pattern, a buyer's spec imported from CSV and an out-of-spec report. It checks; it does not resize. | High | Medium |
-| Per-size drill holes and text | Fewer buttons on the small sizes of a shirt. This brings native format version 3. | Medium | Medium |
-| PDS refinements | Notch presets with a top width, filters by dimension, automatically renumbered copies, segment length from both ends, and a warning before switching between sew and cut. | Medium | Medium |
-| Output options | True L-notch geometry in DXF as an option, and a generic DXF export of the marker with the piece names and one colour per bundle. | Medium | Small |
-
-Marker constraints, the nesting engine and the batch commands share work and run first; the Cut Plan, measurement chart and per-size items are independent. The three items that change the native model share one bump to format version 3, with a migration from format 2, and newer files are refused rather than truncated.
-
-### v2.x, the should items
-
-Several materials and styles per Cut Plan, with a shared fabric-room inventory. A production sheet PDF with the annotated layout and tech-pack basics. A column chooser for reports. Preferences search. A piece-name dictionary for plot labels, for example English to Indonesian. Style sets and search. Multi-target 2D tools. Parent references kept on new grade points. XLSX import for the measurement chart and orders.
-
-Shipped early, in 1.5.0: flaws with a flaw-list import and Remove Pieces Hitting Flaws, bump and cut lines, the Marker Creation Wizard, track lines, the piece label layout in PDS, Fold Line to Line and Swap Piece Properties, and Report to Excel as an `.xlsx` workbook. The batch commands for flaws and bump lines wait for headless batch.
-
-### Out of scope for v2
-
-Cloth simulation, rendering, animation and avatars. A 3D preview: it would reproduce none of what Operators use 3D for and could not judge fit, and it needs a frame rate on OpenGL 2.1 that has not been measured. Cloud sync and hosted features. PLM connectors. Converters for Lectra, Gerber or Optitex native files. Adobe Illustrator plug-ins. Print and cut end to end. Vendor cutter and projector dictionaries. The operating system's own file dialogs.
-
-### Decisions the owner has to make
-
-Headless batch reverses two earlier statements, that batch scripting is not mirrored and that Cut Plan has no command line, so it needs a recorded decision with a closed command list. A generic DXF export of the marker goes beyond the PDF and HPGL/2 that markers write today. The native format version 3 is one bump for all v2 model changes. The nesting engine is the project's own code of the published method, unless it fails the benchmark gate.
+- Parametric garment templates and made-to-measure resizing.
+- The batch commands `@CHNT` and `@CHBTN`, the Nest++ names, Idle Time and automatic folding (`/AF`): there is no public behaviour to follow.
 
 Want to take an item? Open an issue first, as [Contributing](../contributing/) asks.

@@ -1,6 +1,6 @@
 ---
 title: Format berkas
-description: DXF ASTM D6673 dan AAMA-292, ASTM RUL, HPGL/2, PDF, CSV, workbook Excel, serta berkas asli style, marker, dan cut plan.
+description: DXF ASTM D6673 dan AAMA-292, ASTM RUL, HPGL/2, PDF, CSV, workbook Excel dan OpenDocument, serta berkas asli style, marker, dan rencana potong.
 ---
 
 Rajutara bertukar pola lewat standar terbuka dan menyimpan pekerjaannya sendiri dalam zip dan JSON biasa. Rajutara tidak pernah membaca atau menulis format berkas Optitex.
@@ -8,12 +8,14 @@ Rajutara bertukar pola lewat standar terbuka dan menyimpan pekerjaannya sendiri 
 | Format | Arah | Dipakai untuk |
 |---|---|---|
 | DXF ASTM D6673 dan AAMA-292 | Impor dan ekspor | Pola dan graded nest |
+| DXF rilis 12 | Ekspor | Isi plot PDS dan isi plot Marker (Export to CAD/CAM Files) |
 | ASTM RUL | Impor dan ekspor | Aturan grade di samping DXF graded nest |
 | HPGL/2 | Ekspor | Berkas plotter dan berkas potong marker |
-| PDF | Ekspor | Ubin A4, satu lembar A0, atau satu halaman A4; marker dan laporan |
-| CSV | Impor dan ekspor | Masuk: jumlah order, gulungan kain, dan daftar cacat marker; keluar: laporan Cut Plan |
-| Workbook Excel (`.xlsx`) | Ekspor | Report to Excel di PDS dan Marker |
-| `.rjx`, `.rjm`, `.rjc` | Buka dan simpan | Style, Marker, dan Cut Plan: zip dan JSON, format 2 |
+| PDF | Ekspor | Ubin A4, satu lembar A0, atau satu halaman A4; marker, laporan, dan Production Sheet |
+| CSV | Impor dan ekspor | Masuk: jumlah order, gulungan kain, Fabric Room, spesifikasi ukur, Piece Name Dictionary, dan daftar cacat marker; keluar: laporan |
+| Workbook Excel (`.xlsx`) | Impor dan ekspor | Keluar: Report to Excel, laporan Measurement Chart, Fabric Room, dan Piece Name Dictionary; masuk: jumlah, gulungan kain, Fabric Room, spesifikasi ukur, dan Piece Name Dictionary |
+| Spreadsheet OpenDocument (`.ods`) | Impor | Jumlah, gulungan kain, Fabric Room, spesifikasi ukur, dan Piece Name Dictionary |
+| `.rjx`, `.rjm`, `.rjc` | Buka dan simpan | Style, Marker, dan Rencana Potong: zip dan JSON, format 3 |
 
 Ekstensi lama `.optx`, `.optm`, dan `.optc` juga bisa dibuka. [Galeri](/rajutara-documentation/id/gallery/) menyediakan contoh kaos dalam sebagian besar format di atas.
 
@@ -21,7 +23,9 @@ Ekstensi lama `.optx`, `.optm`, dan `.optc` juga bisa dibuka. [Galeri](/rajutara
 
 Style, marker, dan cut plan masing-masing adalah satu arsip zip dengan dua entri: `manifest.json`, yang menyebut format dan versinya, dan `document.json`, yang memuat isinya. Satuan panjang adalah milimeter. Marker menyematkan style yang dipakainya, jadi marker terbuka tanpa berkas style. Masukan yang sama dan pengaturan yang sama menghasilkan berkas yang identik byte demi byte. Berkas yang ditulis oleh versi format yang lebih baru ditolak, tidak pernah dipotong. Penyimpanan bersifat atomik dan menyimpan berkas sebelumnya sebagai `.bak`. [Headless dan skrip](../headless/) menunjukkan cara membacanya dengan beberapa baris Python.
 
-Formatnya masih versi 2 di 1.5.0. Rilis yang lebih baru menambahkan kunci opsional; berkas tanpa kunci itu dimuat seperti sebelumnya, dan saat disimpan tidak mendapat kunci baru:
+Rajutara 2.0.0 menulis format native 3 ([ADR-0018](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0018-native-format-3.md)). Rajutara membuka berkas format 2 dan yang lebih lama dan memigrasinya saat dimuat: Style atau Marker mempertahankan isinya, dan Rencana Potong menjadi rencana dengan satu Purchase Order yang memuat order, marker, dan Lay lama. Rajutara 1.5.x dan yang lebih lama menolak berkas format 3 dengan "made by a newer rajutara (format version 3; this build reads up to 2)". Bila beberapa PC berbagi berkas, perbarui semuanya bersamaan.
+
+Di dalam format 2, rilis 1.4.0 dan 1.5.0 menambahkan kunci opsional. Berkas tanpa kunci itu dimuat seperti sebelumnya:
 
 | Kunci | Sejak | Isinya |
 |---|---|---|
@@ -34,7 +38,7 @@ Formatnya masih versi 2 di 1.5.0. Rilis yang lebih baru menambahkan kunci opsion
 | `stripe_group`, `stripe_point` di aturan potong sebuah potongan | 1.5.0 | Stripe Group dan titik belang. |
 | `one_line`, `separator` di label potongan | 1.5.0 | Tata letak label satu baris. |
 
-Buka berkas yang memakai kunci ini dengan 1.5.0 atau yang lebih baru. Build 1.4.0 membukanya tetapi membuang isi itu, jadi menyimpan di sana menghilangkannya, dan menolak Style yang Graded Nest-nya memakai Stack Along Line.
+Build 1.4.0 membuka berkas 1.5 tetapi membuang isi itu, jadi menyimpan di sana menghilangkannya, dan menolak Style yang Graded Nest-nya memakai Stack Along Line.
 
 ## DXF ASTM D6673 dan AAMA-292
 
@@ -51,9 +55,13 @@ Rajutara membaca dan menulis DXF ASTM D6673-10, AutoCAD R13, dengan satu blok pe
 | 7 | Garis serat | 84 sampai 87 | Kurva validasi kualitas untuk layer 1, 8, 11, dan 14 |
 | 8 | Garis dalam, tidak dipotong | | |
 
-Spesifikasi AAMA-292 tidak dibuka untuk umum, jadi Rajutara membaca dan menulisnya dengan aturan yang sama dengan ASTM. Setiap impor mencantumkan apa yang tidak bisa dipertahankan: tidak ada yang dibuang diam-diam. Saat ekspor, bentuk notch yang tidak punya layer di AAMA ditulis sebagai V atau I dengan peringatan.
+Spesifikasi AAMA-292 tidak dibuka untuk umum, jadi Rajutara membaca dan menulisnya dengan aturan yang sama dengan ASTM. Setiap impor mencantumkan apa yang tidak bisa dipertahankan: tidak ada yang dibuang diam-diam. Saat ekspor, bentuk penandaan yang tidak punya layer di AAMA ditulis sebagai V atau I dengan peringatan. Export Graded Nest punya opsi L-notches as L shapes, mati secara bawaan: penandaan L lalu juga menulis garis tepi berbentuk L sebagai polyline di samping titiknya.
 
-DXF membawa ukuran sampel dan titik grade. Aturan grade masuk ke berkas RUL, atau seluruh style yang sudah di-grade keluar sebagai graded nest dengan satu blok per ukuran. Kedua pilihan ada di dialog ekspor.
+DXF membawa ukuran sampel dan titik grade. Aturan grade masuk ke berkas RUL, atau seluruh style yang sudah di-grade keluar sebagai graded nest dengan satu blok per ukuran. Kedua pilihan ada di dialog ekspor. Lubang bor atau teks yang hanya ada di sebagian ukuran ditulis per ukuran di graded nest; DXF Base Size dengan berkas aturan tidak bisa memuat ini, jadi ia menulis semua lubang dan teks utama dan menyebutkannya di catatan ekspor.
+
+## DXF plot
+
+Dialog Plot PDS punya target DXF, dan Marker punya File, Export to CAD/CAM Files…. Keduanya menulis DXF rilis 12 dalam milimeter dari isi yang sama dengan plot: garis potong, garis dalam, penandaan, lubang bor, garis serat, dan label sebagai teks, ditambah bingkai meja untuk Marker. Ada satu layer per jenis elemen. Ekspor Marker memberi setiap Bundle warnanya sendiri; plot PDS mengambil warnanya dari pena Plotter Setup. Dengan Translate piece names menyala, label mencetak terjemahan setiap nama dari Piece Name Dictionary ([ADR-0017](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0017-marker-dxf-output.md)).
 
 ## ASTM RUL
 
@@ -90,8 +98,10 @@ Potongan dan marker diplot sebagai PDF vektor. Lembarnya A0, atau ubin A4 untuk 
 
 ## CSV
 
-Laporan dan daftar berupa UTF-8, dengan `.` sebagai tanda desimal dan `,` di antara kolom. Jumlah order diimpor dari CSV dengan baris judul, warna di kolom pertama dan satu kolom per nama ukuran. Daftar cacat marker punya satu baris `x_from,y_from,x_to,y_to` per cacat, dalam milimeter. Laporan Cut Plan menulis satu berkas per bagian.
+Laporan dan daftar berupa UTF-8, dengan `.` sebagai tanda desimal dan `,` di antara kolom. Jumlah order diimpor dari CSV dengan baris judul, warna di kolom pertama dan satu kolom per nama ukuran. Daftar cacat marker punya satu baris `x_from,y_from,x_to,y_to` per cacat, dalam milimeter. Laporan Rencana Potong menulis satu berkas per bagian; dengan beberapa Purchase Order berkasnya bernama `<stem>-<po>-<part>.csv`. Auto Nesting Marker juga bisa menulis log efisiensi, `<stem>-nesting.csv`, dengan `time_s,length_mm,efficiency_pct,placed`.
 
-## Workbook Excel
+## Workbook Excel dan OpenDocument
 
-Report to Excel menulis workbook `.xlsx`. Laporan PDS punya satu lembar kerja dengan potongan, kode, ukuran, jumlah, material, luas, serta keliling potong dan jahit. Laporan Marker punya satu lembar kerja per bagian, General, Order, Pieces, dan Notches, dengan angka sebagai sel angka. Rajutara menulis workbook itu sendiri, tanpa pustaka tambahan.
+Report to Excel menulis workbook `.xlsx`. Laporan PDS punya satu lembar kerja dengan potongan, kode, ukuran, jumlah, material, luas, serta keliling potong dan jahit. Laporan Marker punya satu lembar kerja per bagian, General, Order, Pieces, dan Notches, dengan angka sebagai sel angka; File, Customize Excel Report… memilih dan mengurutkan kolomnya. Rajutara menulis workbook itu sendiri.
+
+Jumlah dan Fabric Roll Rencana Potong, Fabric Room, spesifikasi Measurement Chart, dan Piece Name Dictionary membaca `.xlsx` dan `.ods` selain `.csv`. Hanya sheet pertama yang dibaca, dengan pustaka `calamine`. Pembacaan punya batas tetap: berkas di atas 20 MB, workbook yang terurai lebih dari 256 MB, `.xlsx` yang mendeklarasikan lebih dari 1 000 000 shared string, atau sel di luar baris 100 000 atau kolom 1 000 ditolak, dan paling banyak 1 000 000 sel dibaca. Workbook `.xls` lama tidak dibaca sama sekali; simpan sebagai `.xlsx` atau `.csv`.
