@@ -56,6 +56,7 @@ Wave C: butir v2.0 dari `docs/spec/08-v2-roadmap.md` §3.2, butir v2.x X3, X4, X
 ### Diubah
 - **Format native 3** (ADR-0018). Setiap Style, Marker, dan Rencana Potong yang disimpan rilis ini adalah format 3. rajutara 1.5.x dan yang lebih lama menolak berkas seperti itu dengan "made by a newer rajutara (format version 3; this build reads up to 2)" alih-alih membuang data. Berkas dari 1.5.x dan yang lebih lama terbuka seperti biasa, dan Rencana Potong lama menjadi satu Purchase Order. Aplikasi memperbarui dirinya sendiri, jadi perbarui setiap PC yang berbagi berkas pada saat yang sama.
 - Kartu sambutan menampilkan versi di samping nama, misalnya "Rajutara 1.5.1".
+- Judul jendela, Help › About, galat saat start, dan filter jenis berkas menulis nama "Rajutara" dengan R besar, seperti kartu sambutan. `rajutara --version` dan keluaran baris perintah tetap memakai nama program berhuruf kecil.
 - **"Cut Plan" kini dua kata** di menu, halaman preferensi, dan laporan: Generating a Cut Plan Report (CSV) dan (PDF); "Laporan Rencana Potong" dalam bahasa Indonesia. Palet perintah tetap menemukan ejaan Optitex.
 - **Geometri PDS yang dulu dihampiri kini tepat** (`docs/spec/02-pds.md` §12.6). Titik Build Piece pada Internal Line mengambil grading yang diinterpolasi sepanjang garis itu. Remove Excess Cloth memutar garis dalam, lubang bor, dan teks dari area yang dipindah bersama Grade Rule-nya. Convert Sew Internals To Seam memindahkan kup, lipit, dan garis cermin ke garis jahit baru, atau membiarkannya sebagai objek dalam dan menyebut alasannya. Penandaan yang jangkarnya dipasang ulang oleh suntingan titik tetap di tempatnya di setiap ukuran. Paste antar-Style dengan Base Size berbeda mempertahankan setiap ukuran di tempatnya. Extend in Parallel menyambung tetangga yang tidak terjangkau dengan langkah lurus dan menyebut titiknya. Pleat Lines mempertahankan geometrinya, karena tidak ada sumber publik yang menjelaskannya.
 - **Marker: bentuk jamak dan label UTC.** Hitungan terbaca "1 piece" dan "2 pieces". Kolom log Auto Save adalah `date_utc`, dan label laporan dan plot terbaca "Date (UTC)".
@@ -248,7 +249,7 @@ Wave C: butir v2.0 dari `docs/spec/08-v2-roadmap.md` §3.2, butir v2.x X3, X4, X
 
 ## [1.1.0] - 2026-11-01
 
-Namanya diganti dari Rajutara menjadi **Rajutara** (*rajut* = knit, *tara* = seimbang). Berkas asli kini `.rjx` / `.rjm` / `.rjc`; berkas lama tetap terbuka.
+Namanya diganti dari optirust menjadi **Rajutara** (*rajut* = knit, *tara* = seimbang). Berkas asli kini `.rjx` / `.rjm` / `.rjc`; berkas lama tetap terbuka.
 
 ### Ditambahkan
 - Splash saat start seperti LibreOffice: jendela kecil (640 × 262), di tengah, tanpa bingkai dengan karya seni pemilik, bilah kemajuan sungguhan, dan baris status (bahasa, ikon, modul, tata letak, setiap argumen berkas), ditampilkan setidaknya 600 md. Setelah itu berubah menjadi jendela ruang kerja dalam satu frame (dekorasi nyala, tanpa pudar). Ruang kerja terbuka **maksimal** pada run pertama; sesudahnya ukuran, posisi, dan status maksimal dari keluar terakhir dipulihkan dari `window.json` di direktori konfigurasi. `--smoke` tetap membuka satu jendela tetap 1280 × 800 tanpa menunggu, jadi `first_frame_ms` tetap mengukur waktu sampai kanvas siap dipakai.
