@@ -1,6 +1,6 @@
 ---
 title: Daftar paritas
-description: Apa yang ditemukan Operator terlatih Optitex 15 di Rajutara 2.0.0, modul demi modul.
+description: Apa yang ditemukan Operator terlatih Optitex 15 di Rajutara 2.1.0, modul demi modul.
 ---
 
 Apa yang ditemukan Operator terlatih Optitex 15 di rajutara, modul demi modul, per 2.0.0 (batch 0 serta gelombang A dan B, dirilis di 1.5.0 bersama perbaikan 1.5.1, dan gelombang C, dirilis di 2.0.0; lihat `CHANGELOG.md`). rajutara meniru pembagian modul, nama alat, dan workflow Optitex 15 ([`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §3); rajutara tidak menyalin berkas atau format Optitex apa pun ([ADR-0001](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0001-clean-room-no-reverse-engineering.md)).

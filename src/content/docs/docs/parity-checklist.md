@@ -1,6 +1,6 @@
 ---
 title: Parity checklist
-description: What an Operator trained on Optitex 15 finds in Rajutara 2.0.0, module by module.
+description: What an Operator trained on Optitex 15 finds in Rajutara 2.1.0, module by module.
 ---
 
 What an Operator trained on Optitex 15 finds in rajutara, module by module, as of 2.0.0 (batch 0 and waves A and B, released in 1.5.0 with the 1.5.1 fixes, and wave C, released in 2.0.0; see `CHANGELOG.md`). rajutara mirrors the module split, tool names and workflows of Optitex 15 ([`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §3); it does not copy any Optitex file or format ([ADR-0001](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0001-clean-room-no-reverse-engineering.md)).

@@ -7,6 +7,10 @@ All notable changes to rajutara. Format: [Keep a Changelog](https://keepachangel
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-11-07
+
+Wave D: the in-app assistant (`docs/spec/07-ui-shell.md` §16, ADR-0030 to ADR-0033). Files saved by this release are still native format 3, so 2.0.0 opens them.
+
 ### Added
 - **PDS: Add Slit Along Segment** (T102, `docs/spec/02-pds.md` §13.1, Design › Add). Places notches, buttons, lines, points or Grading Points along the selected segment, or between two selected points of one contour. You set how many (Number) and how far apart (Distance), or ask for as many as fit (Number 0) or By Equal Distance, clockwise or counter-clockwise, with Skip Darts and Points On Curve. Fields that do not apply to the chosen Type are disabled and say why. It is one undo step, and the objects follow the grading the way a point added on the contour does.
 - **Assistant pane** (`docs/spec/07-ui-shell.md` §16, ADR-0030, View › Assistant, `Ctrl+Shift+A`). A pane on the right of every workspace where you type a goal and a model works on the open documents through the same tools as `rajutara mcp`. Each step shows as a card: the tool and its result, Before and After pictures, and Undo for that change. Saves, overwrites, deletes, plans and playbook checkpoints wait for your Approve. Threads are kept on this computer, and the composer takes attachments. The assistant stays off until you choose a model; the first time you open the pane it looks for Ollama on this computer and lists its models.

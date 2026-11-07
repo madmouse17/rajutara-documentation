@@ -7,6 +7,10 @@ Semua perubahan penting pada rajutara. Format: [Keep a Changelog](https://keepac
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-11-07
+
+Wave D: asisten di dalam aplikasi (`docs/spec/07-ui-shell.md` §16, ADR-0030 sampai ADR-0033). Berkas yang disimpan rilis ini tetap format native 3, jadi 2.0.0 bisa membukanya.
+
 ### Ditambahkan
 - **PDS: Tambah Sayatan Sepanjang Segmen** (Add Slit Along Segment, T102, `docs/spec/02-pds.md` §13.1, Desain › Tambah). Menaruh penandaan, kancing, garis, titik, atau Titik Grading di sepanjang segmen terpilih, atau di antara dua titik terpilih pada satu kontur. Anda mengatur berapa banyak (Number) dan berapa jaraknya (Distance), atau meminta sebanyak yang muat (Number 0) atau By Equal Distance, searah atau berlawanan arah jarum jam, dengan Skip Darts dan Points On Curve. Isian yang tidak berlaku untuk Type yang dipilih dinonaktifkan dan menyebut alasannya. Semuanya satu langkah urungkan, dan objeknya mengikuti grading seperti titik yang ditambahkan di kontur.
 - **Panel asisten** (`docs/spec/07-ui-shell.md` §16, ADR-0030, Tampilan › Asisten, `Ctrl+Shift+A`). Panel di kanan setiap ruang kerja tempat Anda mengetik tugas dan model mengerjakan dokumen yang terbuka dengan alat yang sama dengan `rajutara mcp`. Setiap langkah tampil sebagai kartu: alat dan hasilnya, gambar Sebelum dan Sesudah, dan urungkan untuk perubahan itu. Simpan, timpa, hapus, rencana, dan checkpoint playbook menunggu Setujui dari Anda. Utas disimpan di komputer ini, dan kotak tulis menerima lampiran. Asisten mati sampai Anda memilih model; saat panel pertama kali dibuka, asisten mencari Ollama di komputer ini dan menampilkan modelnya.
