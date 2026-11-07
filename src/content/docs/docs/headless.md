@@ -1,9 +1,9 @@
 ---
 title: Headless and scripting
-description: Check a build with one command, run batch scripts, serve the MCP command layer, run playbooks, keep a local knowledge index and read documents with a zip library, from scripts, CI and batch jobs.
+description: Check a build with one command, run batch scripts, serve the MCP command layer, run playbooks, keep a local knowledge index, test a model with rajutara eval and read documents with a zip library, from scripts, CI and batch jobs.
 ---
 
-Scripts, CI jobs and batch runs can check a build and produce every output of the workflow without a person at the screen. This page covers the smoke check, batch scripts, the MCP server, playbooks, the knowledge index, the headless example and the documents themselves.
+Scripts, CI jobs and batch runs can check a build and produce every output of the workflow without a person at the screen. This page covers the smoke check, batch scripts, the MCP server, playbooks, the knowledge index, the eval runner, the headless example and the documents themselves.
 
 ## The command line
 
@@ -13,6 +13,7 @@ rajutara --version                  print the version, the git hash and the targ
 rajutara --smoke [FILE]             open the real window, render 60 frames, print one JSON line, exit 0
 rajutara batch SCRIPT [--log FILE] [--json]
 rajutara mcp [--tier basic|standard|advanced]
+rajutara mcp --gui
 rajutara playbook list | show NAME|FILE
 rajutara playbook start NAME|FILE [--param NAME=VALUE]... [--out DIR] [--profile FILE] [--model ID]
 rajutara playbook step|resume RUN_DIR [--approve | --choose ID]
@@ -20,9 +21,10 @@ rajutara playbook replay RUN_DIR [--force]
 rajutara playbook quick [ID [--param NAME=VALUE]...]
 rajutara playbook compare NAME|FILE STAGE --scenarios FILE.json [--time-s N] [--open FILE]...
 rajutara kb add FILE [--tag WORD]... | search WORDS... | list | remove ID
+rajutara eval DIR [--model ID] [--out DIR] [--case ID] [--allow-remote] [--role ROLE]
 ```
 
-`batch`, `mcp`, `playbook` and `kb` also take `--yes` (or `--yolo`), `--role ROLE` and `--root DIR`; [Safety](#safety-root-roles-approvals-and-backups) below explains them. These four run with no window. They print JSON or result lines on stdout and everything else on stderr, so a caller can read stdout line by line. They use the preferences of the user who runs them.
+`batch`, `mcp`, `playbook` and `kb` also take `--yes` (or `--yolo`), `--role ROLE` and `--root DIR`; [Safety](#safety-root-roles-approvals-and-backups) below explains them. These four run with no window. They print JSON or result lines on stdout and everything else on stderr, so a caller can read stdout line by line. They use the preferences of the user who runs them. `mcp --gui` takes no other option, and `eval` takes only `--role` of the three; both are described below.
 
 An unknown flag prints the usage and exits 1.
 
@@ -103,11 +105,15 @@ Scripts written for Rajutara are not guaranteed to run unchanged in Optitex, and
 rajutara mcp --root ~/orders --tier standard
 ```
 
-The command layer has 85 typed tools, each with a JSON schema for its input and output. They cover documents, PDS, grading, Marker, Cut Plan, costing (fabric consumption, cost per garment), QC checks, playbooks, the knowledge index and the assistant memory. `--tier basic|standard|advanced` limits the tools the server lists; advanced, the default, lists them all. Every change goes through the document's Undo, and one tool call is one undo step per document.
+The command layer has 87 typed tools, each with a JSON schema for its input and output. They cover documents, PDS, grading, Marker, Cut Plan, costing (fabric consumption, cost per garment), QC checks, playbooks, the knowledge index, the assistant memory, the release notes (`release_notes`) and the experimental `trace_from_photo`. `--tier basic|standard|advanced` limits the tools the server lists: 36, 77 or all 87. Advanced, the default, lists them all. Every change goes through the document's Undo, and one tool call is one undo step per document.
 
-The client gets no confirmation question of its own. Outside an approved playbook checkpoint, a save, overwrite, delete or discard answers `confirmation_required` unless the server was started with `--yes`.
+A save, overwrite, delete or discard, and a playbook checkpoint, need a person's approval. A client that speaks protocol 2026-07-28 and can show a form gets `input_required`: it asks its user and repeats the call with the answer and a signed state that works once and expires after 300 s. Other clients get `confirmation_required` unless the server was started with `--yes`. [MCP and the local socket](../assistant/mcp-and-socket/#confirmations-in-mcp-clients) has the details.
 
-The server itself makes no network call. The MCP client sends the tool results to its own model provider, so what a tool returns, piece names and order quantities included, leaves the PC if the client's model runs elsewhere. Rajutara 2.0.0 makes no model call of its own.
+The server itself makes no network call. The MCP client sends the tool results to its own model provider, so what a tool returns, piece names and order quantities included, leaves the PC if the client's model runs elsewhere.
+
+### Using the open window
+
+`rajutara mcp --gui` connects an MCP client to the running window instead of starting a session of its own. The client then works on the documents open in the window, with the role from its status bar, and each guarded change waits on a card in the assistant pane until the Operator approves or refuses it. The window listens only after Preferences › Assistant › Local programs is turned on; with no window listening, `mcp --gui` exits 1. [MCP and the local socket](../assistant/mcp-and-socket/) explains the switch, the token and the approvals.
 
 ## Playbooks
 
@@ -132,7 +138,7 @@ Every run keeps a record: the app version, the playbook version and hash, the wo
 
 A replay gives the same nesting result only when the nesting stops by iterations and runs on one thread; a time limit depends on the speed of the machine.
 
-**Workshop profile.** `profil-bengkel.toml` in the assistant folder holds the shop's standards, labelled in Indonesian: seam allowances, shrinkage, ply limits, piece buffer, efficiency target, nesting time and QC tolerances. Playbooks take their defaults from it, as `${profil.marker.target_efisiensi}` does. Without the file, a shipped template is used; `--profile FILE` names another. A value without a source is reported as "perlu konfirmasi operator" (needs operator confirmation). In 2.0.0 none of the 13 shipped values has a source yet.
+**Workshop profile.** `profil-bengkel.toml` in the assistant folder holds the shop's standards, labelled in Indonesian: seam allowances, shrinkage, ply limits, piece buffer, efficiency target, nesting time and QC tolerances. Playbooks take their defaults from it, as `${profil.marker.target_efisiensi}` does. Without the file, a shipped template is used; `--profile FILE` names another. A value without a source is reported as "perlu konfirmasi operator" (needs operator confirmation). In 2.1.0 none of the 13 shipped values has a source yet.
 
 **Memory.** A finished run remembers what it taught, such as failed checks and the Operator's choices, and says on stderr how many lessons it kept. Lessons, preferences, facts and corrections stay on this PC, in `memory/` of the assistant folder or in a project's `.rajutara/memory/`. Document and tool results come first, the workshop profile second and memory last: a memory that contradicts either is marked stale.
 
@@ -150,6 +156,16 @@ rajutara kb remove <id> --yes
 The search ranks words with BM25; there is no embedding model. The index lives in `kb/` of the assistant folder. Your files are read and never changed; `remove` moves only the extracted copy to `.rajutara-trash/`. A file over 50 MB is refused, a PDF with no text layer fails with "scanned PDF: no text layer", and an encrypted PDF is refused. A scanned manual needs OCR outside Rajutara first.
 
 Each call loads the whole index, and two `kb add` runs at the same moment can lose one of the two documents. Add documents one after another.
+
+## The eval runner
+
+`rajutara eval DIR` runs your own test cases against one model profile of the [assistant](../assistant/). Each subfolder of `DIR` with a `case.toml` is a case: a goal, the files to open, the approval policy and checks on the result. Every case runs on copies of its files, and nothing in `DIR` is written.
+
+```sh
+rajutara eval ~/eval-kasus --model ollama-qwen --out ~/eval-hasil
+```
+
+Each case prints one JSON line on stdout and the results go to `eval-<stamp>.jsonl` in the output folder (`evals/` of the assistant folder by default). Exit codes: 0 when every case passed, 2 when one failed, 1 for a refused command line or case folder. A model on another computer runs only with `--allow-remote`, and every request body is saved beside the results first. `eval` refuses `--yes`, `--yolo` and `--root`, because each case names its own approval. [Trace from photo and eval](../assistant/trace-and-eval/#eval-runner) describes the case file.
 
 ## Safety: root, roles, approvals and backups
 

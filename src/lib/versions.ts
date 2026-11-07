@@ -1,28 +1,47 @@
+import { getCollection } from 'astro:content';
+
 export interface DocVersion {
   slug: string;
   label: string;
   isLatest: boolean;
 }
 
-export const VERSIONS: DocVersion[] = [{ slug: '2.0', label: '2.0', isLatest: true }];
+export const VERSIONS: DocVersion[] = [
+  { slug: '2.1', label: '2.1', isLatest: true },
+  { slug: '2.0', label: '2.0', isLatest: false },
+];
+
+const DEFAULT_BASE = '/rajutara-documentation';
 
 export function getLatestVersion(): DocVersion {
   return VERSIONS.find((v) => v.isLatest) ?? VERSIONS[0];
 }
 
-export function getVersionFromPath(
-  pathname: string,
-  base: string = '/rajutara-documentation',
-): DocVersion {
+/** The ids of every page in the docs collection, e.g. `docs/2.0/workspaces/pds` or `id/docs/assistant`. */
+export async function getDocIds(): Promise<Set<string>> {
+  return new Set((await getCollection('docs')).map((entry) => entry.id));
+}
+
+function stripBase(pathname: string, base: string): string {
   const cleanBase = base.replace(/\/+$/, '');
   let rel = pathname;
   if (cleanBase && rel.startsWith(cleanBase)) {
     rel = rel.slice(cleanBase.length);
   }
-  if (!rel.startsWith('/')) {
-    rel = '/' + rel;
-  }
+  return rel.startsWith('/') ? rel : '/' + rel;
+}
 
+/** Whether a site path (with or without the base) is a page of the docs collection. */
+export function hasDocPage(
+  pathname: string,
+  docIds: ReadonlySet<string>,
+  base: string = DEFAULT_BASE,
+): boolean {
+  return docIds.has(stripBase(pathname, base).replace(/^\/+|\/+$/g, ''));
+}
+
+export function getVersionFromPath(pathname: string, base: string = DEFAULT_BASE): DocVersion {
+  const rel = stripBase(pathname, base);
   const match = rel.match(/^(?:\/id)?\/docs\/(\d+\.\d+)(?:\/.*)?$/);
   if (match) {
     const slug = match[1];
@@ -34,19 +53,18 @@ export function getVersionFromPath(
   return getLatestVersion();
 }
 
+/**
+ * The same page in another version. With `docIds`, a page that the target version does not have
+ * resolves to that version's docs index instead of a 404.
+ */
 export function getPathForVersion(
   pathname: string,
   targetVersionSlug: string,
-  base: string = '/rajutara-documentation',
+  docIds?: ReadonlySet<string>,
+  base: string = DEFAULT_BASE,
 ): string {
   const cleanBase = base.replace(/\/+$/, '');
-  let rel = pathname;
-  if (cleanBase && rel.startsWith(cleanBase)) {
-    rel = rel.slice(cleanBase.length);
-  }
-  if (!rel.startsWith('/')) {
-    rel = '/' + rel;
-  }
+  const rel = stripBase(pathname, base);
 
   const isId = rel.startsWith('/id/docs');
   const docsPrefix = isId ? '/id/docs' : '/docs';
@@ -58,18 +76,14 @@ export function getPathForVersion(
   const remainder = rel.slice(docsPrefix.length);
   const versionMatch = remainder.match(/^\/(\d+\.\d+)(\/.*)?$/);
   const pathWithoutVersion = versionMatch ? versionMatch[2] || '/' : remainder || '/';
+  const page = pathWithoutVersion.startsWith('/') ? pathWithoutVersion : '/' + pathWithoutVersion;
 
   const targetVersion = VERSIONS.find((v) => v.slug === targetVersionSlug);
-  const isTargetLatest = targetVersion ? targetVersion.isLatest : false;
+  const versionRoot = targetVersion?.isLatest ? docsPrefix : `${docsPrefix}/${targetVersionSlug}`;
 
-  let newRel: string;
-  if (isTargetLatest) {
-    newRel = `${docsPrefix}${pathWithoutVersion.startsWith('/') ? pathWithoutVersion : '/' + pathWithoutVersion}`;
-  } else {
-    const cleanRemainder = pathWithoutVersion.startsWith('/')
-      ? pathWithoutVersion
-      : '/' + pathWithoutVersion;
-    newRel = `${docsPrefix}/${targetVersionSlug}${cleanRemainder === '/' ? '/' : cleanRemainder}`;
+  let newRel = `${versionRoot}${page}`;
+  if (docIds && !hasDocPage(newRel, docIds, '')) {
+    newRel = `${versionRoot}/`;
   }
 
   return cleanBase ? `${cleanBase}${newRel}` : newRel;

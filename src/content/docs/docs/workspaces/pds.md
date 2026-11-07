@@ -1,6 +1,6 @@
 ---
 title: PDS, pattern design
-description: Import or draft pieces, edit points, notches and seams, group pieces in Style Sets, check lengths and plot. The PDS workspace and its 101 tools.
+description: Import or draft pieces, edit points, notches and seams, group pieces in Style Sets, check lengths and plot. The PDS workspace and its 102 tools.
 ---
 
 PDS is where pieces come from. Import them from an ASTM or AAMA DXF, or draw them, then edit points, notches, seams and internal lines, check segment lengths, and plot the pieces at 1:1.
@@ -42,7 +42,7 @@ A selected segment, or two adjacent selected points, shows a Segment section in 
 
 ## Tools
 
-There are 101 tools, in the groups the toolbars and menus use.
+There are 102 tools, in the groups the toolbars and menus use.
 
 | Group | Examples |
 |---|---|
@@ -52,7 +52,7 @@ There are 101 tools, in the groups the toolbars and menus use.
 | New pieces | Rectangle, polygon, circle, sector and arc pieces, spiral, pieces from the zones of a map |
 | Drafting and points | Draft (`D`), arc (`A`), add a point on the contour (`O`), move a point (`M`), multi move (`Q`) |
 | Contour | Align points, round corner, cut corner, smooth, points cleanup, Extend and Extend in Parallel, Wave Tool, Segment Editor, Equal Segments |
-| Notches and internals | Notch (`N`), notch on a point, text, trim, extend, move and select internal lines, Deform Internals |
+| Notches and internals | Notch (`N`), notch on a point, Add Slit Along Segment, text, trim, extend, move and select internal lines, Deform Internals |
 | Seams | Add seam (`S`), remove seam, reseam, show seam, switch between cut and sew, Set Basic Seam, the Custom seam corner |
 | Split, join and fold | Cut, join pieces, join contours, build a piece, trace segments, Fold Line to Line |
 | Darts, pleats and fullness | Dart (`Ctrl+Alt+D`), pleat (`L`), add fullness, gusset, Reopen Darts |
@@ -62,7 +62,7 @@ Press `Ctrl+Shift+P` to find a tool by name instead of by key. A tool that needs
 
 Every notch has a shape (V, T, I, L, U or Box), a depth and a width. I is the straight slit. A grainline is a directed line the marker uses to turn the piece along the fabric. The seam allowance has a width per segment: the cutting contour is the sewing contour plus the allowance.
 
-The [parity checklist](../../parity-checklist/) lists all 101 tools one by one. Inside a submenu an item shows the Optitex caption where it differs from the tool name, for example Piece, Info or Contour, Smooth Segment; toolbars, tooltips, the command palette and right-click menus keep the full name.
+The [parity checklist](../../parity-checklist/) lists all 102 tools one by one. Inside a submenu an item shows the Optitex caption where it differs from the tool name, for example Piece, Info or Contour, Smooth Segment; toolbars, tooltips, the command palette and right-click menus keep the full name.
 
 ## Drafting with typed values
 
@@ -78,6 +78,7 @@ The other tools keep their `Alt+click` dialogs.
 - **Add Point on Contour** (`O`) shows the spot, the distance from the previous point, the distance to the next point and the ratio before you click. For a point in the middle of a segment, `Alt+click` and choose Proportional 0.5. Add Point at Midpoint is gone, because Optitex has no such command.
 - **Point Name.** The Add Point on Contour dialog has a Point Name field. Point Properties has a Name row for selected contour points and Internal Line points. The name is saved in the `.rjx`. It is not drawn and not written to DXF.
 - To put a slit in the middle of a segment, arm the Notch Tool and `Alt+click` the segment. In Notch Properties choose Type I, a Depth, Direction Perpendicular and Relationship Proportional with 0.5. The plot, the DXF (layer 4) and the cut file carry it as a slit notch.
+- **Add Slit Along Segment** (Design › Add) lays several objects of one kind along a contour run. Select one segment or a run of consecutive segments, or two points of one contour; the run then goes clockwise from the first point to the second. In the dialog, Type is Notch, Button (a drill hole), Line (an internal line), Point or Grading Point. Number places that many objects Distance apart, starting from the end that Direction (Clockwise or Counter-clockwise) enters first, and Number 0 places as many as fit. By Equal Distance, on at first, splits the run into Number + 1 equal parts instead. Skip Darts leaves the darts on the run out of the count, and Points On Curve also puts curve points on the curves of the run. Length/Radius, Angle, Start Point, Notch Type, Notch Width, Notch Top Width and Command apply only to the types that have them; a field that does not apply is disabled and says why. OK waits until the objects fit: at most 999 of them, at least 0.2 mm apart. The objects follow the grading the way a point added on the contour does, and the command is one undo step.
 - **Notch presets.** The Notch Tool dialog and Notch Properties have Preset and Save as Preset…. A preset keeps the shape, depth, width, Top Width, reverse and command. View, Notch Presets… renames and deletes presets. They live in the preferences, so every Style sees the same list.
 - **Top Width.** A Box notch has a Top Width, its width at the tip; empty means the same as the width. The Work Area, the plot, and the Marker plot and cut file draw it.
 - You can select a notch in the seam allowance of a piece whose stored line is the sew line: a click tests the cutting line, so Select and Properties reach it. A notch that a point edit re-anchors keeps its place in every size.

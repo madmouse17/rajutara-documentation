@@ -76,6 +76,25 @@ export default defineConfig({
           ],
         },
         {
+          label: 'Assistant',
+          translations: { id: 'Asisten' },
+          items: [
+            { slug: 'docs/assistant', translations: { id: 'Asisten Rajutara' } },
+            { slug: 'docs/assistant/models', translations: { id: 'Model' } },
+            { slug: 'docs/assistant/privacy', translations: { id: 'Privasi dan persetujuan' } },
+            {
+              slug: 'docs/assistant/skills-and-playbooks',
+              translations: { id: 'Peran, keahlian, dan playbook' },
+            },
+            { slug: 'docs/assistant/mcp-and-socket', translations: { id: 'MCP dan soket lokal' } },
+            { slug: 'docs/assistant/voice', translations: { id: 'Suara' } },
+            {
+              slug: 'docs/assistant/trace-and-eval',
+              translations: { id: 'Jiplak foto dan evaluasi' },
+            },
+          ],
+        },
+        {
           label: 'Reference',
           translations: { id: 'Referensi' },
           items: [

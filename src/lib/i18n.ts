@@ -220,9 +220,9 @@ const en = {
   'dl.s4h': 'The Indonesian strings are unconfirmed.',
   'dl.s4b':
     'Every English string has an Indonesian one, but no Indonesian-speaking Operator has reviewed the wording.',
-  'dl.s5h': 'The in-app assistant is not built yet.',
+  'dl.s5h': 'The in-app assistant ships in 2.1.0.',
   'dl.s5b':
-    'Phase 3 has shipped: clusters, block fuse and flaws in 1.5.0, stripe and plaid matching, tilt and cross grading in 2.0.0. The agent command layer ships without a model call; the in-app assistant is wave D.',
+    'It stays off until you choose a model, on this computer or hosted. Before a request leaves this computer, you see it and press Send. Replies do not stream, and voice input is a separate download.',
   'dl.roadmap': 'Roadmap from 1.0 to v2',
 
   // Closing
@@ -503,9 +503,9 @@ const id: Record<Key, string> = {
   'dl.s4h': 'Teks bahasa Indonesia belum dikonfirmasi.',
   'dl.s4b':
     'Setiap teks bahasa Inggris punya padanan bahasa Indonesia, tetapi belum ada Operator berbahasa Indonesia yang meninjau pilihan katanya.',
-  'dl.s5h': 'Asisten di dalam aplikasi belum dibuat.',
+  'dl.s5h': 'Asisten di dalam aplikasi hadir di 2.1.0.',
   'dl.s5b':
-    'Fase 3 sudah dirilis: cluster, block fuse, dan cacat kain di 1.5.0, lalu pencocokan garis dan kotak-kotak, miring, dan cross grading di 2.0.0. Lapisan perintah agen dirilis tanpa panggilan model; asisten di dalam aplikasi masuk wave D.',
+    'Asisten mati sampai Anda memilih model, di komputer ini atau daring. Sebelum permintaan keluar dari komputer ini, Anda melihatnya lalu menekan Kirim. Balasan tidak dialirkan, dan input suara adalah unduhan terpisah.',
   'dl.roadmap': 'Peta jalan dari 1.0 ke v2',
 
   'closing.label': 'Rajutara',

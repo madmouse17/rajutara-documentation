@@ -1,6 +1,6 @@
 ---
 title: PDS, desain pola
-description: Impor atau susun potongan, sunting titik, penandaan, dan kampuh, kelompokkan potongan dalam Style Set, periksa panjang, lalu plot. Ruang kerja PDS dan 101 alatnya.
+description: Impor atau susun potongan, sunting titik, penandaan, dan kampuh, kelompokkan potongan dalam Style Set, periksa panjang, lalu plot. Ruang kerja PDS dan 102 alatnya.
 ---
 
 PDS adalah tempat potongan berasal. Impor dari DXF ASTM atau AAMA, atau gambar sendiri, lalu sunting titik, penandaan, kampuh, dan garis dalam, periksa panjang segmen, dan plot potongan pada skala 1:1.
@@ -42,7 +42,7 @@ Segmen terpilih, atau dua titik bersebelahan yang terpilih, menampilkan bagian S
 
 ## Alat
 
-Ada 101 alat, dalam kelompok yang dipakai toolbar dan menu.
+Ada 102 alat, dalam kelompok yang dipakai toolbar dan menu.
 
 | Grup | Contoh |
 |---|---|
@@ -52,7 +52,7 @@ Ada 101 alat, dalam kelompok yang dipakai toolbar dan menu.
 | New pieces | Potongan persegi panjang, poligon, lingkaran, sektor, dan busur, spiral, potongan dari zona sebuah map |
 | Drafting and points | Draft (`D`), busur (`A`), tambah titik pada kontur (`O`), pindah titik (`M`), multi move (`Q`) |
 | Contour | Align points, round corner, cut corner, smooth, points cleanup, Extend dan Extend in Parallel, Wave Tool, Segment Editor, Equal Segments |
-| Notches and internals | Notch (`N`), penandaan pada titik, teks, trim, extend, pindah dan pilih garis dalam, Deform Internals |
+| Notches and internals | Notch (`N`), penandaan pada titik, Tambah Sayatan Sepanjang Segmen, teks, trim, extend, pindah dan pilih garis dalam, Deform Internals |
 | Seams | Add seam (`S`), remove seam, reseam, show seam, beralih antara cut dan sew, Set Basic Seam, sudut kampuh Custom |
 | Split, join and fold | Cut, gabung potongan, gabung kontur, bangun potongan, trace segmen, Fold Line to Line |
 | Darts, pleats and fullness | Dart (`Ctrl+Alt+D`), pleat (`L`), add fullness, gusset, Reopen Darts |
@@ -62,7 +62,7 @@ Tekan `Ctrl+Shift+P` untuk mencari alat berdasarkan nama, bukan tombol. Alat yan
 
 Setiap penandaan punya bentuk (V, T, I, L, U, atau Box), kedalaman, dan lebar. I adalah celah lurus. Garis Serat adalah garis berarah yang dipakai marker untuk memutar potongan sepanjang kain. Kampuh punya lebar per segmen: kontur potong adalah kontur jahit ditambah kampuh.
 
-[Daftar paritas](../../parity-checklist/) mencantumkan seluruh 101 alat satu per satu. Di dalam submenu, item menampilkan keterangan Optitex bila berbeda dari nama alat, misalnya Piece, Info atau Contour, Smooth Segment; toolbar, tooltip, palet perintah, dan menu klik kanan tetap memakai nama lengkap.
+[Daftar paritas](../../parity-checklist/) mencantumkan seluruh 102 alat satu per satu. Di dalam submenu, item menampilkan keterangan Optitex bila berbeda dari nama alat, misalnya Piece, Info atau Contour, Smooth Segment; toolbar, tooltip, palet perintah, dan menu klik kanan tetap memakai nama lengkap.
 
 ## Menggambar dengan nilai yang diketik
 
@@ -78,6 +78,7 @@ Alat lain tetap memakai dialog `Alt+klik`.
 - **Add Point on Contour** (`O`) menampilkan tempatnya, jarak dari titik sebelumnya, jarak ke titik berikutnya, dan rasionya sebelum Anda mengklik. Untuk titik di tengah segmen, `Alt+klik` dan pilih Proportional 0.5. Add Point at Midpoint sudah dihapus, karena Optitex tidak punya perintah itu.
 - **Point Name.** Dialog Add Point on Contour punya bidang Point Name. Point Properties punya baris Name untuk titik kontur dan titik Internal Line yang terpilih. Rajutara menyimpan nama itu di `.rjx`, tetapi tidak menggambarnya dan tidak menulisnya ke DXF.
 - Untuk celah di tengah segmen, aktifkan Notch Tool dan `Alt+klik` segmennya. Di Notch Properties pilih Type I, sebuah Depth, Direction Perpendicular, dan Relationship Proportional dengan 0.5. Plot, DXF (layer 4), dan berkas potong membawanya sebagai penandaan celah.
+- **Tambah Sayatan Sepanjang Segmen** (Add Slit Along Segment, Desain › Tambah) menaruh beberapa objek sejenis di sepanjang satu ruas kontur. Pilih satu segmen atau deretan segmen yang bersambung, atau dua titik pada satu kontur; ruasnya lalu berjalan searah jarum jam dari titik pertama ke titik kedua. Di dialognya, Jenis bisa penandaan, kancing (lubang bor), garis (garis dalam), titik, atau Titik Grading. Jumlah menaruh objek sebanyak itu dengan Jarak di antaranya, mulai dari ujung yang dimasuki lebih dulu menurut Arah (searah atau berlawanan jarum jam), dan Jumlah 0 menaruh sebanyak yang muat. Dengan Jarak Sama, yang tercentang sejak awal, membagi ruas menjadi Jumlah + 1 bagian yang sama. Lewati Kupnat tidak menghitung kup yang ada di ruas itu, dan Titik pada Kurva juga menaruh titik kurva di kurva-kurva ruas itu. Panjang/Jari-jari, Sudut, Titik Awal, jenis, lebar, dan lebar atas penandaan, serta perintah hanya berlaku untuk jenis yang memilikinya; isian yang tidak berlaku dinonaktifkan dan menyebut alasannya. OK menunggu sampai objeknya muat: paling banyak 999 objek, berjarak paling sedikit 0,2 mm. Objeknya mengikuti grading seperti titik yang ditambahkan di kontur, dan seluruh perintah adalah satu langkah urungkan.
 - **Preset penandaan.** Dialog Notch Tool dan Notch Properties punya Preset dan Save as Preset…. Preset menyimpan bentuk, kedalaman, lebar, Top Width, reverse, dan perintah. View, Notch Presets… mengganti nama dan menghapus preset. Rajutara menyimpan preset di preferensi, jadi setiap Style melihat daftar yang sama.
 - **Top Width.** Penandaan Box punya Top Width, lebarnya di ujung; kosong berarti sama dengan lebar. Work Area, plot, serta plot dan berkas potong Marker menggambarnya.
 - Anda bisa memilih penandaan di kampuh pada potongan yang garis tersimpannya garis jahit: klik menguji garis potong, jadi Select dan Properties menjangkaunya. Bila suntingan titik memasang ulang jangkar sebuah penandaan, penandaan itu tetap di tempatnya di setiap ukuran.

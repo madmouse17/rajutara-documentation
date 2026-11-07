@@ -1,8 +1,9 @@
 ---
-import { getVersionFromPath, getPathForVersion, VERSIONS } from '../../lib/versions';
+import { getDocIds, getVersionFromPath, getPathForVersion, VERSIONS } from '../../lib/versions';
 
 const pathname = Astro.url.pathname;
 const currentVersion = getVersionFromPath(pathname);
+const docIds = await getDocIds();
 const lang = Astro.locals.starlightRoute.lang === 'id' ? 'id' : 'en';
 
 const accessibleLabel = lang === 'id' ? 'Versi dokumentasi' : 'Documentation version';
@@ -10,7 +11,7 @@ const accessibleLabel = lang === 'id' ? 'Versi dokumentasi' : 'Documentation ver
 const options = VERSIONS.map((v) => ({
   slug: v.slug,
   label: v.label,
-  url: getPathForVersion(pathname, v.slug),
+  url: getPathForVersion(pathname, v.slug, docIds),
   selected: v.slug === currentVersion.slug,
 }));
 ---

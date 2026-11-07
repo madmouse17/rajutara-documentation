@@ -1,13 +1,13 @@
 ---
 title: Roadmap
-description: What 2.0.0 ships, its known limits, what wave D holds, and what Rajutara will not do.
+description: What 2.1.0 ships, its known limits, what comes next, and what Rajutara will not do.
 ---
 
-This page is the project plan in plain words: what 2.0.0 ships, its known limits, what the next wave holds, and what is not planned. The sources are `ROADMAP.md`, [`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §8 and [`docs/spec/08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md) §3 in the repository. The [parity checklist](../parity-checklist/) has the tool-by-tool view, and the [changelog](../changelog/) what changed in each release.
+This page is the project plan in plain words: what 2.1.0 ships, its known limits, what comes next, and what is not planned. The sources are `ROADMAP.md`, [`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §8 and [`docs/spec/08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md) §3 in the repository. The [parity checklist](../parity-checklist/) has the tool-by-tool view, and the [changelog](../changelog/) what changed in each release.
 
 ## Phases
 
-| Phase | Delivers | Status in 2.0.0 |
+| Phase | Delivers | Status in 2.1.0 |
 |---|---|---|
 | 0 Foundation | Workspace, CI, core model with undo, native format, docking shell, English and Indonesian, `--version` and `--smoke` | Shipped in 1.0.0 |
 | 1a Import path | ASTM D6673 and AAMA-292 DXF and RUL import, Pieces panes, properties, seam allowance, plot to PDF (tiled A4, A0) and HPGL/2 | Shipped in 1.0.0 |
@@ -17,10 +17,11 @@ This page is the project plan in plain words: what 2.0.0 ships, its known limits
 | 3 Production extras | Stripe and plaid matching, tilt, piece buffers by side, block fuse, flaws, cross grading, multi-material spreading | Shipped. Block fuse, flaws, Substitute Size and Single Piece Gap in 1.5.0; stripe and plaid matching, tilt, buffers by side, folded placement, size variations, Cross Grading, Measurement Charts and multi-material spreading in 2.0.0 |
 | v2.0 | V1 to V9: nesting engine v2, Marker constraints, stripes, headless batch, Purchase Orders, Measurement Charts, per-size drill holes and texts, PDS refinements, DXF output options | Shipped in 2.0.0 (wave C) |
 | v2.x | X1 to X14 | X1, X2, X5, X8 and X11 in 1.5.0; X3, X4, X6, X7, X9, X10, X13 and X14 in 2.0.0. X12 is partial: Fold Line to Line and Swap Piece Properties are built, multi-target 2D tools are not |
-| Agent command layer | `rajutara batch`, `rajutara mcp`, playbooks, the knowledge index, assistant memory and prompt files | Shipped in 2.0.0, with no model call. The in-app assistant is wave D |
+| Agent command layer | `rajutara batch`, `rajutara mcp`, playbooks, the knowledge index, assistant memory and prompt files | Shipped in 2.0.0. 2.1.0 adds MCP confirmations, `release_notes` and `trace_from_photo` (87 tools) |
+| Wave D: in-app assistant | The [assistant](../assistant/) pane, six provider kinds with twelve presets, the consent window, knowledge skills and persona, roles in the menus, memory review and feedback, What's new, the quick strip, playbook runner and scenario comparison, the local socket and `mcp --gui`, optional voice input, `trace_from_photo` and `rajutara eval` | Shipped in 2.1.0 |
 | 4 and later, 3D | 3D garment simulation, only after the decision to leave it out is replaced | Interface contract only |
 
-## Known limits in 2.0.0
+## Known limits in 2.1.0
 
 Platform and files:
 
@@ -57,37 +58,34 @@ Cut Plan:
 
 Agent command layer:
 
-- 2.0.0 makes no model call. Prompt assembly, redaction and the answer templates are built and tested, but nothing sends a prompt.
-- MCP has no confirmation inside the client: outside an approved playbook checkpoint, a save, overwrite, delete or discard answers `confirmation_required` unless the server runs with `--yes`.
+- An MCP client asks its user before a guarded save, overwrite, delete or discard only when it speaks protocol 2026-07-28 and can show a form. Other clients still get `confirmation_required` unless the server runs with `--yes`.
+- The signed state of an MCP confirmation for a playbook checkpoint names the run, not the stage, so within its 300 s it could pass a later checkpoint of the same run.
 - `rajutara batch` prints its output at the end of the run; the `--log` file is written line by line.
 - The 13 values of the workshop profile `profil-bengkel.toml` have no source yet and are reported as "perlu konfirmasi operator" until the shop fills them in.
 - The knowledge index reads PDFs with a text layer only, loads the whole index on every call, and can lose one of two adds made at the same time.
 - A playbook replay gives the same nesting result only with an iteration stop and one thread.
 
-## Wave D
+Assistant:
 
-Each item needs its own design; wave C leaves only the hooks.
+- Replies do not stream. The pane counts the seconds until the whole answer arrives.
+- A tool call from the pane, the runner or the local socket runs in the window, one per frame, so a long call such as a nesting run holds the window until it ends. Stop takes effect between calls.
+- With a model on another computer, you press Send in the preview for every request of a goal, including retries and requests the profile adapted. There is no "always allow".
+- A local model needs a context window of about 8,000 tokens or more; new profiles start at 16,384.
+- The skill is picked by whole Indonesian or English keywords, so an inflected Indonesian word (memotong for potong) does not pick the cutting-room skill. The composer's skill list and `@skill` override the pick.
+- The release notes in the What's new card are in English.
+- Voice input needs the optional `rajutara-voice` download, and it has not run on a real Windows 7 PC yet. The Linux and Windows 10 helpers need a CPU with AVX2; the Windows 7 helpers run on any CPU, Windows 10 and 11 included. The helper's memory budget (600 MB while transcribing on a 32-bit PC) has not been measured.
+- `trace_from_photo` is experimental. It has no lens model, it ignores the photo's EXIF rotation, and a 50-megapixel photo can take about 450 MB of memory on a 32-bit PC. Every traced piece carries the code `TRACED` and needs checking before it is cut.
+- On Windows, `gui-socket.json` and `keys.toml` rely on the permissions of the user's `%APPDATA%`; the 0600 file mode applies on Linux only.
 
-- An assistant pane in the window: threads, step and result cards with before and after thumbnails, approval cards, and a composer with attachments.
-- A model that chooses a playbook, fills its parameters and handles issues.
-- Quick-action buttons, a playbook runner and scenario comparison in the window.
-- A role switch and role-aware menus in the window.
-- Knowledge skills for pattern making, grading, markers, the cutting room, materials, QC and file exchange, built on the prompt files, memory and the knowledge index.
-- A model runtime: a default model setting (off until set), Ollama detection, and constrained output through Ollama `format` and llama.cpp grammars.
-- Token budget and cost display.
-- A local GUI socket, with a token and off by default.
-- A preview of every prompt before it goes to a cloud model.
-- Memory review and learning triggers, feedback on answers, and assistant documentation pages.
-- Voice input.
-- Tracing a draft piece from a calibrated photo (experimental).
-- An evaluation runner over an opt-in local folder of the owner's files.
-- Confirmations inside the MCP client.
+## Next
+
+- Wave E: the remaining Optitex 15 commands, made-to-measure, cutter output in public formats (HP-GL/2 variants, ISO 6983 G-code) and digitizer input over serial and USB HID. The design is written; the code is not.
+- 3D: drape on a parametric avatar, the Seam and Stitch Manager and GLB export. It starts after wave E, because it reads the body measurements wave E adds.
+- A self-hosted file-sharing server is designed and on hold until the owner needs it.
 
 ## Not planned
 
-- Vendor cutter drivers, digitizer drivers and a cloud service.
-- Reading or writing Optitex native formats. The project is clean-room, so no Optitex file is ever opened.
-- Parametric garment templates and made-to-measure resizing.
-- The batch commands `@CHNT` and `@CHBTN`, the Nest++ names, Idle Time and automatic folding (`/AF`): there is no public behaviour to follow.
+- Vendor cutter drivers that need a closed protocol.
+- Reading or writing Optitex native formats ([ADR-0001](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0001-clean-room-no-reverse-engineering.md)).
 
 Want to take an item? Open an issue first, as [Contributing](../contributing/) asks.

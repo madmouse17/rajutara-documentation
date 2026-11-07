@@ -14,6 +14,7 @@ Run it again after the glossary or the checklist changes, and commit the result.
 import posixpath
 import re
 import sys
+import tomllib
 from pathlib import Path
 
 REPO_BLOB = "https://github.com/madmouse17/rajutara/blob/main/"
@@ -43,7 +44,7 @@ def repo_links(text: str, here: str) -> str:
     return re.sub(r"\[([^\]]+)\]\(([^)]+)\)", fix, text)
 
 
-def parity(source: Path) -> str:
+def parity(source: Path, version: str) -> str:
     text = source.read_text()
     text = re.sub(r"\A# .*\n+", "", text)  # the title moves to the front matter
     for icon, word in STATUS.items():
@@ -53,7 +54,7 @@ def parity(source: Path) -> str:
     return (
         "---\n"
         "title: Parity checklist\n"
-        "description: What an Operator trained on Optitex 15 finds in Rajutara 1.1.0, module by module.\n"
+        f"description: What an Operator trained on Optitex 15 finds in Rajutara {version}, module by module.\n"
         "---\n\n"
         f"{body}\n"
     )
@@ -85,13 +86,22 @@ def glossary(source: Path) -> str:
 def changelog(source: Path) -> str:
     text = re.sub(r"\A# .*\n+", "", source.read_text())
     text = repo_links(text, ".")
+    # The 1.1.0 entry records the rename itself, so its old name stays as written.
+    sections = re.split(r"(?m)^(?=## \[)", text)
+    text = "".join(s if s.startswith("## [1.1.0]") else rename(s) for s in sections)
     return (
         "---\n"
         "title: Changelog\n"
         "description: What changed in each Rajutara release.\n"
         "---\n\n"
-        f"{rename(text).strip()}\n"
+        f"{text.strip()}\n"
     )
+
+
+def workspace_version(repo: Path) -> str:
+    """The version the repository builds, from `[workspace.package]` of its Cargo.toml."""
+    with open(repo / "Cargo.toml", "rb") as f:
+        return tomllib.load(f)["workspace"]["package"]["version"]
 
 
 def main() -> None:
@@ -99,7 +109,7 @@ def main() -> None:
         sys.exit(__doc__)
     repo = Path(sys.argv[1])
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "parity-checklist.md").write_text(parity(repo / "docs/parity-checklist.md"))
+    (OUT / "parity-checklist.md").write_text(parity(repo / "docs/parity-checklist.md", workspace_version(repo)))
     (OUT / "glossary.md").write_text(glossary(repo / "GLOSSARY.md"))
     (OUT / "changelog.md").write_text(changelog(repo / "CHANGELOG.md"))
     print(f"wrote parity-checklist, glossary and changelog under {OUT}")

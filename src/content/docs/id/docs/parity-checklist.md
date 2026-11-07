@@ -17,7 +17,7 @@ Baris-barisnya berasal dari tabel cakupan rencana implementasi (disimpan di luar
 
 | Modul | Ya | Sebagian | Tidak |
 |---|---|---|---|
-| PDS | 114 | 4 | 5 |
+| PDS | 115 | 4 | 5 |
 | Grading | 38 | 0 | 2 |
 | Marker | 44 | 3 | 1 |
 | Cut Plan | 24 | 0 | 0 |
@@ -27,7 +27,7 @@ Tidak dibuat, berdasarkan keputusan: Seam and Stitch Manager (3D), Swap Zone Seg
 
 ## PDS (desain pola)
 
-Seluruh 101 alat T01 sampai T101. "Baseline" Optitex adalah "Grainline" dan "Button" adalah "Drill Hole" di rajutara ([`GLOSSARY.md`](https://github.com/madmouse17/rajutara/blob/main/GLOSSARY.md)).
+Seluruh 102 alat T01 sampai T102. "Baseline" Optitex adalah "Grainline" dan "Button" adalah "Drill Hole" di rajutara ([`GLOSSARY.md`](https://github.com/madmouse17/rajutara/blob/main/GLOSSARY.md)).
 
 ### Umum: seleksi, tampilan, berkas, dan laporan
 
@@ -130,6 +130,7 @@ Seluruh 101 alat T01 sampai T101. "Baseline" Optitex adalah "Grainline" dan "But
 | T67 Trim Tool | Ya | |
 | T68 Extend Internal Object | Ya | (1.5.0) Jumlah yang diketik menjadi jangkauan bawaan; segmen kontur ditolak dengan petunjuk ke Extend in Parallel. |
 | T70 Copy, Paste Internal Object | Ya | |
+| T102 Add Slit Along Segment | Ya | (setelah 2.0.0) Design › Add, di antarmuka Indonesia Desain › Tambah › Tambah Sayatan Sepanjang Segmen. Menaruh penandaan, kancing, garis, titik, atau Titik Grading di sepanjang segmen terpilih, atau di antara dua titik terpilih pada satu kontur: sejumlah Number dengan jarak Distance, sebanyak yang muat (Number 0), atau By Equal Distance, searah atau berlawanan arah jarum jam, dengan Skip Darts dan Points On Curve. Isian yang tidak berlaku untuk Type dinonaktifkan beserta alasannya; satu langkah urungkan; objeknya mengikuti grading seperti titik yang ditambahkan di kontur (`02-pds.md` §13.1). Acuan Angle, nilai awal, dan Command sebuah garis adalah [gap] milik rajutara. |
 
 ### Kampuh
 

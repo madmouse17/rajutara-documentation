@@ -17,7 +17,7 @@ The rows come from the coverage tables of the implementation plans (kept outside
 
 | Module | Yes | Partial | No |
 |---|---|---|---|
-| PDS | 114 | 4 | 5 |
+| PDS | 115 | 4 | 5 |
 | Grading | 38 | 0 | 2 |
 | Marker | 44 | 3 | 1 |
 | Cut Plan | 24 | 0 | 0 |
@@ -27,7 +27,7 @@ Not built, by decision: Seam and Stitch Manager (3D), Swap Zone Segment Tool and
 
 ## PDS (pattern design)
 
-All 101 tools T01 to T101. Optitex "Baseline" is "Grainline" and "Button" is "Drill Hole" in rajutara ([`GLOSSARY.md`](https://github.com/madmouse17/rajutara/blob/main/GLOSSARY.md)).
+All 102 tools T01 to T102. Optitex "Baseline" is "Grainline" and "Button" is "Drill Hole" in rajutara ([`GLOSSARY.md`](https://github.com/madmouse17/rajutara/blob/main/GLOSSARY.md)).
 
 ### General: selection, view, files and reports
 
@@ -130,6 +130,7 @@ All 101 tools T01 to T101. Optitex "Baseline" is "Grainline" and "Button" is "Dr
 | T67 Trim Tool | Yes | |
 | T68 Extend Internal Object | Yes | (1.5.0) The typed amount is the default reach; a contour segment is refused with a pointer to Extend in Parallel. |
 | T70 Copy, Paste Internal Object | Yes | |
+| T102 Add Slit Along Segment | Yes | (after 2.0.0) Design › Add. Lays notches, buttons, lines, points or Grading Points along the selected segment, or between two selected points of one contour: Number of them Distance apart, as many as fit (Number 0) or By Equal Distance, clockwise or counter-clockwise, with Skip Darts and Points On Curve. Fields that do not apply to the Type are disabled with their reason; one undo step; the objects follow the grading as a point added on the contour does (`02-pds.md` §13.1). The Angle reference, the first values and the Command of a line are rajutara's [gap]. |
 
 ### Seams
 

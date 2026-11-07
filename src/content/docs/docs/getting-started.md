@@ -7,17 +7,19 @@ This page takes you from a download to the sample tee on screen. The Indonesian 
 
 ## Install
 
-Every release is on the [releases page](https://github.com/madmouse17/rajutara/releases) with its checksums. The current release is 2.0.0. Pick the file for your machine.
+Every release is on the [releases page](https://github.com/madmouse17/rajutara/releases) with its checksums. The current release is 2.1.0. Pick the file for your machine.
 
 | File | For |
 |---|---|
-| `rajutara-2.0.0-x86_64.AppImage` | Linux, x86_64. Run `chmod +x` on it, then start it. Without FUSE 2, start it with `APPIMAGE_EXTRACT_AND_RUN=1` set. |
-| `rajutara-2.0.0-windows-x64.msi` | Windows 7 SP1 through Windows 11, 64-bit. The installer. |
-| `rajutara-2.0.0-windows-x64.zip` | The same, portable: unzip it and run `rajutara.exe`. |
-| `rajutara-2.0.0-windows-x86.msi` | Windows 7 SP1 through Windows 11, 32-bit. The installer. |
-| `rajutara-2.0.0-windows-x86.zip` | The same, portable. |
+| `rajutara-2.1.0-x86_64.AppImage` | Linux, x86_64. Run `chmod +x` on it, then start it. Without FUSE 2, start it with `APPIMAGE_EXTRACT_AND_RUN=1` set. |
+| `rajutara-2.1.0-windows-x64.msi` | Windows 7 SP1 through Windows 11, 64-bit. The installer. |
+| `rajutara-2.1.0-windows-x64.zip` | The same, portable: unzip it and run `rajutara.exe`. |
+| `rajutara-2.1.0-windows-x86.msi` | Windows 7 SP1 through Windows 11, 32-bit. The installer. |
+| `rajutara-2.1.0-windows-x86.zip` | The same, portable. |
 
 Other releases use the same names with their own version number. Once a day at start-up Rajutara checks for a newer release and offers to install it; Help, Check for Updates… asks on request.
+
+The same page has the optional `rajutara-voice` helper for spoken goals in the [assistant](../assistant/voice/). The program runs without it.
 
 :::caution[Files saved by 2.0 do not open in 1.5]
 Rajutara 2.0.0 saves every Style, Marker and Cut Plan in native format 3. Rajutara 1.5.x and older refuse such a file with "made by a newer rajutara (format version 3; this build reads up to 2)", so no data is lost, but the file does not open there. Files from 1.5.x and older open in 2.0.0 as before, and an older Cut Plan opens as one Purchase Order. If several PCs share files, update them all at the same time.
@@ -74,3 +76,4 @@ The test suite drives real windows, so it runs under a virtual display: `LIBGL_A
 - [Workflows](../workflows/): five paths through the program.
 - [PDS](../workspaces/pds/), [Grading](../workspaces/grading/), [Marker](../workspaces/marker/) and [Cut Plan](../workspaces/cut-plan/): one guide per workspace.
 - [Headless and scripting](../headless/): run it from a script, with `rajutara batch`, `rajutara mcp`, playbooks and the knowledge index.
+- [The Rajutara assistant](../assistant/): type a goal and let a model of your choice work through the same tools.

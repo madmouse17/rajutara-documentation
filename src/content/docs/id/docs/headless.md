@@ -1,6 +1,6 @@
 ---
 title: Headless dan skrip
-description: Periksa build dengan satu perintah, jalankan skrip batch, layani lapisan perintah MCP, jalankan playbook, kelola indeks pengetahuan lokal, dan baca dokumen dengan pustaka zip, dari skrip, CI, dan proses batch.
+description: Periksa build dengan satu perintah, jalankan skrip batch, layani lapisan perintah MCP, jalankan playbook, kelola indeks pengetahuan lokal, uji model dengan rajutara eval, dan baca dokumen dengan pustaka zip, dari skrip, CI, dan proses batch.
 ---
 
 Skrip, tugas CI, dan proses batch bisa memeriksa build dan menghasilkan setiap keluaran workflow tanpa orang di depan layar.
@@ -13,6 +13,7 @@ rajutara --version                  print the version, the git hash and the targ
 rajutara --smoke [FILE]             open the real window, render 60 frames, print one JSON line, exit 0
 rajutara batch SCRIPT [--log FILE] [--json]
 rajutara mcp [--tier basic|standard|advanced]
+rajutara mcp --gui
 rajutara playbook list | show NAME|FILE
 rajutara playbook start NAME|FILE [--param NAME=VALUE]... [--out DIR] [--profile FILE] [--model ID]
 rajutara playbook step|resume RUN_DIR [--approve | --choose ID]
@@ -20,9 +21,10 @@ rajutara playbook replay RUN_DIR [--force]
 rajutara playbook quick [ID [--param NAME=VALUE]...]
 rajutara playbook compare NAME|FILE STAGE --scenarios FILE.json [--time-s N] [--open FILE]...
 rajutara kb add FILE [--tag WORD]... | search WORDS... | list | remove ID
+rajutara eval DIR [--model ID] [--out DIR] [--case ID] [--allow-remote] [--role ROLE]
 ```
 
-`batch`, `mcp`, `playbook`, dan `kb` juga menerima `--yes` (atau `--yolo`), `--role ROLE`, dan `--root DIR`; [Keamanan](#keamanan-root-peran-persetujuan-dan-cadangan) di bawah menjelaskannya. Keempat perintah itu berjalan tanpa jendela. Keempatnya mencetak JSON atau baris hasil ke stdout dan semua keluaran lain ke stderr, jadi pemanggil bisa membaca stdout baris demi baris, dan memakai preferensi pengguna yang menjalankannya.
+`batch`, `mcp`, `playbook`, dan `kb` juga menerima `--yes` (atau `--yolo`), `--role ROLE`, dan `--root DIR`; [Keamanan](#keamanan-root-peran-persetujuan-dan-cadangan) di bawah menjelaskannya. Keempat perintah itu berjalan tanpa jendela. Keempatnya mencetak JSON atau baris hasil ke stdout dan semua keluaran lain ke stderr, jadi pemanggil bisa membaca stdout baris demi baris, dan memakai preferensi pengguna yang menjalankannya. `mcp --gui` tidak menerima opsi lain, dan dari ketiga opsi itu `eval` hanya menerima `--role`; keduanya dijelaskan di bawah.
 
 Flag yang tidak dikenal mencetak cara pakai dan keluar dengan 1.
 
@@ -103,11 +105,15 @@ Skrip yang ditulis untuk Rajutara tidak dijamin berjalan tanpa perubahan di Opti
 rajutara mcp --root ~/orders --tier standard
 ```
 
-Lapisan perintah punya 85 alat bertipe, masing-masing dengan skema JSON untuk masukan dan keluarannya. Alat-alat itu mencakup dokumen, PDS, grading, Marker, Rencana Potong, biaya (pemakaian kain, biaya per garmen), pemeriksaan QC, playbook, indeks pengetahuan, dan memori asisten. `--tier basic|standard|advanced` membatasi alat yang didaftar server; advanced, bawaannya, mendaftar semuanya. Setiap perubahan melewati Undo dokumen, dan satu panggilan alat adalah satu langkah urungkan per dokumen.
+Lapisan perintah punya 87 alat bertipe, masing-masing dengan skema JSON untuk masukan dan keluarannya. Alat-alat itu mencakup dokumen, PDS, grading, Marker, Rencana Potong, biaya (pemakaian kain, biaya per garmen), pemeriksaan QC, playbook, indeks pengetahuan, memori asisten, catatan rilis (`release_notes`), dan `trace_from_photo` yang masih eksperimental. `--tier basic|standard|advanced` membatasi alat yang didaftar server: 36, 77, atau semua 87. Advanced, bawaannya, mendaftar semuanya. Setiap perubahan melewati Undo dokumen, dan satu panggilan alat adalah satu langkah urungkan per dokumen.
 
-Klien tidak mendapat pertanyaan konfirmasinya sendiri. Di luar titik persetujuan playbook yang sudah disetujui, simpan, timpa, hapus, atau buang menjawab `confirmation_required` kecuali server dimulai dengan `--yes`.
+Simpan, timpa, hapus, atau buang, serta checkpoint playbook, perlu persetujuan orang. Klien yang memakai protokol 2026-07-28 dan bisa menampilkan formulir mendapat `input_required`: klien bertanya kepada penggunanya lalu mengulang panggilan dengan jawabannya dan state bertanda tangan yang hanya berlaku sekali dan kedaluwarsa setelah 300 detik. Klien lain mendapat `confirmation_required` kecuali server dimulai dengan `--yes`. [MCP dan soket lokal](../assistant/mcp-and-socket/#konfirmasi-di-klien-mcp) menjelaskan rinciannya.
 
-Server sendiri tidak melakukan panggilan jaringan. Klien MCP mengirim hasil alat ke penyedia modelnya sendiri, jadi apa yang dikembalikan alat, termasuk nama potongan dan jumlah order, keluar dari PC bila model klien berjalan di tempat lain. Rajutara 2.0.0 tidak memanggil model sendiri.
+Server sendiri tidak melakukan panggilan jaringan. Klien MCP mengirim hasil alat ke penyedia modelnya sendiri, jadi apa yang dikembalikan alat, termasuk nama potongan dan jumlah order, keluar dari PC bila model klien berjalan di tempat lain.
+
+### Memakai jendela yang terbuka
+
+`rajutara mcp --gui` menghubungkan klien MCP ke jendela yang sedang berjalan alih-alih memulai sesinya sendiri. Klien lalu bekerja pada dokumen yang terbuka di jendela, dengan peran dari bilah statusnya, dan setiap perubahan yang dijaga menunggu di kartu panel asisten sampai Operator menyetujui atau menolaknya. Jendela baru mendengarkan setelah Preferensi › Asisten › Program lokal dinyalakan; jika tidak ada jendela yang mendengarkan, `mcp --gui` keluar dengan 1. [MCP dan soket lokal](../assistant/mcp-and-socket/) menjelaskan sakelar, token, dan persetujuannya.
 
 ## Playbook
 
@@ -132,7 +138,7 @@ Setiap run menyimpan catatan: versi aplikasi, versi dan hash playbook, hash prof
 
 Replay memberi hasil nesting yang sama hanya bila nesting berhenti berdasarkan iterasi dan berjalan di satu thread; batas waktu bergantung pada kecepatan mesin.
 
-**Profil bengkel.** `profil-bengkel.toml` di folder asisten memuat standar bengkel, berlabel bahasa Indonesia: kampuh, penyusutan, batas lapis, buffer potongan, target efisiensi, waktu nesting, dan toleransi QC. Playbook mengambil nilai bawaannya dari sini, seperti `${profil.marker.target_efisiensi}`. Tanpa berkas itu, Rajutara memakai templat bawaan; `--profile FILE` menyebut berkas lain. Nilai tanpa sumber dilaporkan sebagai "perlu konfirmasi operator". Di 2.0.0, belum satu pun dari 13 nilai bawaan yang punya sumber.
+**Profil bengkel.** `profil-bengkel.toml` di folder asisten memuat standar bengkel, berlabel bahasa Indonesia: kampuh, penyusutan, batas lapis, buffer potongan, target efisiensi, waktu nesting, dan toleransi QC. Playbook mengambil nilai bawaannya dari sini, seperti `${profil.marker.target_efisiensi}`. Tanpa berkas itu, Rajutara memakai templat bawaan; `--profile FILE` menyebut berkas lain. Nilai tanpa sumber dilaporkan sebagai "perlu konfirmasi operator". Di 2.1.0, belum satu pun dari 13 nilai bawaan yang punya sumber.
 
 **Memori.** Setelah run selesai, Rajutara menyimpan pelajaran dari run itu, seperti pemeriksaan yang gagal dan pilihan Operator, dan menyebut di stderr berapa pelajaran yang disimpan. Pelajaran, preferensi, fakta, dan koreksi tetap di PC ini, di `memory/` dalam folder asisten atau di `.rajutara/memory/` sebuah proyek. Hasil dokumen dan alat paling didahulukan, lalu profil bengkel, lalu memori. Rajutara menandai usang memori yang bertentangan dengan keduanya.
 
@@ -150,6 +156,16 @@ rajutara kb remove <id> --yes
 Pencarian memeringkat kata dengan BM25; tidak ada model embedding. Rajutara menyimpan indeks di `kb/` dalam folder asisten. Rajutara membaca berkas Anda dan tidak pernah mengubahnya; `remove` hanya memindahkan salinan hasil ekstraksi ke `.rajutara-trash/`. `kb add` menolak berkas di atas 50 MB dan PDF terenkripsi, dan PDF tanpa lapisan teks gagal dengan "scanned PDF: no text layer". Jalankan OCR pada manual hasil pindaian di luar Rajutara lebih dulu.
 
 Setiap panggilan memuat seluruh indeks, dan dua `kb add` yang berjalan bersamaan bisa kehilangan salah satu dari dua dokumennya. Tambahkan dokumen satu per satu.
+
+## Penjalan evaluasi
+
+`rajutara eval DIR` menjalankan kasus uji Anda sendiri terhadap satu profil model [asisten](../assistant/). Setiap subfolder `DIR` yang berisi `case.toml` adalah satu kasus: tugas, berkas yang dibuka, kebijakan persetujuan, dan pemeriksaan pada hasilnya. Setiap kasus berjalan pada salinan berkasnya, dan tidak ada yang ditulis di `DIR`.
+
+```sh
+rajutara eval ~/eval-kasus --model ollama-qwen --out ~/eval-hasil
+```
+
+Setiap kasus mencetak satu baris JSON ke stdout, dan hasilnya ditulis ke `eval-<stamp>.jsonl` di folder keluaran (bawaannya `evals/` di folder asisten). Kode keluar: 0 bila semua kasus lolos, 2 bila ada yang gagal, 1 bila baris perintah atau folder kasus ditolak. Model di komputer lain hanya dijalankan dengan `--allow-remote`, dan setiap isi permintaan disimpan di samping hasilnya lebih dulu. `eval` menolak `--yes`, `--yolo`, dan `--root`, karena setiap kasus menyebut persetujuannya sendiri. [Jiplak foto dan evaluasi](../assistant/trace-and-eval/#penjalan-evaluasi) menjelaskan berkas kasusnya.
 
 ## Keamanan: root, peran, persetujuan, dan cadangan
 

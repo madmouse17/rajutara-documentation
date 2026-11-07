@@ -1,0 +1,52 @@
+---
+title: Dokumentasi Rajutara
+description: Panduan untuk Operator dan skrip, ditulis dari spesifikasi Rajutara dan diperiksa terhadap kodenya.
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Rajutara adalah CAD pakaian sumber terbuka: desain pola, grading, pembuatan marker, dan rencana potong dalam satu jendela, untuk Linux dan untuk Windows 7 SP1 sampai Windows 11. Dokumentasi ini mengikuti spesifikasi di repositori, dan setiap angkanya berasal dari kode, uji coba, atau berkas contoh.
+
+## Mulai di sini
+
+<CardGrid>
+  <LinkCard
+    title="Memulai"
+    description="Pasang paket, buka contoh kaos, dan pelajari tombol yang penting."
+    href="getting-started/"
+  />
+  <LinkCard
+    title="Workflows"
+    description="Lima jalur dari berkas atau halaman kosong sampai plot, marker, atau rencana potong."
+    href="workflows/"
+  />
+</CardGrid>
+
+## Empat ruang kerja
+
+Keempatnya memakai satu Style yang terbuka dan satu riwayat urungkan, jadi Anda tidak perlu mengekspor berkas untuk berpindah tab.
+
+<CardGrid>
+  <LinkCard title="PDS" description="Susun dan sunting potongan, impor DXF, plot." href="workspaces/pds/" />
+  <LinkCard title="Grading" description="Aturan grade, tabel ukuran, dan graded nest." href="workspaces/grading/" />
+  <LinkCard title="Marker" description="Tata dengan tangan atau nesting, baca efisiensi, plot." href="workspaces/marker/" />
+  <LinkCard title="Cut Plan" description="Order, lay, kain, dan biaya, serta Cut Order." href="workspaces/cut-plan/" />
+</CardGrid>
+
+## Referensi
+
+<CardGrid>
+  <LinkCard title="Format berkas" description="DXF, RUL, HPGL/2, PDF, CSV, dan berkas asli." href="formats/" />
+  <LinkCard title="Headless dan skrip" description="Pemeriksaan smoke, skrip batch, server MCP, playbook, indeks pengetahuan, dan dokumen sebagai zip dan JSON." href="headless/" />
+  <LinkCard title="Windows 7" description="Apa yang sudah diverifikasi, dan apa yang dilakukan tanpa driver OpenGL." href="windows-7/" />
+  <LinkCard title="Glosarium" description="Kata-kata proyek ini, yang juga menjadi nama di dalam kode." href="glossary/" />
+</CardGrid>
+
+## Proyek
+
+<CardGrid>
+  <LinkCard title="Peta jalan" description="Apa yang dibawa 2.0.0, apa yang dijadwalkan, dan apa yang tidak direncanakan." href="roadmap/" />
+  <LinkCard title="Catatan perubahan" description="Apa yang berubah di setiap rilis, dari 1.0.0 sampai 2.0.0." href="changelog/" />
+  <LinkCard title="Daftar paritas" description="Alat demi alat terhadap Optitex 15." href="parity-checklist/" />
+  <LinkCard title="Berkontribusi" description="Aturan clean-room, gerbang uji, dan aturan kode." href="contributing/" />
+</CardGrid>

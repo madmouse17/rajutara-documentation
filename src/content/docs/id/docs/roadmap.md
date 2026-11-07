@@ -1,13 +1,13 @@
 ---
 title: Peta jalan
-description: Apa yang dibawa 2.0.0, batasan yang diketahui, isi gelombang D, dan apa yang tidak akan dikerjakan Rajutara.
+description: Apa yang dibawa 2.1.0, batasan yang diketahui, apa yang berikutnya, dan apa yang tidak akan dikerjakan Rajutara.
 ---
 
-Halaman ini merangkum rencana proyek: apa yang dibawa 2.0.0, batasan yang diketahui, isi gelombang berikutnya, dan apa yang tidak direncanakan. Sumbernya adalah `ROADMAP.md`, [`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §8, dan [`docs/spec/08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md) §3 di repositori. [Daftar paritas](../parity-checklist/) memuat tampilan alat demi alat, dan [catatan perubahan](../changelog/) mencatat apa yang berubah di setiap rilis.
+Halaman ini merangkum rencana proyek: apa yang dibawa 2.1.0, batasan yang diketahui, apa yang berikutnya, dan apa yang tidak direncanakan. Sumbernya adalah `ROADMAP.md`, [`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §8, dan [`docs/spec/08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md) §3 di repositori. [Daftar paritas](../parity-checklist/) memuat tampilan alat demi alat, dan [catatan perubahan](../changelog/) mencatat apa yang berubah di setiap rilis.
 
 ## Fase
 
-| Fase | Menghasilkan | Status di 2.0.0 |
+| Fase | Menghasilkan | Status di 2.1.0 |
 |---|---|---|
 | 0 Fondasi | Workspace, CI, model inti dengan urungkan, format asli, shell docking, bahasa Inggris dan Indonesia, `--version` dan `--smoke` | Dirilis di 1.0.0 |
 | 1a Jalur impor | Impor DXF dan RUL ASTM D6673 dan AAMA-292, panel Pieces, properti, kampuh, plot ke PDF (A4 berubin, A0) dan HPGL/2 | Dirilis di 1.0.0 |
@@ -17,10 +17,11 @@ Halaman ini merangkum rencana proyek: apa yang dibawa 2.0.0, batasan yang diketa
 | 3 Tambahan produksi | Pencocokan belang dan kotak-kotak, tilt, buffer potongan per sisi, block fuse, cacat kain, cross grading, penghamparan multi-material | Dirilis. Block fuse, cacat kain, Substitute Size, dan Single Piece Gap di 1.5.0; pencocokan belang dan kotak-kotak, tilt, buffer per sisi, penataan terlipat, variasi ukuran, Cross Grading, Measurement Chart, dan penghamparan multi-material di 2.0.0 |
 | v2.0 | V1 sampai V9: mesin nesting v2, batasan Marker, belang, batch headless, Purchase Order, Measurement Chart, lubang bor dan teks per ukuran, penyempurnaan PDS, opsi keluaran DXF | Dirilis di 2.0.0 (gelombang C) |
 | v2.x | X1 sampai X14 | X1, X2, X5, X8, dan X11 di 1.5.0; X3, X4, X6, X7, X9, X10, X13, dan X14 di 2.0.0. X12 sebagian: Fold Line to Line dan Swap Piece Properties sudah dibuat, alat 2D multi-target belum |
-| Lapisan perintah agen | `rajutara batch`, `rajutara mcp`, playbook, indeks pengetahuan, memori asisten, dan berkas prompt | Dirilis di 2.0.0, tanpa panggilan model. Asisten di dalam aplikasi adalah gelombang D |
+| Lapisan perintah agen | `rajutara batch`, `rajutara mcp`, playbook, indeks pengetahuan, memori asisten, dan berkas prompt | Dirilis di 2.0.0. 2.1.0 menambahkan konfirmasi MCP, `release_notes`, dan `trace_from_photo` (87 alat) |
+| Gelombang D: asisten di dalam aplikasi | Panel [asisten](../assistant/), enam jenis penyedia dengan dua belas preset, jendela persetujuan, keahlian dan persona, peran di menu, tinjauan memori dan umpan balik, Yang baru, jalur aksi cepat, penjalan playbook dan perbandingan skenario, soket lokal dan `mcp --gui`, input suara opsional, `trace_from_photo`, dan `rajutara eval` | Dirilis di 2.1.0 |
 | 4 dan seterusnya, 3D | Simulasi garmen 3D, hanya setelah keputusan untuk meninggalkannya diganti | Hanya kontrak antarmuka |
 
-## Batasan yang diketahui di 2.0.0
+## Batasan yang diketahui di 2.1.0
 
 Platform dan berkas:
 
@@ -57,37 +58,34 @@ Rencana Potong:
 
 Lapisan perintah agen:
 
-- 2.0.0 tidak memanggil model. Perakitan prompt, redaksi, dan templat jawaban sudah dibuat dan diuji, tetapi belum ada bagian yang mengirim prompt.
-- MCP tidak punya konfirmasi di dalam klien: di luar titik persetujuan playbook yang sudah disetujui, simpan, timpa, hapus, atau buang menjawab `confirmation_required` kecuali server berjalan dengan `--yes`.
+- Klien MCP bertanya kepada penggunanya sebelum simpan, timpa, hapus, atau buang yang dijaga hanya bila klien memakai protokol 2026-07-28 dan bisa menampilkan formulir. Klien lain tetap mendapat `confirmation_required` kecuali server berjalan dengan `--yes`.
+- State bertanda tangan dari konfirmasi MCP untuk checkpoint playbook menyebut run-nya, bukan tahapnya, jadi dalam 300 detik state itu bisa meloloskan checkpoint berikutnya dari run yang sama.
 - `rajutara batch` mencetak keluarannya di akhir proses; berkas `--log` ditulis baris demi baris.
 - Ke-13 nilai profil bengkel `profil-bengkel.toml` belum punya sumber dan dilaporkan sebagai "perlu konfirmasi operator" sampai bengkel mengisinya.
 - Indeks pengetahuan hanya membaca PDF dengan lapisan teks, memuat seluruh indeks di setiap panggilan, dan bisa kehilangan satu dari dua penambahan yang dilakukan bersamaan.
 - Replay playbook memberi hasil nesting yang sama hanya dengan penghentian berdasarkan iterasi dan satu thread.
 
-## Gelombang D
+Asisten:
 
-Setiap butir perlu desainnya sendiri; gelombang C hanya menyiapkan kaitannya.
+- Balasan tidak dialirkan. Panel menghitung detik sampai seluruh jawaban tiba.
+- Pemanggilan alat dari panel, penjalan, atau soket lokal berjalan di jendela, satu per frame, jadi pemanggilan yang panjang seperti run nesting menahan jendela sampai selesai. Hentikan berlaku di antara dua pemanggilan.
+- Dengan model di komputer lain, Anda menekan Kirim di pratinjau untuk setiap permintaan sebuah tugas, termasuk percobaan ulang dan permintaan yang disesuaikan profil. Tidak ada "selalu izinkan".
+- Model lokal butuh jendela konteks sekitar 8.000 token atau lebih; profil baru mulai dari 16.384.
+- Keahlian dipilih berdasarkan kata kunci utuh bahasa Indonesia atau Inggris, jadi kata berimbuhan (memotong untuk potong) tidak memilih keahlian ruang potong. Daftar keahlian di kotak tulis dan `@keahlian` mengesampingkan pilihan itu.
+- Catatan rilis di kartu Yang baru ditulis dalam bahasa Inggris.
+- Input suara butuh unduhan opsional `rajutara-voice`, dan belum pernah dijalankan di PC Windows 7 sungguhan. Program pembantu Linux dan Windows 10 butuh CPU dengan AVX2; program pembantu Windows 7 berjalan di CPU apa saja, termasuk di Windows 10 dan 11. Anggaran memorinya (600 MB saat menuliskan ucapan di PC 32-bit) belum diukur.
+- `trace_from_photo` masih eksperimental. Alat ini tidak punya model lensa, mengabaikan rotasi EXIF foto, dan foto 50 megapiksel bisa memakan sekitar 450 MB memori di PC 32-bit. Setiap piece hasil jiplakan membawa kode `TRACED` dan perlu diperiksa sebelum dipotong.
+- Di Windows, `gui-socket.json` dan `keys.toml` bergantung pada izin folder `%APPDATA%` pengguna; mode berkas 0600 hanya berlaku di Linux.
 
-- Panel asisten di jendela: utas, kartu langkah dan hasil dengan thumbnail sebelum dan sesudah, kartu persetujuan, dan penyusun pesan dengan lampiran.
-- Model yang memilih playbook, mengisi parameternya, dan menangani masalah.
-- Tombol aksi cepat, penjalan playbook, dan perbandingan skenario di jendela.
-- Pengalih peran dan menu yang mengikuti peran di jendela.
-- Keterampilan pengetahuan untuk pembuatan pola, grading, marker, ruang potong, material, QC, dan pertukaran berkas, dibangun di atas berkas prompt, memori, dan indeks pengetahuan.
-- Runtime model: pengaturan model bawaan (mati sampai diatur), deteksi Ollama, dan keluaran terbatas lewat `format` Ollama dan grammar llama.cpp.
-- Tampilan anggaran token dan biaya.
-- Socket GUI lokal, dengan token dan mati secara bawaan.
-- Pratinjau setiap prompt sebelum dikirim ke model cloud.
-- Tinjauan memori dan pemicu belajar, umpan balik atas jawaban, dan halaman dokumentasi asisten.
-- Masukan suara.
-- Menjiplak potongan draf dari foto yang terkalibrasi (eksperimental).
-- Penjalan evaluasi atas folder lokal berisi berkas pemilik yang dipilih sendiri.
-- Konfirmasi di dalam klien MCP.
+## Berikutnya
+
+- Gelombang E: perintah Optitex 15 yang tersisa, made-to-measure, keluaran pemotong dalam format publik (varian HP-GL/2, G-code ISO 6983), dan input digitizer lewat serial dan USB HID. Desainnya sudah ditulis; kodenya belum.
+- 3D: drape di avatar parametrik, Seam and Stitch Manager, dan ekspor GLB. Pekerjaan ini dimulai setelah gelombang E, karena membaca ukuran tubuh yang ditambahkan gelombang E.
+- Server berbagi berkas yang dihosting sendiri sudah didesain dan ditunda sampai pemiliknya membutuhkannya.
 
 ## Tidak direncanakan
 
-- Driver pemotong vendor, driver digitizer, dan layanan cloud.
-- Membaca atau menulis format asli Optitex. Proyek ini clean-room, jadi tidak ada berkas Optitex yang pernah dibuka.
-- Templat garmen parametrik dan pengubahan ukuran made-to-measure.
-- Perintah batch `@CHNT` dan `@CHBTN`, nama Nest++, Idle Time, dan pelipatan otomatis (`/AF`): tidak ada perilaku publik yang bisa diikuti.
+- Driver pemotong vendor yang membutuhkan protokol tertutup.
+- Membaca atau menulis format asli Optitex ([ADR-0001](https://github.com/madmouse17/rajutara/blob/main/docs/adr/0001-clean-room-no-reverse-engineering.md)).
 
 Sebelum mengerjakan salah satu butir, buka issue lebih dulu, seperti yang diminta [Berkontribusi](../contributing/).

@@ -1,0 +1,52 @@
+---
+title: Rajutara documentation
+description: Guides for Operators and scripts, written from the Rajutara specifications and checked against the code.
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Rajutara is open-source apparel CAD: pattern design, grading, marker making and cut planning in one window, for Linux and for Windows 7 SP1 through Windows 11. These pages are written from the specifications in the repository. Every figure on them comes from the code, the tests or the sample files.
+
+## Start here
+
+<CardGrid>
+  <LinkCard
+    title="Getting started"
+    description="Install a package, open the sample tee and learn the keys that matter."
+    href="getting-started/"
+  />
+  <LinkCard
+    title="Workflows"
+    description="Five paths from a file or a blank page to a plot, a marker or a cut plan."
+    href="workflows/"
+  />
+</CardGrid>
+
+## The four workspaces
+
+They share one open Style and one undo history, so switching tabs never means exporting a file.
+
+<CardGrid>
+  <LinkCard title="PDS" description="Draft and edit pieces, import DXF, plot." href="workspaces/pds/" />
+  <LinkCard title="Grading" description="Grade rules, the size table and the graded nest." href="workspaces/grading/" />
+  <LinkCard title="Marker" description="Place by hand or nest, read the efficiency, plot." href="workspaces/marker/" />
+  <LinkCard title="Cut Plan" description="Orders, lays, fabric and cost, the Cut Order." href="workspaces/cut-plan/" />
+</CardGrid>
+
+## Reference
+
+<CardGrid>
+  <LinkCard title="File formats" description="DXF, RUL, HPGL/2, PDF, CSV and the native files." href="formats/" />
+  <LinkCard title="Headless and scripting" description="The smoke check, batch scripts, the MCP server, playbooks, the knowledge index and the documents as zip and JSON." href="headless/" />
+  <LinkCard title="Windows 7" description="What is verified, and what to do without an OpenGL driver." href="windows-7/" />
+  <LinkCard title="Glossary" description="The words of the project, which are also the names in the code." href="glossary/" />
+</CardGrid>
+
+## Project
+
+<CardGrid>
+  <LinkCard title="Roadmap" description="What 2.0.0 ships, what is scheduled, and what is not planned." href="roadmap/" />
+  <LinkCard title="Changelog" description="What changed in each release, from 1.0.0 to 2.0.0." href="changelog/" />
+  <LinkCard title="Parity checklist" description="Tool by tool against Optitex 15." href="parity-checklist/" />
+  <LinkCard title="Contributing" description="The clean-room rule, the gates and the code rules." href="contributing/" />
+</CardGrid>
