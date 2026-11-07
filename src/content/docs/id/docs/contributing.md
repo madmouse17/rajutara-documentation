@@ -64,6 +64,21 @@ Peninjau memeriksa ini lebih dulu:
 
 Setiap crate menyimpan string-nya di `i18n/en/` dan `i18n/id/`. Koreksi terhadap kata-kata bahasa Indonesia disambut: belum ada Operator berbahasa Indonesia yang mengonfirmasi string yang ada. Sebuah uji coba memeriksa bahwa setiap pesan bahasa Inggris punya pesan bahasa Indonesia, dengan placeholder yang sama.
 
+## Versi dokumentasi
+
+Saat rilis baru diterbitkan, buat snapshot dokumentasi saat ini sebelum menulis versi baru:
+
+1. Jalankan skrip snapshot dengan versi yang dibekukan:
+   ```sh
+   npm run docs:snapshot 2.0
+   ```
+   Perintah ini menyalin `src/content/docs/docs/` dan `src/content/docs/id/docs/` ke subfolder `2.0/`.
+2. Perbarui `VERSIONS` di `src/lib/versions.ts`. Tandai rilis baru sebagai `isLatest: true` dan versi yang dibekukan sebagai `isLatest: false`.
+3. Bangun dan uji situs dokumentasi:
+   ```sh
+   npm run build
+   ```
+
 ## Pull request
 
 - Satu urusan per pull request. Isi templatnya. "Not verified" adalah jawaban yang dapat diterima jika Anda menyebut apa yang tidak Anda jalankan.

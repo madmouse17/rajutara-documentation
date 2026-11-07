@@ -46,7 +46,9 @@ export default defineConfig({
         ThemeSelect: './src/components/docs/ThemeSelect.astro',
         SiteTitle: './src/components/docs/SiteTitle.astro',
         SocialIcons: './src/components/docs/SocialIcons.astro',
+        Banner: './src/components/docs/Banner.astro',
       },
+      routeMiddleware: ['./src/lib/routeMiddleware.ts'],
       head: [
         { tag: 'meta', attrs: { name: 'theme-color', content: '#07152d' } },
         { tag: 'link', attrs: { rel: 'apple-touch-icon', href: `${base}/apple-touch-icon.png` } },

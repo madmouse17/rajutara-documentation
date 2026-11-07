@@ -44,9 +44,9 @@ Guide: [Marker](../workspaces/marker/).
 
 1. In Cut Plan, choose Cut Plan, Create New…. The wizard walks the steps in order: Adding Style Files (the style open in PDS, or a file), Defining the Order Details (name, client, operator), Adding Colors and Defining Quantity for each Size, Defining Material Properties and Defining the Marker. Every step stays in the Plan pane afterwards. Add more Purchase Orders, Styles or Materials there if the order needs them.
 2. Colours and quantities: one row per colour, one column per size. Switch on the ratio mode to give a ratio and a total per colour, set a deviation for the over-cut you accept, or import the quantities from a `.csv`, `.xlsx` or `.ods` file.
-3. Material: name, width, ply mode, shrinkage, price per metre. Marker limits: minimum and maximum plies, bundles per marker, marker length, the allowance at each end of a ply and the waste limit. A Bundle longer than the maximum marker length is warned about while you type.
+3. Material: name, width, ply mode, shrinkage, price per metre. Marker limits: minimum and maximum plies, bundles per marker, marker length, the allowance at each end of a ply and the waste limit. Rajutara warns while you type when a Bundle is longer than the maximum marker length.
 4. Press Viewing the Final Results (`F5`). The Results tab lists the markers with their ratio, length and efficiency, the lays with their plies and fabric, a table of ordered, planned and difference per size and colour, and the totals with cost. A piece wider than the Material stops the solve with its name.
-5. Edit the plies of a lay or the ratio of a marker by hand if the floor needs it. The plan is then marked as edited.
+5. Edit the plies of a lay or the ratio of a marker by hand if the floor needs it. Rajutara then marks the plan as edited.
 6. Open the Cut Order tab. Enter your fabric rolls with code, colour, shade, width and length, or take them from the Fabric Room. Rajutara sequences the lays, takes whole plies from rolls, and reports the remnants and any missing fabric. Return Remnants writes what is left back to the Fabric Room.
 7. Write the reports with Generating a Cut Plan Report (CSV) or (PDF), and Viewing the Production Report for the cutting floor.
 

@@ -41,7 +41,7 @@ const en = {
     'Draft or import pieces, grade the sizes, nest the marker and plan the lays. Rajutara is free apparel CAD for Linux and Windows 7 SP1 through Windows 11.',
 
   // Hero
-  'hero.title': 'Pattern CAD built for real garments.',
+  'hero.title': 'Pattern CAD for garment workshops.',
   'hero.lede':
     'Draft, grade, nest and plan the cut in one open-source window for Linux and Windows.',
   'hero.docs': 'Read the docs',
@@ -89,7 +89,7 @@ const en = {
   'wf.pdsLink': 'PDS guide',
   'wf.pdsAlt':
     'The PDS workspace with segment lengths shown on the FRONT piece: neckline, shoulders and armholes with seam allowance and grainline',
-  'wf.gradingTitle': 'Grade by rule, not by redrawing.',
+  'wf.gradingTitle': 'Grade every size by rule.',
   'wf.gradingBody':
     'Pick a base size and give each grade point a rule: dX and dY per size. The graded nest draws every size in its own colour, and it leaves as ASTM DXF with a RUL file.',
   'wf.gradingLink': 'Grading guide',
@@ -116,7 +116,7 @@ const en = {
   'wf.plotCap': 'The Plot dialog: PDF as A4 tiles or one A0 sheet, or an HPGL/2 file.',
 
   // Start faster
-  'start.title': 'Start faster.',
+  'start.title': 'Try the sample tee.',
   'start.lede':
     'Open the sample tee in the app, or run the example with no window at all. The files are the ones Rajutara itself writes.',
   'start.alt':
@@ -135,7 +135,7 @@ const en = {
 
   // Made with
   'made.title': 'Made with Rajutara.',
-  'made.lede': 'Real renders from the sample files and the end-to-end tests. No stock images.',
+  'made.lede': 'Every picture here is rendered from the sample files and the end-to-end tests.',
   'made.pause': 'Pause the strip',
   'made.resume': 'Resume the strip',
   'made.teeTitle': 'The sample tee, nested',
@@ -172,7 +172,7 @@ const en = {
   // Formats
   'fmt.title': 'Formats a workshop already has.',
   'fmt.lede':
-    "Interchange uses open standards only. Documents are zip files holding JSON, so a script can read them. Optitex's own file formats are never read or written.",
+    "Interchange uses open standards only. Documents are zip files holding JSON, so a script can read them. Rajutara never reads or writes Optitex's own file formats.",
   'fmt.both': 'Import and export',
   'fmt.export': 'Export',
   'fmt.openSave': 'Open and save',
@@ -220,9 +220,9 @@ const en = {
   'dl.s4h': 'The Indonesian strings are unconfirmed.',
   'dl.s4b':
     'Every English string has an Indonesian one, but no Indonesian-speaking Operator has reviewed the wording.',
-  'dl.s5h': 'Most of Phase 3 is still ahead.',
+  'dl.s5h': 'The in-app assistant is not built yet.',
   'dl.s5b':
-    'Clusters, block fuse and flaws shipped early, in 1.5.0. Stripe and plaid matching, tilt and cross grading are on the roadmap.',
+    'Phase 3 has shipped: clusters, block fuse and flaws in 1.5.0, stripe and plaid matching, tilt and cross grading in 2.0.0. The agent command layer ships without a model call; the in-app assistant is wave D.',
   'dl.roadmap': 'Roadmap from 1.0 to v2',
 
   // Closing
@@ -330,7 +330,7 @@ const id: Record<Key, string> = {
   'home.description':
     'Gambar atau impor potongan, grading ukuran, susun marker, dan rencanakan hamparan kain. Rajutara adalah CAD pakaian gratis untuk Linux dan Windows 7 SP1 sampai Windows 11.',
 
-  'hero.title': 'CAD pola untuk pakaian sungguhan.',
+  'hero.title': 'CAD pola untuk konveksi.',
   'hero.lede':
     'Gambar, grading, susun, dan rencanakan pemotongan dalam satu jendela sumber terbuka untuk Linux dan Windows.',
   'hero.docs': 'Baca dokumentasi',
@@ -376,7 +376,7 @@ const id: Record<Key, string> = {
   'wf.pdsLink': 'Panduan PDS',
   'wf.pdsAlt':
     'Ruang kerja PDS dengan panjang segmen pada potongan FRONT: garis leher, bahu, dan lubang lengan beserta kampuh dan Garis Serat',
-  'wf.gradingTitle': 'Grading dengan aturan, bukan menggambar ulang.',
+  'wf.gradingTitle': 'Grading setiap ukuran dengan aturan.',
   'wf.gradingBody':
     'Pilih ukuran dasar dan beri tiap titik grading satu aturan: dX dan dY per ukuran. Nest hasil grading menggambar setiap ukuran dengan warnanya sendiri, dan keluar sebagai DXF ASTM beserta berkas RUL.',
   'wf.gradingLink': 'Panduan Grading',
@@ -402,7 +402,7 @@ const id: Record<Key, string> = {
   'wf.plotAlt': 'Dialog Plot dengan daftar Target terbuka: PDF ubin A4, PDF A0, berkas HPGL/2',
   'wf.plotCap': 'Dialog Plot: PDF berupa ubin A4 atau satu lembar A0, atau berkas HPGL/2.',
 
-  'start.title': 'Mulai lebih cepat.',
+  'start.title': 'Coba kaos contoh.',
   'start.lede':
     'Buka kaos contoh di aplikasi, atau jalankan contohnya tanpa jendela sama sekali. Berkasnya sama dengan yang ditulis Rajutara sendiri.',
   'start.alt':
@@ -420,7 +420,7 @@ const id: Record<Key, string> = {
   'start.viewExample': 'Lihat contoh',
 
   'made.title': 'Dibuat dengan Rajutara.',
-  'made.lede': 'Hasil render asli dari berkas contoh dan uji end-to-end. Tanpa gambar stok.',
+  'made.lede': 'Setiap gambar di sini dirender dari berkas contoh dan uji end-to-end.',
   'made.pause': 'Jeda strip',
   'made.resume': 'Lanjutkan strip',
   'made.teeTitle': 'Kaos contoh, tersusun',
@@ -456,7 +456,7 @@ const id: Record<Key, string> = {
 
   'fmt.title': 'Format yang sudah dipakai konveksi.',
   'fmt.lede':
-    'Pertukaran data hanya memakai standar terbuka. Dokumen berupa berkas zip berisi JSON, sehingga skrip bisa membacanya. Format berkas milik Optitex tidak pernah dibaca maupun ditulis.',
+    'Pertukaran data hanya memakai standar terbuka. Dokumen berupa berkas zip berisi JSON, sehingga skrip bisa membacanya. Rajutara tidak pernah membaca maupun menulis format berkas milik Optitex.',
   'fmt.both': 'Impor dan ekspor',
   'fmt.export': 'Ekspor',
   'fmt.openSave': 'Buka dan simpan',
@@ -503,9 +503,9 @@ const id: Record<Key, string> = {
   'dl.s4h': 'Teks bahasa Indonesia belum dikonfirmasi.',
   'dl.s4b':
     'Setiap teks bahasa Inggris punya padanan bahasa Indonesia, tetapi belum ada Operator berbahasa Indonesia yang meninjau pilihan katanya.',
-  'dl.s5h': 'Sebagian besar Fase 3 masih di depan.',
+  'dl.s5h': 'Asisten di dalam aplikasi belum dibuat.',
   'dl.s5b':
-    'Cluster, block fuse, dan cacat kain dirilis lebih awal, di 1.5.0. Pencocokan garis dan kotak-kotak, miring, dan cross grading ada di peta jalan.',
+    'Fase 3 sudah dirilis: cluster, block fuse, dan cacat kain di 1.5.0, lalu pencocokan garis dan kotak-kotak, miring, dan cross grading di 2.0.0. Lapisan perintah agen dirilis tanpa panggilan model; asisten di dalam aplikasi masuk wave D.',
   'dl.roadmap': 'Peta jalan dari 1.0 ke v2',
 
   'closing.label': 'Rajutara',

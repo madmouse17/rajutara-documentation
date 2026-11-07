@@ -65,15 +65,15 @@ Both check the plan before any nesting. They refuse an ordered piece that is wid
 | Ordered, planned, difference | Per size and colour. An over-cut is marked with a text badge as well as a colour. |
 | Totals and cost | Garments ordered and planned, markers and lays, fabric per colour, fabric including waste, material cost, estimated production cost and cost per garment. An empty order reads 0.00. |
 
-Edit the plies of a lay or the ratio of a marker by hand and the difference table follows. The plan is then marked as edited, and solving again asks first. For the sample order PO-100, 590 garments in three colours come out as three markers and nine lays.
+Edit the plies of a lay or the ratio of a marker by hand and the difference table follows. Rajutara then marks the plan as edited and asks before it solves again. For the sample order PO-100, 590 garments in three colours come out as three markers and nine lays.
 
 ## Cut Order
 
 The Cut Order tab turns a solved plan into work for the cutting room: the order in which the lays are spread, and the Fabric Rolls each lay draws its plies from.
 
-1. **Sequence.** Lays are grouped by colour in the order of the Order, so each colour change swaps the roll on the spreader once. Within a colour the longest plies come first, since they need long unbroken stretches of fresh roll and the shorter ones can use the ends. With several POs there is one sequence, PO after PO, and the POs share the rolls.
-2. **Roll allocation.** Each ply is taken whole from a roll of the lay's colour that is at least as wide as the material. Rolls of one shade are preferred, so a lay does not mix shades unless no single shade can complete it. Among the rolls that fit, a roll already on the spreader is kept, and the roll whose leftover would be smallest wins.
-3. **Remnants and missing fabric.** A roll's Remnant is what is left after the last ply. If no roll can give a ply, the Cut Order reports the lay, the number of plies and the length missing.
+1. Rajutara groups the lays by colour, in the order of the Order, so each colour change swaps the roll on the spreader once. Within a colour the longest plies come first, since they need long unbroken stretches of fresh roll and the shorter ones can use the ends. With several POs there is one sequence, PO after PO, and the POs share the rolls.
+2. It takes each ply whole from a roll of the lay's colour that is at least as wide as the material. It prefers rolls of one shade, so a lay does not mix shades unless no single shade can complete it. Among the rolls that fit, it keeps a roll already on the spreader, then prefers the roll whose leftover would be smallest.
+3. A roll's Remnant is what is left after the last ply. If no roll can give a ply, the Cut Order reports the lay, the number of plies and the length missing.
 
 Enter the rolls in the Cut Order pane: code, colour, shade, width and length, or use Import Fabric Rolls… with a `.csv`, `.xlsx` or `.ods` file. A roll of another colour, or a roll narrower than the material, stays unused. Splicing a ply across two rolls is not planned, because whole plies never under-plan. The Cut Order never changes the lays or the markers.
 

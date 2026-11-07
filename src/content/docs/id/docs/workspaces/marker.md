@@ -21,7 +21,7 @@ Marker adalah tata letak potongan satu style atau lebih dan satu ukuran atau leb
 
 Marker Table mengisi setiap potongan dengan warna ukurannya secara pekat, mengarsir tumpang tindih dengan merah, dan menggaris tepi oranye pada potongan yang berada di dalam margin. Potongan yang dipaku menampilkan pin. Marker baru atau yang dibuka menyesuaikan lebar kain ke tampilan.
 
-Bilah status menjaga bidang berikut tetap hidup: posisi kursor, potongan yang ditata dari yang diminta, bundle lengkap dari yang diminta, tumpang tindih, efisiensi, lebar, panjang terpakai, panjang per garmen, lapis, dan kemajuan proses nesting. Bilah status juga punya sakelar Cut/Plot Order.
+Bilah status selalu memperbarui bidang berikut: posisi kursor, potongan yang ditata dari yang diminta, bundle lengkap dari yang diminta, tumpang tindih, efisiensi, lebar, panjang terpakai, panjang per garmen, lapis, dan kemajuan proses nesting. Bilah status juga punya sakelar Cut/Plot Order.
 
 ## Penyiapan
 
@@ -31,7 +31,7 @@ Marker, Add Style… (`Shift+O`) menambahkan berkas style lain. Setiap style dis
 
 Bundle adalah kumpulan potongan yang membuat satu garmen satu ukuran. Ketik bundle per ukuran di panel Order. Arah menentukan bagaimana potongan boleh berputar 180 derajat: One Way menjaga setiap bundle sama, Opposite berganti-ganti antarbundle, Any bebas.
 
-**Mode lapis.** Marker Definitions, New Marker, dan wizard menawarkan Single, Tubular, Faced, dan Folded. Faced dan Folded memuat potongan berpasangan sekali, karena lapis lawan memberi cerminnya. Mode lapis juga menentukan di mana pasangan bisa berbaring terlipat; lihat [Potongan terlipat](#potongan-terlipat).
+Marker Definitions, New Marker, dan wizard menawarkan mode lapis Single, Tubular, Faced, dan Folded. Faced dan Folded memuat potongan berpasangan sekali, karena lapis lawan memberi cerminnya. Mode lapis juga menentukan di mana pasangan bisa berbaring terlipat; lihat [Potongan terlipat](#potongan-terlipat).
 
 ## Marker Creation Wizard
 
@@ -57,7 +57,7 @@ File, Marker Creation Wizard… membuat beberapa Marker sekaligus. Langkahnya ad
 
 ## Insert to Hole
 
-Piece, Insert to Hole mengaktifkan mode di samping Select, Shoot, dan Rotate Piece. Seret potongan yang sudah ditata ke atas lubang dengan tombol kiri atau kanan. Potongan mengambil tempat kosong terdekat yang muat, dan berputar ke orientasi apa pun yang diizinkan aturannya bila perlu. Lalu potongan itu menabrak sepanjang arah seretan, seperti Shoot. Perpindahannya satu langkah urungkan. Potongan yang dipaku, anggota cluster, dan jatuhan tanpa lubang yang muat dalam jangkauan ditolak dengan pemberitahuan. Satu seretan memindahkan satu potongan. Potongan yang dijatuhkan kembali ke lubang asalnya masuk, meski dilepas beberapa sentimeter dari situ.
+Piece, Insert to Hole mengaktifkan mode di samping Select, Shoot, dan Rotate Piece. Seret potongan yang sudah ditata ke atas lubang dengan tombol kiri atau kanan. Potongan mengambil tempat kosong terdekat yang muat, dan berputar ke orientasi apa pun yang diizinkan aturannya bila perlu. Lalu potongan itu menabrak sepanjang arah seretan, seperti Shoot. Perpindahannya satu langkah urungkan. Insert to Hole menolak potongan yang dipaku, anggota cluster, dan jatuhan tanpa lubang yang muat dalam jangkauan, lalu menampilkan pemberitahuan. Satu seretan memindahkan satu potongan. Potongan yang dijatuhkan kembali ke lubang asalnya masuk, meski dilepas beberapa sentimeter dari situ.
 
 ## Buffer potongan per sisi
 
@@ -88,7 +88,7 @@ Piece, Tilt Left (`F11`) dan Tilt Right (`F12`) memutar potongan terpilih yang s
 
 ## Cluster dan Fuse Block
 
-Grouping, Cluster Pieces membekukan susunan dua potongan atau lebih yang sudah ditata. Cluster dipilih, diseret, digeser sedikit, ditembak, dipaku, dikembalikan, ditata, dan di-nesting sebagai satu potongan. Selama menunggu, Piece Bar menampilkannya sebagai satu thumbnail "Cluster n", ditata dengan klik ganda atau seret. Cluster hanya bergeser: memutar atau membalik anggotanya ditolak dengan pemberitahuan. Grouping, Delete Cluster melepas potongannya di tempat.
+Grouping, Cluster Pieces membekukan susunan dua potongan atau lebih yang sudah ditata. Rajutara memperlakukan cluster sebagai satu potongan saat Anda memilih, menyeret, menggeser sedikit, menembak, memaku, mengembalikan, dan menatanya, dan saat nesting. Selama menunggu, Piece Bar menampilkannya sebagai satu thumbnail "Cluster n", yang Anda tata dengan klik ganda atau seret. Cluster hanya bisa digeser: Rajutara menolak memutar atau membalik anggotanya, dengan pemberitahuan. Grouping, Delete Cluster melepas potongannya di tempat.
 
 Grouping, Optimum Block Fuse… dan Rectangular Block Fuse… menanyakan celah di sekeliling potongan (0 sampai 1000 mm, mula-mula 10 mm). Keduanya membuat Fuse Block: cluster dengan batas, berupa kontur yang mengikuti potongan atau persegi panjang. Auto Nesting menjauhkan potongan lain dari batas itu, plot menggambarnya, dan berkas potong memotong batasnya alih-alih potongannya, jadi blok bisa di-fuse sebelum potongannya dipotong. Berkas potong kedua berisi isi blok dan Thrifty Block Fuse belum dibuat.
 
@@ -105,10 +105,10 @@ Bump Line adalah dinding vertikal atau horizontal yang tidak dilewati potongan s
 Flaw adalah persegi kain yang tidak boleh ditimpa potongan mana pun. Marker, Flaws punya:
 
 - **Mark Flaw on the Marker**: seret persegi, atau isi Left, Right, Top, dan Bottom. Whole Length Flaw dan Whole Width Flaw membentang sepanjang marker atau selebar Material.
-- **Import Flaws…** dari daftar CSV dengan satu baris `x_from,y_from,x_to,y_to` per cacat, dalam milimeter. Baris yang salah menolak berkasnya dan disebut.
+- **Import Flaws…** dari daftar CSV dengan satu baris `x_from,y_from,x_to,y_to` per cacat, dalam milimeter. Satu baris yang salah membuat seluruh berkas ditolak, dan pesannya menyebut baris itu.
 - **Remove Pieces Hitting Flaws** dan **Delete All Flaws**.
 
-Auto Nesting dan perintah Place menjauhkan potongan dari cacat. Cacat digambar berarsir di meja dan tidak diplot.
+Auto Nesting dan perintah Place menjauhkan potongan dari cacat. Meja menggambar cacat dengan arsiran, dan plot tidak mencetaknya.
 
 ## Teks pada marker
 
@@ -157,7 +157,7 @@ Potongan yang dipotong oleh marker lain dari rangkaian ini berstatus "cut elsewh
 
 ## Auto Nest Queue
 
-Nesting, Auto Nest Queue… me-nesting beberapa berkas `.rjm` berurutan dalam satu pekerjaan latar, tanpa Marker terbuka. Tambahkan berkasnya dengan Add Markers…, lalu beri setiap baris modenya di kolom Advanced, Algorithm dan mode Block Fuse-nya, waktu maksimum, dan batas efisiensi, lalu tekan Run. Regular me-nesting ulang setiap potongan; Continue mempertahankan potongan yang sudah ditata dan me-nesting yang menunggu di sekitarnya. Baris baru dimulai sebagai Regular. Setiap hasil masuk ke `<stem>-nested.rjm` di samping masukannya, dan masukannya tidak pernah ditulis. Berkas yang gagal menampilkan alasannya dan antrean berlanjut. Stop menyimpan baris yang sedang berjalan dan membiarkan yang lain Pending; baris yang dihentikan menampilkan efisiensi dan panjang hasil yang disimpannya. Menutup dialog membiarkan pekerjaan tetap berjalan, dengan strip yang menyebut barisnya. Tidak ada berkas antrean yang ditulis.
+Nesting, Auto Nest Queue… me-nesting beberapa berkas `.rjm` berurutan dalam satu pekerjaan latar, tanpa Marker terbuka. Tambahkan berkasnya dengan Add Markers…, lalu beri setiap baris modenya di kolom Advanced, Algorithm dan mode Block Fuse-nya, waktu maksimum, dan batas efisiensi, lalu tekan Run. Regular me-nesting ulang setiap potongan; Continue mempertahankan potongan yang sudah ditata dan me-nesting yang menunggu di sekitarnya. Baris baru dimulai sebagai Regular. Setiap hasil masuk ke `<stem>-nested.rjm` di samping masukannya, dan Rajutara tidak pernah menimpa berkas masukan. Berkas yang gagal menampilkan alasannya dan antrean berlanjut. Stop menyimpan baris yang sedang berjalan dan membiarkan yang lain Pending; baris yang dihentikan menampilkan efisiensi dan panjang hasil yang disimpannya. Menutup dialog membiarkan pekerjaan tetap berjalan, dengan strip yang menyebut barisnya. Rajutara tidak menulis berkas antrean.
 
 ## Arti angka-angkanya
 
@@ -184,7 +184,7 @@ Tanpa Cutting Order, setiap potongan dipotong searah jarum jam dari titik kiri b
 
 File, Report to Excel… (`Ctrl+R`) menulis workbook Excel (`.xlsx`) dengan satu lembar kerja per bagian, dan File, Print… (`Ctrl+P`) menulis PDF. Keduanya punya bagian yang sama: angka umum, order, setiap potongan, dan penandaan menurut bentuk. Order mencantumkan Lane setiap Bundle, dan potongan mencantumkan Tilt (°) dan Folded. Hitungan terbaca "1 piece" dan "2 pieces", dan tanggal terbaca "Date (UTC)".
 
-File, Customize Excel Report… punya satu tab per tabel laporan. Setiap kolom punya Show, Title, Move Up, dan Move Down, dan Restore Defaults mengembalikan kolom bawaan. Pilihan disimpan di preferensi; laporan Excel dan PDF mengikutinya, panel Report di layar tidak.
+File, Customize Excel Report… punya satu tab per tabel laporan. Setiap kolom punya Show, Title, Move Up, dan Move Down, dan Restore Defaults mengembalikan kolom bawaan. Rajutara menyimpan pilihan itu di preferensi. Laporan Excel dan PDF mengikutinya, panel Report di layar tidak.
 
 Preferences, Marker, Piece Description mengatur label setiap potongan yang ditata: bidang (Style Name, Piece Name, Code, Size, Bundle, Material, Description Text) dalam urutan yang Anda atur, Multi-Line Piece Description, Separator, Alphabetical Bundle Names, Don't Reset Bundle Numbering for Each Size, Orientation Next to Bundle Number, Auto Adjust Description Text, dan Show Piece Description Text in non-flipped form. Tabel, plot, label berkas potong, dan ekspor DXF mengikutinya.
 

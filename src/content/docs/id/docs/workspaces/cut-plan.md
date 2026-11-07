@@ -27,7 +27,7 @@ Setiap langkah wizard tetap ada di panel Plan, sebagai daftar bagian yang bisa d
 | Marker limits | Panjang marker maksimum, lapis minimum dan maksimum, bundle maksimum per marker, kelonggaran di ujung tiap lapis, dan batas limbah dalam persen. |
 | Cost and efficiency | Efisiensi yang diasumsikan sebelum marker di-nesting, bagian material dalam biaya produksi, dan apakah marker di-nesting. |
 
-**Mode rasio** mengambil rasio per ukuran dan total per warna lalu membagi jumlahnya dengan pembulatan sisa terbesar, sehingga setiap baris berjumlah sama dengan totalnya. **Deviasi** adalah kelebihan potong yang Anda terima, sebagai persen dari jumlah yang dipesan, per sel: pemotongan kurang tidak pernah direncanakan. **Import quantities…** membaca berkas `.csv`, `.xlsx`, atau `.ods`, sheet pertama, dengan baris judul, warna di kolom pertama dan satu kolom per nama ukuran.
+Mode rasio mengambil rasio per ukuran dan total per warna lalu membagi jumlahnya dengan pembulatan sisa terbesar, sehingga setiap baris berjumlah sama dengan totalnya. Deviasi adalah kelebihan potong yang Anda terima, sebagai persen dari jumlah yang dipesan, per sel; Rajutara tidak pernah merencanakan potong kurang. Import quantities… membaca berkas `.csv`, `.xlsx`, atau `.ods`, sheet pertama, dengan baris judul, warna di kolom pertama dan satu kolom per nama ukuran.
 
 ## Purchase Order
 
@@ -51,7 +51,7 @@ Bila Spreading Groups, Cutting Tables, atau pengelompokan gulungan berubah pada 
 
 Tekan Viewing the Final Results (`F5`) untuk menyelesaikan rencana. Penyelesainya adalah greedy deterministik: untuk setiap warna, dari lapis terbanyak ke paling sedikit, ia memilih rasio ukuran per marker yang memotong garmen paling banyak yang benar-benar dibutuhkan, mengutamakan rasio yang sudah dipakai rencana, lalu yang kelebihan potongnya paling kecil. Marker dengan rasio sama pada warna berbeda digabung, sehingga ada lebih sedikit marker yang harus dibuat. Masukan yang sama selalu menghasilkan rencana yang sama, dan rencana untuk sepuluh warna dan dua belas ukuran memakan sepersekian detik.
 
-Main Algorithm with Nesting me-nesting setiap marker yang direncanakan dengan mesin yang sama dengan ruang kerja Marker, sehingga panjang dan efisiensi sebenarnya menggantikan perkiraan. Marker yang lebih panjang dari batas ditandai "too long", tidak disembunyikan.
+Main Algorithm with Nesting me-nesting setiap marker yang direncanakan dengan mesin yang sama dengan ruang kerja Marker, sehingga panjang dan efisiensi sebenarnya menggantikan perkiraan. Rajutara menandai marker yang lebih panjang dari batas dengan "too long" dan tetap menampilkannya.
 
 Keduanya memeriksa rencana sebelum nesting apa pun. Keduanya menolak potongan yang dipesan bila lebih lebar dari Material, dan menyebut namanya. Berkas rencana dengan potongan seperti itu tetap terbuka, dengan peringatan, jadi Anda bisa melebarkan Material. Selama Anda menyunting, panel Plan dan wizard memperingatkan bila satu Bundle lebih panjang dari panjang marker maksimum; marker itu tetap disimpan dan ditandai "too long".
 
@@ -65,19 +65,19 @@ Keduanya memeriksa rencana sebelum nesting apa pun. Keduanya menolak potongan ya
 | Ordered, planned, difference | Per ukuran dan warna. Kelebihan potong ditandai dengan lencana teks selain warna. |
 | Totals and cost | Garmen dipesan dan direncanakan, marker dan lay, kain per warna, kain termasuk limbah, biaya material, perkiraan biaya produksi, dan biaya per garmen. Order kosong terbaca 0.00. |
 
-Sunting lapis sebuah lay atau rasio sebuah marker dengan tangan dan tabel selisih mengikuti. Rencana lalu ditandai sebagai sudah disunting, dan menyelesaikan ulang akan bertanya dulu. Untuk order contoh PO-100, 590 garmen dalam tiga warna menjadi tiga marker dan sembilan lay.
+Sunting lapis sebuah lay atau rasio sebuah marker dengan tangan, dan tabel selisih ikut berubah. Rajutara lalu menandai rencana sebagai sudah disunting dan bertanya dulu sebelum menyelesaikan ulang. Untuk order contoh PO-100, 590 garmen dalam tiga warna menjadi tiga marker dan sembilan lay.
 
 ## Cut Order
 
 Tab Cut Order mengubah rencana yang sudah diselesaikan menjadi pekerjaan untuk ruang potong: urutan lay dihampar, dan Fabric Roll tempat tiap lay mengambil lapisnya.
 
-1. **Urutan.** Lay dikelompokkan menurut warna dalam urutan Order, sehingga setiap pergantian warna hanya sekali menukar gulungan di mesin hampar. Dalam satu warna, lapis terpanjang didahulukan, karena memerlukan bentang gulungan segar yang panjang tanpa putus dan yang lebih pendek bisa memakai ujung-ujungnya. Dengan beberapa PO ada satu urutan, PO demi PO, dan PO berbagi gulungan.
-2. **Alokasi gulungan.** Setiap lapis diambil utuh dari gulungan berwarna sama dengan lay yang lebarnya setidaknya sama dengan material. Gulungan dengan shade yang sama diutamakan, sehingga lay tidak mencampur shade kecuali tidak ada satu shade pun yang bisa menyelesaikannya. Di antara gulungan yang cocok, gulungan yang sudah ada di mesin hampar dipertahankan, dan gulungan yang sisanya paling kecil menang.
-3. **Sisa dan kain yang kurang.** Remnant sebuah gulungan adalah yang tersisa setelah lapis terakhir. Jika tidak ada gulungan yang bisa memberi satu lapis, Cut Order melaporkan lay, jumlah lapis, dan panjang yang kurang.
+1. Rajutara mengelompokkan lay menurut warna dalam urutan Order, sehingga setiap pergantian warna hanya sekali menukar gulungan di mesin hampar. Dalam satu warna, lapis terpanjang didahulukan, karena lapis itu memerlukan bentang gulungan segar yang panjang tanpa putus, sedangkan lapis yang lebih pendek bisa memakai ujung-ujungnya. Dengan beberapa PO ada satu urutan, PO demi PO, dan PO berbagi gulungan.
+2. Rajutara mengambil setiap lapis utuh dari gulungan berwarna sama dengan lay yang lebarnya setidaknya sama dengan material. Rajutara mengutamakan gulungan dengan shade yang sama, sehingga lay tidak mencampur shade kecuali tidak ada satu shade pun yang bisa menyelesaikannya. Di antara gulungan yang cocok, Rajutara mempertahankan gulungan yang sudah ada di mesin hampar, lalu memilih gulungan yang sisanya paling kecil.
+3. Remnant sebuah gulungan adalah yang tersisa setelah lapis terakhir. Jika tidak ada gulungan yang bisa memberi satu lapis, Cut Order melaporkan lay, jumlah lapis, dan panjang kain yang kurang.
 
-Masukkan gulungan di panel Cut Order: kode, warna, shade, lebar, dan panjang, atau pakai Import Fabric Rolls… dengan berkas `.csv`, `.xlsx`, atau `.ods`. Gulungan warna lain, atau gulungan yang lebih sempit daripada material, tidak dipakai. Menyambung satu lapis lintas dua gulungan tidak direncanakan, karena lapis utuh tidak pernah merencanakan terlalu sedikit. Cut Order tidak pernah mengubah lay atau marker.
+Masukkan gulungan di panel Cut Order: kode, warna, shade, lebar, dan panjang, atau pakai Import Fabric Rolls… dengan berkas `.csv`, `.xlsx`, atau `.ods`. Gulungan warna lain, atau gulungan yang lebih sempit daripada material, tidak dipakai. Menyambung satu lapis lintas dua gulungan tidak ada dalam rencana, karena lapis utuh tidak pernah membuat rencana kekurangan kain. Cut Order tidak pernah mengubah lay atau marker.
 
-**Pengelompokan gulungan.** Cut Order setup, Group rolls membagi setiap warna ke kelompok gulungan: By width step, By shrinkage, dan One shade per group. Jumlah setiap warna dibagi ke kelompoknya sebanding dengan kainnya, dan setiap kelompok direncanakan pada lebarnya sendiri dengan markernya sendiri.
+**Pengelompokan gulungan.** Cut Order setup, Group rolls membagi setiap warna ke kelompok gulungan: By width step, By shrinkage, dan One shade per group. Rajutara membagi jumlah setiap warna ke kelompoknya sebanding dengan kainnya, dan merencanakan setiap kelompok pada lebarnya sendiri dengan markernya sendiri.
 
 ## Fabric Room
 

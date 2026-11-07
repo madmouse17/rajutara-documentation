@@ -3,16 +3,26 @@
 import { Image } from 'astro:assets';
 import logo from '../../assets/logo/rajutara-128.png';
 import { href } from '../../lib/i18n';
+import VersionSelect from './VersionSelect.astro';
 
 const lang = Astro.locals.starlightRoute.lang === 'id' ? 'id' : 'en';
 ---
 
-<a href={href(lang, '/')} class="site-title">
-  <Image src={logo} alt="" width={64} height={64} class="mark" />
-  <span translate="no">Rajutara</span>
-</a>
+<div class="site-title-container">
+  <a href={href(lang, '/')} class="site-title">
+    <Image src={logo} alt="" width={64} height={64} class="mark" />
+    <span translate="no">Rajutara</span>
+  </a>
+  <VersionSelect />
+</div>
 
 <style>
+  .site-title-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+  }
   .site-title {
     display: inline-flex;
     align-items: center;

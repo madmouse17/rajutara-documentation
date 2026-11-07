@@ -3,7 +3,7 @@ title: Workflows
 description: "Lima jalur di Rajutara: impor DXF lalu plot, susun dan grade blok, nesting marker, rencanakan potong, dan jalankan semuanya dari skrip."
 ---
 
-Setiap jalur di bawah ini berupa daftar langkah singkat dalam urutan yang ditempuh Operator. Nama menu sama dengan di program, tombol adalah bawaan, dan setiap jalur diakhiri panduan yang menjelaskan rinciannya. Keempat ruang kerja memakai Style terbuka yang sama, jadi potongan yang Anda impor atau gambar di satu ruang kerja adalah potongan yang Anda grade, nesting, dan rencanakan di ruang kerja berikutnya.
+Setiap jalur di bawah ini adalah daftar langkah singkat dalam urutan kerja Operator. Nama menu ditulis persis seperti di program, dan tombolnya adalah tombol bawaan. Di akhir setiap jalur ada tautan ke panduan yang lebih rinci. Keempat ruang kerja memakai Style terbuka yang sama, jadi potongan yang Anda impor atau gambar di satu ruang kerja adalah potongan yang Anda grade, nesting, dan rencanakan di ruang kerja berikutnya.
 
 ## 1. Impor DXF dan plot setiap ukuran
 
@@ -44,9 +44,9 @@ Panduan: [Marker](../workspaces/marker/).
 
 1. Di Cut Plan, pilih Cut Plan, Create New…. Wizard menjalani langkahnya berurutan: Adding Style Files (style yang terbuka di PDS, atau sebuah berkas), Defining the Order Details (nama, klien, operator), Adding Colors and Defining Quantity for each Size, Defining Material Properties, dan Defining the Marker. Setiap langkah tetap ada di panel Plan sesudahnya. Tambahkan Purchase Order, Style, atau Material lain di sana bila order membutuhkannya.
 2. Warna dan jumlah: satu baris per warna, satu kolom per ukuran. Nyalakan mode rasio untuk memberi rasio dan total per warna, atur deviasi untuk kelebihan potong yang Anda terima, atau impor jumlah dari berkas `.csv`, `.xlsx`, atau `.ods`.
-3. Material: nama, lebar, mode lapis, penyusutan, harga per meter. Batas marker: lapis minimum dan maksimum, bundle per marker, panjang marker, kelonggaran di tiap ujung lapis, dan batas limbah. Bundle yang lebih panjang dari panjang marker maksimum diperingatkan selagi Anda mengetik.
+3. Material: nama, lebar, mode lapis, penyusutan, harga per meter. Batas marker: lapis minimum dan maksimum, bundle per marker, panjang marker, kelonggaran di tiap ujung lapis, dan batas limbah. Selagi Anda mengetik, Rajutara memperingatkan bila satu Bundle lebih panjang dari panjang marker maksimum.
 4. Tekan Viewing the Final Results (`F5`). Tab Results mencantumkan marker dengan rasio, panjang, dan efisiensinya, lay dengan lapis dan kainnya, tabel dipesan, direncanakan, dan selisih per ukuran dan warna, serta total beserta biaya. Potongan yang lebih lebar dari Material menghentikan penyelesaian dengan menyebut namanya.
-5. Sunting lapis sebuah lay atau rasio sebuah marker dengan tangan jika lantai produksi membutuhkannya. Rencana lalu ditandai sebagai sudah disunting.
+5. Sunting lapis sebuah lay atau rasio sebuah marker dengan tangan jika lantai produksi membutuhkannya. Rajutara lalu menandai rencana itu sebagai sudah disunting.
 6. Buka tab Cut Order. Masukkan gulungan kain dengan kode, warna, shade, lebar, dan panjang, atau ambil dari Fabric Room. Rajutara mengurutkan lay, mengambil lapis utuh dari gulungan, dan melaporkan sisa serta kain yang kurang. Return Remnants menulis sisa kembali ke Fabric Room.
 7. Tulis laporan dengan Generating a Cut Plan Report (CSV) atau (PDF), dan Viewing the Production Report untuk lantai pemotongan.
 

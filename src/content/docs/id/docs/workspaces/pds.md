@@ -31,12 +31,12 @@ Bilah status mengalihkan panjang segmen (`F8`), kampuh (`Ctrl+F6`), Non Grading 
 
 ## Di meja
 
-- **Warna.** Setiap potongan mendapat isian sendiri dari palet 12 warna: pastel pada tema terang, warna pekat pada tema gelap. Potongan mempertahankan warnanya di setiap ukuran dan ruang kerja. View, Fill with Color mematikan isian.
-- **Hover dan seleksi.** Apa yang akan kena klik mendapat cincin atau garis tepi merah, seperti Optitex menampilkan snap-nya. Seleksi tetap oranye. Alat yang butuh titik kedua menggambar garis karet putus-putus dari pilihan pertama, dengan Length, Angle, dX, dan dY di samping penunjuk.
+- Setiap potongan mendapat isian warna sendiri dari palet 12 warna: pastel pada tema terang, warna pekat pada tema gelap. Potongan mempertahankan warnanya di setiap ukuran dan ruang kerja. View, Fill with Color mematikan isian.
+- Saat hover, apa yang akan kena klik mendapat cincin atau garis tepi merah, seperti Optitex menampilkan snap-nya. Seleksi tetap oranye. Alat yang butuh titik kedua menggambar garis karet putus-putus dari pilihan pertama, dengan Length, Angle, dX, dan dY di samping penunjuk.
 - **Piece Information Text.** View, Piece Information Text menampilkan bidang label setiap potongan di meja, satu per baris. Plot mencetak baris yang sama.
-- **Menu klik kanan.** Objek di bawah penunjuk dipilih lebih dulu, lalu menu menawarkan apa yang berlaku untuknya. Menu potongan dan titik punya submenu Grading (Sizes Table, Set Grading Tool, Copy Grading, Paste Grading). Garis dalam, lubang bor, dan anotasi menawarkan Copy Internal Object dan Move Or Copy Internal Tool.
-- **Spasi memindahkan potongan.** Dengan alat apa pun aktif dan tanpa tombol mouse ditekan, tahan `Space` untuk memindahkan potongan di bawah penunjuk; `Ctrl+Space` memindahkan objek dalam di bawah penunjuk. Melepas Space menjatuhkannya sebagai satu langkah urungkan, dan alat yang aktif tetap aktif. Potongan terlindungi ditolak.
-- **Tombol.** `Enter` pada seleksi membuka propertinya: Point Properties untuk titik terpilih, selain itu Piece Properties. `Del` dengan Select menghapus sub-objek terpilih, atau jika tidak ada, mengeluarkan potongan dari Work Area. `Shift+Del` menghapus potongan.
+- Klik kanan lebih dulu memilih objek di bawah penunjuk, lalu menu menawarkan apa yang berlaku untuknya. Menu potongan dan titik punya submenu Grading (Sizes Table, Set Grading Tool, Copy Grading, Paste Grading). Garis dalam, lubang bor, dan anotasi menawarkan Copy Internal Object dan Move Or Copy Internal Tool.
+- Dengan alat apa pun aktif dan tanpa tombol mouse ditekan, tahan `Space` untuk memindahkan potongan di bawah penunjuk; `Ctrl+Space` memindahkan objek dalam di bawah penunjuk. Melepas Space menjatuhkannya sebagai satu langkah urungkan, dan alat yang aktif tetap aktif. Rajutara menolak memindahkan potongan terlindungi.
+- `Enter` pada seleksi membuka propertinya: Point Properties untuk titik terpilih, selain itu Piece Properties. `Del` dengan Select menghapus sub-objek terpilih, atau jika tidak ada, mengeluarkan potongan dari Work Area. `Shift+Del` menghapus potongan.
 
 Segmen terpilih, atau dua titik bersebelahan yang terpilih, menampilkan bagian Segment di Properties: panjangnya, Sew atau Cut, dan Straight atau Curve.
 
@@ -76,13 +76,13 @@ Alat lain tetap memakai dialog `Alt+klik`.
 ## Titik dan penandaan
 
 - **Add Point on Contour** (`O`) menampilkan tempatnya, jarak dari titik sebelumnya, jarak ke titik berikutnya, dan rasionya sebelum Anda mengklik. Untuk titik di tengah segmen, `Alt+klik` dan pilih Proportional 0.5. Add Point at Midpoint sudah dihapus, karena Optitex tidak punya perintah itu.
-- **Point Name.** Dialog Add Point on Contour punya bidang Point Name. Point Properties punya baris Name untuk titik kontur dan titik Internal Line yang terpilih. Namanya disimpan di `.rjx`. Nama tidak digambar dan tidak ditulis ke DXF.
-- **Celah di tengah segmen.** Aktifkan Notch Tool dan `Alt+klik` segmennya. Di Notch Properties pilih Type I, sebuah Depth, Direction Perpendicular, dan Relationship Proportional dengan 0.5. Plot, DXF (layer 4), dan berkas potong membawanya sebagai penandaan celah.
-- **Preset penandaan.** Dialog Notch Tool dan Notch Properties punya Preset dan Save as Preset…. Preset menyimpan bentuk, kedalaman, lebar, Top Width, reverse, dan perintah. View, Notch Presets… mengganti nama dan menghapus preset. Preset disimpan di preferensi, jadi setiap Style melihat daftar yang sama.
+- **Point Name.** Dialog Add Point on Contour punya bidang Point Name. Point Properties punya baris Name untuk titik kontur dan titik Internal Line yang terpilih. Rajutara menyimpan nama itu di `.rjx`, tetapi tidak menggambarnya dan tidak menulisnya ke DXF.
+- Untuk celah di tengah segmen, aktifkan Notch Tool dan `Alt+klik` segmennya. Di Notch Properties pilih Type I, sebuah Depth, Direction Perpendicular, dan Relationship Proportional dengan 0.5. Plot, DXF (layer 4), dan berkas potong membawanya sebagai penandaan celah.
+- **Preset penandaan.** Dialog Notch Tool dan Notch Properties punya Preset dan Save as Preset…. Preset menyimpan bentuk, kedalaman, lebar, Top Width, reverse, dan perintah. View, Notch Presets… mengganti nama dan menghapus preset. Rajutara menyimpan preset di preferensi, jadi setiap Style melihat daftar yang sama.
 - **Top Width.** Penandaan Box punya Top Width, lebarnya di ujung; kosong berarti sama dengan lebar. Work Area, plot, serta plot dan berkas potong Marker menggambarnya.
-- **Penandaan di kampuh** potongan yang garis tersimpannya garis jahit bisa dipilih: klik menguji garis potong, jadi Select dan Properties menjangkaunya. Penandaan yang jangkarnya dipasang ulang oleh suntingan titik tetap di tempatnya di setiap ukuran.
+- Anda bisa memilih penandaan di kampuh pada potongan yang garis tersimpannya garis jahit: klik menguji garis potong, jadi Select dan Properties menjangkaunya. Bila suntingan titik memasang ulang jangkar sebuah penandaan, penandaan itu tetap di tempatnya di setiap ukuran.
 - **Move Point dan Move Point Along Contour** bekerja dengan klik, klik atau dengan tekan, seret, dan lepas. Kontur baru tampil sebagai garis tepi putus-putus sementara yang lama meredup.
-- **Lubang bor dan teks per ukuran.** Drill Hole Properties, Appearance in sizes, punya satu centang per ukuran. Annotation Properties, Text in sizes, punya satu bidang per ukuran; bidang kosong berarti teks utama. Plot, DXF graded nest, Marker, dan tampilan Grading mengikuti setiap ukuran. Work Area menandai lubang yang tidak ada di ukuran yang ditampilkan dengan silang kecil.
+- Lubang bor dan teks bisa berbeda per ukuran. Drill Hole Properties, Appearance in sizes, punya satu centang per ukuran. Annotation Properties, Text in sizes, punya satu bidang per ukuran; bidang kosong berarti teks utama. Plot, DXF graded nest, Marker, dan tampilan Grading mengikuti setiap ukuran. Work Area menandai lubang yang tidak ada di ukuran yang ditampilkan dengan silang kecil.
 
 ## Menyunting banyak potongan sekaligus
 
@@ -90,7 +90,7 @@ Alat lain tetap memakai dialog `Alt+klik`.
 - **Set Basic Seam** (Tools, Seam) memberi satu lebar kampuh pada seluruh kontur setiap potongan terpilih, dalam satu langkah urungkan.
 - **Change Multiple Internal Attributes** menyaring menurut Min dan Max kedalaman, lebar, dan Top Width penandaan, serta jari-jari lubang bor.
 - **Swap Piece Properties Tool** (Piece, General) memberi dua potongan terpilih nama, kode, deskripsi, jumlah, pasangan, material, label, dan aturan Marker satu sama lain. Bentuknya tetap di tempat.
-- **Nama potongan salinan.** Dengan Preferences, PDS, Copied pieces diatur ke Auto Renumber, Paste dan Save Active as New memberi salinan akhiran `_n` sumber ditambah satu, atau `_1`, dan terus menghitung selama nama itu sudah dipakai. Standard copy mempertahankan penamaan lama. Paste antar-Style dengan Base Size berbeda mempertahankan setiap ukuran di tempatnya.
+- Dengan Preferences, PDS, Copied pieces diatur ke Auto Renumber, Paste dan Save Active as New memberi nama salinan akhiran `_n` sumber ditambah satu, atau `_1`, dan terus menghitung selama nama itu sudah dipakai. Standard copy mempertahankan penamaan lama. Paste antar-Style dengan Base Size berbeda mempertahankan setiap ukuran di tempatnya.
 
 ## Sudut kampuh
 
@@ -100,14 +100,14 @@ Switch Cut/Sew dan Switch Pieces to SEW/CUT menyebut berapa potongan yang garis 
 
 ## Kontur dan garis dalam
 
-- **Extend in Parallel** ada di toolbar Contour, di samping Extend. Setelah Anda memilih titik pertama dan terakhir dari tepinya, alat ini menanyakan jarak: nilai positif memperpanjang, nilai negatif memangkas. Tetangga yang tidak terjangkau disambung dengan langkah lurus, dan pemberitahuan menyebut titiknya.
+- **Extend in Parallel** ada di toolbar Contour, di samping Extend. Setelah Anda memilih titik pertama dan terakhir dari tepinya, alat ini menanyakan jarak: nilai positif memperpanjang, nilai negatif memangkas. Alat ini menyambung tetangga yang tidak terjangkau dengan langkah lurus, dan pemberitahuan menyebut titiknya.
 - **Segment Length** punya Moving end Both ends: setiap ujung bergeser setengah dari perubahan. Extend By Curve ditolak dengan Both ends.
-- **Extend Internal Object** terbuka pada bidang jumlah dengan "By an extension amount" terpilih, jadi panjang yang diketik langsung dipakai. Klik pada segmen kontur ditolak dengan petunjuk ke Extend in Parallel.
+- **Extend Internal Object** terbuka pada bidang jumlah dengan "By an extension amount" terpilih, jadi panjang yang diketik langsung dipakai. Klik pada segmen kontur ditolak, dengan petunjuk ke Extend in Parallel.
 - **Wave Tool** (toolbar Insert, Design, Contour). Klik titik pertama dan terakhir, gerakkan penunjuk untuk tingginya, lalu klik. Bawaannya dua gelombang; `Tab` menambah satu dan `Shift+Tab` mengurangi satu. `Alt` pada klik ketiga membuka dialog: Waves, Internal Points On Wave, Height, Angle, dan New Wave atau Contour Change. Di antara dua titik kontur satu potongan, alat ini membentuk ulang kontur; di tempat lain ia menambahkan garis dalam.
 - **Deform Internals** (Design, Deform Internals) punya Transform Circle To Contour, Transform Circle To Button, dan Transform Button To Circle, masing-masing satu langkah urungkan.
 - **Fold Line to Line Tool** (Piece, Modify) melipat potongan sehingga salah satu garisnya mengambil arah garis lain.
 - **Reopen Darts** (Tools, Darts) membuka setiap kup yang ditampilkan tertutup oleh Close Dart.
-- **Grading mengikuti suntingan.** Titik Build Piece pada Internal Line mengambil grading yang diinterpolasi sepanjang garis itu. Remove Excess Cloth memutar garis dalam, lubang bor, dan teks dari area yang dipindah bersama Grade Rule-nya. Pleat Lines mempertahankan geometrinya sendiri, karena tidak ada sumber publik yang menjelaskan geometri Optitex.
+- Grading mengikuti suntingan. Titik Build Piece pada Internal Line mengambil grading yang diinterpolasi sepanjang garis itu. Remove Excess Cloth memutar garis dalam, lubang bor, dan teks dari area yang dipindah bersama Grade Rule-nya. Pleat Lines mempertahankan geometrinya sendiri, karena tidak ada sumber publik yang menjelaskan geometri Optitex.
 
 ## Segment Editor
 
@@ -173,9 +173,9 @@ Setiap simpan menyimpan berkas sebelumnya sebagai `.bak`. File, Open Backup memb
 | Arrange first | Menata potongan pada lebar lembar sebelum memplot. |
 | Translate piece names | Mencetak setiap nama lewat Tools, Piece Name Dictionary…. |
 
-Garis potong diplot padat dan garis jahit putus-putus, penandaan digambar sebagai bentuknya pada garis potong, dan Garis Serat punya kepala panah. Label potongan mencetak setiap bidang label secara berurutan, satu per baris. Arrange for Plot (`Ctrl+K`) mengerjakan tata letak sendiri: potongan diurutkan menurut tinggi, ditata dalam baris dari kiri ke kanan dengan celah (bawaan 10 mm), dan diputar 90 derajat ketika potongan panjang tidak muat pada lebar. Plot berjalan di thread pekerja dengan kemajuan dan tombol Cancel.
+Garis potong diplot padat dan garis jahit putus-putus, penandaan digambar sebagai bentuknya pada garis potong, dan Garis Serat punya kepala panah. Label potongan mencetak setiap bidang label secara berurutan, satu per baris. Arrange for Plot (`Ctrl+K`) menata potongan sendiri: alat ini mengurutkan potongan menurut tinggi, menatanya dalam baris dari kiri ke kanan dengan celah (bawaan 10 mm), dan memutarnya 90 derajat ketika potongan panjang tidak muat pada lebar. Plot berjalan di thread pekerja dengan kemajuan dan tombol Cancel.
 
-Tools, Piece Name Dictionary… adalah tabel Name → Translation, misalnya bahasa Inggris ke bahasa Indonesia, dengan Add, Remove, Import, dan Export (`.csv` atau `.xlsx`). Tabel disimpan di preferensi. Dengan Translate piece names menyala, plot PDS dan Marker serta Export to CAD/CAM Marker mencetak terjemahan nama yang persis sama.
+Tools, Piece Name Dictionary… adalah tabel Name → Translation, misalnya bahasa Inggris ke bahasa Indonesia, dengan Add, Remove, Import, dan Export (`.csv` atau `.xlsx`). Rajutara menyimpan tabel itu di preferensi. Dengan Translate piece names menyala, plot PDS dan Marker serta Export to CAD/CAM Marker mencetak terjemahan nama yang persis sama.
 
 ## Belum dibuat
 

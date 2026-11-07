@@ -64,6 +64,21 @@ Reviewers check these first:
 
 Each crate keeps its strings in `i18n/en/` and `i18n/id/`. Corrections to the Indonesian wording are welcome: no Indonesian-speaking Operator has confirmed the current strings yet. A test checks that every English message has an Indonesian one, with the same placeholders.
 
+## Documentation versions
+
+When a new release ships, snapshot the current documentation before writing the new version:
+
+1. Run the snapshot script with the version being frozen:
+   ```sh
+   npm run docs:snapshot 2.0
+   ```
+   This copies `src/content/docs/docs/` and `src/content/docs/id/docs/` into `2.0/` subfolders.
+2. Update `VERSIONS` in `src/lib/versions.ts`. Mark the new release as `isLatest: true` and the frozen version as `isLatest: false`.
+3. Build and test the documentation:
+   ```sh
+   npm run build
+   ```
+
 ## Pull requests
 
 - One concern per pull request. Fill in the template. "Not verified" is an acceptable answer if you say what you did not run.

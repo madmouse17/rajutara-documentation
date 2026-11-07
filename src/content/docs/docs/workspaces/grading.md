@@ -24,8 +24,8 @@ Grading is the same style and the same undo history as PDS, with other panes and
 
 ## Picking in the Work Area
 
-- **Rectangle selection.** Drag with the Select tool to select a run of points; `Shift` adds to the selection. A hover ring marks the point a click would take, and grab marks show per size while a drag tool is armed.
-- **Right-click menus.** The object under the pointer is selected first; a selected run is kept, so Paste reaches all of it.
+- Drag with the Select tool to select a run of points in a rectangle; `Shift` adds to the selection. A hover ring marks the point a click would take, and grab marks show per size while a drag tool is armed.
+- A right-click selects the object under the pointer first; a selected run is kept, so Paste reaches all of it.
 
 | Under the pointer | Menu |
 |---|---|

@@ -9,15 +9,15 @@ Banyak PC bengkel menjalankan Windows 7, sering edisi 32-bit. Rajutara menjadika
 
 - Build Windows berjalan di bawah Wine pada mesin acuan Linux, yang merender dengan OpenGL perangkat lunak Mesa. Setiap build mulai, melaporkan versinya, dan lolos pemeriksaan `--smoke`.
 - Setiap build lolos pemeriksaan tabel impor: tidak ada dependensi yang boleh memerlukan API lebih baru daripada Windows 7, seperti fungsi tunggu, DirectX 12, atau WinRT. Pemeriksaan ini bagian dari rilis.
-- **Belum diverifikasi: PC Windows 7 sungguhan.** Uji di perangkat keras nyata, dengan driver GPU vendor, dialog berkas, dan pemasang, adalah gerbang rilis yang masih tertunda. Sampai lolos, anggap Windows 7 diharapkan berfungsi, bukan terbukti.
+- **Belum diverifikasi: PC Windows 7 sungguhan.** Uji di perangkat keras nyata, dengan driver GPU vendor, dialog berkas, dan pemasang, adalah gerbang rilis yang masih tertunda. Sampai uji itu lolos, Windows 7 diharapkan berfungsi tetapi belum terbukti.
 
 Build 32-bit mengalamatkan paling banyak sekitar 2 GB, dan anggaran memori program berlaku tanpa perubahan. Dukungan aksesibilitas bisa tidak ada di build Windows 7 jika uji smoke menunjukkan dukungan itu gagal di sana; catatan rilis akan menyebutkannya.
 
 ## Cara build dibuat
 
-Target stabil Rust saat ini memerlukan Windows 10, jadi build Windows memakai target Windows 7 dari Rust, `x86_64-win7-windows-gnu` dan `i686-win7-windows-gnu`. Build dibuat silang di Linux dengan toolchain nightly yang disematkan dan MinGW. Toolchain itu ada pada pemelihara, bukan di repositori, begitu pula skrip build paket Windows. Pull request yang menyentuh windowing, dialog, sistem berkas, atau dependensi menyebutkannya, dan pemelihara menjalankan pemeriksaan Windows.
+Target stabil Rust saat ini memerlukan Windows 10, jadi build Windows memakai target Windows 7 dari Rust, `x86_64-win7-windows-gnu` dan `i686-win7-windows-gnu`. Pemelihara membuat build ini secara silang di Linux dengan toolchain nightly yang disematkan dan MinGW. Toolchain itu dan skrip build paket Windows ada pada pemelihara, bukan di repositori. Pull request yang menyentuh windowing, dialog, sistem berkas, atau dependensi menyebutkannya, lalu pemelihara menjalankan pemeriksaan Windows.
 
-Jendela digambar lewat OpenGL 2.1 (renderer `glow` milik eframe), bukan Vulkan atau DirectX, karena itulah yang disediakan Windows 7 dan grafis terintegrasi.
+Rajutara menggambar jendelanya lewat OpenGL 2.1 (renderer `glow` milik eframe), bukan Vulkan atau DirectX, karena itulah yang disediakan Windows 7 dan grafis terintegrasi.
 
 ## Tanpa driver OpenGL
 
@@ -30,4 +30,4 @@ Perbaikannya adalah OpenGL perangkat lunak yang disertakan dalam paket Windows, 
 3. Mulai program lagi. Program berjalan di CPU, jadi lebih lambat, tetapi berjalan.
 4. Setelah memasang driver grafis, hapus kedua berkas itu lagi supaya program memakai perangkat keras.
 
-Berkas itu tidak berada di samping program secara bawaan, jadi mesin dengan driver yang berfungsi tetap memakai renderer perangkat keras. Berkas lisensi Mesa ikut disertakan, dan `THIRD-PARTY.html` mencantumkan Mesa.
+Paket tidak menaruh kedua berkas itu di samping program, jadi mesin dengan driver yang berfungsi tetap memakai renderer perangkat keras. Berkas lisensi Mesa ikut disertakan, dan `THIRD-PARTY.html` mencantumkan Mesa.

@@ -57,7 +57,7 @@ File, Marker Creation Wizard… makes several Markers in one go. Its steps are S
 
 ## Insert to Hole
 
-Piece, Insert to Hole arms a mode beside Select, Shoot and Rotate Piece. Drag a placed piece over a hole with the left or the right button. It takes the nearest free spot where it fits, and turns to any orientation its rules allow if it must. Then it bumps along the drag, like Shoot. The move is one undo step. A fixed piece, a cluster member and a drop with no fitting hole in reach are refused with a notice. One piece goes per drag. A piece dropped back into the hole it came from drops in even when released a few centimetres off.
+Piece, Insert to Hole arms a mode beside Select, Shoot and Rotate Piece. Drag a placed piece over a hole with the left or the right button. It takes the nearest free spot where it fits, and turns to any orientation its rules allow if it must. Then it bumps along the drag, like Shoot. The move is one undo step. Insert to Hole refuses a fixed piece, a cluster member and a drop with no fitting hole in reach, and shows a notice. One piece goes per drag. A piece dropped back into the hole it came from drops in even when released a few centimetres off.
 
 ## Piece buffers by side
 

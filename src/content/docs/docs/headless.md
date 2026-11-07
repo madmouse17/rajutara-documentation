@@ -47,7 +47,7 @@ LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s "-screen 0 1280x800x24" target/release/ra
 | `peak_rss_kb` | Peak resident memory, from `/proc/self/status` on Linux. Omitted elsewhere. |
 | `gl_renderer`, `gl_version` | The OpenGL context the window got. |
 
-The values vary by machine, the keys do not. CI reads this line for its budgets: the release binary, the first frame, the idle memory and the paint time of a 1000-piece marker are tests, not hopes (`scripts/check-budgets.sh`). The same line decides whether a Windows 7 build passes under Wine. `--smoke` with a file also loads and validates that file.
+The values vary by machine, the keys do not. CI reads this line and tests its budgets for the release binary, the first frame, the idle memory and the paint time of a 1000-piece marker (`scripts/check-budgets.sh`). The same line decides whether a Windows 7 build passes under Wine. `--smoke` with a file also loads and validates that file.
 
 ## The headless examples
 

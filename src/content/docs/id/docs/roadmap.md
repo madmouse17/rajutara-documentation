@@ -3,7 +3,7 @@ title: Peta jalan
 description: Apa yang dibawa 2.0.0, batasan yang diketahui, isi gelombang D, dan apa yang tidak akan dikerjakan Rajutara.
 ---
 
-Halaman ini adalah rencana proyek dalam kata-kata sederhana: apa yang dibawa 2.0.0, batasan yang diketahui, isi gelombang berikutnya, dan apa yang tidak direncanakan. Sumbernya adalah `ROADMAP.md`, [`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §8, dan [`docs/spec/08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md) §3 di repositori. [Daftar paritas](../parity-checklist/) memuat tampilan alat demi alat, dan [catatan perubahan](../changelog/) apa yang berubah di setiap rilis.
+Halaman ini merangkum rencana proyek: apa yang dibawa 2.0.0, batasan yang diketahui, isi gelombang berikutnya, dan apa yang tidak direncanakan. Sumbernya adalah `ROADMAP.md`, [`docs/spec/00-overview.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/00-overview.md) §8, dan [`docs/spec/08-v2-roadmap.md`](https://github.com/madmouse17/rajutara/blob/main/docs/spec/08-v2-roadmap.md) §3 di repositori. [Daftar paritas](../parity-checklist/) memuat tampilan alat demi alat, dan [catatan perubahan](../changelog/) mencatat apa yang berubah di setiap rilis.
 
 ## Fase
 
@@ -25,7 +25,7 @@ Halaman ini adalah rencana proyek dalam kata-kata sederhana: apa yang dibawa 2.0
 Platform dan berkas:
 
 - Build Windows hanya diverifikasi di bawah Wine dan lewat pemeriksaan tabel impor. Uji di perangkat keras Windows 7 sungguhan masih tertunda. Lihat [Windows 7](../windows-7/).
-- Berkas yang disimpan 2.0.0 adalah format native 3. Rajutara 1.5.x dan yang lebih lama menolaknya, jadi setiap PC yang berbagi berkas harus diperbarui bersamaan. 2.0.0 membuka berkas lama.
+- Berkas yang disimpan 2.0.0 adalah format native 3. Rajutara 1.5.x dan yang lebih lama menolaknya, jadi perbarui setiap PC yang berbagi berkas secara bersamaan. 2.0.0 membuka berkas lama.
 - 3D hanya antarmuka. Driver pemotong vendor tidak disertakan; Marker menulis satu berkas potong HPGL/2 generik dan satu DXF generik.
 - String bahasa Indonesia belum dikonfirmasi: setiap string bahasa Inggris punya padanan bahasa Indonesia, dan CI memeriksanya, tetapi belum ada Operator berbahasa Indonesia yang meninjau kata-katanya.
 
@@ -41,7 +41,7 @@ PDS dan Grading:
 Marker:
 
 - Advanced menjadi Algorithm bawaan sejak uji keputusan tolok ukur ADR-0019 lulus, jadi Marker yang di-nesting ulang bisa berbeda hasilnya dari 1.5.x. Pilih Standard di Auto Nesting Setup, atau `@NEST /AL=QUA`, untuk mesin 1.x.
-- Auto Nesting tidak pernah melipat potongan sendiri; Place Folded dilakukan manual. Pasangan terlipat adalah satu bentuk bersama, jadi tidak bisa dipindah, ditembak, atau diputar sampai dibuka.
+- Auto Nesting tidak pernah melipat potongan sendiri; Operator menjalankan Place Folded dengan tangan. Pasangan terlipat adalah satu bentuk bersama, jadi pasangan itu tidak bisa dipindah, ditembak, atau diputar sampai dibuka.
 - Hanya potongan tunggal yang menempel ke belang; seleksi atau cluster bergerak sesuai seretan. Ukuran belang diagonal, warna belang yang berubah-ubah, Revise Pieces Placements, dan motif bunga belum dibuat.
 - Satu buffer potongan melayani setiap ukuran, dan garis tepi buffer tidak bisa disunting titik demi titik.
 - Additional Mixing, Optimize Last Bundles, Idle Time, dan nama mesin Nest++ belum dibuat. Pecahan Bundles Overlap (5, 15, dan 30 %) dan lajur setiap Bundle adalah pilihan Rajutara sendiri.
@@ -52,12 +52,12 @@ Marker:
 Rencana Potong:
 
 - Semua Purchase Order berbagi satu Cut Order dan satu set gulungan, PO demi PO. Satu marker tidak pernah mencampur Style.
-- Baris Fabric Room diubah dengan menghapus lalu menambahkannya lagi. Langkah pertama wizard Create New tidak menawarkan pilihan Material atau Style Set.
-- Cut Order dihitung ulang setiap frame, jadi rencana dengan sangat banyak Fabric Roll memperlambat panelnya.
+- Untuk mengubah baris Fabric Room, hapus baris itu lalu tambahkan lagi. Langkah pertama wizard Create New tidak menawarkan pilihan Material atau Style Set.
+- Rajutara menghitung ulang Cut Order setiap frame, jadi rencana dengan sangat banyak Fabric Roll memperlambat panelnya.
 
 Lapisan perintah agen:
 
-- 2.0.0 tidak memanggil model. Perakitan prompt, redaksi, dan templat jawaban sudah dibuat dan diuji, tetapi tidak ada yang mengirim prompt.
+- 2.0.0 tidak memanggil model. Perakitan prompt, redaksi, dan templat jawaban sudah dibuat dan diuji, tetapi belum ada bagian yang mengirim prompt.
 - MCP tidak punya konfirmasi di dalam klien: di luar titik persetujuan playbook yang sudah disetujui, simpan, timpa, hapus, atau buang menjawab `confirmation_required` kecuali server berjalan dengan `--yes`.
 - `rajutara batch` mencetak keluarannya di akhir proses; berkas `--log` ditulis baris demi baris.
 - Ke-13 nilai profil bengkel `profil-bengkel.toml` belum punya sumber dan dilaporkan sebagai "perlu konfirmasi operator" sampai bengkel mengisinya.
@@ -90,4 +90,4 @@ Setiap butir perlu desainnya sendiri; gelombang C hanya menyiapkan kaitannya.
 - Templat garmen parametrik dan pengubahan ukuran made-to-measure.
 - Perintah batch `@CHNT` dan `@CHBTN`, nama Nest++, Idle Time, dan pelipatan otomatis (`/AF`): tidak ada perilaku publik yang bisa diikuti.
 
-Ingin mengambil satu butir? Buka issue lebih dulu, seperti yang diminta [Berkontribusi](../contributing/).
+Sebelum mengerjakan salah satu butir, buka issue lebih dulu, seperti yang diminta [Berkontribusi](../contributing/).

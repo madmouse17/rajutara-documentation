@@ -1,0 +1,72 @@
+---
+import { getVersionFromPath, getPathForVersion, VERSIONS } from '../../lib/versions';
+
+const { banner } = Astro.locals.starlightRoute.entry.data;
+const pathname = Astro.url.pathname;
+const version = getVersionFromPath(pathname);
+const lang = Astro.locals.starlightRoute.lang === 'id' ? 'id' : 'en';
+
+const isOldVersion = !version.isLatest;
+const latestVersion = VERSIONS.find((v) => v.isLatest)?.slug ?? '2.0';
+const latestUrl = isOldVersion ? getPathForVersion(pathname, latestVersion) : '';
+
+const oldVersionMessage = {
+  en: {
+    prefix: `This documentation is for Rajutara ${version.slug}. For the latest version, go to the `,
+    linkText: 'current documentation',
+    suffix: '.',
+    ariaLabel: 'Version notice',
+  },
+  id: {
+    prefix: `Dokumentasi ini untuk Rajutara ${version.slug}. Untuk versi terbaru, buka `,
+    linkText: 'dokumentasi terkini',
+    suffix: '.',
+    ariaLabel: 'Pemberitahuan versi',
+  },
+}[lang];
+---
+
+{isOldVersion && (
+  <div
+    class="version-banner"
+    data-pagefind-ignore
+    role="region"
+    aria-label={oldVersionMessage.ariaLabel}
+  >
+    <span>
+      {oldVersionMessage.prefix}
+      <a href={latestUrl}>{oldVersionMessage.linkText}</a>
+      {oldVersionMessage.suffix}
+    </span>
+  </div>
+)}
+
+{banner && <div class="sl-banner" data-pagefind-ignore set:html={banner.content} />}
+
+<style>
+  .version-banner {
+    padding: 0.75rem 1rem;
+    background-color: var(--sl-color-orange-low);
+    border-bottom: 1px solid var(--sl-color-accent);
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-sm);
+    line-height: 1.5;
+    text-align: center;
+  }
+  .version-banner a {
+    color: var(--sl-color-accent-high);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .version-banner a:hover {
+    text-decoration: none;
+  }
+  .sl-banner {
+    padding: var(--sl-nav-pad-y) var(--sl-nav-pad-x);
+    background-color: var(--sl-color-banner-bg, var(--sl-color-bg-accent));
+    color: var(--sl-color-banner-text, var(--sl-color-text-invert));
+    line-height: var(--sl-line-height-headings);
+    text-align: center;
+    box-shadow: var(--sl-shadow-sm);
+  }
+</style>

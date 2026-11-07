@@ -17,6 +17,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "docs:snapshot": "node scripts/snapshot-docs.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

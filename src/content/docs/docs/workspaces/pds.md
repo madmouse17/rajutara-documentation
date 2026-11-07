@@ -31,12 +31,12 @@ The status bar toggles segment lengths (`F8`), the seam (`Ctrl+F6`), Non Grading
 
 ## On the desk
 
-- **Colours.** Each piece gets its own fill from a 12-colour palette: pastels in the light theme, deep tones in the dark one. A piece keeps its colour in every size and workspace. View, Fill with Color turns the fills off.
-- **Hover and selection.** What a click would hit gets a red ring or outline, as Optitex shows its snap. The selection stays orange. A tool that takes a second point draws a dashed band from the first pick, with Length, Angle, dX and dY next to the pointer.
+- Each piece gets its own fill colour from a 12-colour palette: pastels in the light theme, deep tones in the dark one. A piece keeps its colour in every size and workspace. View, Fill with Color turns the fills off.
+- Whatever a click would hit gets a red ring or outline, as Optitex shows its snap. The selection stays orange. A tool that takes a second point draws a dashed band from the first pick, with Length, Angle, dX and dY next to the pointer.
 - **Piece Information Text.** View, Piece Information Text shows the label fields of each piece on the desk, one per line. The plot prints the same lines.
-- **Right-click menus.** The object under the pointer is selected first, then the menu offers what applies to it. The piece and point menus have a Grading submenu (Sizes Table, Set Grading Tool, Copy Grading, Paste Grading). Internal lines, drill holes and annotations offer Copy Internal Object and Move Or Copy Internal Tool.
-- **Space moves a piece.** With any tool armed and no button pressed, hold `Space` to move the piece under the pointer; `Ctrl+Space` moves the internal under the pointer. Releasing Space drops it as one undo step, and the armed tool stays armed. A protected piece is refused.
-- **Keys.** `Enter` on a selection opens its properties: Point Properties for selected points, else Piece Properties. `Del` with Select deletes the selected sub-objects, or else removes the piece from the Work Area. `Shift+Del` deletes the piece.
+- A right-click selects the object under the pointer first, then the menu offers what applies to it. The piece and point menus have a Grading submenu (Sizes Table, Set Grading Tool, Copy Grading, Paste Grading). Internal lines, drill holes and annotations offer Copy Internal Object and Move Or Copy Internal Tool.
+- With any tool armed and no button pressed, hold `Space` to move the piece under the pointer; `Ctrl+Space` moves the internal under the pointer. Releasing Space drops it as one undo step, and the armed tool stays armed. Space does not move a protected piece.
+- `Enter` on a selection opens its properties: Point Properties for selected points, else Piece Properties. `Del` with Select deletes the selected sub-objects, or else removes the piece from the Work Area. `Shift+Del` deletes the piece.
 
 A selected segment, or two adjacent selected points, shows a Segment section in Properties: its length, Sew or Cut, and Straight or Curve.
 
@@ -77,12 +77,12 @@ The other tools keep their `Alt+click` dialogs.
 
 - **Add Point on Contour** (`O`) shows the spot, the distance from the previous point, the distance to the next point and the ratio before you click. For a point in the middle of a segment, `Alt+click` and choose Proportional 0.5. Add Point at Midpoint is gone, because Optitex has no such command.
 - **Point Name.** The Add Point on Contour dialog has a Point Name field. Point Properties has a Name row for selected contour points and Internal Line points. The name is saved in the `.rjx`. It is not drawn and not written to DXF.
-- **A slit in the middle of a segment.** Arm the Notch Tool and `Alt+click` the segment. In Notch Properties choose Type I, a Depth, Direction Perpendicular and Relationship Proportional with 0.5. The plot, the DXF (layer 4) and the cut file carry it as a slit notch.
+- To put a slit in the middle of a segment, arm the Notch Tool and `Alt+click` the segment. In Notch Properties choose Type I, a Depth, Direction Perpendicular and Relationship Proportional with 0.5. The plot, the DXF (layer 4) and the cut file carry it as a slit notch.
 - **Notch presets.** The Notch Tool dialog and Notch Properties have Preset and Save as Preset…. A preset keeps the shape, depth, width, Top Width, reverse and command. View, Notch Presets… renames and deletes presets. They live in the preferences, so every Style sees the same list.
 - **Top Width.** A Box notch has a Top Width, its width at the tip; empty means the same as the width. The Work Area, the plot, and the Marker plot and cut file draw it.
-- **A notch in the seam allowance** of a piece whose stored line is the sew line can be selected: a click tests the cutting line, so Select and Properties reach it. A notch that a point edit re-anchors keeps its place in every size.
+- You can select a notch in the seam allowance of a piece whose stored line is the sew line: a click tests the cutting line, so Select and Properties reach it. A notch that a point edit re-anchors keeps its place in every size.
 - **Move Point and Move Point Along Contour** work by click, click or by press, drag and release. The new contour shows as a dashed outline while the old one dims.
-- **Drill holes and texts per size.** Drill Hole Properties, Appearance in sizes, has one check per size. Annotation Properties, Text in sizes, has one field per size; an empty field means the main text. The plot, the graded-nest DXF, the Marker and the Grading views follow each size. The Work Area marks a hole that is absent in the shown size with a small cross.
+- Drill holes and texts can differ per size. Drill Hole Properties, Appearance in sizes, has one check per size. Annotation Properties, Text in sizes, has one field per size; an empty field means the main text. The plot, the graded-nest DXF, the Marker and the Grading views follow each size. The Work Area marks a hole that is absent in the shown size with a small cross.
 
 ## Editing many pieces at once
 
@@ -90,7 +90,7 @@ The other tools keep their `Alt+click` dialogs.
 - **Set Basic Seam** (Tools, Seam) gives one seam width to the whole contour of every selected piece, in one undo step.
 - **Change Multiple Internal Attributes** filters by Min and Max of notch depth, width and Top Width, and of drill-hole radius.
 - **Swap Piece Properties Tool** (Piece, General) gives two selected pieces each other's name, code, description, quantity, pair, material, label and Marker rules. Their shapes stay where they are.
-- **Copied piece names.** With Preferences, PDS, Copied pieces set to Auto Renumber, Paste and Save Active as New give the copy the source's trailing `_n` plus one, or `_1`, and count on while that name is taken. Standard copy keeps the old naming. A paste between Styles with different Base Sizes keeps every size where it was.
+- With Preferences, PDS, Copied pieces set to Auto Renumber, Paste and Save Active as New give the copy the source's trailing `_n` plus one, or `_1`, and count on while that name is taken. Standard copy keeps the old naming. A paste between Styles with different Base Sizes keeps every size where it was.
 
 ## Seam corners
 
@@ -107,7 +107,7 @@ Switch Cut/Sew and Switch Pieces to SEW/CUT say how many pieces change their sto
 - **Deform Internals** (Design, Deform Internals) has Transform Circle To Contour, Transform Circle To Button and Transform Button To Circle, one undo step each.
 - **Fold Line to Line Tool** (Piece, Modify) folds a piece so that one of its lines takes the direction of another.
 - **Reopen Darts** (Tools, Darts) opens every dart that Close Dart shows closed.
-- **Grading follows the edit.** Build Piece points on an Internal Line take the grading interpolated along it. Remove Excess Cloth turns the internal lines, drill holes and texts of the moved region with their Grade Rules. Pleat Lines keep their own geometry, since no public source describes Optitex's.
+- Grading follows the edit. Build Piece points on an Internal Line take the grading interpolated along it. Remove Excess Cloth turns the internal lines, drill holes and texts of the moved region with their Grade Rules. Pleat Lines keep their own geometry, since no public source describes Optitex's.
 
 ## Segment Editor
 

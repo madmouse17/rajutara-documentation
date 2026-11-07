@@ -3,7 +3,7 @@ title: Glosarium
 description: "Kosakata Rajutara: style, potongan, kontur, aturan grade, marker, lay, dan lainnya."
 ---
 
-Kata-kata Rajutara. Kata-kata ini juga menjadi nama tipe dan modulnya, jadi istilah di sini adalah istilah yang sama di kode, menu, dan halaman ini. Istilah dipertahankan dalam bahasa Inggris karena itulah nama di kode; padanan Indonesia yang dipakai antarmuka disebut dalam arti. Kolom ketiga memuat kata yang di proyek ini berarti lain atau mudah tertukar dengan istilahnya.
+Halaman ini memuat kosakata Rajutara. Setiap istilah juga menjadi nama tipe dan modul di kode, jadi kode, menu, dan halaman ini memakai kata yang sama. Istilah ditulis dalam bahasa Inggris karena itulah nama di kode; padanan Indonesia yang dipakai antarmuka ada di kolom Arti. Kolom ketiga memuat kata yang di proyek ini berarti lain atau mudah tertukar dengan istilahnya.
 
 | Istilah | Arti | Hindari |
 |---|---|---|
